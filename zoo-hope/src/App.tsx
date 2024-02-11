@@ -4,7 +4,11 @@ import './App.css';
 
 function App() {
   useEffect(() => {
-    setInterval(() => console.log(5), 5000);
+    const interval = setInterval(() => console.log(5), 5000);
+
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   return (
