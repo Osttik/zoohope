@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import logo from './images/icons/logo.svg';
+import { NavBar } from './components/navBar';
 
 function App() {
   useEffect(() => {
