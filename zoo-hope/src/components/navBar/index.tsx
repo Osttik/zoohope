@@ -3,16 +3,13 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import "../../styles/index.scss";
 import { useState } from "react";
 import LogoNavBar from "../../images/logo/logo.png"
-import { NavBarData } from "../../data/nav";
+import { elements } from "../../data/nav";
 
 export const NavBar = () => {
-  const {
-    elements,
-    clickedButtonUA,
-    setClickedButtonUA,
-    clickedButtonEN,
-    setClickedButtonEN
-  } = NavBarData()
+
+  const [clickedButtonUA, setClickedButtonUA] = useState(true);
+  const [clickedButtonEN, setClickedButtonEN] = useState(false);
+
   return (
     <div className="container-navbar">
       <div className="navbar">

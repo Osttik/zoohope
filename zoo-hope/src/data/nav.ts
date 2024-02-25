@@ -1,6 +1,3 @@
-import { useState } from "react";
-export const NavBarData = () => {
-    
 const elements = [
     { name: "Про нас", url: "/" },
     { name: "Контакти", url: "/" },
@@ -28,15 +25,4 @@ const elements = [
         { name: "DropDownLink1", url: "/" },
       ],
     }]
-
-    const [clickedButtonUA, setClickedButtonUA] = useState(true);
-    const [clickedButtonEN, setClickedButtonEN] = useState(false);
-
-    return {
-        elements,
-        clickedButtonUA,
-        setClickedButtonUA,
-        clickedButtonEN,
-        setClickedButtonEN
-    }
-}
+export {elements}
