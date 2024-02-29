@@ -1,0 +1,302 @@
+@import "./defines.scss";
+
+// Pet List Section
+.petListSection {
+  min-height: 100vh;
+  background-color: #231f20;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  // Hero
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 528px;
+    display: flex;
+    justify-content: center;
+
+    .text {
+      width: 1120px;
+      margin-top: 64px;
+
+      h1 {
+        position: relative;
+        color: #fff;
+        z-index: 1;
+      }
+
+      h2 {
+        font-size: 24px;
+        width: 745px;
+        margin-top: 40px;
+        line-height: 40px;
+        color: $primaryColor;
+        position: relative;
+        z-index: 1;
+      }
+    }
+
+    .heroImg {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 528px;
+      object-fit: cover;
+      filter: brightness(50%);
+    }
+  }
+
+  // Filters
+  .filters {
+    position: relative;
+    z-index: 1;
+    transition: all 1s;
+
+    // Basic Button Style
+    button {
+      height: 50px;
+      width: 330px;
+      margin: 40px 0;
+      font-size: 24px;
+      font-weight: bold;
+      background-color: $primaryColor;
+      border-radius: 25px;
+      outline: 0;
+      border: 0;
+    }
+
+    // Apply And Reset Buttons
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      background-color: #231f20;
+      padding: 0 18px;
+
+      button {
+        &.reset {
+          width: 304px;
+          margin: 10px 0;
+          font-size: 18px;
+          background-color: #404040;
+          color: #fff;
+        }
+
+        &.apply {
+          width: 304px;
+          margin: 10px 0;
+          font-size: 18px;
+        }
+      }
+    }
+
+    // Filters Dropdown
+    .filtersDropdown {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      flex-direction: column;
+      align-items: center;
+
+      &.closed {
+        display: none;
+        opacity: 0;
+        transition: all 1s;
+        bottom: 0;
+      }
+
+      &.open {
+        display: flex;
+        opacity: 100;
+        transition: all 1s;
+        transform: translateY(100%);
+      }
+
+      .row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 24px 18px;
+        height: 82px;
+        width: 340px;
+        background-color: #353535;
+
+        &.age {
+          height: 164px;
+
+          & > div {
+            width: 340px;
+            display: flex;
+            justify-content: space-between;
+            padding: 0;
+          }
+
+          span {
+            height: 34px;
+          }
+        }
+
+        &.buttons {
+          height: fit-content;
+          padding: 0 18px;
+
+          button {
+            height: 40px;
+            font-weight: 500;
+          }
+        }
+
+        span {
+          color: #fff;
+          font-size: 18px;
+          font-weight: 500;
+          padding: 0;
+          width: fit-content;
+        }
+
+        select {
+          height: 34px;
+          width: 108px;
+          display: flex;
+          text-align: center;
+          border: 0;
+          border-radius: 17px;
+          color: #fff;
+          background-color: #231f20;
+
+          &:focus-visible {
+            outline: 0;
+          }
+        }
+
+        // Rows Alternation
+        &:nth-child(odd) {
+          background-color: #404040;
+        }
+
+        &:first-child {
+          border-radius: 5px 5px 0 0;
+        }
+
+        &:last-child {
+          border-radius: 0 0 5px 5px;
+        }
+      }
+    }
+  }
+
+  // Pet List
+  .petList {
+    width: 1120px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 54px;
+
+    .notFound {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      height: 480px;
+      margin: 0 auto;
+
+      .notFoundTitle {
+        font-weight: 500;
+        font-size: 36px;
+      }
+
+      .notFoundDescription {
+        font-size: 24px;
+        font-weight: 500;
+        color: #c7c7c7;
+      }
+    }
+
+    // Pet Card
+    .petCard {
+      position: relative;
+      width: 330px;
+      height: 370px;
+      color: #fff;
+      border-radius: 10px;
+      transition: 0.5s all;
+
+      &:hover {
+        color: #f2f2f2;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 5px;
+      }
+
+      .name {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-size: 36px;
+        font-weight: 700;
+        text-shadow: #231f20 0px 0px 2px;
+      }
+
+      .info {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        box-sizing: border-box;
+        padding: 5px 10px;
+        bottom: 0;
+        width: 100%;
+        height: 33%;
+        background-color: rgba(47, 47, 47, 0.5);
+        border-radius: 5px;
+
+        .infoRow {
+          font-size: 18px;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  .paginationNav {
+    text-align: center;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    font-size: 24px;
+    gap: 10px;
+    margin: 64px 0;
+
+    button {
+      color: #fff;
+      background-color: #ffffff00;
+      border: 0;
+    }
+
+    .arrow {
+      text-align: center;
+      color: $primaryColor;
+      font-weight: bolder;
+    }
+
+    .selected {
+      color: $primaryColor;
+      font-weight: bold;
+    }
+
+    .disabled {
+      color: #c7c7c7;
+    }
+  }
+}
