@@ -1,0 +1,143 @@
+@import "../defines.scss";
+
+.petListSection {
+  .filters {
+    position: relative;
+    z-index: 1;
+    transition: all 1s;
+
+    // Basic Button Style
+    button {
+      height: 50px;
+      width: 330px;
+      margin: 40px 0;
+      font-size: 24px;
+      font-weight: bold;
+      background-color: $primaryColor;
+      border-radius: 25px;
+      outline: 0;
+      border: 0;
+    }
+
+    // Apply And Reset Buttons
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      background-color: #231f20;
+      padding: 0 18px;
+
+      button {
+        &.reset {
+          width: 304px;
+          margin: 10px 0;
+          font-size: 18px;
+          background-color: #404040;
+          color: #fff;
+        }
+
+        &.apply {
+          width: 304px;
+          margin: 10px 0;
+          font-size: 18px;
+        }
+      }
+    }
+
+    // Dropdown
+    .filtersDropdown {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      flex-direction: column;
+      align-items: center;
+
+      &.closed {
+        display: none;
+        opacity: 0;
+        transition: all 1s;
+        bottom: 0;
+      }
+
+      &.open {
+        display: flex;
+        opacity: 100;
+        transition: all 1s;
+        transform: translateY(100%);
+      }
+
+      .row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 24px 18px;
+        height: 82px;
+        width: 340px;
+        background-color: #353535;
+
+        &.age {
+          height: 164px;
+
+          & > div {
+            width: 340px;
+            display: flex;
+            justify-content: space-between;
+            padding: 0;
+          }
+
+          span {
+            height: 34px;
+          }
+        }
+
+        &.buttons {
+          height: fit-content;
+          padding: 0 18px;
+
+          button {
+            height: 40px;
+            font-weight: 500;
+          }
+        }
+
+        span {
+          color: #fff;
+          font-size: 18px;
+          font-weight: 500;
+          padding: 0;
+          width: fit-content;
+        }
+
+        select {
+          height: 34px;
+          width: 108px;
+          display: flex;
+          text-align: center;
+          border: 0;
+          border-radius: 17px;
+          color: #fff;
+          background-color: #231F20;
+
+          &:focus-visible {
+            outline: 0;
+          }
+        }
+
+        // Dropdown Rows Alternation
+        &:nth-child(odd) {
+          background-color: #404040;
+        }
+
+        &:first-child {
+          border-radius: 5px 5px 0 0;
+        }
+
+        &:last-child {
+          border-radius: 0 0 5px 5px;
+        }
+      }
+    }
+  }
+}

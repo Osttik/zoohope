@@ -25,11 +25,10 @@ export const PetCard = (props: cardProps) => {
   return(
     <a href={`animal/${props.animalInfo._id}`} className="petCard">
         <img src={props.animalInfo.image} alt="ImageOfAnimal"></img>
-        <span className="name">{props.animalInfo.name}</span>
         <div className="info">
+          <span className="name">{props.animalInfo.name}</span>
           <span className="infoRow">Вік: {ageWithLabel()}</span>
           <span className="infoRow">Стать: {props.animalInfo.sex === "female" ? "Жіноча" : "Чоловіча"}</span>
-          <span className="infoRow">{props.animalInfo.type === "cat" ? "Кіт" : "Пес"}</span>
         </div>
     </a>
   )
