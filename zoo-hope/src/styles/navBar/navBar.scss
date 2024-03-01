@@ -4,6 +4,7 @@
     background-color: $primaryColor;
     height: 67px;
     width: 100%;
+    z-index: 5;
 }
 .dropdown-toggle::after{
     content: url("../../images/workImg/NavArrow.png");

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import logo from './images/icons/logo.svg';
 import { NavBar } from './components/navBar';
+import { Footer } from './components/footer';
 
 function App() {
   useEffect(() => {
@@ -28,6 +29,7 @@ function App() {
           Learn React
         </a>
       </header>
+      <Footer />
     </div>
   );
 }
