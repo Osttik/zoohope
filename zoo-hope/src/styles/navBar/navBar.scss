@@ -29,7 +29,7 @@
         height: 51px;
     }
     &__text{
-        color: rgba(35, 31, 32, 1);
+        color: $navBarTextColor;
         font-size: 18px; 
         font-weight: 600;
     }
@@ -38,7 +38,7 @@
     }
     &__dropdown-item{
         min-width: 200px;
-        color: rgba(255, 255, 255, 1);
+        color: $navBarDropdowItemColor;
     }
     &__button-group{
         display: flex;
@@ -51,25 +51,25 @@
 
         &__UA{
             border: 0px;
-            border-right: 0.5px solid white;
+            border-right: 0.5px solid #fff;
             border-radius: 50px 0px 0px 50px;
             width: 100%;        
             font-weight: 600;
             background-color: rgba(57, 184, 255, 1);
         }
         &__UA-clicked{
-            color: yellow;
+            color: $primaryColor;
         }
         &__EN{
             border: 0px;
-            border-left: 0.5px solid white;
+            border-left: 0.5px solid #fff;
             border-radius: 0px 50px 50px 0px;
             width: 100%;        
             font-weight: 600;
             background-color: rgba(57, 184, 255, 1);
         }
         &__EN-clicked{
-            color: yellow;
+            color: $primaryColor;
         }
     }
 }
