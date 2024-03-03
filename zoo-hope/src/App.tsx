@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import logo from './images/icons/logo.svg';
-import { NavBar } from './components/navBar';
-
+import React, { useEffect, useState } from "react";
+import logo from "./images/icons/logo.svg";
+import { NavBar } from "./components/navBar";
+import Donate from "./components/donate";
 function App() {
   useEffect(() => {
     const interval = setInterval(() => console.log(5), 5000);
@@ -14,6 +14,7 @@ function App() {
   return (
     <div className="App">
       <NavBar />
+      <Donate />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
