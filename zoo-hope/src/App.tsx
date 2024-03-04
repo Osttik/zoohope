@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import logo from './images/icons/logo.svg';
-import { NavBar } from './components/navBar';
+import React, { useEffect, useState } from "react";
+import logo from "./images/icons/logo.svg";
+import { NavBar } from "./components/navBar";
+import Donate from "./components/donate";
 import { Pet } from './components/PetPage/Pet';
 function App() {
   useEffect(() => {
@@ -14,6 +15,7 @@ function App() {
   return (
     <div className="App">
       {/* <NavBar /> */}
+      <Donate />
       <Pet />
       
       {/* <header className="App-header">
