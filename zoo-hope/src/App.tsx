@@ -15,7 +15,7 @@ function App() {
   return (
     <div className="App">
       {/* <NavBar /> */}
-      <Donate />
+      {/* <Donate /> */}
       <Pet />
       
       {/* <header className="App-header">
