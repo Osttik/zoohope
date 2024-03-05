@@ -5,9 +5,6 @@ const petRoutes = require('./routes/petRoutes');
 const contactsRoutes = require('./routes/contactsRoutes');
 const helpOptionsRoutes = require('./routes/helpOptionsRoutes');
 
-
-router.post('/add-pet', petRoutes.addPet);
-router.post('/add-pet', petRoutes.addPet);
 router.get('/get-all-pets', petRoutes.getAllPets);
 router.put('/update-pet/:id', petRoutes.updatePet);
 router.delete('/delete-pet/:id', petRoutes.deletePet);
