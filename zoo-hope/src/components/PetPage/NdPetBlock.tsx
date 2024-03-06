@@ -1,6 +1,6 @@
 
 
-export function Second_Pet_Block(){
+export function PetStory(){
 
     return(
     <>

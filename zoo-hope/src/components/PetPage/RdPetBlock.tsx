@@ -1,6 +1,6 @@
 
 
-export function Third_Pet_Block(){
+export function HelpPet(){
 
     return(
     <>

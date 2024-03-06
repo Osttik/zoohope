@@ -1,6 +1,6 @@
 
 
-export function First_Pet_Block(){
+export function PetInfo(){
 
 return(
 <>

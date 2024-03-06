@@ -1,6 +1,6 @@
 
 
-export function Fourth_Pet_Block(){
+export function OtherPets(){
 
     return(
     <>
