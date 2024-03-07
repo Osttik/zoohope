@@ -13,17 +13,17 @@ const root = ReactDOM.createRoot(
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App/>,
+    element: <App />,
   },
   {
-    path: "/petList", 
-    element: <PetList/>,
+    path: "/petList",
+    element: <PetList />,
   },
 ])
 
 root.render(
   // <React.StrictMode>
-    <RouterProvider router={router}/>
+  <RouterProvider router={router} />
   // </React.StrictMode>
 );
 

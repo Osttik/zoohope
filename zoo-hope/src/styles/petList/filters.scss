@@ -23,7 +23,7 @@
     .buttons {
       display: flex;
       flex-direction: column;
-      background-color: #231f20;
+      background-color: $primaryDarkColor;
       padding: 0 18px;
 
       button {
@@ -31,7 +31,7 @@
           width: 304px;
           margin: 10px 0;
           font-size: 18px;
-          background-color: #404040;
+          background-color: $lighterGreyColor;
           color: #fff;
         }
 
@@ -75,12 +75,12 @@
         padding: 24px 18px;
         height: 82px;
         width: 340px;
-        background-color: #353535;
+        background-color: $lightGreyColor;
 
         &.age {
           height: 164px;
 
-          & > div {
+          &>div {
             width: 340px;
             display: flex;
             justify-content: space-between;
@@ -118,7 +118,8 @@
           border: 0;
           border-radius: 17px;
           color: #fff;
-          background-color: #231F20;
+          background-color: $primaryDarkColor;
+          ;
 
           &:focus-visible {
             outline: 0;
@@ -127,7 +128,7 @@
 
         // Dropdown Rows Alternation
         &:nth-child(odd) {
-          background-color: #404040;
+          background-color: $lighterGreyColor;
         }
 
         &:first-child {

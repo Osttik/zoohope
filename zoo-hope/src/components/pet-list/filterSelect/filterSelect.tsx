@@ -14,25 +14,25 @@ interface IfilterState {
   };
   options: {
     label: string,
-    value: any
+    value: string
   }[]
 }
 
 export const FilterSelect = (props: IfilterState) => {
   return (
     <select
-    onChange={(e) => {
-      props.filter.set({...props.filter.get, [props.filter.type]: e.target.value})
-    }}
-    value={(props.filter.get as any)[props.filter.type]}
+      onChange={(e) => {
+        props.filter.set({ ...props.filter.get, [props.filter.type]: e.target.value })
+      }}
+      value={(props.filter.get as any)[props.filter.type]}
     >
 
-    {props.options.map(el => {
-      return(
-        <option key={el.value} label={el.label} value={el.value}></option>
-      )
-    })}
-    
+      {props.options.map(el => {
+        return (
+          <option key={el.value} label={el.label} value={el.value}></option>
+        )
+      })}
+
     </select>
   )
 }

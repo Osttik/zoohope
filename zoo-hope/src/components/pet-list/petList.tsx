@@ -6,7 +6,7 @@ import { FilterSelect } from "./filterSelect/filterSelect";
 import { useSearchParams } from "react-router-dom";
 import { PaginationNav } from "./paginationNav/paginatioNav";
 import { pageSize, options } from "../../data/petList";
-import { getAllPets } from "../../data/api";
+import { apiGetAllPets } from "../../data/api";
 
 interface IPets {
   image: string,
@@ -39,18 +39,18 @@ export const PetList = () => {
     page: ""
   }) // Filters template
 
-  const heroImg = "https://placekitten.com/2500/1000" 
+  const heroImg = "https://placekitten.com/2500/1000"
 
- // Basic functions
+  // Basic functions
   const maxAgeCalc = () => {
     const maxAgeFiltered = options.minAge.filter(el => Number(el.value) >= Number(filters.minAge) && el.value !== "");
-    maxAgeFiltered.unshift({label: "Неважливо", value: ""});
+    maxAgeFiltered.unshift({ label: "Неважливо", value: "" });
     return maxAgeFiltered;
   }
 
   const getFilteredPets = async () => {
     try {
-      let allPets = await getAllPets();
+      let allPets = await apiGetAllPets();
       let startIndex = (Number(searchParams.get("page")) - 1) * pageSize;
       let endIndex = startIndex + pageSize;
 
@@ -68,7 +68,7 @@ export const PetList = () => {
       }
 
       let pageApplied = allPets.reverse().slice(startIndex, endIndex);
-      
+
       setTotalLength(allPets.length);
       setPageCount(Math.ceil(allPets.length / pageSize));
       setPets(pageApplied);
@@ -77,84 +77,84 @@ export const PetList = () => {
       console.log("Fetch error");
     }
   }
-// ---
+  // ---
 
-// Hooks
-useEffect(() => {
-  // Initializing page number if not provided
-  if (!searchParams.get("page")) {
+  // Hooks
+  useEffect(() => {
+    // Initializing page number if not provided
+    if (!searchParams.get("page")) {
+      searchParams.set("page", "1");
+      setsearchParams(searchParams);
+    }
+
+    // Saving all search params to "Filters", so it could be displayed in filter dropdown 
+    if (searchParams.size) {
+      let updatedFilters = filters;
+      Object.keys(filters).forEach(el => {
+        if (searchParams.get(el)) {
+          updatedFilters = { ...updatedFilters, [el]: searchParams.get(el) };
+        }
+      });
+
+      getFilteredPets();
+      setFilters(updatedFilters);
+    }
+  }, []);
+
+  useEffect(() => {
+    // Checking for illegal page numbers
+    if (searchParams.get("page") && pageCount !== undefined) {
+      if (Number(searchParams.get("page")) > (pageCount || 0)) {
+        searchParams.set("page", pageCount + "" || "1");
+        setsearchParams(searchParams);
+      }
+      if (Number(searchParams.get("page")) <= 0) {
+        searchParams.set("page", "1");
+        setsearchParams(searchParams);
+      }
+    }
+  }, [pageCount]);
+
+  useEffect(() => {
+    getFilteredPets();
+  }, [searchParams]);
+  // ---
+
+  // Action Functions
+  const toggleFilters = () => {
+    setFiltersStatus(!areFiltersOpen);
+  }
+
+  const apply = () => {
+    Object.entries(filters).forEach(el => {
+      searchParams.set(el[0], el[1]);
+    });
     searchParams.set("page", "1");
     setsearchParams(searchParams);
   }
 
-  // Saving all search params to "Filters", so it could be displayed in filter dropdown 
-  if (searchParams.size) {
-    let updatedFilters = filters;
+  const reset = () => {
     Object.keys(filters).forEach(el => {
-      if (searchParams.get(el)) {
-        updatedFilters = {...updatedFilters, [el]: searchParams.get(el)};
-      }
+      searchParams.delete(el);
+      setsearchParams(searchParams);
     });
 
-    getFilteredPets();
-    setFilters(updatedFilters);
+    searchParams.set("page", "1");
+    setFilters({
+      type: "",
+      sex: "",
+      minAge: "",
+      maxAge: "",
+      page: "",
+    });
   }
-}, []);
-
-useEffect(() => {
-  // Checking for illegal page numbers
-  if (searchParams.get("page") && pageCount !== undefined) {
-    if (Number(searchParams.get("page")) > (pageCount || 0)) {
-      searchParams.set("page", pageCount + "" || "1");
-      setsearchParams(searchParams);
-    }
-    if (Number(searchParams.get("page")) <= 0) {
-      searchParams.set("page", "1");
-      setsearchParams(searchParams);
-    }
-  }
-}, [pageCount]);
-
-useEffect(() => {
-  getFilteredPets();
-}, [searchParams]);
-// ---
-
-// Action Functions
-const toggleFilters = () => {
-  setFiltersStatus(!areFiltersOpen);
-}
-
-const apply = () => {
-  Object.entries(filters).forEach(el => {
-    searchParams.set(el[0], el[1]);
-  });
-  searchParams.set("page", "1");
-  setsearchParams(searchParams);
-}
-
-const reset = () => {
-  Object.keys(filters).forEach(el => {
-    searchParams.delete(el);
-    setsearchParams(searchParams);
-  });
-
-  searchParams.set("page", "1");
-  setFilters({
-    type: "",
-    sex: "",
-    minAge: "",
-    maxAge: "",
-    page: "",
-  });
-}
-// ---
+  // ---
 
   if (!getPets) {
     return <>Завантаження</>
   }
 
-  return(
+  return (
     <section className="petListSection">
       <div className="hero">
         <div className="text">
@@ -166,35 +166,35 @@ const reset = () => {
 
       <div>
         <div className="filters">
-          <button onClick={() => {toggleFilters()}}>Сортувати</button>
+          <button onClick={() => { toggleFilters() }}>Сортувати</button>
           <div className={`filtersDropdown ${areFiltersOpen ? "open" : "closed"}`}>
 
             <div className="row">
               <span>Тип</span>
-              <FilterSelect filter={{get: filters, set: setFilters, type: "type"}} options={options.type}/>
+              <FilterSelect filter={{ get: filters, set: setFilters, type: "type" }} options={options.type} />
             </div>
 
             <div className="row">
               <span>Стать</span>
-              <FilterSelect filter={{get: filters, set: setFilters, type: "sex"}} options={options.sex}/>
+              <FilterSelect filter={{ get: filters, set: setFilters, type: "sex" }} options={options.sex} />
             </div>
 
             <div className="row age">
               <span>Вік</span>
               <div>
                 <span className="label">Від:</span>
-                <FilterSelect filter={{get: filters, set: setFilters, type: "minAge"}} options={options.minAge}/>
+                <FilterSelect filter={{ get: filters, set: setFilters, type: "minAge" }} options={options.minAge} />
               </div>
 
               <div>
                 <span className="label">До:</span>
-                <FilterSelect filter={{get: filters, set: setFilters, type: "maxAge"}} options={maxAgeCalc()}/>
+                <FilterSelect filter={{ get: filters, set: setFilters, type: "maxAge" }} options={maxAgeCalc()} />
               </div>
             </div>
-            
+
             <div className="row buttons">
-              <button className="apply" onClick={() => {apply()}}>Застосувати</button>
-              <button className="reset" onClick={() => {reset()}}>Скинути</button>
+              <button className="apply" onClick={() => { apply() }}>Застосувати</button>
+              <button className="reset" onClick={() => { reset() }}>Скинути</button>
             </div>
 
           </div>
@@ -203,22 +203,22 @@ const reset = () => {
         <div className="petList">
           {getPets.length ?
             getPets.map(el => {
-              return(
-                <PetCard key={el._id} animalInfo={el}/>
+              return (
+                <PetCard key={el._id} animalInfo={el} />
               )
             }) :
             <div className="notFound">
               <p className="notFoundTitle">Нічого не знайдено</p>
               <p className="notFoundDescription">{totalLength ? "Спробуйте змітини фільтри." : "Скоріш за все, зараз немає тварин."}</p>
             </div>
-            
+
           }
         </div>
       </div>
       <div className="nav">
 
-      <PaginationNav searchParam={searchParams} setSearchParams={setsearchParams} length={pageCount || 0} allPets={getPets}/>
-        
+        <PaginationNav searchParam={searchParams} setSearchParams={setsearchParams} length={pageCount || 0} allPets={getPets} />
+
       </div>
     </section>
   )

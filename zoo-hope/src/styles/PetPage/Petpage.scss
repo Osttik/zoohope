@@ -6,7 +6,7 @@
 
 .mainPetBlock {
   ::selection {
-    color: $defaultBackColor;
+    color: $primaryDarkColor;
     background-color: $defaultMainColor;
   }
 
@@ -48,7 +48,7 @@
   width: 60%;
   height: 85%;
   min-width: 140px;
-  background: $defaultBackColor;
+  background: $primaryDarkColor;
   border: 1px solid $defaultMainColor;
   border-radius: 1.7rem;
   transition: all 0.5s;
@@ -233,7 +233,7 @@
 }
 
 .descBlock p {
-  background-color: $defaultBackColor;
+  background-color: $primaryDarkColor;
   // box-shadow: rgba(208, 255, 0, 0.021) 0px 54px 55px, rgba(255, 251, 0, 0.021) 0px -12px 30px, rgba(255, 187, 0, 0.021) 0px 4px 6px, rgba(251, 255, 0, 0.021) 0px 12px 13px, rgba(255, 251, 0, 0.027) 0px -3px 5px;
 }
 
@@ -631,7 +631,7 @@
   width: 60px;
   height: 60px;
   border-radius: 100%;
-  background-color: $defaultBackColor;
+  background-color: $primaryDarkColor;
   background-image: url(../../images/logo/black-logo.jpg);
   background-size: cover;
   background-position: center;
