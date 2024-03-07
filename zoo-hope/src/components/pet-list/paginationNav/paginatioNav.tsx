@@ -1,6 +1,9 @@
 interface IpaginationNav {
-  searchParam: any;
-  setSearchParams: any;
+  searchParam: {
+    set: Function;
+    get: Function
+  };
+  setSearchParams: Function;
   length: number;
   allPets: {
     image: string,
@@ -34,40 +37,38 @@ export const PaginationNav = (props: IpaginationNav) => {
   }
   
  }
-
- console.log()
   
   return (
     <>
-      {props.allPets.length ?
-      <div className="paginationNav">
-      {props.searchParam.get("page") - 1 > 0 ?
-        <button
-          className="arrow"
-          onClick={() => {relNavigateTo(-1)}}
-        >
-          ‹
-        </button> :
-        <span className="disabled">‹</span>
-      }
+      {props.allPets.length > 0 &&
+        <div className="paginationNav">
+        {props.searchParam.get("page") - 1 > 0 ?
+          <button
+            className="arrow"
+            onClick={() => {relNavigateTo(-1)}}
+          >
+            ‹
+          </button> :
+          <span className="disabled">‹</span>
+        }
 
-      {linkToPage(-2)}
-      {linkToPage(-1)}
-      {linkToPage(0)}
-      {linkToPage(1)}
-      {linkToPage(2)}
+        {linkToPage(-2)}
+        {linkToPage(-1)}
+        {linkToPage(0)}
+        {linkToPage(1)}
+        {linkToPage(2)}
 
-      
-      {Number(props.searchParam.get("page")) + 1 <= props.length ?
-        <button
-          className="arrow"
-          onClick={() => {relNavigateTo(1)}}
-        >
-          ›
-        </button> :
-        <span className="disabled">›</span>
-      }
-    </div> : <></>}
+        
+        {Number(props.searchParam.get("page")) + 1 <= props.length ?
+          <button
+            className="arrow"
+            onClick={() => {relNavigateTo(1)}}
+          >
+            ›
+          </button> :
+          <span className="disabled">›</span>
+        }
+      </div>}
     </>
   )
 }
