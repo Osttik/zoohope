@@ -3,14 +3,28 @@ import ReactDOM from 'react-dom/client';
 import './styles/index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { PetList } from './components/pet-list/petList';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+  },
+  {
+    path: "/petList",
+    element: <PetList />,
+  },
+])
+
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  // <React.StrictMode>
+  <RouterProvider router={router} />
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
