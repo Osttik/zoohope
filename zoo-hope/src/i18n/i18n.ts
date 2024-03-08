@@ -1,6 +1,8 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
+import enTranslation from "./translations/en.json";
+import uaTranslation from "./translations/ua.json";
 
 i18n
   .use(LanguageDetector)
@@ -10,24 +12,10 @@ i18n
     debug: true,
     resources: {
       en: {
-        translation: {
-          "about-us": "About us",
-          "contacts": "Contacts",
-          "accounting": "Accounting",
-          "looking-for-home": "Looking for home",
-          "therapy": "Therapy",
-          "sterilization": "Sterilization"
-        },
+        translation: enTranslation,
       },
       ua: {
-        translation: {
-          "about-us": "Про нас",
-          "contacts": "Контакти",
-          "accounting": "Звітність",
-          "looking-for-home": "Шукають дім",
-          "therapy": "Лікування",
-          "sterilization": "Стерилізація"
-        },
+        translation: uaTranslation,
       },
     },
   });

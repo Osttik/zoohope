@@ -9,8 +9,7 @@ import "../../i18n/i18n"
 
 export const NavBar = () => {
   const { t, i18n } = useTranslation();
-  const [clickedButtonUA, setClickedButtonUA] = useState(true);
-  const [clickedButtonEN, setClickedButtonEN] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState<"UA" | "EN">("UA")
 
   const changeLanguage = (lang:string) => {
     i18n.changeLanguage(lang)
@@ -19,17 +18,24 @@ export const NavBar = () => {
   return (
     <div className="container-navbar">
       <div className="navbar">
-        <img src={LogoNavBar} alt="Logo" className="navbar__logo"/>
+        <img src={LogoNavBar} alt="Logo" className="navbar__logo" />
         {elements.map((e) =>
           e.hasOwnProperty("Ielements") ? (
             <>
-            <NavDropdown title={t(e.i18Key)} className="navbar__dropdown navbar__text">
-              {e.Ielements && e.Ielements.map((e) => (
-                <NavDropdown.Item href={e.url} className="navbar__dropdown-item navbar__text">
-                  {e.name}
-                </NavDropdown.Item>
-              ))}
-            </NavDropdown>
+              <NavDropdown
+                title={t(e.i18Key)}
+                className="navbar__dropdown navbar__text"
+              >
+                {e.Ielements &&
+                  e.Ielements.map((e) => (
+                    <NavDropdown.Item
+                      href={e.url}
+                      className="navbar__dropdown-item navbar__text"
+                    >
+                      {e.name}
+                    </NavDropdown.Item>
+                  ))}
+              </NavDropdown>
             </>
           ) : (
             <Nav.Link href={e.url} className="navbar__link navbar__text">
@@ -38,16 +44,28 @@ export const NavBar = () => {
           )
         )}
         <div className="navbar__button-group">
-            <button className={`navbar__button-group__UA ${clickedButtonUA ? "navbar__button-group__UA-clicked" : ""}`} onClick={() => {
-              setClickedButtonUA(true);
-              setClickedButtonEN(false);
+          <button
+            className={`navbar__button-group__UA ${
+              selectedLanguage === "UA" ? "navbar__button-group__clicked" : ""
+            }`}
+            onClick={() => {
+              setSelectedLanguage("UA");
               changeLanguage("ua");
-            }  }>UA</button>
-            <button className={`navbar__button-group__EN ${clickedButtonEN ? "navbar__button-group__EN-clicked" : ""}`} onClick={() => {
-              setClickedButtonUA(false);
-              setClickedButtonEN(true)
+            }}
+          >
+            UA
+          </button>
+          <button
+            className={`navbar__button-group__EN ${
+              selectedLanguage === "EN" ? "navbar__button-group__clicked" : ""
+            }`}
+            onClick={() => {
+              setSelectedLanguage("EN")
               changeLanguage("en");
-              }}>EN</button>
+            }}
+          >
+            EN
+          </button>
         </div>
       </div>
     </div>
