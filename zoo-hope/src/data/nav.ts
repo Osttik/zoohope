@@ -9,7 +9,7 @@ const elements = [
   {
     name: "Шукають дім",
     i18Key: "looking-for-home",
-    Ielements: [{ name: "DropDownLink1", url: "/" }],
+    Ielements: [{ name: "DropDownLink1", url: "/petList" }],
   },
   {
     name: "Лікування",

@@ -1,40 +1,56 @@
 @import '../defines.scss';
-.container-navbar{
+
+.container-navbar {
     position: fixed;
     background-color: $primaryColor;
     height: 67px;
     width: 100%;
+    z-index: 5;
 }
-.dropdown-toggle::after{
+
+.dropdown-menu.show {
+    border-radius: 0;
+    margin-top: 16px;
+    background-color: rgba(35, 31, 32, 1);
+}
+
+.dropdown-toggle::after {
     content: url("../../images/workImg/NavArrow.png");
     position: relative;
     top: 3px;
     left: 5px;
     border: none;
 }
-.navbar{
+
+.navbar {
     margin: 0 auto;
     padding: 0;
     display: flex;
     justify-content: space-around;
     width: 1120px;
     height: 100%;
-    &__logo{
+
+    &__logo {
         width: 109px;
         height: 51px;
     }
-    &__text{
-        color: rgba(35, 31, 32, 1);
-        font-size: 18px; 
+
+    &__text {
+        color: $primaryDarkColor;
+        font-size: 18px;
         font-weight: 600;
     }
-    &__dropdown{
+
+    &__dropdown {
         margin-top: -3px;
     }
-    &__dropdown-item{
-        width: 200px;
+
+    &__dropdown-item {
+        min-width: 200px;
+        color: $navBarDropdowItemColor;
     }
-    &__button-group{
+
+    &__button-group {
         display: flex;
         justify-content: center;
         height: 41px;
@@ -43,27 +59,30 @@
         box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.25);
         border-radius: 50px 50px 50px 50px;
 
-        &__UA{
+        &__UA {
             border: 0px;
-            border-right: 0.5px solid white;
+            border-right: 0.5px solid #fff;
             border-radius: 50px 0px 0px 50px;
-            width: 100%;        
+            width: 100%;
             font-weight: 600;
             background-color: rgba(57, 184, 255, 1);
         }
-        &__UA-clicked{
-            color: yellow;
+
+        &__UA-clicked {
+            color: $primaryColor;
         }
-        &__EN{
+
+        &__EN {
             border: 0px;
-            border-left: 0.5px solid white;
+            border-left: 0.5px solid #fff;
             border-radius: 0px 50px 50px 0px;
-            width: 100%;        
+            width: 100%;
             font-weight: 600;
             background-color: rgba(57, 184, 255, 1);
         }
-        &__EN-clicked{
-            color: yellow;
+
+        &__EN-clicked {
+            color: $primaryColor;
         }
         &__clicked{
             color: yellow;
