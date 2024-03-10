@@ -6,7 +6,7 @@ import { FilterSelect } from "./filterSelect/filterSelect";
 import { useSearchParams } from "react-router-dom";
 import { PaginationNav } from "./paginationNav/paginatioNav";
 import { pageSize, options } from "../../data/petList";
-import { apiGetAllPets } from "../../data/api";
+import { apiGetAllPets } from '../../api/pets';
 
 interface IPets {
   image: string,

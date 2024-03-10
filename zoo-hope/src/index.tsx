@@ -5,21 +5,13 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { PetList } from './components/pet-list/petList';
+import routes from './data/router';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-  },
-  {
-    path: "/petList",
-    element: <PetList />,
-  },
-])
+const router = createBrowserRouter(routes);
 
 root.render(
   // <React.StrictMode>
