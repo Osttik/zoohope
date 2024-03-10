@@ -10,7 +10,7 @@ const elements = [
     {
       name: "Шукають дім",
       Ielements: [
-        { name: "DropDownLink1", url: "/" },
+        { name: "Взяти тварину", url: "/petList" },
       ],
     },
     {
