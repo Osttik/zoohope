@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { PetList } from './components/pet-list/petList';
 import routes from './data/router';
+import Overlay from './components/overlay/Overlay';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -14,9 +15,11 @@ const root = ReactDOM.createRoot(
 const router = createBrowserRouter(routes);
 
 root.render(
-  // <React.StrictMode>
-  <RouterProvider router={router} />
-  // </React.StrictMode>
+  <React.StrictMode>
+    <Overlay>
+      <RouterProvider router={router} />
+    </Overlay>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -7,10 +7,8 @@ import { Pet } from './components/PetPage/Pet';
 function App() {
   return (
     <div className="App">
-      <NavBar />
       {/* <Donate /> */}
       <Pet />
-      <Footer />
     </div>
   );
 }
