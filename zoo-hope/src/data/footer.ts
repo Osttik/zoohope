@@ -10,9 +10,9 @@ const elements = [
   {
     listName: "Шукають дім",
     IListItems: [
-      { name: "Собаки", url: "/" },
-      { name: "Коти", url: "/" },
-      { name: "Інші тварини", url: "/" },
+      { name: "Собаки", url: "/petList?type=dog" },
+      { name: "Коти", url: "/petList?type=cat" },
+      { name: "Інші тварини", url: "/petList" },
     ],
   },
   {
