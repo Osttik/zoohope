@@ -1,7 +1,8 @@
-
+import { useTranslation } from "react-i18next";
+import "../../i18n/i18n";
 
 export function HelpPet(){
-
+    const { t, i18n } = useTranslation();
     return(
     <>
        
@@ -9,7 +10,7 @@ export function HelpPet(){
 
 
         <div className="extraHelpBlock">
-            <div className="helpTextBlock">Як можна допомогти</div>
+            <div className="helpTextBlock">{t('how_to_help+')}</div>
             <button className="extraHelpBut">1</button>
             <button style={{gridRow:'3',gridColumn:'1'}} className="extraHelpBut">2</button>
             <div className="logExtraHelp"></div>

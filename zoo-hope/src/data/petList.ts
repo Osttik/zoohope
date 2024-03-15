@@ -2,14 +2,14 @@ let pageSize = 12;
 
 //Options for selects in filter dropdown
   const type = [
-    {label: "Тип", value: ""},
-    {label: "Кіт", value: "cat"},
-    {label: "Пес", value: "dog"},
+    {label: "Тип",i18Key: "type", value: ""},
+    {label: "Кіт",i18Key: "cat", value: "cat"},
+    {label: "Пес",i18Key: "dog", value: "dog"},
   ]
   const sex = [
-    {label: "Стать", value: ""},
-    {label: "Жіноча", value: "female"},
-    {label: "Чоловіча", value: "male"},
+    {label: "Стать",i18Key: "sex", value: ""},
+    {label: "Жіноча",i18Key: "female", value: "female"},
+    {label: "Чоловіча",i18Key: "male", value: "male"},
   ]
   const minAge = [
     {label: "0", value: ""},

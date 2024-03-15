@@ -1,7 +1,8 @@
-
+import { useTranslation } from "react-i18next";
+import "../../i18n/i18n";
 
 export function PetStory(){
-
+    const { t, i18n } = useTranslation();
     return(
     <>
        
@@ -14,12 +15,12 @@ export function PetStory(){
 
                     <div className="histBlock">
                         <div className="textHist">
-                            <h1 style={{color:'white',fontSize:'2rem'}}>Моя Історія:</h1><br></br>
+                            <h1 style={{color:'white',fontSize:'2rem'}}>{t('our_story')}:</h1><br></br>
                             <h3 style={{color:'white',textAlign:'left'}}>fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</h3>
                         </div>
                     </div>
                     <button className="helpBut">
-                        Подарувати сім'ю
+                        {t('gift_family')}
                     </button>
 
 

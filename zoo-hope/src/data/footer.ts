@@ -1,22 +1,25 @@
 const elements = [
   {
     listName: "Про нас",
+    i18Key: "about-us",
     IListItems: [
-      { name: "Хто ми?", url: "/" },
-      { name: "Наша історія", url: "/" },
-      { name: "Навіщо ми це робимо?", url: "/" },
+      { name: "Хто ми?", i18Key: "who_we_are", url: "/" },
+      { name: "Наша історія", i18Key: "our_story", url: "/" },
+      { name: "Навіщо ми це робимо?", i18Key: "our_mission", url: "/" },
     ],
   },
   {
     listName: "Шукають дім",
+    i18Key: "looking-for-home",
     IListItems: [
-      { name: "Собаки", url: "/" },
-      { name: "Коти", url: "/" },
-      { name: "Інші тварини", url: "/" },
+      { name: "Собаки", i18Key: "dogs", url: "/" },
+      { name: "Коти", i18Key: "cats", url: "/" },
+      { name: "Інші тварини", i18Key: "other_pets", url: "/" },
     ],
   },
   {
     listName: "Лікування",
+    i18Key: "therapy",
     IListItems: [
       { name: "Test1", url: "/" },
       { name: "Test2", url: "/" },
@@ -27,13 +30,15 @@ const elements = [
   },
   {
     listName: "Стерилізація",
+    i18Key: "sterilization",
     IListItems: [
       { name: "Test1", url: "/" },
       { name: "Test2", url: "/" },
       { name: "Test3", url: "/" },
     ],
   },
-  {
+  { i18Key: "contacts",
+    i18Key2: "foot_placeholder",
     listName: "Контакти",
     listInput: "Ваше повідомлення",
     // ISocialMedias: [
@@ -59,9 +64,9 @@ const elements = [
       },
     ],
     IListItems: [
-      { name: "Email: test@gmail.com" },
-      { name: "Телефон: +380XXXXXXX" },
-      { name: "Написати нам:" },
+      { name: "Email: test@gmail.com",i18Key: "foot_email" },
+      { name: "Телефон: +380XXXXXXX",i18Key: "phone_num" },
+      { name: "Написати нам:",i18Key: "text_us" },
     ],
   },
   {
