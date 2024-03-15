@@ -12,9 +12,9 @@ const elements = [
     listName: "Шукають дім",
     i18Key: "looking-for-home",
     IListItems: [
-      { name: "Собаки", i18Key: "dogs", url: "/" },
-      { name: "Коти", i18Key: "cats", url: "/" },
-      { name: "Інші тварини", i18Key: "other_pets", url: "/" },
+      { name: "Собаки", i18Key: "dogs", url: "/petList?type=dog" },
+      { name: "Коти", i18Key: "cats", url: "/petList?type=cat" },
+      { name: "Інші тварини", i18Key: "other_pets", url: "/petList" },
     ],
   },
   {
