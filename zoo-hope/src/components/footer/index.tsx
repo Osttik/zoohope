@@ -8,7 +8,7 @@ import { FooterNavBlock } from "../footerNavBlock";
 
 export const Footer = () => {
   return (
-    <footer className="footer">
+    <footer className="footer" id="footer">
       <div className="footer__container">
         <div className="footer__logo-area">
           <img src={LogoNavBar} alt="zoonadia" className="footer__logo-img" />
