@@ -20,9 +20,12 @@ function translateToEnglish(ukrainianName:string):string {
       'ч': 'ch', 'ш': 'sh', 'щ': 'shch', 'ь': '', 'ю': 'iu',
       'я': 'ia'
     };
-  
-    return ukrainianName.split('').map(char => ukrainianLetters[char] || char).join('');
+    if(i18n.language=='en'){return ukrainianName.split('').map(char => ukrainianLetters[char] || char).join('');}
+    else{ return ukrainianName}
+     
+    
   }
+
  
   
 return(
@@ -31,7 +34,7 @@ return(
 <div className="begPetBlock">
                 <div className="firstBegBlock">
                     <button className="cornerButton">{t('return_to_all_pets')}</button>
-                    <div className="nameDiv">{i18n.language=='en'?translateToEnglish('Тваринка'):'Тваринка'}</div>
+                    <div className="nameDiv">{translateToEnglish('Тваринка')}</div>
                     <div className="stLogo"></div>
                 </div>
                 <div className="secondBegBlock">
