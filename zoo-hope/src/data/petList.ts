@@ -8,8 +8,8 @@ let pageSize = 12;
   ]
   const sex = [
     {label: "Стать",i18Key: "sex", value: ""},
-    {label: "Жіноча",i18Key: "female", value: "female"},
-    {label: "Чоловіча",i18Key: "male", value: "male"},
+    {label: "Дівчинка",i18Key: "female", value: "female"},
+    {label: "Хлопчик",i18Key: "male", value: "male"},
   ]
   const minAge = [
     {label: "0", value: ""},

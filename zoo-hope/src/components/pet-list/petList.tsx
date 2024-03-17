@@ -58,10 +58,10 @@ export const PetList = () => {
       let endIndex = startIndex + pageSize;
 
       if (searchParams.get("type")) {
-        allPets = allPets.filter((el: IPets) => el.type === searchParams.get("type"));
+        allPets = allPets.filter((el: IPets) => el.type.toLowerCase() === searchParams.get("type"));
       }
       if (searchParams.get("sex")) {
-        allPets = allPets.filter((el: IPets) => el.sex === searchParams.get("sex"));
+        allPets = allPets.filter((el: IPets) => el.sex.toLowerCase() === searchParams.get("sex"));
       }
       if (searchParams.get("maxAge")) {
         allPets = allPets.filter((el: IPets) => Number(el.age) <= Number(searchParams.get("maxAge")));
@@ -134,12 +134,16 @@ export const PetList = () => {
     });
     searchParams.set("page", "1");
     setsearchParams(searchParams);
+
+    toggleFilters();
   }
 
   const reset = () => {
     Object.keys(filters).forEach(el => {
       searchParams.delete(el);
       setsearchParams(searchParams);
+
+      toggleFilters();
     });
 
     searchParams.set("page", "1");
