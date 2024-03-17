@@ -28,7 +28,7 @@ export const PetCard = (props: cardProps) => {
         <div className="info">
           <span className="name">{props.animalInfo.name}</span>
           <span className="infoRow">Вік: {ageWithLabel()}</span>
-          <span className="infoRow">Стать: {props.animalInfo.sex === "female" ? "Жіноча" : "Чоловіча"}</span>
+          <span className="infoRow">Стать: {props.animalInfo.sex === "female" ? "Дівчинка" : "Хлопчик"}</span>
         </div>
     </a>
   )

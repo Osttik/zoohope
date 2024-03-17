@@ -8,8 +8,8 @@ let pageSize = 12;
   ]
   const sex = [
     {label: "Стать", value: ""},
-    {label: "Жіноча", value: "female"},
-    {label: "Чоловіча", value: "male"},
+    {label: "Дівчинка", value: "female"},
+    {label: "Хлопчик", value: "male"},
   ]
   const minAge = [
     {label: "0", value: ""},
