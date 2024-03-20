@@ -19,20 +19,18 @@ export const NavBar = () => {
     <div className="container-navbar">
       <div className="navbar">
         <img src={LogoNavBar} alt="Logo" className="navbar__logo" />
-        {elements.map((e, key) =>
+        {elements.map((e) =>
           e.hasOwnProperty("Ielements") ? (
             <>
               <NavDropdown
                 title={t(e.i18Key)}
                 className="navbar__dropdown navbar__text"
-                key={key}
               >
                 {e.Ielements &&
-                  e.Ielements.map((e, key) => (
+                  e.Ielements.map((e) => (
                     <NavDropdown.Item
                       href={e.url}
                       className="navbar__dropdown-item navbar__text"
-                      key={key}
                     >
                       {e.name}
                     </NavDropdown.Item>
@@ -40,7 +38,7 @@ export const NavBar = () => {
               </NavDropdown>
             </>
           ) : (
-            <Nav.Link href={e.url} key={key} className="navbar__link navbar__text">
+            <Nav.Link href={e.url} className="navbar__link navbar__text">
               {t(e.i18Key)}
             </Nav.Link>
           )
