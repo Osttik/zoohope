@@ -9,6 +9,7 @@ router.get('/get-all-pets', petRoutes.getAllPets);
 router.put('/update-pet/:id', petRoutes.updatePet);
 router.delete('/delete-pet/:id', petRoutes.deletePet);
 router.get('/get-some-pets', petRoutes.getSomePets);
+router.post('/add-pet', petRoutes.addPet);
 
 router.post('/add-contact', contactsRoutes.addContacts);
 router.get('/get-all-contacts', contactsRoutes.getAllContacts);
