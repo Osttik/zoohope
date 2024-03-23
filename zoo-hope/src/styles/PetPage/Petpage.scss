@@ -676,6 +676,44 @@
 
 }
 
+@media only screen and (min-width: 1400px) {
+  body {
+    border: #0004ff 3px solid;
+  }
+
+  .nameDiv {
+    font-size: 2.4vw;
+  }
+
+  .petPic {
+    height: 80%;
+    object-fit: cover;
+  }
+
+  .likePet::before {
+    border-radius: 2em;
+  }
+
+  .likePet::after {
+    border-radius: 2em;
+  }
+
+  .likePet {
+    border-radius: 2em;
+  }
+
+  .cornerButton {
+    border-radius: 2em;
+  }
+
+  .descBlock p {
+    font-size: 1.6vw;
+  }
+
+  .descBlock button {
+    font-size: 1.9vw;
+  }
+}
 
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
   body {
