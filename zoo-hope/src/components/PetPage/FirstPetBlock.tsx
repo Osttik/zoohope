@@ -42,17 +42,17 @@ return(
                     <img className='petPic' src='https://i.pinimg.com/originals/2d/cf/63/2dcf63c23e359dd5fec6ced32d4d8805.jpg'/>
                     <button className="scndAr"></button>
                     <div className="petLog"><div className="dogLog"><div className="pawLog"></div></div></div>
-                    <div className="descBlock"> <p>{t('sex')}: Хлопчик</p>
+                    <div className="descBlock"> <div><div>{t('sex')}: Хлопчик</div></div>
                                                 
-                                                <p>{t('age')}: Підліток</p>
+                                                <div><div>{t('age')}: Підліток</div></div>
 
-                                                <p>{t('size')}: Маленький (Вага 3-4 кг)</p>
+                                                <div><div>{t('size')}: Маленький (Вага 3-4 кг)</div></div>
 
-                                                <p>{t('wool')}: Коротка</p>
+                                                <div><div>{t('wool')}: Коротка</div></div>
 
-                                                <p>{t('breed')}: Метис</p>
+                                                <div><div>{t('breed')}: Метис</div></div>
 
-                                                <p>{t('character')}: Лікар, Компаньйон</p>
+                                                <div><div>{t('character')}: Лікар, Компаньйон</div></div>
                                                 
 
                         <button className="likePet">{t('pet_like')}</button>                        

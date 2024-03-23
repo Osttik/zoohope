@@ -15,7 +15,7 @@ export function PetStory(){
 
                     <div className="histBlock">
                         <div className="textHist">
-                            <h1 style={{color:'white',fontSize:'2rem'}}>{t('our_story')}:</h1><br></br>
+                            <h1 style={{color:'white'}}>{t('our_story')}:</h1><br></br>
                             <h3 style={{color:'white',textAlign:'left'}}>fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</h3>
                         </div>
                     </div>

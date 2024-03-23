@@ -59,6 +59,10 @@
 
 }
 
+.textHist h1 {
+  font-size: '2rem';
+}
+
 .cornerButton:hover {
   background-color: $defaultExtraColor2;
   box-shadow: 0 0 20px #6fc5ff50;
@@ -184,8 +188,8 @@
   border-radius: 13%;
   justify-self: center;
   align-self: center;
-  max-width: 97%;
-  max-height: 90%;
+  max-width: 95%;
+  max-height: 95%;
   background-color: $defaultExtraColor2;
   box-shadow: 0 0 0, 8px 8px 0 0 $defaultExtraColor2;
 
@@ -222,7 +226,7 @@
 
 .descBlock {
   // background-color: rgba(35, 31, 32, 1);
-  border-radius: 5%;
+
 
   color: $defaultExtraLessLight;
   width: 95%;
@@ -236,7 +240,7 @@
   padding-bottom: 1%;
 }
 
-.descBlock p {
+.descBlock div {
   background-color: $defaultBackColor;
   // box-shadow: rgba(208, 255, 0, 0.021) 0px 54px 55px, rgba(255, 251, 0, 0.021) 0px -12px 30px, rgba(255, 187, 0, 0.021) 0px 4px 6px, rgba(251, 255, 0, 0.021) 0px 12px 13px, rgba(255, 251, 0, 0.027) 0px -3px 5px;
 }
@@ -676,6 +680,44 @@
 
 }
 
+@media only screen and (min-width: 1400px) {
+  body {
+    border: #0004ff 3px solid;
+  }
+
+  .nameDiv {
+    font-size: 2.4vw;
+  }
+
+  .petPic {
+    height: 80%;
+    object-fit: cover;
+  }
+
+  .likePet::before {
+    border-radius: 2em;
+  }
+
+  .likePet::after {
+    border-radius: 2em;
+  }
+
+  .likePet {
+    border-radius: 2em;
+  }
+
+  .cornerButton {
+    border-radius: 2em;
+  }
+
+  .descBlock p {
+    font-size: 1.6vw;
+  }
+
+  .descBlock button {
+    font-size: 1.9vw;
+  }
+}
 
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
   body {
@@ -696,20 +738,44 @@
     border: #d400ff 3px solid;
   }
 
+
+  .begPetBlock {
+    height: 90vh;
+  }
+
+  .petPic {
+    height: 95%;
+  }
+
   .cornerButton {
-    font-size: 1.8vw;
+    height: 80%;
+    width: 100%;
+    font-size: 2.6vw;
+    min-width: 1px;
+  }
+
+  .cornerButton::before {
+    background-size: 100%;
+  }
+
+  .nameDiv {
+    background-color: $defaultBackColor;
+    font-size: 6.5vw;
+    align-self: flex-start;
+  }
+
+  .stLogo {
+    width: 30px;
+    height: 30px;
+    background-size: 30px;
   }
 
   .secondBegBlock {
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-columns: 0.6fr 4fr 0.6fr;
     grid-template-rows: 1fr 1fr;
-  }
-
-  .nameDiv {
-    align-self: flex-start;
   }
 
   .descBlock {
@@ -720,36 +786,117 @@
     width: 50%;
     height: 100%;
     text-align: center;
-    font-size: 3vw;
+    font-size: 100%;
+    width: 100%;
+    height: 100%;
+    grid-template-rows: 1fr 1fr 1fr 0.7fr;
+    grid-template-columns: 1fr 1fr;
+
+  }
+
+  .descBlock button {
+    grid-column: 1 / 3;
+    justify-self: center;
+    // font-size: 4vw;
+    height: 100%;
+    width: 50%;
+    font-size: 5vw;
+    margin-bottom: 4px;
+  }
+
+  .descBlock div {
+    display: grid;
+  }
+
+  .descBlock div div {
+    font-size: 3.5vw;
+    align-self: center;
+
+  }
+
+  .logExtraHelp {
+    height: 27%;
+    width: 100%;
   }
 
   .firstAr {
     width: 100%;
     height: 100%;
-    background-position: right bottom;
-    background-size: 30%;
+    background-position: right center;
+    background-size: 70%;
     border-radius: 0;
-    margin-left: 18%;
+
 
   }
 
+  .logExtraHelp {
+    width: 100%;
+    height: 40%;
+    grid-row: 3;
+    align-self: flex-start;
+  }
+
+  .extraHelpBut {
+    width: 82%;
+    height: 28%;
+    padding: 0;
+  }
+
+  .extraPets1desc {
+    font-size: 5.6vw;
+  }
+
+  .petsTopCircle {
+    width: 30px;
+    height: 30px;
+    margin: 5%;
+    align-self: flex-start;
+
+  }
+
+  .petsTopText {
+    font-size: 7vw;
+  }
+
+  .helpTextBlock {
+    font-size: 5.7vw;
+  }
+
+  .helpBut {
+    font-size: 5vw;
+    padding: 0;
+  }
+
+  .helpBut::before {
+    width: 30%;
+  }
+
+  .textHist h3 {
+    font-size: 120%;
+  }
+
+  .textHist h1 {
+    background-size: 20%;
+    font-size: 6vw;
+  }
+
   .firstAr:hover {
-    background-position: left bottom;
-    background-size: 35%;
+    background-position: right center;
+    background-size: 80%;
   }
 
   .scndAr {
     width: 100%;
     height: 100%;
-    background-position: left bottom;
-    background-size: 30%;
+    background-position: left center;
+    background-size: 70%;
     border-radius: 0;
-    margin-right: 18%;
+
   }
 
   .scndAr:hover {
-    background-position: right bottom;
-    background-size: 35%;
+    background-position: left center;
+    background-size: 80%;
   }
 
   .scndAr:active {
@@ -764,11 +911,419 @@
 
   .likePet {
     margin-left: 0;
-    justify-self: center;
+
+    justify-self: end;
   }
 
-  .arDown span {
-    background-color: transparent;
-    border: none;
+  .arDown {
+    top: 109%;
+  }
+
+  .extraPets1Pic {
+    width: 28vw;
+    height: 28vw;
+  }
+
+  .extraPets {
+    height: 70vh;
+  }
+
+}
+
+@media only screen and (max-width: 480px) and (min-width: 401px) {
+  body {
+    border: 2px rgb(0, 255, 34) solid;
+  }
+
+  .petPic {
+    height: 87%;
+  }
+
+  .cornerButton {
+    height: 70%;
+    width: 100%;
+    font-size: 2.6vw;
+    min-width: 1px;
+  }
+
+  .cornerButton::before {
+    background-size: 100%;
+  }
+
+  .begPetBlock {
+    height: 90vh;
+  }
+
+  .nameDiv {
+    background-color: $defaultBackColor;
+    font-size: 6.5vw;
+    align-self: flex-end;
+  }
+
+  .stLogo {
+    width: 30px;
+    height: 30px;
+    background-size: 30px;
+  }
+
+  .secondBegBlock {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 0.4fr 4fr 0.4fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .descBlock {
+    grid-row: 2;
+    grid-column: 1 / 6;
+    justify-self: center;
+    align-self: center;
+    width: 50%;
+    height: 100%;
+    text-align: center;
+    font-size: 100%;
+    width: 100%;
+    height: 100%;
+    grid-template-rows: 1fr 1fr 1fr 0.7fr;
+    grid-template-columns: 1fr 1fr;
+
+  }
+
+  .descBlock button {
+    grid-column: 1 / 3;
+    justify-self: center;
+    // font-size: 4vw;
+    height: 8vh;
+    width: 50%;
+    font-size: 5vw;
+    margin-bottom: 4px;
+  }
+
+  .descBlock div {
+    display: grid;
+  }
+
+  .descBlock div div {
+    font-size: 5vw;
+    align-self: center;
+
+  }
+
+  .logExtraHelp {
+    height: 27%;
+    width: 100%;
+  }
+
+  .firstAr {
+    width: 100%;
+    height: 100%;
+    background-position: right center;
+    background-size: 70%;
+    border-radius: 0;
+
+
+  }
+
+  .logExtraHelp {
+    width: 100%;
+    height: 40%;
+    grid-row: 3;
+    align-self: flex-start;
+  }
+
+  .extraHelpBut {
+    width: 82%;
+    height: 28%;
+    padding: 0;
+  }
+
+  .extraPets1desc {
+    font-size: 5.6vw;
+  }
+
+  .petsTopCircle {
+    width: 30px;
+    height: 30px;
+    margin: 5%;
+    align-self: flex-start;
+
+  }
+
+  .petsTopText {
+    font-size: 7vw;
+  }
+
+  .helpTextBlock {
+    font-size: 5.7vw;
+  }
+
+  .helpBut {
+    font-size: 5vw;
+    padding: 0;
+  }
+
+  .helpBut::before {
+    width: 30%;
+  }
+
+  .textHist h3 {
+    font-size: 120%;
+  }
+
+  .textHist h1 {
+    background-size: 20%;
+    font-size: 6vw;
+  }
+
+  .firstAr:hover {
+    background-position: right center;
+    background-size: 80%;
+  }
+
+  .scndAr {
+    width: 100%;
+    height: 100%;
+    background-position: left center;
+    background-size: 70%;
+    border-radius: 0;
+
+  }
+
+  .scndAr:hover {
+    background-position: left center;
+    background-size: 80%;
+  }
+
+  .scndAr:active {
+    background-image: url(../../images/workImg/paw_y.png);
+    transform: none;
+  }
+
+  .firstAr:active {
+    background-image: url(../../images/workImg/paw_y.png);
+    transform: none;
+  }
+
+  .likePet {
+    margin-left: 0;
+
+    justify-self: end;
+  }
+
+  .arDown {
+    top: 109%;
+  }
+
+  .extraPets1Pic {
+    width: 28vw;
+    height: 28vw;
+  }
+
+  .extraPets {
+    height: 70vh;
+  }
+
+}
+
+@media only screen and (max-width: 400px) {
+  body {
+    border: 2px rgb(255, 174, 0) solid;
+  }
+
+  .petPic {
+    height: 87%;
+  }
+
+  .cornerButton {
+    height: 70%;
+    width: 100%;
+    font-size: 2.6vw;
+    min-width: 1px;
+  }
+
+  .cornerButton::before {
+    background-size: 100%;
+  }
+
+  .begPetBlock {
+    height: 90vh;
+  }
+
+  .nameDiv {
+    background-color: $defaultBackColor;
+    font-size: 6.5vw;
+    align-self: flex-end;
+  }
+
+  .stLogo {
+    width: 30px;
+    height: 30px;
+    background-size: 30px;
+  }
+
+  .secondBegBlock {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 0.4fr 4fr 0.4fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .descBlock {
+    grid-row: 2;
+    grid-column: 1 / 6;
+    justify-self: center;
+    align-self: center;
+    width: 50%;
+    height: 100%;
+    text-align: center;
+    font-size: 100%;
+    width: 100%;
+    height: 100%;
+    grid-template-rows: 1fr 1fr 1fr 0.7fr;
+    grid-template-columns: 1fr 1fr;
+
+  }
+
+  .descBlock button {
+    grid-column: 1 / 3;
+    justify-self: center;
+    // font-size: 4vw;
+    height: 8vh;
+    width: 50%;
+    font-size: 5vw;
+    margin-bottom: 4px;
+  }
+
+  .descBlock div {
+    display: grid;
+  }
+
+  .descBlock div div {
+
+    align-self: center;
+
+  }
+
+  .logExtraHelp {
+    height: 27%;
+    width: 100%;
+  }
+
+  .firstAr {
+    width: 100%;
+    height: 100%;
+    background-position: right center;
+    background-size: 70%;
+    border-radius: 0;
+
+
+  }
+
+  .logExtraHelp {
+    width: 100%;
+    height: 40%;
+    grid-row: 3;
+    align-self: flex-start;
+  }
+
+  .extraHelpBut {
+    width: 82%;
+    height: 28%;
+    padding: 0;
+  }
+
+  .extraPets1desc {
+    font-size: 5.6vw;
+  }
+
+  .petsTopCircle {
+    width: 30px;
+    height: 30px;
+    margin: 5%;
+    align-self: flex-start;
+
+  }
+
+  .petsTopText {
+    font-size: 7vw;
+  }
+
+  .helpTextBlock {
+    font-size: 5.7vw;
+  }
+
+  .helpBut {
+    font-size: 5vw;
+    padding: 0;
+  }
+
+  .helpBut::before {
+    width: 30%;
+  }
+
+  .textHist h3 {
+    font-size: 120%;
+  }
+
+  .textHist h1 {
+    background-size: 20%;
+    font-size: 6vw;
+  }
+
+  .firstAr:hover {
+    background-position: right center;
+    background-size: 80%;
+  }
+
+  .scndAr {
+    width: 100%;
+    height: 100%;
+    background-position: left center;
+    background-size: 70%;
+    border-radius: 0;
+
+  }
+
+  .scndAr:hover {
+    background-position: left center;
+    background-size: 80%;
+  }
+
+  .scndAr:active {
+    background-image: url(../../images/workImg/paw_y.png);
+    transform: none;
+  }
+
+  .firstAr:active {
+    background-image: url(../../images/workImg/paw_y.png);
+    transform: none;
+  }
+
+  .likePet {
+    margin-left: 0;
+
+    justify-self: end;
+  }
+
+  .arDown {
+    top: 109%;
+  }
+
+  .extraPets1Pic {
+    width: 28vw;
+    height: 28vw;
+  }
+
+  .extraPets {
+    height: 70vh;
+  }
+
+}
+
+@media only screen and (max-height: 450px) and (max-width: 767px) {
+  .begPetBlock {
+    height: 150vh;
   }
 }
