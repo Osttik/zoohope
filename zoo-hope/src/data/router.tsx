@@ -1,6 +1,7 @@
-import { RouteObject } from "react-router";
+import { Navigate, RouteObject } from "react-router";
 import App from "../App";
 import { PetList } from "../components/pet-list/petList";
+
 
 const routes: RouteObject[] = [
   {
@@ -10,6 +11,11 @@ const routes: RouteObject[] = [
   {
     path: "/petList",
     element: <PetList />,
+  },
+
+  { // Needs to be in the end
+    path: "*",
+    element: <Navigate to="/" />
   },
 ];
 
