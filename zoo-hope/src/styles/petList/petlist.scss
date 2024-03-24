@@ -111,3 +111,45 @@
     }
   }
 }
+@media (min-width: 480px) and (max-width: 780px) {
+  .petListSection{
+    .hero{
+      height: 350px;
+      .text {
+        width: 450px;
+        h1{
+          text-align: center;
+        }
+        h2 {
+          width: 450px;
+          text-align: center;
+        }
+      }
+    }
+    .petList {
+      width: 400px;
+      justify-content: center;
+    }
+  }
+}
+@media (min-width: 780px) and (max-width: 1150px) {
+  .petListSection{
+    .hero{
+      height: 350px;
+      .text {
+        width: 700px;
+        h1{ 
+          text-align: center;
+        }
+        h2 {
+          width: 700px;
+          text-align: center;
+        }
+      }
+    }
+    .petList {
+      width: 760px;
+      justify-content: center;
+    }
+  }
+}

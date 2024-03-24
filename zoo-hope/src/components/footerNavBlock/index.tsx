@@ -8,8 +8,8 @@ export const FooterNavBlock = ({ props }: any) => {
     <div className="footer__nav-block footer-nav-block">
       <h5 className="footer-nav-block__title">{t(props.i18Key)}</h5>
       <ul className="footer-nav-block__list">
-        {props.IListItems?.map((e:any) => {
-          return <FooterNavBlockLink props={e} />;
+        {props.IListItems?.map((e:any, i: number) => {
+          return <FooterNavBlockLink key={i} props={e} />;
         })}
       </ul>
     </div>
