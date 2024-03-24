@@ -12,13 +12,13 @@ export const FooterNavContactsBlock = ({ props }: any) => {
       <ul className="footer-nav-block__list">
         <li className="footer-nav-block__item">
           <div className="footer-nav-block__social-media">
-            {props.ISocialMedias?.map((e:any) => {
-              return <FooterSocialMedia props={e} />;
+            {props.ISocialMedias?.map((e:any, i: number) => {
+              return <FooterSocialMedia props={e} key={i} />;
             })}
           </div>
         </li>
-        {props.IListItems?.map((e:any) => {
-          return <FooterNavBlockText props={e} />;
+        {props.IListItems?.map((e:any, i: number) => {
+          return <FooterNavBlockText props={e} key={i} />;
         })}
         <div className="footer-nav-block__input-area">
           <input

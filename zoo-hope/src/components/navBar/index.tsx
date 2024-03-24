@@ -22,24 +22,22 @@ export const NavBar = () => {
         <div className="navbar__group">
           {elements.map((e, key) =>
             e.hasOwnProperty("Ielements") ? (
-              <>
-                <NavDropdown
-                  title={t(e.i18Key)}
-                  className="navbar__group__dropdown navbar__text"
-                  key={key}
-                >
-                  {e.Ielements &&
-                    e.Ielements.map((e, key) => (
-                      <NavDropdown.Item
-                        href={e.url}
-                        className="navbar__group__dropdown-item navbar__text"
-                        key={key}
-                      >
-                        {e.name}
-                      </NavDropdown.Item>
-                    ))}
-                </NavDropdown>
-              </>
+              <NavDropdown
+                title={t(e.i18Key)}
+                className="navbar__group__dropdown navbar__text"
+                key={key}
+              >
+                {e.Ielements &&
+                  e.Ielements.map((e, keyInner) => (
+                    <NavDropdown.Item
+                      href={e.url}
+                      className="navbar__group__dropdown-item navbar__text"
+                      key={keyInner}
+                    >
+                      {e.name}
+                    </NavDropdown.Item>
+                  ))}
+              </NavDropdown>
             ) : (
               <Nav.Link href={e.url} key={key} className="navbar__group__link navbar__text">
                 {t(e.i18Key)}
