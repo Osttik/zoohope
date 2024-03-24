@@ -4,11 +4,20 @@ const PetModel = require('../../models/Pet');
 module.exports.addPet = async (req, res) => {
     try {
         const newPet = new PetModel(req.body);
-        const savedPet = await newPet.save();
-
-        res.status(201).json(savedPet);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
+        newPet.validate(async function(err) {
+            if (err) {
+                res.status(400).json({message: err.message})
+            } else {
+                try {
+                    const savedPet = await newPet.save();
+                    res.status(201).json(savedPet);
+                } catch (err) {
+                    res.status(500).json({message: err.message})
+                }
+            }
+        })
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
 };
 
@@ -30,12 +39,16 @@ module.exports.updatePet = async (req, res) => {
         const { id } = req.params;
 
         const updatedPet = await PetModel.findByIdAndUpdate(id, req.body, { new: true });
-
         if (!updatedPet) {
             return res.status(404).json({ message: 'No pet in database' });
         }
-
-        res.json(updatedPet);
+        updatedPet.validate(function(err){
+            if (err) {
+                res.status(400).json({message: err.message})
+            } else {
+                res.json(updatedPet);
+            }
+        })
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
