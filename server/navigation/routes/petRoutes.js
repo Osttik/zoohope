@@ -48,6 +48,24 @@ module.exports.getAllPets = async (req, res) => {
     }
 
 };
+
+//edit pet
+module.exports.updatePet = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const updatedPet = await PetModel.findByIdAndUpdate(id, req.body, { new: true });
+
+        if (!updatedPet) {
+            return res.status(404).json({ message: 'No pet in database' });
+        }
+
+        res.json(updatedPet);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 //delete pet
 module.exports.deletePet = async (req, res) => {
     try {
