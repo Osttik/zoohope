@@ -7,6 +7,8 @@ import { useSearchParams } from "react-router-dom";
 import { PaginationNav } from "./paginationNav/paginatioNav";
 import { pageSize, options } from "../../data/petList";
 import { apiGetAllPets } from '../../api/pets';
+import { useTranslation } from "react-i18next";
+import "../../i18n/i18n";
 
 interface IPets {
   image: string,
@@ -26,6 +28,7 @@ interface Ifilters {
 }
 
 export const PetList = () => {
+  const { t, i18n } = useTranslation();
   const [totalLength, setTotalLength] = useState<number>() // Total length of array of all pets
   const [pageCount, setPageCount] = useState<number>() // Number of pages
   const [getPets, setPets] = useState<IPets[]>() // Array of pets
@@ -44,7 +47,7 @@ export const PetList = () => {
   // Basic functions
   const maxAgeCalc = () => {
     const maxAgeFiltered = options.minAge.filter(el => Number(el.value) >= Number(filters.minAge) && el.value !== "");
-    maxAgeFiltered.unshift({ label: "Неважливо", value: "" });
+    maxAgeFiltered.unshift({ label: t('no_matter'), value: "" });
     return maxAgeFiltered;
   }
 
@@ -155,50 +158,50 @@ export const PetList = () => {
   // ---
 
   if (!getPets) {
-    return <>Завантаження</>
+    return <>{t('loading')}</>
   }
 
   return (
     <section className="petListSection">
       <div className="hero">
         <div className="text">
-          <h1 className="title">Взяти Тварину</h1>
-          <h2 className="subtitle">Тут ви знайдете чудових тваринок, які шукають новий дім. Оберіть свого майбутнього друга та подаруйте йому щасливе життя!</h2>
+          <h1 className="title">{t('adopt_pet')}</h1>
+          <h2 className="subtitle">{t('list_h2_title')}</h2>
         </div>
         <img src={heroImg} alt="Hero Img" className="heroImg" />
       </div>
 
       <div>
         <div className="filters">
-          <button onClick={() => { toggleFilters() }}>Сортувати</button>
+          <button onClick={() => { toggleFilters() }}>{t('sort')}</button>
           <div className={`filtersDropdown ${areFiltersOpen ? "open" : "closed"}`}>
 
             <div className="row">
-              <span>Тип</span>
+              <span>{t('type')}</span>
               <FilterSelect filter={{ get: filters, set: setFilters, type: "type" }} options={options.type} />
             </div>
 
             <div className="row">
-              <span>Стать</span>
+              <span>{t('sex')}</span>
               <FilterSelect filter={{ get: filters, set: setFilters, type: "sex" }} options={options.sex} />
             </div>
 
             <div className="row age">
-              <span>Вік</span>
+              <span>{t('age')}</span>
               <div>
-                <span className="label">Від:</span>
+                <span className="label">{t('list_from')}</span>
                 <FilterSelect filter={{ get: filters, set: setFilters, type: "minAge" }} options={options.minAge} />
               </div>
 
               <div>
-                <span className="label">До:</span>
+                <span className="label">{t('list_to')}</span>
                 <FilterSelect filter={{ get: filters, set: setFilters, type: "maxAge" }} options={maxAgeCalc()} />
               </div>
             </div>
 
             <div className="row buttons">
-              <button className="apply" onClick={() => { apply() }}>Застосувати</button>
-              <button className="reset" onClick={() => { reset() }}>Скинути</button>
+              <button className="apply" onClick={() => { apply() }}>{t('apply')}</button>
+              <button className="reset" onClick={() => { reset() }}>{t('reset')}</button>
             </div>
 
           </div>
@@ -212,8 +215,8 @@ export const PetList = () => {
               )
             }) :
             <div className="notFound">
-              <p className="notFoundTitle">Нічого не знайдено</p>
-              <p className="notFoundDescription">{totalLength ? "Спробуйте змітини фільтри." : "Скоріш за все, зараз немає тварин."}</p>
+              <p className="notFoundTitle">{t('nothing_found')}</p>
+              <p className="notFoundDescription">{totalLength ? t('change_filters') : t('mb_no_pets')}</p>
             </div>
 
           }
