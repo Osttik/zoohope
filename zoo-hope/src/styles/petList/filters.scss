@@ -142,6 +142,46 @@
     }
   }
 }
+@media (min-width: 280px) and (max-width: 350px) {
+  .petListSection {
+    .filters {
+      display: flex;
+      justify-content: center;
+
+      button {
+        height: 36px;
+        width: 210px;
+        font-size: 18px;
+      }
+      .filtersDropdown {
+        left: auto;
+        .row {
+          width: 210px;
+        }
+      }
+    }
+  }
+}
+@media (min-width: 350px) and (max-width: 480px) {
+  .petListSection {
+    .filters {
+      display: flex;
+      justify-content: center;
+
+      button {
+        height: 38px;
+        width: 300px;
+        font-size: 20px;
+      }
+      .filtersDropdown {
+        left: auto;
+        .row {
+          width: 300px;
+        }
+      }
+    }
+  }
+}
 @media (min-width: 480px) and (max-width: 1150px) {
   .petListSection {
     .filters {
