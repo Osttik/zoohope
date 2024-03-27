@@ -19,7 +19,7 @@ export function HelpPet(){
         </div>
 
 
-        <div className="arDown"> <span style={{borderBottom:'5px solid yellow',borderRight:'5px solid black'}}></span><span style={{borderBottom:'5px solid yellow',borderRight:'5px solid black'}}></span><span style={{borderBottom:'5px solid yellow',borderRight:'5px solid black'}}></span></div>  
+        <div className="arDown"> <span style={{borderBottom:'5px solid #39b8ff',borderRight:'5px solid #39b8ff'}}></span><span style={{borderBottom:'5px solid #39b8ff',borderRight:'5px solid #39b8ff'}}></span><span style={{borderBottom:'5px solid #39b8ff',borderRight:'5px solid #39b8ff'}}></span></div>  
     </div>
 
        
