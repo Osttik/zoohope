@@ -4,10 +4,18 @@ const HelpOptionsModel = require('../../models/HelpOption');
 module.exports.addHelpOptions = async (req, res) => {
     try {
         const newHelpOption = new HelpOptionsModel(req.body);
-        const savedHelpOption = await newHelpOption.save();
-
-        res.status(201).json(savedHelpOption);
-    } catch (error) {
+        let err = newHelpOption.validateSync()
+        if (err) {
+            res.status(400).json({message: err.message})
+        } else {
+            try {
+                const savedHelpOption = await newHelpOption.save();
+                res.status(201).json(savedHelpOption);
+            } catch (err) {
+                res.status(500).json({message: err.message});
+            }
+        }
+    } catch (err) {
         res.status(500).json({ message: error.message });
     }
 };
@@ -29,9 +37,16 @@ module.exports.updateHelpOption = async (req, res) => {
         const { id } = req.params;
 
         const updatedHelpOption = await HelpOptionsModel.findByIdAndUpdate(id, req.body, { new: true });
-
-        res.json(updatedHelpOption);
-    } catch (error) {
+        if(!updatedHelpOption) {
+            return res.status(404).json({ message: 'No HelpOption in database' });
+        }
+        let err = updatedHelpOption.validateSync()
+        if (err) {
+            res.status(400).json({message: err.message})
+        } else {
+            res.json(updatedHelpOption);
+        }
+    } catch (err) {
         res.status(500).json({ message: error.message });
     }
 };
