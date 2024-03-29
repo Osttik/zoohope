@@ -1,6 +1,6 @@
 const elements = [
   { name: "Про нас", url: "/", i18Key: "about-us" },
-  { name: "Контакти", url: "/", i18Key: "contacts" },
+  { name: "Контакти", url: "#footer", i18Key: "contacts" },
   {
     name: "Звітність",
     i18Key: "accounting",

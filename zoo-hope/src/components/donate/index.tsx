@@ -1,8 +1,11 @@
 import "./../../styles/index.scss";
+import { useTranslation } from "react-i18next";
+import "../../i18n/i18n";
 const Donate = () => {
+  const { t, i18n } = useTranslation();
   return (
     <div className="wrapper_donate">
-      <span>Допомогти нам</span>
+      <span>{t('donate_helpus')}</span>
       <div className="wrapper_donate__input">
         <input type="number" inputMode="numeric"></input>
       </div>
@@ -12,7 +15,7 @@ const Donate = () => {
         <button>+1000</button>
       </div>
       <div className="wrapper_buttons__pay">
-        <button>Сплатити</button>
+        <button>{t('donate_pay')}</button>
       </div>
     </div>
   );

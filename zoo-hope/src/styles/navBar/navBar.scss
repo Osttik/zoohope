@@ -32,6 +32,21 @@
     max-width: 1120px;
     height: 100%;
 
+    &__group {
+        display: flex;
+        justify-content: space-around;
+        width: 900px;
+
+        &__dropdown {
+            margin-top: -3px;
+        }
+
+        &__dropdown-item {
+            min-width: 200px;
+            color: $navBarDropdowItemColor;
+        }
+    }
+
     &__logo {
         width: 109px;
         height: 51px;
@@ -41,15 +56,6 @@
         color: $primaryDarkColor;
         font-size: 18px;
         font-weight: 600;
-    }
-
-    &__dropdown {
-        margin-top: -3px;
-    }
-
-    &__dropdown-item {
-        min-width: 200px;
-        color: $navBarDropdowItemColor;
     }
 
     &__button-group {
