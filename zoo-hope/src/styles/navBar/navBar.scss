@@ -4,7 +4,7 @@
     position: fixed;
     background-color: $primaryColor;
     height: 67px;
-    width: 100%;
+    width: 100vw;
     z-index: 5;
 }
 
@@ -23,11 +23,13 @@
 }
 
 .navbar {
+    transition: all 0.2s;
     margin: 0 auto;
     padding: 0;
     display: flex;
     justify-content: space-around;
-    width: 1120px;
+    width: 90%;
+    max-width: 1120px;
     height: 100%;
 
     &__logo {
@@ -84,8 +86,109 @@
         &__EN-clicked {
             color: $primaryColor;
         }
-        &__clicked{
+
+        &__clicked {
             color: yellow;
         }
+    }
+}
+
+.navbar__additional-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.closed {
+    display: none;
+}
+
+.burger {
+    display: none;
+    width: 40px;
+}
+
+.allOptions {
+    position: absolute;
+    top: 67px;
+    left: 0;
+    width: 90vw;
+    max-width: 1120px;
+    max-height: 100vh;
+    overflow-y: scroll;
+    margin-right: 70px;
+    background-color: $lightGreyColor;
+    color: #fff;
+    font-size: 18px;
+
+    .option {
+        .optionBtn {
+            height: 72px;
+            width: 100%;
+            display: block;
+            background-color: transparent;
+            border: 0;
+            outline: 0;
+            color: #fff;
+            box-sizing: border-box;
+            font-weight: 600;
+            text-align: left;
+
+            &:after {
+                transition: all 0.1s ease-out;
+                content: url("../../images/workImg/NavArrowWhite.png");
+                position: relative;
+                display: inline-flex;
+                top: 0px;
+                left: 15px;
+                border: none;
+            }
+
+            &.down {
+                &::after {
+                    transition: all 0.1s ease-out;
+                    content: url("../../images/workImg/NavArrowWhite.png");
+                    position: relative;
+                    display: inline-flex;
+                    transform: rotate(180deg);
+                    top: 0px;
+                    left: 15px;
+                    border: none;
+                }
+            }
+        }
+
+        .optionDropdown {
+            padding: 0 0 15px 25px;
+        }
+
+        &:nth-child(even) {
+            background-color: $primaryDarkColor;
+        }
+
+        &:last-child {
+            border-bottom: 3px solid $lighterGreyColor;
+        }
+    }
+}
+
+@media screen and (max-width: 1120px) {
+    .navbar {
+        width: 100%;
+        padding: 0 25px;
+        justify-content: space-between;
+    }
+
+    .burger {
+        display: block;
+    }
+
+    .allOptions {
+        width: 100vw;
+    }
+
+    .navbar__dropdown,
+    .navbar__link {
+        display: none;
     }
 }
