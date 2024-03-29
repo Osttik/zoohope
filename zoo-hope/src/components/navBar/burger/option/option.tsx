@@ -24,13 +24,11 @@ export const Optionss = (props: IProps) => {
     <div className="option">
       <button className={props.states[props.element.i18Key] ? "down optionBtn" : "optionBtn"} onClick={() => { props.handleOpen(props.element.i18Key) }}>{props.element.name}</button>
       <div className={props.states[props.element.i18Key] ? "" : "closed"}>
-        {props.element.Ielements?.map((e) => {
+        {props.element.Ielements?.map((e, key) => {
           return (
-            <>
-              <Nav.Link href={e.url} className="optionDropdown">
-                {(e.name)}
-              </Nav.Link>
-            </>
+            <Nav.Link href={e.url} className="optionDropdown" key={key}>
+              {(e.name)}
+            </Nav.Link>
           )
         })}
       </div>
