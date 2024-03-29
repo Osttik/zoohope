@@ -17,7 +17,7 @@ export function PetStory({obj}:{obj:Pet}){
                     <div className="histBlock">
                         <div className="textHist">
                             <h1 style={{color:'white'}}>{t('our_story')}:</h1><br></br>
-                            <h3 style={{color:'white',textAlign:'left'}}>{obj.story}</h3>
+                            <h3 style={{color:'white',textAlign:'left'}}>{obj.story.en}</h3>
                         </div>
                     </div>
                     <button className="helpBut">

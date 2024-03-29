@@ -10,7 +10,10 @@ import Loader from "./loader";
 export interface Pet {
 
     _id: string;
-    name: string;
+    name: {
+        en: string,
+        ua: string
+      };
     type: string;
     image: string;
     sex: string;
@@ -18,8 +21,14 @@ export interface Pet {
     size: string;
     breed: string;
     color: string;
-    personality: string;
-    story: string;
+    personality: {
+        en: string,
+        ua: string
+      };
+      story: {
+        en: string,
+        ua: string
+      };
     __v: number;
     sterilization: boolean;
 }

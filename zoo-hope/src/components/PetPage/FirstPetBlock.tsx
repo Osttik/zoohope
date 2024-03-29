@@ -49,7 +49,7 @@ return(
 <div className="begPetBlock">
                 <div className="firstBegBlock">
                     <Link style={{display:'grid',textDecoration:'none'}} to='/petList'><button className="cornerButton">{t('return_to_all_pets')}</button></Link>
-                    <div className="nameDiv">{translateToEnglish(obj.name)}</div>
+                    <div className="nameDiv">{translateToEnglish(obj.name.en)}</div>
                     <div className="stLogo"></div>
                 </div>
                 <div className="secondBegBlock">
@@ -67,7 +67,7 @@ return(
 
                                                 <div><div>{t('breed')}: <span>{obj.breed}</span> </div></div>
 
-                                                <div><div>{t('character')}: <span>{obj.personality}</span> </div></div>
+                                                <div><div>{t('character')}: <span>{obj.personality.en}</span> </div></div>
                                                 
 
                         <button className="likePet">{t('pet_like')}</button>                        
