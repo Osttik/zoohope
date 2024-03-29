@@ -1,7 +1,8 @@
 import { useTranslation } from "react-i18next";
 import "../../i18n/i18n";
+import { Pet } from "./Pet";
 
-export function PetStory(){
+export function PetStory({obj}:{obj:Pet}){
     const { t, i18n } = useTranslation();
     return(
     <>
@@ -16,7 +17,7 @@ export function PetStory(){
                     <div className="histBlock">
                         <div className="textHist">
                             <h1 style={{color:'white'}}>{t('our_story')}:</h1><br></br>
-                            <h3 style={{color:'white',textAlign:'left'}}>fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</h3>
+                            <h3 style={{color:'white',textAlign:'left'}}>{obj.story}</h3>
                         </div>
                     </div>
                     <button className="helpBut">

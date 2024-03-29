@@ -1,7 +1,16 @@
 import { useTranslation } from "react-i18next";
 import "../../i18n/i18n";
+import { useParams } from "react-router";
+import { apiGetAllPets } from "../../api/pets";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Loader from "./loader";
+import {Pet} from "./Pet";
+import { Link } from "react-router-dom";
+export function PetInfo({ obj }: { obj: Pet }){
 
-export function PetInfo(){
+
+
 const { t, i18n } = useTranslation();
 function translateToEnglish(ukrainianName:string):string {
     const ukrainianLetters:{ [key: string]: string } = {
@@ -25,34 +34,40 @@ function translateToEnglish(ukrainianName:string):string {
      
     
   }
+  function yearsMath(obj:Pet){
+    if(obj.age === 1){return obj.age+t('1year')}
+    else if(obj.age === 2 || obj.age === 3 || obj.age === 4){return obj.age+t('years')}
+    else {return obj.age+t('years2')}
+  }
 
  
   
 return(
+
 <>
-   
+
 <div className="begPetBlock">
                 <div className="firstBegBlock">
-                    <button className="cornerButton">{t('return_to_all_pets')}</button>
-                    <div className="nameDiv">{translateToEnglish('Тваринка')}</div>
+                    <Link style={{display:'grid',textDecoration:'none'}} to='/petList'><button className="cornerButton">{t('return_to_all_pets')}</button></Link>
+                    <div className="nameDiv">{translateToEnglish(obj.name)}</div>
                     <div className="stLogo"></div>
                 </div>
                 <div className="secondBegBlock">
                     <button className="firstAr"></button>
-                    <img className='petPic' src='https://i.pinimg.com/originals/2d/cf/63/2dcf63c23e359dd5fec6ced32d4d8805.jpg'/>
+                    <img className='petPic' src={obj.image}/>
                     <button className="scndAr"></button>
                     <div className="petLog"><div className="dogLog"><div className="pawLog"></div></div></div>
-                    <div className="descBlock"> <div><div>{t('sex')}: <span>Хлопчик</span> </div></div>
+                    <div className="descBlock"> <div><div>{t('sex')}: <span>{obj.sex==='male'?t('male'):t('female')}</span> </div></div>
                                                 
-                                                <div><div>{t('age')}: <span>Підліток</span></div></div>
+                                                <div><div>{t('age')}: <span>{yearsMath(obj)}</span></div></div>
 
-                                                <div><div>{t('size')}: <span>Маленький (Вага 3-4 кг)</span> </div></div>
+                                                <div><div>{t('size')}: <span>{obj.size}</span> </div></div>
 
-                                                <div><div>{t('wool')}: <span>Коротка</span> </div></div>
+                                                <div><div>{t('wool')}: <span>{obj.color}</span> </div></div>
 
-                                                <div><div>{t('breed')}: <span>Метис</span> </div></div>
+                                                <div><div>{t('breed')}: <span>{obj.breed}</span> </div></div>
 
-                                                <div><div>{t('character')}: <span>Лікар, Компаньйон</span> </div></div>
+                                                <div><div>{t('character')}: <span>{obj.personality}</span> </div></div>
                                                 
 
                         <button className="likePet">{t('pet_like')}</button>                        
