@@ -1,5 +1,8 @@
-import { useState } from "react";
 import { Nav } from "react-bootstrap";
+
+import { useTranslation } from "react-i18next";
+
+
 
 interface IProps {
   element: {
@@ -14,15 +17,17 @@ interface IProps {
   states: {
     [key: string]: boolean
   },
-  handleOpen: Function
+  handleOpen: Function,
 }
 
 
 
 export const Optionss = (props: IProps) => {
+
+  const { t, i18n } = useTranslation();
   return (
     <div className="option">
-      <button className={props.states[props.element.i18Key] ? "down optionBtn" : "optionBtn"} onClick={() => { props.handleOpen(props.element.i18Key) }}>{props.element.name}</button>
+      <button className={props.states[props.element.i18Key] ? "down optionBtn" : "optionBtn"} onClick={() => { props.handleOpen(props.element.i18Key) }}>{t(props.element.i18Key)}</button>
       <div className={props.states[props.element.i18Key] ? "" : "closed"}>
         {props.element.Ielements?.map((e, key) => {
           return (

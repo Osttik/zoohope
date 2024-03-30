@@ -193,8 +193,42 @@
         width: 100vw;
     }
 
+    .inBurgerMenu {
+        .navbar__button-group {
+            display: none;
+        }
+    }
+
     .navbar__group__dropdown,
     .navbar__group__link {
         display: none;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .navbar__button-group {
+        display: none;
+    }
+
+    .inBurgerMenu {
+        .navbar__button-group {
+            width: 100%;
+            display: flex;
+            border-top: 3px $lightGreyColor solid;
+            border-bottom: 3px $lightGreyColor solid;
+
+            button {
+                background-color: $primaryDarkColor;
+                color: #fff;
+                width: 50%;
+                border-radius: 0;
+                border: 0;
+
+                &.navbar__button-group__clicked {
+                    background-color: $lighterGreyColor;
+
+                }
+            }
+        }
     }
 }

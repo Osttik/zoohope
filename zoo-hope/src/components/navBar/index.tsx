@@ -7,6 +7,7 @@ import { elements } from "../../data/nav";
 import { useTranslation } from "react-i18next";
 import "../../i18n/i18n"
 import { BurgerMenu } from "./burger/burger";
+import { Translation } from "./translation/translation";
 
 interface Istates {
   [key: string]: boolean
@@ -21,6 +22,12 @@ export const NavBar = () => {
 
   const changeLanguage = (lang: string) => {
     i18n.changeLanguage(lang)
+  }
+
+  const lang = {
+    setSelectedLanguage: setSelectedLanguage,
+    selectedLanguage: selectedLanguage,
+    changeLanguage: changeLanguage
   }
 
   useEffect(() => {
@@ -60,7 +67,7 @@ export const NavBar = () => {
   // Closes burger menu if user clicked out of menu
   window.onclick = (e) => {
     const tgt = e.target as HTMLElement
-    if (!tgt.closest(".allOptions") && !tgt.closest(".burger")) {
+    if (!tgt.closest(".allOptions") && !tgt.closest(".container-navbar") || tgt.closest(".navbar__logo")) {
       setStates({ ...states, "burger": false })
     }
   }
@@ -99,29 +106,9 @@ export const NavBar = () => {
           )
         )}
         <div className="navbar__additional-buttons">
-          <div className="navbar__button-group">
-            <button
-              className={`navbar__button-group__UA ${selectedLanguage === "UA" ? "navbar__button-group__clicked" : ""
-                }`}
-              onClick={() => {
-                setSelectedLanguage("UA");
-                changeLanguage("ua");
-              }}
-            >
-              UA
-            </button>
-            <button
-              className={`navbar__button-group__EN ${selectedLanguage === "EN" ? "navbar__button-group__clicked" : ""
-                }`}
-              onClick={() => {
-                setSelectedLanguage("EN")
-                changeLanguage("en");
-              }}
-            >
-              EN
-            </button>
-          </div>
-          <BurgerMenu elements={elements} states={states} handleOpen={handleDropdownOpen} />
+          <Translation lang={lang} />
+
+          <BurgerMenu elements={elements} states={states} handleOpen={handleDropdownOpen} lang={lang} />
         </div>
       </div>
     </div>

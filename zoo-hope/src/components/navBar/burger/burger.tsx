@@ -1,5 +1,7 @@
 import React from "react"
 import { Optionss } from "./option/option"
+import { Translation } from "../translation/translation"
+
 
 
 interface IProps {
@@ -15,7 +17,13 @@ interface IProps {
   states: {
     [key: string]: boolean
   },
-  handleOpen: any
+  handleOpen: any,
+
+  lang: {
+    setSelectedLanguage: Function,
+    changeLanguage: Function,
+    selectedLanguage: string
+  }
 }
 
 export const BurgerMenu = (props: IProps) => {
@@ -26,6 +34,9 @@ export const BurgerMenu = (props: IProps) => {
         {props.elements.map((e, key) =>
           e.hasOwnProperty("Ielements") ? (<Optionss element={e} states={props.states} handleOpen={props.handleOpen} key={key} />) : (<React.Fragment key={key}></React.Fragment>)
         )}
+        <div className="inBurgerMenu">
+          <Translation lang={props.lang} />
+        </div>
       </div>
     </>
   )
