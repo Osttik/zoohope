@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 
 const HelpOptionsSchema = new mongoose.Schema({
-    name: String,
+    name: {
+        en: String,
+        ua: String
+    },
     description: String
 });
 
