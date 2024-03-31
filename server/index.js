@@ -12,14 +12,19 @@ app.use(express.json());
 app.use(cors());
 app.use(router);
 
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: err.message });
+});
+
 mongoose
-  .connect(databaseUrl)
-  .then(() => {
-    console.log("Connected to MongoDB");
-  })
-  .catch((error) => {
-    console.error("Failed to connect to MongoDB:", error);
-  });
+.connect(databaseUrl)
+.then(() => {
+  console.log("Connected to MongoDB");
+})
+.catch((error) => {
+  console.error("Failed to connect to MongoDB:", error);
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
