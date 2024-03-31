@@ -9,7 +9,10 @@ interface IContactsTableProps {
 }
 
 interface IContactsTable {
-    name: string;
+    name: {
+        ua: string;
+        en: string
+    };
     url: string;
     icon: string;
     _id: string;
@@ -47,10 +50,10 @@ export const ContactsTable = ({ url, activeButton, selectedRowIndex, handleRowCl
                         </tr>
                     </thead>
                     <tbody>
-                        {contacts.map((contact: any, index: number) => (
+                        {contacts.map((contact: IContactsTable, index: number) => (
                             <tr key={index} className={`pet-table__row ${selectedRowIndex === index ? 'focus' : ''}`} onClick={() => handleRowClick(index)}>
                                 <td>{index + 1}</td>
-                                <td>{contact.name}</td>
+                                <td>{contact.name && contact.name.ua}</td>
                                 <td>{contact.url}</td>
                                 <td>{contact.icon}</td>
                                 <td>{contact._id}</td>

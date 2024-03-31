@@ -9,8 +9,14 @@ interface IHelpOptionsTableProps {
 }
 
 interface IHelpOptionsTable {
-    name: string;
-    description: string;
+    name: {
+        ua: string;
+        en: string;
+    };
+    description: {
+        ua: string;
+        en: string;
+    };
     _id: string;
 }
 
@@ -45,11 +51,11 @@ export const HelpOptionsTable = ({ url, activeButton, selectedRowIndex, handleRo
                         </tr>
                     </thead>
                     <tbody>
-                        {helpOptions.map((option: any, index: number) => (
+                        {helpOptions.map((option: IHelpOptionsTable, index: number) => (
                             <tr key={option._id} className={`pet-table__row ${selectedRowIndex === index ? 'focus' : ''}`} onClick={() => handleRowClick(index)}>
                                 <td>{index + 1}</td>
-                                <td>{option.name}</td>
-                                <td>{option.description}</td>
+                                <td>{option.name && option.name.ua}</td>
+                                <td>{option.description && option.description.ua}</td>
                                 <td>{option._id}</td>
                             </tr>
                         ))}
