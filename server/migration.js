@@ -1,3 +1,3 @@
-const migrateData = require('./migrations/CreationOfTranslationForPetName');
+const migrateData = require('./migrations/contactsTranslationMigration');
 
 migrateData().catch(console.error);
