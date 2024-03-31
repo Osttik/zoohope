@@ -23,6 +23,8 @@
 }
 
 .navbar {
+    flex-direction: row;
+    flex-wrap: nowrap;
     transition: all 0.2s;
     margin: 0 auto;
     padding: 0;
@@ -43,6 +45,8 @@
 
         &__dropdown-item {
             min-width: 200px;
+            font-size: 18px;
+            font-weight: 600;
             color: $navBarDropdowItemColor;
         }
     }

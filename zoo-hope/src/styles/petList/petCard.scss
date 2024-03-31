@@ -40,3 +40,35 @@
     }
   }
 }
+@media (min-width: 280px) and (max-width: 480px) {
+  .petListSection {
+    .petCard {
+      width: 230px;
+      height: 240px;
+      .name {
+        font-size: 20px;
+      }
+      .info {
+        .infoRow {
+          font-size: 14px;
+        }
+      }
+    }
+  } 
+}
+@media (min-width: 350px) and (max-width: 480px) {
+  .petListSection {
+    .petCard {
+      width: 290px;
+      height: 300px;
+      .name {
+        font-size: 25px;
+      }
+      .info {
+        .infoRow {
+          font-size: 16px;
+        }
+      }
+    }
+  } 
+}

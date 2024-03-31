@@ -81,30 +81,32 @@ export const NavBar = () => {
     <div className="container-navbar">
       <div className="navbar">
         <img src={LogoNavBar} alt="Logo" className="navbar__logo" />
-        {elements.map((e, key) =>
-          e.hasOwnProperty("Ielements") ? (
-            <NavDropdown
-              title={t(e.i18Key)}
-              className="navbar__group__dropdown navbar__text"
-              key={key}
-            >
-              {e.Ielements &&
-                e.Ielements.map((e, keyInner) => (
-                  <NavDropdown.Item
-                    href={e.url}
-                    className="navbar__group__dropdown-item navbar__text"
-                    key={keyInner}
-                  >
-                    {e.name}
-                  </NavDropdown.Item>
-                ))}
-            </NavDropdown>
-          ) : (
-            <Nav.Link href={e.url} key={key} className="navbar__group__link navbar__text">
-              {t(e.i18Key)}
-            </Nav.Link>
-          )
-        )}
+        <div className="navbar__group">
+          {elements.map((e, key) =>
+            e.hasOwnProperty("Ielements") ? (
+              <NavDropdown
+                title={t(e.i18Key)}
+                className="navbar__group__dropdown navbar__text"
+                key={key}
+              >
+                {e.Ielements &&
+                  e.Ielements.map((e, keyInner) => (
+                    <NavDropdown.Item
+                      href={e.url}
+                      className="navbar__group__dropdown-item"
+                      key={keyInner}
+                    >
+                      {e.name}
+                    </NavDropdown.Item>
+                  ))}
+              </NavDropdown>
+            ) : (
+              <Nav.Link href={e.url} key={key} className="navbar__group__link navbar__text">
+                {t(e.i18Key)}
+              </Nav.Link>
+            )
+          )}
+        </div>
         <div className="navbar__additional-buttons">
           <Translation lang={lang} />
 
