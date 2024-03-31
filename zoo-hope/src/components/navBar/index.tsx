@@ -31,7 +31,7 @@ export const NavBar = () => {
                   e.Ielements.map((e, keyInner) => (
                     <NavDropdown.Item
                       href={e.url}
-                      className="navbar__group__dropdown-item navbar__text"
+                      className="navbar__group__dropdown-item"
                       key={keyInner}
                     >
                       {e.name}

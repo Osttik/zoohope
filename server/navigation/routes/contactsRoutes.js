@@ -4,10 +4,18 @@ const ContactsModel = require('../../models/Contacts');
 module.exports.addContacts = async (req, res) => {
     try {
         const newContact = new ContactsModel(req.body);
-        const savedContact = await newContact.save();
-
-        res.status(201).json(savedContact);
-    } catch (error) {
+        let err = newContact.validateSync()
+        if (err) {
+            res.status(400).json({message: err.message})
+        } else {
+            try {
+                const savedContact = await newContact.save();
+                res.status(201).json(savedContact);
+            } catch (err) {
+                res.status(500).json({message: err.message})
+            }
+        }
+    } catch (err) {
         res.status(500).json({ message: error.message });
     }
 };
@@ -29,9 +37,16 @@ module.exports.updateContact = async (req, res) => {
         const { id } = req.params;
 
         const updatedContact = await ContactsModel.findByIdAndUpdate(id, req.body, { new: true });
-
-        res.json(updatedContact);
-    } catch (error) {
+        if (!updatedContact) {
+            return res.status(404).json({ message: 'No contact in database' });
+        }
+        let err = updatedContact.validateSync()
+        if (err) {
+            res.status(400).json({message: err.message})
+        } else {
+            res.json(updatedContact)
+        }
+    } catch (err) {
         res.status(500).json({ message: error.message });
     }
 };
