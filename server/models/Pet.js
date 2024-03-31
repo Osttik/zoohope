@@ -2,26 +2,24 @@ const mongoose = require("mongoose");
 
 const PetSchema = new mongoose.Schema({
   name: {
-    ua: String,
-    en: String
+    en: String,
+    ua: String
   },
   type: String,
   image: String,
   sex: String,
-  age: String,
+  age: Number,
   size: String,
   breed: String,
   color: String,
   personality: {
-    ua: String,
     en: String,
+    ua: String
   },
   story: {
-    ua: String,
     en: String,
+    ua: String
   },
-  sterilization: Boolean,
-  treatment: Boolean,
 });
 
 const PetModel = mongoose.model("pets", PetSchema);

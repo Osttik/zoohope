@@ -1,21 +1,24 @@
 @import '../defines.scss';
 
 .App {
-  overflow-x: hidden
+  overflow-x: hidden;
 }
+
 
 .mainPetBlock {
   ::selection {
-    color: $primaryDarkColor;
+    color: $defaultBackColor;
     background-color: $defaultMainColor;
   }
 
+  margin-top: 67px;
   border: 1px dotted $defaultMainColor;
   min-height: 100vh;
   max-height: auto;
   width: 100vw;
-  background-image: url(../../images/background/back.png);
+  background-image: url(../../images/background/back2.png);
   background-position: center;
+  background-size: 100%;
 
 
 
@@ -23,7 +26,7 @@
 
 .begPetBlock {
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 67px);
   display: grid;
   grid-template-rows: 10% 90%;
   position: relative;
@@ -42,13 +45,13 @@
 }
 
 .cornerButton {
-  font-size: 70%;
+  font-size: 1vw;
   color: $defaultExtraColor;
   margin: 3%;
   width: 60%;
   height: 85%;
   min-width: 140px;
-  background: $primaryDarkColor;
+  background: $defaultBackColor;
   border: 1px solid $defaultMainColor;
   border-radius: 1.7rem;
   transition: all 0.5s;
@@ -91,7 +94,7 @@
   justify-self: center;
   align-self: flex-end;
   align-items: center;
-  color: $defaultExtraColorLight;
+  color: $defaultExtraLessLight;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: 40px;
 
@@ -176,14 +179,15 @@
 
 
 .petPic {
-
+  width: auto;
+  height: auto;
   border-radius: 13%;
   justify-self: center;
   align-self: center;
-  max-width: 80%;
+  max-width: 97%;
   max-height: 90%;
   background-color: $defaultExtraColor2;
-  box-shadow: 0 0 0 2px rgba(218, 102, 123, 1), 8px 8px 0 0 $defaultExtraColor2;
+  box-shadow: 0 0 0, 8px 8px 0 0 $defaultExtraColor2;
 
 }
 
@@ -227,13 +231,13 @@
   align-self: center;
   font-size: 2vw;
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1.3fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1.3fr;
   overflow: auto;
   padding-bottom: 1%;
 }
 
 .descBlock p {
-  background-color: $primaryDarkColor;
+  background-color: $defaultBackColor;
   // box-shadow: rgba(208, 255, 0, 0.021) 0px 54px 55px, rgba(255, 251, 0, 0.021) 0px -12px 30px, rgba(255, 187, 0, 0.021) 0px 4px 6px, rgba(251, 255, 0, 0.021) 0px 12px 13px, rgba(255, 251, 0, 0.027) 0px -3px 5px;
 }
 
@@ -242,8 +246,8 @@
   text-align: center;
   justify-self: left;
   align-self: center;
-  width: 60%;
-  height: 87%;
+  width: 70%;
+  height: 83%;
   border: none;
   outline: none;
   color: #fff;
@@ -499,19 +503,19 @@
   color: white;
 }
 
-.stMidBlock {
-  background-image: url('../../images/background/poster3.jpg');
-  background-position: center;
-  background-size: contain;
-  box-shadow: $defaultBoxShadow;
-}
+// .stMidBlock {
+//   background-image: url('../../images/background/poster3.jpg');
+//   background-position: center;
+//   background-size: contain;
+//   box-shadow: $defaultBoxShadow;
+// }
 
-.rdMidBlock {
-  background-image: url('../../images/background/poster2.jpg');
-  background-position: center;
-  background-size: contain;
-  box-shadow: $defaultBoxShadow;
-}
+// .rdMidBlock {
+//   background-image: url('../../images/background/poster2.jpg');
+//   background-position: center;
+//   background-size: contain;
+//   box-shadow: $defaultBoxShadow;
+// }
 
 .endPetBlock {
   width: 100vw;
@@ -631,7 +635,7 @@
   width: 60px;
   height: 60px;
   border-radius: 100%;
-  background-color: $primaryDarkColor;
+  background-color: $defaultBackColor;
   background-image: url(../../images/logo/black-logo.jpg);
   background-size: cover;
   background-position: center;
@@ -670,4 +674,127 @@
   font-size: 2vw;
   overflow: auto;
 
+}
+
+@media only screen and (min-width: 1400px) {
+  .nameDiv {
+    font-size: 2.4vw;
+  }
+
+  .petPic {
+    height: 80%;
+    object-fit: cover;
+  }
+
+  .likePet::before {
+    border-radius: 2em;
+  }
+
+  .likePet::after {
+    border-radius: 2em;
+  }
+
+  .likePet {
+    border-radius: 2em;
+  }
+
+  .cornerButton {
+    border-radius: 2em;
+  }
+
+  .descBlock p {
+    font-size: 1.6vw;
+  }
+
+  .descBlock button {
+    font-size: 1.9vw;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .cornerButton {
+    font-size: 1.4vw;
+  }
+
+  .descBlock {
+    font-size: 2.5vw;
+  }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+  .cornerButton {
+    font-size: 1.8vw;
+  }
+
+  .secondBegBlock {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .nameDiv {
+    align-self: flex-start;
+  }
+
+  .descBlock {
+    grid-row: 2;
+    grid-column: 1 / 6;
+    justify-self: center;
+    align-self: center;
+    width: 50%;
+    height: 100%;
+    text-align: center;
+    font-size: 3vw;
+  }
+
+  .firstAr {
+    width: 100%;
+    height: 100%;
+    background-position: right bottom;
+    background-size: 30%;
+    border-radius: 0;
+    margin-left: 18%;
+
+  }
+
+  .firstAr:hover {
+    background-position: left bottom;
+    background-size: 35%;
+  }
+
+  .scndAr {
+    width: 100%;
+    height: 100%;
+    background-position: left bottom;
+    background-size: 30%;
+    border-radius: 0;
+    margin-right: 18%;
+  }
+
+  .scndAr:hover {
+    background-position: right bottom;
+    background-size: 35%;
+  }
+
+  .scndAr:active {
+    background-image: url(../../images/workImg/paw_y.png);
+    transform: none;
+  }
+
+  .firstAr:active {
+    background-image: url(../../images/workImg/paw_y.png);
+    transform: none;
+  }
+
+  .likePet {
+    margin-left: 0;
+    justify-self: center;
+  }
+
+  .arDown span {
+    background-color: transparent;
+    border: none;
+  }
 }
