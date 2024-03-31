@@ -7,6 +7,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { PetList } from './components/pet-list/petList';
 import routes from './data/router';
 import Overlay from './components/overlay/Overlay';
+import { AdminPage } from './components/admin-page';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -16,9 +17,12 @@ const router = createBrowserRouter(routes);
 
 root.render(
   <React.StrictMode>
+    {true ? 
     <Overlay>
       <RouterProvider router={router} />
-    </Overlay>
+    </Overlay> :
+    <AdminPage />
+    }
   </React.StrictMode>
 );
 

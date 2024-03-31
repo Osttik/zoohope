@@ -1,18 +1,80 @@
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "../../styles/index.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LogoNavBar from "../../images/logo/logo.png"
 import { elements } from "../../data/nav";
 import { useTranslation } from "react-i18next";
 import "../../i18n/i18n"
+import { BurgerMenu } from "./burger/burger";
+import { Translation } from "./translation/translation";
+
+interface Istates {
+  [key: string]: boolean
+}
+
 
 export const NavBar = () => {
   const { t, i18n } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState<"UA" | "EN">("UA")
 
-  const changeLanguage = (lang:string) => {
+  const [states, setStates] = useState<Istates>({ burger: false, })
+
+  const changeLanguage = (lang: string) => {
     i18n.changeLanguage(lang)
+  }
+
+  const lang = {
+    setSelectedLanguage: setSelectedLanguage,
+    selectedLanguage: selectedLanguage,
+    changeLanguage: changeLanguage
+  }
+
+  useEffect(() => {
+    let arr: Istates = {}
+
+    arr.burger = false
+    elements.forEach((e) => {
+      arr[e.i18Key] = false
+    })
+
+    setStates(arr)
+  }, [])
+
+
+  // Toggles state. In case of menu closing, closes every children dropdown
+  const handleDropdownOpen = (name: any) => {
+    if (name === "burger") {
+      if (states.burger) {
+        let arr: Istates = {}
+        Object.keys(states).forEach(e => {
+          if (e !== "burger") {
+            arr[e] = false
+            console.log(arr)
+          }
+          console.log("burgur")
+        });
+        setStates(arr)
+      } else {
+        setStates({ ...states, [name]: !states[name] })
+      }
+    } else {
+      setStates({ ...states, [name]: !states[name] })
+    }
+  }
+
+
+  // Closes burger menu if user clicked out of menu
+  window.onclick = (e) => {
+    const tgt = e.target as HTMLElement
+    if (!tgt.closest(".allOptions") && !tgt.closest(".container-navbar") || tgt.closest(".navbar__logo")) {
+      setStates({ ...states, "burger": false })
+    }
+  }
+
+  //Clocec burger menu if user scrolled
+  window.onscroll = () => {
+    setStates({ ...states, "burger": false })
   }
 
   return (
@@ -31,7 +93,7 @@ export const NavBar = () => {
                   e.Ielements.map((e, keyInner) => (
                     <NavDropdown.Item
                       href={e.url}
-                      className="navbar__group__dropdown-item navbar__text"
+                      className="navbar__group__dropdown-item"
                       key={keyInner}
                     >
                       {e.name}
@@ -45,29 +107,10 @@ export const NavBar = () => {
             )
           )}
         </div>
-        <div className="navbar__button-group">
-          <button
-            className={`navbar__button-group__UA ${
-              selectedLanguage === "UA" ? "navbar__button-group__clicked" : ""
-            }`}
-            onClick={() => {
-              setSelectedLanguage("UA");
-              changeLanguage("ua");
-            }}
-          >
-            UA
-          </button>
-          <button
-            className={`navbar__button-group__EN ${
-              selectedLanguage === "EN" ? "navbar__button-group__clicked" : ""
-            }`}
-            onClick={() => {
-              setSelectedLanguage("EN")
-              changeLanguage("en");
-            }}
-          >
-            EN
-          </button>
+        <div className="navbar__additional-buttons">
+          <Translation lang={lang} />
+
+          <BurgerMenu elements={elements} states={states} handleOpen={handleDropdownOpen} lang={lang} />
         </div>
       </div>
     </div>

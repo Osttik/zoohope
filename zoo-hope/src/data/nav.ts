@@ -9,7 +9,7 @@ const elements = [
   {
     name: "Шукають дім",
     i18Key: "looking-for-home",
-    Ielements: [{ name: "DropDownLink1", url: "/petList" }],
+    Ielements: [{ name: "Pet List", url: "/petList" }],
   },
   {
     name: "Лікування",
@@ -22,4 +22,4 @@ const elements = [
     Ielements: [{ name: "DropDownLink1", url: "/" }],
   },
 ];
-export {elements}
+export { elements }

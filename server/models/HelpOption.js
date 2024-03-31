@@ -1,8 +1,14 @@
 const mongoose = require('mongoose');
 
 const HelpOptionsSchema = new mongoose.Schema({
-    name: String,
-    description: String
+    name: {
+        en: String,
+        ua: String
+    },
+    description: {
+        en: String,
+        ua: String
+    }
 });
 
 const HelpOptionsModel = mongoose.model('help-options', HelpOptionsSchema);
