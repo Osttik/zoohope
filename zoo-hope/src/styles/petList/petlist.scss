@@ -1,0 +1,219 @@
+@import "../defines.scss";
+
+.petListSection {
+  min-height: 100vh;
+  background-color: #231f20;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  // Hero
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 528px;
+    display: flex;
+    justify-content: center;
+
+    .text {
+      width: 1120px;
+      margin-top: 64px;
+
+      h1 {
+        position: relative;
+        color: #fff;
+        z-index: 1;
+      }
+
+      h2 {
+        font-size: 24px;
+        width: 745px;
+        margin-top: 40px;
+        line-height: 40px;
+        color: $primaryColor;
+        position: relative;
+        z-index: 1;
+      }
+    }
+
+    .heroImg {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 528px;
+      object-fit: cover;
+      filter: brightness(50%);
+    }
+  }
+
+  // Pet List
+  .petList {
+    width: 1120px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 54px;
+
+    .notFound {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      height: 480px;
+      margin: 0 auto;
+
+      .notFoundTitle {
+        font-weight: 500;
+        font-size: 36px;
+      }
+
+      .notFoundDescription {
+        font-size: 24px;
+        font-weight: 500;
+        color: $darkerTextColor;
+      }
+    }
+  }
+
+  // Pagination
+  .paginationNav {
+    text-align: center;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    font-size: 24px;
+    gap: 10px;
+    margin: 64px 0;
+
+    button {
+      color: #fff;
+      background-color: #ffffff00;
+      border: 0;
+    }
+
+    .arrow {
+      text-align: center;
+      color: $primaryColor;
+      font-weight: bolder;
+    }
+
+    .selected {
+      color: $primaryColor;
+      font-weight: bold;
+    }
+
+    .disabled {
+      color: $darkerTextColor;
+    }
+  }
+}
+@media (min-width: 280px) and (max-width: 350px) {
+  .petListSection{
+    .hero{
+      height: 250px;
+      .text {
+        width: 240px;
+        h1{
+          text-align: center;
+        }
+        h2 {
+          width: 240px;
+          text-align: center;
+          font-size: 16px;
+          line-height: 20px;
+        }
+      }
+    }
+    .petList {
+      width: 240px;
+      justify-content: center;
+      .notFound {
+        height: 280px;
+        .notFoundTitle {
+          font-size: 28px;
+        }
+        .notFoundDescription {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
+@media (min-width: 350px) and (max-width: 480px) {
+  .petListSection{
+    .hero{
+      height: 250px;
+      .text {
+        width: 320px;
+        h1{
+          text-align: center;
+        }
+        h2 {
+          width: 320px;
+          text-align: center;
+          font-size: 19px;
+          line-height: 30px;
+        }
+      }
+    }
+    .petList {
+      width: 320px;
+      justify-content: center;
+      .notFound {
+        height: 200px;
+        .notFoundTitle {
+          font-size: 28px;
+        }
+        .notFoundDescription {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
+@media (min-width: 480px) and (max-width: 780px) {
+  .petListSection{
+    .hero{
+      height: 350px;
+      .text {
+        width: 450px;
+        h1{
+          text-align: center;
+        }
+        h2 {
+          width: 450px;
+          text-align: center;
+        }
+      }
+    }
+    .petList {
+      width: 400px;
+      justify-content: center;
+    }
+  }
+}
+@media (min-width: 780px) and (max-width: 1150px) {
+  .petListSection{
+    .hero{
+      height: 350px;
+      .text {
+        width: 700px;
+        h1{ 
+          text-align: center;
+        }
+        h2 {
+          width: 700px;
+          text-align: center;
+        }
+      }
+    }
+    .petList {
+      width: 760px;
+      justify-content: center;
+    }
+  }
+}

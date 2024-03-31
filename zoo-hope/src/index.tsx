@@ -3,13 +3,22 @@ import ReactDOM from 'react-dom/client';
 import './styles/index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { PetList } from './components/pet-list/petList';
+import routes from './data/router';
+import Overlay from './components/overlay/Overlay';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const router = createBrowserRouter(routes);
+
 root.render(
   <React.StrictMode>
-    <App />
+    <Overlay>
+      <RouterProvider router={router} />
+    </Overlay>
   </React.StrictMode>
 );
 

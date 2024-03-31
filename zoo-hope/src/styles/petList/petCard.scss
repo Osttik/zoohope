@@ -1,0 +1,74 @@
+@import "../defines.scss";
+
+.petListSection {
+  .petCard {
+    position: relative;
+    width: 330px;
+    height: 370px;
+    color: #fff;
+    border-radius: 10px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+
+    .name {
+      font-size: 36px;
+      font-weight: 700;
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      box-sizing: border-box;
+      padding: 5px 10px;
+      bottom: 0;
+      width: 100%;
+      height: 33%;
+      background-color: rgba(46, 40, 40, 0.4);
+      border-radius: 0 0 5px 5px;
+
+      .infoRow {
+        font-size: 18px;
+        font-weight: 500;
+        color: $darkerTextColor;
+      }
+    }
+  }
+}
+@media (min-width: 280px) and (max-width: 480px) {
+  .petListSection {
+    .petCard {
+      width: 230px;
+      height: 240px;
+      .name {
+        font-size: 20px;
+      }
+      .info {
+        .infoRow {
+          font-size: 14px;
+        }
+      }
+    }
+  } 
+}
+@media (min-width: 350px) and (max-width: 480px) {
+  .petListSection {
+    .petCard {
+      width: 290px;
+      height: 300px;
+      .name {
+        font-size: 25px;
+      }
+      .info {
+        .infoRow {
+          font-size: 16px;
+        }
+      }
+    }
+  } 
+}
