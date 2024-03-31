@@ -17,7 +17,7 @@ router.put('/update-contact/:id', contactsRoutes.updateContact);
 router.delete('/delete-contact/:id', contactsRoutes.deleteContact);
 
 router.post('/add-help-option', helpOptionsRoutes.addHelpOptions);
-router.get('/  ', helpOptionsRoutes.getAllHelpOptions);
+router.get('/get-all-help-options', helpOptionsRoutes.getAllHelpOptions);
 router.put('/update-help-option/:id', helpOptionsRoutes.updateHelpOption);
 router.delete('/delete-help-option/:id', helpOptionsRoutes.deleteHelpOption);
 

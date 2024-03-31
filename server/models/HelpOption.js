@@ -5,7 +5,10 @@ const HelpOptionsSchema = new mongoose.Schema({
         en: String,
         ua: String
     },
-    description: String
+    description: {
+        en: String,
+        ua: String
+    }
 });
 
 const HelpOptionsModel = mongoose.model('help-options', HelpOptionsSchema);
