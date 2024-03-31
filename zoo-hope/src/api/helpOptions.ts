@@ -1,7 +1,7 @@
 import { requestURL } from "./api";
+import axios from "axios";
 
 export const apiGetAllHelpOptions = async () => {
-  const res = await fetch(`${requestURL}/get-all-help-options`);
-  const json = await res.json();
-  return (json);
+  const res = await axios(`${requestURL}/get-all-help-options`);
+  return res.data
 }
