@@ -8,6 +8,19 @@ import { PetList } from './components/pet-list/petList';
 import routes from './data/router';
 import Overlay from './components/overlay/Overlay';
 
+// import { AdminPage } from './components/admin-page';
+// const router = createBrowserRouter([
+//   {
+//     path: '/',
+//     element: <AdminPage />,
+//   },
+// ]);
+
+// const root = ReactDOM.createRoot(
+//   document.getElementById('root') as HTMLElement,
+// );
+// root.render(<RouterProvider router={router} />);
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
