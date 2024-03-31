@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { IPet } from "../../../define";
 
 interface IPetTableProps {
     url: string;
@@ -8,30 +9,9 @@ interface IPetTableProps {
     handleRowClick: (index: number) => void;
 }
 
-interface IPetTable {
-    name: {
-        ua: string;
-        en: string;
-    };
-    type: string;
-    sex: string;
-    age: string;
-    breed: string;
-    size: string;
-    color: string;
-    personality: {
-        ua: string;
-        en: string;
-    };
-    story: string;
-    image: string;
-    sterilization: boolean;
-    treatment: boolean;
-    _id: string;
-}
 
 export const PetTable = ({ url, activeButton, selectedRowIndex, handleRowClick }: any) => {
-    const [pets, setPets] = useState<IPetTable[]>([]);
+    const [pets, setPets] = useState<IPet[]>([]);
 
     const getAllPets = async () => {
         try {
@@ -119,7 +99,7 @@ export const PetTable = ({ url, activeButton, selectedRowIndex, handleRowClick }
                         </tr>
                     </thead>
                     <tbody>
-                        {pets.map((pet: IPetTable, index: number) => (
+                        {pets.map((pet: IPet, index: number) => (
                             <tr key={index} className={`pet-table__row ${selectedRowIndex === index ? 'focus' : ''}`} onClick={() => handleRowClick(index)}>
                                 <td>{index + 1}</td>
                                 <td>{pet.name && pet.name.ua}</td>

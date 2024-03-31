@@ -2,9 +2,9 @@ import { useTranslation } from "react-i18next";
 import "../../i18n/i18n";
 
 export function OtherPets(){
-    const { t, i18n } = useTranslation();
-    return(
-    <>
+    const { t } = useTranslation();
+
+    return (
        <div className="extraPetsBlock">
                 <div className="extraPets">
                     <div className="petsTopCircle"></div>
@@ -22,18 +22,7 @@ export function OtherPets(){
                         <div className="extraPets1Pic"></div>
                         <div className="extraPets1desc">ffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
                     </div>
-
                 </div>
-
             </div>
-    
-
-       
-       
-       
-       
-    </>
-    )
-    
-    
-    }
+    );
+}

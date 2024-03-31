@@ -1,28 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles/index.scss';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { PetList } from './components/pet-list/petList';
-import routes from './data/router';
-import Overlay from './components/overlay/Overlay';
+import { BrowserRouter } from 'react-router-dom';
 import { AdminPage } from './components/admin-page';
+import App from './App';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-const router = createBrowserRouter(routes);
-
 root.render(
   <React.StrictMode>
-    {true ? 
-    <Overlay>
-      <RouterProvider router={router} />
-    </Overlay> :
-    <AdminPage />
-    }
+    <BrowserRouter>
+      {true ? 
+        <App /> :
+        <AdminPage />
+      }
+    </BrowserRouter>
   </React.StrictMode>
 );
 

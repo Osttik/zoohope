@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { NavBar } from "./components/navBar";
-import { Footer } from "./components/footer";
-import Donate from "./components/donate";
-import { Pet } from './components/PetPage/Pet';
+import { Route, Routes } from 'react-router-dom';
+import routes from "./data/router";
+import Overlay from "./components/overlay/Overlay";
 
 function App() {
   return (
     <div className="App">
-      <Donate />
-      {/* <Pet /> */}
-      {/* <Donate /> */}
-      {/* <Pet /> */}
-
-      
+      <Overlay>
+        <Routes>
+          {routes.map((r, i) => (
+            <Route 
+              path={r.path} 
+              element={r.element} 
+              key={i} 
+            />
+          ))}
+        </Routes>
+      </Overlay>
     </div>
   );
 }

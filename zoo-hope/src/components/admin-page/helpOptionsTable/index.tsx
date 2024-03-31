@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { IHelpOption } from "../../../define";
 
 interface IHelpOptionsTableProps {
     url: string;
@@ -8,20 +9,8 @@ interface IHelpOptionsTableProps {
     handleRowClick: (index: number) => void;
 }
 
-interface IHelpOptionsTable {
-    name: {
-        ua: string;
-        en: string;
-    };
-    description: {
-        ua: string;
-        en: string;
-    };
-    _id: string;
-}
-
 export const HelpOptionsTable = ({ url, activeButton, selectedRowIndex, handleRowClick  }: IHelpOptionsTableProps) => {
-    const [helpOptions, setHelpOptions] = useState<IHelpOptionsTable[]>([]);
+    const [helpOptions, setHelpOptions] = useState<IHelpOption[]>([]);
 
     useEffect(() => {
         const getAllHelpOptions = async () => {
@@ -51,7 +40,7 @@ export const HelpOptionsTable = ({ url, activeButton, selectedRowIndex, handleRo
                         </tr>
                     </thead>
                     <tbody>
-                        {helpOptions.map((option: IHelpOptionsTable, index: number) => (
+                        {helpOptions.map((option: IHelpOption, index: number) => (
                             <tr key={option._id} className={`pet-table__row ${selectedRowIndex === index ? 'focus' : ''}`} onClick={() => handleRowClick(index)}>
                                 <td>{index + 1}</td>
                                 <td>{option.name && option.name.ua}</td>

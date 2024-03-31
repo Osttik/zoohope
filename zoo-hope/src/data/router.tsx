@@ -1,13 +1,13 @@
 import { Navigate, RouteObject } from "react-router";
-import App from "../App";
 import { PetList } from "../components/pet-list/petList";
 import Pet from "../components/PetPage/Pet";
+import Home from "../components/home";
 
 
 const routes: RouteObject[] = [
   {
     path: "/",
-    element: <App />,
+    element: <Home />,
   },
   {
     path: "/petList",

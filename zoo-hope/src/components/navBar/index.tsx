@@ -1,4 +1,3 @@
-import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "../../styles/index.scss";
 import { useEffect, useState } from "react";
@@ -8,11 +7,11 @@ import { useTranslation } from "react-i18next";
 import "../../i18n/i18n"
 import { BurgerMenu } from "./burger/burger";
 import { Translation } from "./translation/translation";
+import { Link, NavLink } from "react-router-dom";
 
 interface Istates {
   [key: string]: boolean
 }
-
 
 export const NavBar = () => {
   const { t, i18n } = useTranslation();
@@ -63,7 +62,6 @@ export const NavBar = () => {
     }
   }
 
-
   // Closes burger menu if user clicked out of menu
   window.onclick = (e) => {
     const tgt = e.target as HTMLElement
@@ -92,7 +90,8 @@ export const NavBar = () => {
                 {e.Ielements &&
                   e.Ielements.map((e, keyInner) => (
                     <NavDropdown.Item
-                      href={e.url}
+                      as={Link}
+                      to={e.url!}
                       className="navbar__group__dropdown-item"
                       key={keyInner}
                     >
@@ -101,9 +100,9 @@ export const NavBar = () => {
                   ))}
               </NavDropdown>
             ) : (
-              <Nav.Link href={e.url} key={key} className="navbar__group__link navbar__text">
+              <NavLink to={e.url!} key={key} className="navbar__group__link navbar__text">
                 {t(e.i18Key)}
-              </Nav.Link>
+              </NavLink>
             )
           )}
         </div>

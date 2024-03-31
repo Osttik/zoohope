@@ -9,15 +9,7 @@ import { pageSize, options } from "../../data/petList";
 import { apiGetAllPets } from '../../api/pets';
 import { useTranslation } from "react-i18next";
 import "../../i18n/i18n";
-
-interface IPets {
-  image: string,
-  name: string,
-  age: string,
-  sex: string
-  type: string,
-  _id: string,
-}
+import { IPet } from "../../define";
 
 interface Ifilters {
   type: string;
@@ -28,10 +20,10 @@ interface Ifilters {
 }
 
 export const PetList = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [totalLength, setTotalLength] = useState<number>() // Total length of array of all pets
   const [pageCount, setPageCount] = useState<number>() // Number of pages
-  const [getPets, setPets] = useState<IPets[]>() // Array of pets
+  const [getPets, setPets] = useState<IPet[]>() // Array of pets
   const [areFiltersOpen, setFiltersStatus] = useState<boolean>(false) // Filter dropdown status
   const [searchParams, setsearchParams] = useSearchParams() // Search params (should contain all variables from Ifilters)
   const [filters, setFilters] = useState<Ifilters>({
@@ -58,16 +50,16 @@ export const PetList = () => {
       let endIndex = startIndex + pageSize;
 
       if (searchParams.get("type")) {
-        allPets = allPets.filter((el: IPets) => el.type.toLowerCase() === searchParams.get("type"));
+        allPets = allPets.filter((el) => el.type.toLowerCase() === searchParams.get("type"));
       }
       if (searchParams.get("sex")) {
-        allPets = allPets.filter((el: IPets) => el.sex.toLowerCase() === searchParams.get("sex"));
+        allPets = allPets.filter((el) => el.sex.toLowerCase() === searchParams.get("sex"));
       }
       if (searchParams.get("maxAge")) {
-        allPets = allPets.filter((el: IPets) => Number(el.age) <= Number(searchParams.get("maxAge")));
+        allPets = allPets.filter((el) => Number(el.age) <= Number(searchParams.get("maxAge")));
       }
       if (searchParams.get("minAge")) {
-        allPets = allPets.filter((el: IPets) => Number(el.age) >= Number(searchParams.get("minAge")));
+        allPets = allPets.filter((el) => Number(el.age) >= Number(searchParams.get("minAge")));
       }
 
       let pageApplied = allPets.reverse().slice(startIndex, endIndex);

@@ -12,6 +12,8 @@ const PetSchema = new mongoose.Schema({
   size: String,
   breed: String,
   color: String,
+  sterilization: Boolean,
+  treatment: Boolean,
   personality: {
     en: String,
     ua: String

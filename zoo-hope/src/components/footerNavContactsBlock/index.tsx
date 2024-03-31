@@ -1,11 +1,12 @@
-import NavLink from "react-bootstrap/esm/NavLink";
 import { FooterSocialMedia } from "../footerSocialMedia";
 import { FooterNavBlockText } from "../footerNavBlockText";
 import sendIcon from "../../images/icons/send.svg";
 import { useTranslation } from "react-i18next";
 import "../../i18n/i18n";
+
 export const FooterNavContactsBlock = ({ props }: any) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+
   return (
     <div className="footer__nav-block footer-nav-block footer-nav-block_contacts">
       <h5 className="footer-nav-block__title">{t(props.i18Key)}</h5>

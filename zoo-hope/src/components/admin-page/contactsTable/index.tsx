@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { IContact } from "../../../define";
 
 interface IContactsTableProps {
     url: string;
@@ -8,18 +9,9 @@ interface IContactsTableProps {
     handleRowClick: (index: number) => void;
 }
 
-interface IContactsTable {
-    name: {
-        ua: string;
-        en: string
-    };
-    url: string;
-    icon: string;
-    _id: string;
-}
 
 export const ContactsTable = ({ url, activeButton, selectedRowIndex, handleRowClick  }: IContactsTableProps) => {
-    const [contacts, setContacts] = useState<IContactsTable[]>([]);
+    const [contacts, setContacts] = useState<IContact[]>([]);
 
     useEffect(() => {
         const getAllContacts = async () => {
@@ -50,7 +42,7 @@ export const ContactsTable = ({ url, activeButton, selectedRowIndex, handleRowCl
                         </tr>
                     </thead>
                     <tbody>
-                        {contacts.map((contact: IContactsTable, index: number) => (
+                        {contacts.map((contact: IContact, index: number) => (
                             <tr key={index} className={`pet-table__row ${selectedRowIndex === index ? 'focus' : ''}`} onClick={() => handleRowClick(index)}>
                                 <td>{index + 1}</td>
                                 <td>{contact.name && contact.name.ua}</td>
