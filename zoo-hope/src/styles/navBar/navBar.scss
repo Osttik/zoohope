@@ -25,7 +25,6 @@
 .navbar {
     flex-direction: row;
     flex-wrap: nowrap;
-    transition: all 0.2s;
     margin: 0 auto;
     padding: 0;
     display: flex;
@@ -107,6 +106,16 @@
     display: flex;
     flex-direction: row;
     gap: 20px;
+}
+
+.inBurgerMenu {
+    .navbar__button-group {
+        display: none;
+    }
+
+    .optionDropdown {
+        color: #fff;
+    }
 }
 
 .closed {
