@@ -1,23 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './styles/index.scss';
-import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
-import { AdminPage } from './components/admin-page';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./styles/index.scss";
+import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter } from "react-router-dom";
+import { AdminPage } from "./components/admin-page";
+import { LoginPage } from "./components/login-page";
+import App from "./App";
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      {true ? 
-        <App /> :
-        <AdminPage />
-      }
-    </BrowserRouter>
+    {/* <BrowserRouter>{true ? <App /> : <AdminPage />}</BrowserRouter> */}
+    <LoginPage />
   </React.StrictMode>
 );
 
