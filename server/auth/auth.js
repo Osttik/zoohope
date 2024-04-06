@@ -1,6 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+const bcrypt = require('bcrypt');
 const User = require('./user')
 const auth_router = express.Router();
 
@@ -44,7 +45,8 @@ auth_router.post('/register', async (req, res) => {
       return res.status(400).send('Вже існує');
     }
 
-    const newUser = new User({ email, password });
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({ email, password: hashedPassword });
     await newUser.save();
 
     const tokens = generate_tokens(newUser);
@@ -64,11 +66,18 @@ auth_router.post('/register', async (req, res) => {
 auth_router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await User.findOne({ email, password });
+  const user = await User.findOne({ email });
 
   if (!user) {
     return res.status(401).send('Invalid email or password');
   }
+
+
+  const passwordMatch = bcrypt.compare(password, user.password);
+  if (!passwordMatch) {
+    return res.status(401).send('Invalid email or password');
+  }
+
 
   const tokens = generate_tokens(user);
   res.json(tokens);
