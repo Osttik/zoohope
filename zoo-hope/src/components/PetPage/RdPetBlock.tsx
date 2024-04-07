@@ -9,12 +9,12 @@ export function HelpPet() {
             <div className="extraHelpBlock">
                 <div className="helpTextBlock">{t('how_to_help+')}</div>
                 <button className="extraHelpBut">1</button>
-                <button style={{ gridRow: '3', gridColumn: '1' }} className="extraHelpBut">2</button>
+                <button className="extraHelpBut">2</button>
                 <div className="logExtraHelp"></div>
-                <button style={{ justifySelf: 'left', gridRow: '2', gridColumn: '3' }} className="extraHelpBut">3</button>
-                <button style={{ justifySelf: 'left', gridRow: '3', gridColumn: '3' }} className="extraHelpBut">4</button>
+                <button className="extraHelpBut">3</button>
+                <button className="extraHelpBut">4</button>
             </div>
-            <div className="arDown"> <span style={{ borderBottom: '5px solid #39b8ff', borderRight: '5px solid #39b8ff' }}></span><span style={{ borderBottom: '5px solid #39b8ff', borderRight: '5px solid #39b8ff' }}></span><span style={{ borderBottom: '5px solid #39b8ff', borderRight: '5px solid #39b8ff' }}></span></div>
+            <div className="arDown"> <span></span><span></span><span></span></div>
         </div>
     );
 }

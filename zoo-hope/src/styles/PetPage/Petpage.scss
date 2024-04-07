@@ -88,6 +88,23 @@
 
 }
 
+.extraHelpBlock> :nth-child(3) {
+  grid-row: 3;
+  grid-column: 1;
+}
+
+.extraHelpBlock> :nth-child(5) {
+  justify-self: left;
+  grid-row: 2;
+  grid-column: 3;
+}
+
+.extraHelpBlock> :nth-child(6) {
+  justify-self: left;
+  grid-row: 3;
+  grid-column: 3;
+}
+
 .textHist h1 {
   font-size: '2rem';
 }
