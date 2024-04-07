@@ -24,14 +24,8 @@ export interface IPet extends IIdentity {
 }
 
 export interface IHelpOption extends IIdentity {
-    name: {
-        ua: string & { __html: TrustedHTML },
-        en: string & { __html: TrustedHTML }
-    },
-    description: {
-        ua: string & { __html: TrustedHTML },
-        en: string & { __html: TrustedHTML }
-    }
+    name: ITranslateble,
+    description: ITranslateble
 }
 
 export interface IContact extends IIdentity {
