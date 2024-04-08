@@ -4,13 +4,16 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const router = require("./navigation/main");
 const swagger = require('./swagger');
+const auth_router = require('./auth/auth');
 
 const app = express();
 const port = process.env.PORT || 5000;
 const databaseUrl = process.env.DATABASE_URL;
 
+
 app.use(express.json());
 app.use(cors());
+app.use(auth_router);
 app.use(router);
 swagger(app, router);
 
@@ -18,6 +21,7 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ message: err.message });
 });
+
 
 mongoose
 .connect(databaseUrl)
