@@ -23,7 +23,7 @@ export const PetCard = (props: cardProps) => {
     <a href={`animal/${props.animalInfo._id}`} className="petCard">
         <img src={props.animalInfo.image} alt="ImageOfAnimal"></img>
         <div className="info">
-          <span className="name">{Translate(props.animalInfo.name)}</span>
+          <span className="name"><Translate obj={(props.animalInfo.name)}/></span>
           <span className="infoRow">{t('age')}: {ageWithLabel()}</span>
           <span className="infoRow">{t('sex')}: {props.animalInfo.sex === "female" ? t('female') : t('male')}</span>
         </div>
