@@ -413,8 +413,8 @@
 
 .additionalPetsBlock {
   margin: auto;
-  width: 90vw;
-  height: 100vh;
+  width: 80vw;
+  min-height: 50vh !important;
   display: flex;
   justify-content: space-around;
   flex-direction: row !important;

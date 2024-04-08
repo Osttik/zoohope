@@ -6,11 +6,11 @@ import axios from "axios";
 import { Translate } from "../translation";
 import { IPet } from "../../define";
 import { PetCard } from "../pet-list/petCard/petCard";
-// import "../../styles/petList/petCard.scss"
 
 export function OtherPets() {
   const { t } = useTranslation();
   const [otherPets, setOtherPets] = useState<IPet[]>([])
+  const [pets, setPets] = useState<IPet[]>([])
   useEffect(() => {
     const getData = async() => {
         const res = await axios.get(`${requestURL}/get-all-pets`);
@@ -18,10 +18,12 @@ export function OtherPets() {
     }
     getData()
   }, [])
-
+  useEffect(() => {
+    setPets(otherPets.slice(0, 2))
+  }, [otherPets])
   return (    
     <div className="petListSection additionalPetsBlock">
-        {otherPets.map((el) => (
+        {pets.map((el) => (
             <PetCard animalInfo={el}/>
         ))}
     </div>
