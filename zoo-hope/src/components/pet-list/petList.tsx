@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import "../../styles/index.scss"
 import { PetCard } from "./petCard/petCard"
 import { FilterSelect } from "./filterSelect/filterSelect";
@@ -10,6 +10,7 @@ import { apiGetAllPets } from '../../api/pets';
 import { useTranslation } from "react-i18next";
 import "../../i18n/i18n";
 import { IPet } from "../../define";
+import PetContext from "../../PetsContext";
 
 interface Ifilters {
   type: string;
@@ -20,6 +21,7 @@ interface Ifilters {
 }
 
 export const PetList = () => {
+  const pets_data: IPet[] = useContext(PetContext);
   const { t } = useTranslation();
   const [totalLength, setTotalLength] = useState<number>() // Total length of array of all pets
   const [pageCount, setPageCount] = useState<number>() // Number of pages
@@ -34,6 +36,7 @@ export const PetList = () => {
     page: ""
   }) // Filters template
 
+
   const heroImg = "https://placekitten.com/2500/1000"
 
   // Basic functions
@@ -45,7 +48,8 @@ export const PetList = () => {
 
   const getFilteredPets = async () => {
     try {
-      let allPets = await apiGetAllPets();
+      let allPets = pets_data;
+
       let startIndex = (Number(searchParams.get("page")) - 1) * pageSize;
       let endIndex = startIndex + pageSize;
 
@@ -71,10 +75,15 @@ export const PetList = () => {
       setPets([]);
       console.log("Fetch error");
     }
+
   }
   // ---
 
   // Hooks
+  // useEffect(() => {
+  //   sessionStorage.setItem('queryParams', window.location.search)
+  // }, [Object.fromEntries(searchParams.entries())])
+
   useEffect(() => {
     // Initializing page number if not provided
     if (!searchParams.get("page")) {
@@ -94,7 +103,7 @@ export const PetList = () => {
       getFilteredPets();
       setFilters(updatedFilters);
     }
-  }, []);
+  }, [pets_data]);
 
   useEffect(() => {
     // Checking for illegal page numbers
@@ -112,7 +121,7 @@ export const PetList = () => {
 
   useEffect(() => {
     getFilteredPets();
-  }, [searchParams]);
+  }, [searchParams, pets_data]);
   // ---
 
   // Action Functions
@@ -152,7 +161,6 @@ export const PetList = () => {
   if (!getPets) {
     return <>{t('loading')}</>
   }
-
   return (
     <section className="petListSection">
       <div className="hero">
@@ -160,7 +168,7 @@ export const PetList = () => {
           <h1 className="title">{t('adopt_pet')}</h1>
           <h2 className="subtitle">{t('list_h2_title')}</h2>
         </div>
-        <img src={heroImg} alt="Hero Img" className="heroImg" />
+        {/* <img src={heroImg} alt="Hero Img" className="heroImg" /> */}
       </div>
 
       <div>
