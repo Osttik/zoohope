@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import "../../i18n/i18n"
 import { BurgerMenu } from "./burger/burger";
 import { Translation } from "./translation/translation";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 interface Istates {
   [key: string]: boolean
@@ -18,6 +18,8 @@ export const NavBar = () => {
   const [selectedLanguage, setSelectedLanguage] = useState<"UA" | "EN">("UA")
 
   const [states, setStates] = useState<Istates>({ burger: false, })
+
+  const navigate = useNavigate()
 
   const changeLanguage = (lang: string) => {
     i18n.changeLanguage(lang)
@@ -78,7 +80,7 @@ export const NavBar = () => {
   return (
     <div className="container-navbar">
       <div className="navbar">
-        <img src={LogoNavBar} alt="Logo" className="navbar__logo" />
+        <img src={LogoNavBar} alt="Logo" className="navbar__logo" onClick={() => { navigate("/") }} />
         <div className="navbar__group">
           {elements.map((e, key) =>
             e.hasOwnProperty("Ielements") ? (

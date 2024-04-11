@@ -24,8 +24,8 @@ export interface IPet extends IIdentity {
 }
 
 export interface IHelpOption extends IIdentity {
-    name: ITranslateble;
-    description: ITranslateble;
+    name: ITranslateble,
+    description: ITranslateble
 }
 
 // IContact has optional fields because there's two types of contacts: 
