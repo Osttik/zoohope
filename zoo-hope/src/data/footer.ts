@@ -4,8 +4,8 @@ const fetchContacts = async () => {
   try {
     const data = await apiGetContacts();
     return {
-      contacts: data.filter(e => e.icon && e.url && !e.value) || [],
-      socialMedias: data.filter(e => !e.icon && !e.url && e.value) || []
+      socialMedias: data.filter(e => e.icon && e.url && !e.value) || [],
+      contacts: data.filter(e => !e.icon) || []
     }
   } catch (error) {
     console.log("Contacts Fetch Error: ", error);
