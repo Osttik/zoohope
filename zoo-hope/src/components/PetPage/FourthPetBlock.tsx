@@ -24,7 +24,7 @@ export function OtherPets() {
       setRandomPets(otherPets)
     } else {
       const randomIndexes: number[] = [];
-      while (randomIndexes .length <= 3) {
+      while (randomIndexes .length < 3) {
         const randomIndex = Math.floor(Math.random() * otherPets.length);
         if (!randomIndexes.includes(randomIndex)) {
           randomIndexes.push(randomIndex);
