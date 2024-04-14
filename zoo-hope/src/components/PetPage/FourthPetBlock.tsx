@@ -23,14 +23,7 @@ export function OtherPets() {
     if (otherPets.length <= 3) {
       setRandomPets(otherPets)
     } else {
-      const randomIndexes: number[] = [];
-      while (randomIndexes .length < 3) {
-        const randomIndex = Math.floor(Math.random() * otherPets.length);
-        if (!randomIndexes.includes(randomIndex)) {
-          randomIndexes.push(randomIndex);
-        }
-      }
-      const randomPets = randomIndexes.map((index) => (otherPets[index]))
+      const randomPets = getOtherPets(otherPets);
       setRandomPets(randomPets)
     }
     // setPets(otherPets.slice(0, 2))
@@ -42,4 +35,16 @@ export function OtherPets() {
         ))}
     </div>
   )
+}
+
+function getOtherPets(otherPets: IPet[]) {
+  const randomIndexes: number[] = [];
+  while (randomIndexes.length < 3) {
+    const randomIndex = Math.floor(Math.random() * otherPets.length);
+    if (!randomIndexes.includes(randomIndex)) {
+      randomIndexes.push(randomIndex);
+    }
+  }
+  const randomPets = randomIndexes.map((index) => (otherPets[index]));
+  return randomPets;
 }
