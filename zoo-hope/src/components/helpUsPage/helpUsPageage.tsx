@@ -60,8 +60,10 @@ export const HelpUsPage = () => {
           {helpOptions.map((e, key) => {
             return (
               <div className="helpOption" key={key}>
-                <h1 dangerouslySetInnerHTML={Translate(e.name) as string & { __html: TrustedHTML }}></h1>
-                <div dangerouslySetInnerHTML={Translate(e.name) as string & { __html: TrustedHTML }}></div>
+                {/* <h1 dangerouslySetInnerHTML={Translate(e.name) as string & { __html: TrustedHTML }}></h1>
+                <div dangerouslySetInnerHTML={Translate(e.name) as string & { __html: TrustedHTML }}></div> */}
+                <h1><Translate obj={e.name}/></h1>
+                <div><Translate obj={e.name}/></div>
               </div>
             )
           })}

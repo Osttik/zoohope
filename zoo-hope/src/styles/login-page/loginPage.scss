@@ -1,0 +1,43 @@
+* {
+  background-color: #1e1e1e;
+}
+h1 {
+  color: white;
+  font-size: 48px;
+  font-family: "Open Sans", sans-serif;
+}
+.login_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+  height: 100vh;
+  &__input {
+    background-color: white;
+    font-family: "Open Sans", sans-serif;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    padding-left: 15px;
+    width: 465px;
+    height: 57px;
+  }
+  &__button {
+    font-family: "Open Sans", sans-serif;
+    font-size: 25px;
+    width: auto;
+    border: 3px solid white;
+    padding: 15px 40px 15px 40px;
+    border-radius: 10px;
+    height: auto;
+    background-color: none;
+    color: white;
+    transition: 0.5s;
+    &:hover {
+      background-color: white;
+      color: black;
+    }
+  }
+}

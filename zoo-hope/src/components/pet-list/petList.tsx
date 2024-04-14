@@ -207,7 +207,7 @@ export const PetList = () => {
           </div>
         </div>
 
-        <div className="petList">
+        <div className="petList petListSection">
           {getPets.length ?
             getPets.map(el => {
               return (
