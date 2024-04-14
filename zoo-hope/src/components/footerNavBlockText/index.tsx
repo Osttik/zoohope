@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Translate, TranslateFunc } from "../translation";
 
 export const FooterNavBlockText = ({ props }: any) => {
-  const { t } = useTranslation()
+  const { i18n } = useTranslation()
   console.log(props)
 
   return (
@@ -13,7 +13,7 @@ export const FooterNavBlockText = ({ props }: any) => {
         {
           !props.url ?
             <><Translate obj={props.name} />: {props.value}</> :
-            <><Link to={props.url}>{TranslateFunc(props.name)}</Link></>
+            <><Link to={props.url}>{TranslateFunc(props.name, i18n)}</Link></>
         }
       </p>
     </li>
