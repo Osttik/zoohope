@@ -19,25 +19,17 @@
     .text {
       width: 1120px;
       margin-top: 64px;
-      display: grid;
-      grid-template-rows: 1fr 3fr;
-
-      h1:hover {
-        transition: 1s;
-        text-decoration: $blueColor underline dotted;
-      }
 
       h1 {
-
         position: relative;
         color: #fff;
         z-index: 1;
       }
 
       h2 {
-        justify-self: center;
         font-size: 24px;
         width: 745px;
+        margin-top: 40px;
         line-height: 40px;
         color: $primaryColor;
         position: relative;
@@ -119,19 +111,15 @@
     }
   }
 }
-
 @media (min-width: 280px) and (max-width: 350px) {
-  .petListSection {
-    .hero {
+  .petListSection{
+    .hero{
       height: 250px;
-
       .text {
         width: 240px;
-
-        h1 {
+        h1{
           text-align: center;
         }
-
         h2 {
           width: 240px;
           text-align: center;
@@ -140,18 +128,15 @@
         }
       }
     }
-
     .petList {
       width: 240px;
       justify-content: center;
-
+      margin: auto;
       .notFound {
         height: 280px;
-
         .notFoundTitle {
           font-size: 28px;
         }
-
         .notFoundDescription {
           font-size: 18px;
         }
@@ -159,19 +144,15 @@
     }
   }
 }
-
 @media (min-width: 350px) and (max-width: 480px) {
-  .petListSection {
-    .hero {
+  .petListSection{
+    .hero{
       height: 250px;
-
       .text {
         width: 320px;
-
-        h1 {
+        h1{
           text-align: center;
         }
-
         h2 {
           width: 320px;
           text-align: center;
@@ -180,18 +161,14 @@
         }
       }
     }
-
     .petList {
       width: 320px;
       justify-content: center;
-
       .notFound {
         height: 200px;
-
         .notFoundTitle {
           font-size: 28px;
         }
-
         .notFoundDescription {
           font-size: 18px;
         }
@@ -199,52 +176,42 @@
     }
   }
 }
-
 @media (min-width: 480px) and (max-width: 780px) {
-  .petListSection {
-    .hero {
+  .petListSection{
+    .hero{
       height: 350px;
-
       .text {
         width: 450px;
-
-        h1 {
+        h1{
           text-align: center;
         }
-
         h2 {
           width: 450px;
           text-align: center;
         }
       }
     }
-
     .petList {
       width: 400px;
       justify-content: center;
     }
   }
 }
-
 @media (min-width: 780px) and (max-width: 1150px) {
-  .petListSection {
-    .hero {
+  .petListSection{
+    .hero{
       height: 350px;
-
       .text {
         width: 700px;
-
-        h1 {
+        h1{ 
           text-align: center;
         }
-
         h2 {
           width: 700px;
           text-align: center;
         }
       }
     }
-
     .petList {
       width: 760px;
       justify-content: center;
