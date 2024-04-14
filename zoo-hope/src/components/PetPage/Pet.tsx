@@ -1,14 +1,12 @@
-import { PetInfo } from "./FirstPetBlock"
-import { PetStory } from "./NdPetBlock"
-import { HelpPet } from "./RdPetBlock"
-import { OtherPets } from "./FourthPetBlock"
+import { PetInfo } from "./PetInfo";
+import { HelpPet } from "./RdPetBlock";
 import { useParams } from "react-router";
 import { apiGetAllPets } from "../../api/pets";
 import { useEffect, useState, useContext } from "react";
 import Loader from "./loader";
 import { IPet } from "../../define";
 import PetContext from "../../PetsContext";
-
+import { OtherPets } from "./FourthPetBlock";
 
 export default function Pet() {
     const { id } = useParams()
@@ -21,17 +19,17 @@ export default function Pet() {
         }
     }, [id, pets_data]);
 
-    return (
-        <div className="App">
-            {obj === false ? 
-                <Loader /> :
-                <div className="mainPetBlock">
-                    <PetInfo obj={obj} />
-                    <PetStory obj={obj} />
-                    <HelpPet />
-                    <OtherPets />
-                </div>
-            }
+  return (
+    <div className="App">
+      {obj === false ? (
+        <Loader />
+      ) : (
+        <div className="mainPetBlock">
+          <PetInfo obj={obj} />
+          <HelpPet />
+          <OtherPets/>
         </div>
-    );
+      )}
+    </div>
+  );
 }
