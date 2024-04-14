@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "../../i18n/i18n";
 import { useTranslation } from "react-i18next";
-import { Translate } from "../translation";
+import { Translate, TranslateFunc } from "../translation";
 
 export const FooterNavBlockText = ({ props }: any) => {
   const { t } = useTranslation()
@@ -12,8 +12,8 @@ export const FooterNavBlockText = ({ props }: any) => {
       <p className="footer-nav-block__text">
         {
           !props.url ?
-            <>{Translate(props.name)}: {props.value}</> :
-            <><Link to={props.url}>{Translate(props.name)}</Link></>
+            <><Translate obj={props.name} />: {props.value}</> :
+            <><Link to={props.url}>{TranslateFunc(props.name)}</Link></>
         }
       </p>
     </li>

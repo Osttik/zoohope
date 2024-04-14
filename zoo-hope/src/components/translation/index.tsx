@@ -6,7 +6,13 @@ interface Iprops{
 }
 
 export const Translate = (props: Iprops) => {
-    const { i18n } = useTranslation();
+    if (!props.obj) return <></>;
 
-    return <>{props.obj[i18n.language as string]}</>
+    return <>{TranslateFunc(props.obj)}</>;
+}
+
+export const TranslateFunc = (obj: ITranslateble) => {
+    const { i18n } = useTranslation();
+    
+    return obj[i18n.language as string];
 }
