@@ -6,7 +6,7 @@ import { useEffect, useState, useContext } from "react";
 import Loader from "./loader";
 import { IPet } from "../../define";
 import PetContext from "../../PetsContext";
-
+import { OtherPets } from "./FourthPetBlock";
 
 export default function Pet() {
     const { id } = useParams()
