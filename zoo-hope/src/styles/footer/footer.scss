@@ -69,6 +69,10 @@ ol {
       grid-column-end: 3;
    }
 
+   & a {
+      color: #fff;
+   }
+
    &__title {
       font-family: var(--font-family);
       font-weight: 600;
