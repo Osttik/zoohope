@@ -1,0 +1,167 @@
+@import "../defines.scss";
+
+.hero {
+  position: relative;
+  height: 824px;
+  width: 100vw;
+  margin: auto 0;
+  box-sizing: border-box;
+  padding: 83px 160px;
+  background-image: url("../../images/homePage/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  .container {
+    display: flex;
+    flex-direction: row;
+    width: 1120px;
+    height: 100%;
+
+    .text {
+      color: #fff;
+      width: 635px;
+      text-align: left;
+
+      h1 {
+        font-size: 70px;
+        margin: 30px 0 75px 0;
+      }
+
+      h2 {
+        width: 411px;
+        font-size: 20px;
+      }
+    }
+
+    .donate {
+      margin: auto 0;
+    }
+
+
+
+    .dog {
+      position: absolute;
+      bottom: 0;
+    }
+  }
+}
+
+.aboutUsSection {
+  background-color: $primaryDarkColor;
+  padding-bottom: 40px;
+
+  & * {
+    color: #fff;
+
+  }
+
+  .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 500px;
+
+    .img {
+      position: relative;
+      height: 436px;
+
+      .circle {
+        position: absolute;
+        bottom: -51px;
+        right: -51px;
+        display: block;
+        width: 210px;
+        height: 210px;
+        border-radius: 50%;
+      }
+
+      img {
+        border-radius: 50%;
+      }
+    }
+
+    .text {
+      h1 {
+        font-size: 50px;
+        font-weight: 700;
+        color: $orangeColor;
+      }
+
+      p {
+        margin-top: 30px;
+        width: 619px;
+      }
+    }
+
+    &:nth-child(even) {
+      .img {
+        order: 1;
+
+        .circle {
+          left: -51px;
+          color: aquamarine;
+        }
+      }
+
+      .text {
+        order: 0;
+        text-align: end;
+      }
+    }
+  }
+}
+
+.reportSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $primaryColor;
+  padding: 50px 0 80px 0;
+
+  .container {
+    width: 1120px;
+
+    .text {
+      h1 {
+        font-size: 50px;
+        margin-bottom: 28px;
+      }
+
+      h2 {
+        font-size: 40px;
+      }
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+    }
+
+    .report {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+
+      &>div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h1 {
+          font-size: 120px;
+        }
+
+        h2 {
+          font-size: 24px;
+        }
+
+        h1,
+        h2 {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
