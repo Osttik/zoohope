@@ -28,8 +28,12 @@ export interface IHelpOption extends IIdentity {
     description: ITranslateble
 }
 
+// IContact has optional fields because there's two types of contacts: 
+// contacts (name + value + url <- Optional. Should be used if icon is missing), for example Email <-"name": email@email.com <-"value"; 
+// social media (name + url + icon), for exampe link to facebook through fb logo
 export interface IContact extends IIdentity {
     name: ITranslateble,
-    url: string;
-    icon: string;
+    url?: string;
+    icon?: string;
+    value?: string;
 }

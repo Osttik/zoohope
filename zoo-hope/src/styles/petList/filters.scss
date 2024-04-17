@@ -126,6 +126,9 @@
           &:focus-visible {
             outline: 0;
           }
+          option{
+            color: #fff;
+          }
         }
 
         // Dropdown Rows Alternation

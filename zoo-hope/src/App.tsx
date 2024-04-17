@@ -1,8 +1,8 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes } from "react-router-dom";
 import routes from "./data/router";
 import Overlay from "./components/overlay/Overlay";
-import PetContext from './PetsContext';
-import { PetProvider } from './PetsProvider';
+import PetContext from "./PetsContext";
+import { PetProvider } from "./PetsProvider";
 
 function App() {
   return (
@@ -11,15 +11,11 @@ function App() {
         <Overlay>
           <Routes>
             {routes.map((r, i) => (
-              <Route 
-                path={r.path} 
-                element={r.element} 
-                key={i} 
-              />
+              <Route path={r.path} element={r.element} key={i} />
             ))}
           </Routes>
         </Overlay>
-      </PetProvider>  
+      </PetProvider>
     </div>
   );
 }

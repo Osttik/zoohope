@@ -5,13 +5,12 @@ import { useTranslation } from "react-i18next";
 import { apiGetAllHelpOptions } from "../../api/helpOptions";
 import { IHelpOption } from "../../define";
 import { links } from "../../data/helpUsPage";
-import { Translate } from "../translation";
-
-interface IHelpOptionsArr extends Array<IHelpOption> { }
+import { Translate, TranslateFunc } from "../translation";
+import i18n from "../../i18n/i18n";
 
 export const HelpUsPage = () => {
-  const { t, i18n } = useTranslation();
-  const [helpOptions, setHelpOptions] = useState<IHelpOptionsArr>()
+  const { t } = useTranslation();
+  const [helpOptions, setHelpOptions] = useState<IHelpOption[]>()
 
 
   // For testing
@@ -33,7 +32,8 @@ export const HelpUsPage = () => {
   //
 
   const getAllHelpOptions = async () => {
-    const res: IHelpOptionsArr = await apiGetAllHelpOptions()
+    const res: IHelpOption[] = await apiGetAllHelpOptions();
+    console.log("RES", res)
     setHelpOptions(res)
   }
 
@@ -60,8 +60,10 @@ export const HelpUsPage = () => {
           {helpOptions.map((e, key) => {
             return (
               <div className="helpOption" key={key}>
-                <h1 dangerouslySetInnerHTML={Translate(e.name) as string & { __html: TrustedHTML }}></h1>
-                <div dangerouslySetInnerHTML={Translate(e.name) as string & { __html: TrustedHTML }}></div>
+                {/* <h1 dangerouslySetInnerHTML={Translate(e.name) as string & { __html: TrustedHTML }}></h1>
+                <div dangerouslySetInnerHTML={Translate(e.name) as string & { __html: TrustedHTML }}></div> */}
+                <h1><Translate obj={e.name}/></h1>
+                <div dangerouslySetInnerHTML={{__html: TranslateFunc(e.description, i18n)}}></div>
               </div>
             )
           })}
