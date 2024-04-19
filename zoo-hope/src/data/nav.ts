@@ -23,7 +23,7 @@ const elements = [
   {
     name: "Стерилізація",
     i18Key: "sterilization",
-    Ielements: [{ name: "DropDownLink1", url: "/" }],
+    Ielements: [{ name: "DropDownLink1", url: "/helpUs" }],
   },
 ];
 export { elements }

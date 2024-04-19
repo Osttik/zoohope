@@ -8,10 +8,11 @@ import { FooterNavBlock } from "../footerNavBlock";
 import { useEffect, useState } from "react";
 
 export const Footer = () => {
-  const [elements, setelements] = useState<Array<object>>()
+  const [elements, setElements] = useState<Array<object>>()
+
 
   useEffect(() => {
-    createElements().then(el => setelements(el))
+    createElements().then(el => setElements(el))
   }, [])
 
   if (!elements) {
@@ -38,7 +39,7 @@ export const Footer = () => {
           {elements.map((e: Object, i: number) => {
             return e.hasOwnProperty("footerBottomText") && (
               <FooterBottomText key={i} props={e} />
-            ) 
+            )
           })}
           {elements.map((e: Object, i: number) => {
             return e.hasOwnProperty("footerBottomLink") && (

@@ -6,7 +6,8 @@ const ContactsSchema = new mongoose.Schema({
         ua: String
     },
     url: String,
-    icon: String
+    icon: String,
+    value: String
 });
 
 const ContactsModel = mongoose.model('contacts', ContactsSchema);
