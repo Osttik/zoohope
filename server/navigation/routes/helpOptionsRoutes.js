@@ -24,7 +24,7 @@ module.exports.addHelpOptions = async (req, res) => {
 module.exports.getAllHelpOptions = async (req, res) => {
     try {
         const helpOptions = await HelpOptionsModel.find();
-
+        
         res.json(helpOptions);
     } catch (error) {
         res.status(500).json({ message: error.message });
