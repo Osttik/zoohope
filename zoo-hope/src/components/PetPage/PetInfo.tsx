@@ -4,12 +4,16 @@ import { Link } from "react-router-dom";
 import { IPet } from "../../define";
 import PopupWindow from "./popupWindow";
 import { useState } from "react";
+import pet from "../../images/icons/pet.svg"
+import { Translate } from "../translation";
 
 interface IProps {
   obj: IPet;
 }
 
 export function PetInfo({ obj }: IProps) {
+  const imageSrc = obj.images && obj.images.length > 0 ? obj.images[0] : pet
+
   const [modalActive, setModalActive] = useState(false)
 
   const { t } = useTranslation();
@@ -29,9 +33,12 @@ export function PetInfo({ obj }: IProps) {
   return (
     <>
     <div className="begPetBlock">
-        <img className='petPic' src={obj.image}/>
+        <img className='petPic' src={imageSrc} onError={({ currentTarget }) => {
+        currentTarget.onerror = null; // prevents looping
+        currentTarget.src=pet;
+  }}/>
         <div className="begPetBlock__descBlock"> 
-          <div className="nameDiv">{obj.name.en}</div>
+          <div className="nameDiv"><Translate obj={obj.name}/></div>
           <div className="begPetBlock__descBlock__div">{t('sex')}: <span>{obj.sex==='male'?t('male'):t('female')}</span> </div>
           <div className="begPetBlock__descBlock__div">{t('age')}: <span>{yearsMath(obj)}</span></div>
           <div className="begPetBlock__descBlock__div">{t('size')}: <span>{obj.size}</span> </div>

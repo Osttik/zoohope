@@ -11,7 +11,7 @@ interface IIdentity {
 export interface IPet extends IIdentity {
     name: ITranslateble,
     type: string;
-    image: string;
+    images: string[];
     sex: string;
     age: number;
     size: string;
