@@ -30,42 +30,6 @@ export const HelpUsPage = () => {
   //   }
   // ]
 
-
-  //
-
-  const helpOptionsArray = [
-    {
-      name: {
-        ua: "Їжа для тварин",
-        en: "Food for animals",
-      },
-      description: {
-        ua: "<h4 className='help-us-option__title'>Яку їжу можна надати для годування тварин:</h4><ul className='help-us-option__list'><li className='help-us-option__item'>корм для собак (сухий, вологий);</li><li className='help-us-option__item'>крупи для приготування каші;</li><li className='help-us-option__item'>м'ясне (голови , шиї, корпуси, бульйонний набір, ШКТ, лапи) та інші м’ясні субпродукти;</li></ul>",
-        en: "<h4 className='help-us-option__title'>What kinds of food you can donate:</h4><ul className='help-us-option__list'><li className='help-us-option__item'>dog food(wet, dry);</li><li className='help-us-option__item'>cereals to cook mush;</li><li className='help-us-option__item'>meat (heads , necks, bodies, bouillon kit, GT's, paws) and other kinds of meat offal;</li></ul>",
-      },
-    },
-    {
-      name: {
-        ua: "Ліки та медичні засоби",
-        en: "Medicine and medical preparations",
-      },
-      description: {
-        ua: "<h4 className='help-us-option__title'>Які ліки та медичні засоби нам потрібні:</h4><ul className='help-us-option__list'><li className='help-us-option__item'>засоби від бліх,кліщів, глистів (Адвокат, Сімпаріка, Адвантікс, Біхелдон, тощо);</li><li className='help-us-option__item'>антибіотики (цефтріаксон, мелоксивет);</li><li className='help-us-option__item'>вакцини для собак (Вангард, Дурамун, сироватка Догпротект, Кетпротект)</li></ul>",
-        en: "<h4 className='help-us-option__title'>What kinds medicine and medical preparations we need:</h4><ul className='help-us-option__list'><li className='help-us-option__item'>remedy from pincels;</li><li className='help-us-option__item'>antibiotics</li><li className='help-us-option__item'>vaccines for dogs</li></ul>",
-      },
-    },
-    {
-      name: {
-        ua: "Побутові потреби",
-        en: "Household needs",
-      },
-      description: {
-        ua: "<h4 className='help-us-option__title'>Наші побутові потреби:</h4><ul className='help-us-option__list'><li className='help-us-option__item'>будки для собак;</li><li className='help-us-option__item'>миски, каструлі  великої ємкості для собак</li><li className='help-us-option__item'>відра  10 - 30 літрів для зберігання та транспортування іжі;</li><li className='help-us-option__item'>солома для вольєрів;</li></ul>",
-        en: "<h4 className='help-us-option__title'>What household needs do we need:</h4><ul className='help-us-option__list'><li className='help-us-option__item'>kennels for dogs;</li><li className='help-us-option__item'>bowls, big pans for dogs</li><li className='help-us-option__item'>buckets 10-30 liters for keeping and transfering food</li><li className='help-us-option__item'>straw for enclosures</li></ul>",
-      },
-    },
-  ];
-
   const getAllHelpOptions = async () => {
     const res: IHelpOptionsArr = await apiGetAllHelpOptions()
     setHelpOptions(res)
