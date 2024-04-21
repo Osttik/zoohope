@@ -31,6 +31,23 @@ module.exports.getAllContacts = async (req, res) => {
     }
 };
 
+module.exports.getContactById = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const contact = await ContactsModel.findById(id);
+
+        if (!contact) {
+            return res.status(404).json({ message: 'can not find this contact' });
+        }
+
+        res.json(contact);
+    } catch (error) {
+        console.error('Error getting contact by id', error);
+        res.status(500).json({ message: error.message });
+    }
+};
+
 //update contacts
 module.exports.updateContact = async (req, res) => {
     try {

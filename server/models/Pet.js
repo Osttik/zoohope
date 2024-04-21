@@ -6,14 +6,18 @@ const PetSchema = new mongoose.Schema({
     ua: String
   },
   type: String,
-  image: String,
+  images: [String],
   sex: String,
   age: Number,
   size: String,
-  breed: String,
-  color: String,
-  sterilization: Boolean,
-  treatment: Boolean,
+  breed: {
+    en: String,
+    ua: String
+  },
+  color: {
+    en: String,
+    ua: String
+  },
   personality: {
     en: String,
     ua: String
@@ -22,6 +26,8 @@ const PetSchema = new mongoose.Schema({
     en: String,
     ua: String
   },
+  sterilization: String,
+  treatment: String
 });
 
 const PetModel = mongoose.model("pets", PetSchema);

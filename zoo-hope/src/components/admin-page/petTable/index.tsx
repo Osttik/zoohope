@@ -1,17 +1,56 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { IPet } from "../../../define";
 
 interface IPetTableProps {
-    url: string;
     activeButton: string;
     selectedRowIndex: null | number;
     handleRowClick: (index: number) => void;
+    pets: IPetTable[];
+    setPets: any;
+    petTableUpdate: boolean;
 }
 
+interface IPetTable {
+    name: {
+        ua: string;
+        en: string;
+    };
+    type: string;
+    sex: string;
+    age: string;
+    breed: {
+        ua: string;
+        en: string;
+    };
+    size: string;
+    color: {
+        ua: string;
+        en: string;
+    };
+    personality: {
+        ua: string;
+        en: string;
+    };
+    story: {
+        ua: string;
+        en: string;
+    };
+    image: string;
+    sterilization: string;
+    treatment: string;
+    _id: string;
+}
 
-export const PetTable = ({ url, activeButton, selectedRowIndex, handleRowClick }: any) => {
-    const [pets, setPets] = useState<IPet[]>([]);
+export const PetTable = ({ activeButton, selectedRowIndex, handleRowClick, pets, setPets, petTableUpdate }: IPetTableProps) => {
+    const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+    const url = 'get-all-pets';
+
+    const headings = [
+        "№", "Ім'я", "Тип", "Стать", "Вік(місяців)", "Порода",
+        "Розмір(см)", "Забарвлення", "Характер", "Стерилізація",
+        "Лікування", "id"
+    ];
 
     const getAllPets = async () => {
         try {
@@ -27,7 +66,7 @@ export const PetTable = ({ url, activeButton, selectedRowIndex, handleRowClick }
         try {
             const response = await axios.get(`http://localhost:5000/${url}`);
             const data = response.data
-                .filter((pet: any) => pet.type === 'Cat')
+                .filter((pet: IPetTable) => pet.type === 'Кіт')
             setPets(data);
 
         } catch (error) {
@@ -39,7 +78,7 @@ export const PetTable = ({ url, activeButton, selectedRowIndex, handleRowClick }
         try {
             const response = await axios.get(`http://localhost:5000/${url}`);
             const data = response.data
-                .filter((pet: any) => pet.type === 'Dog')
+                .filter((pet: IPetTable) => pet.type === 'Пес')
             setPets(data);
 
         } catch (error) {
@@ -51,7 +90,7 @@ export const PetTable = ({ url, activeButton, selectedRowIndex, handleRowClick }
         try {
             const response = await axios.get(`http://localhost:5000/${url}`);
             const data = response.data
-                .filter((pet: any) => pet.treatment === true)
+                .filter((pet: IPetTable) => pet.treatment === 'Потребує')
             setPets(data);
 
         } catch (error) {
@@ -59,59 +98,114 @@ export const PetTable = ({ url, activeButton, selectedRowIndex, handleRowClick }
         }
     };
 
+    //code for horizontal scroll of table cells
+    const handleWheel = (event: WheelEvent) => {
+        event.preventDefault();
+        const target = event.target as HTMLElement;
+
+        if (target.tagName === 'TD') {
+            target.scrollLeft += event.deltaY;
+        }
+    };
+
+    const handleWheelWrapper = (event: Event) => {
+        const wheelEvent = event as WheelEvent;
+        handleWheel(wheelEvent);
+    };
+
+    const sortByName = () => {
+        const sortedPets = [...pets];
+
+        const compareFunction = (a: IPetTable, b: IPetTable) => {
+            const nameA = a.name && a.name.ua ? a.name.ua.toLowerCase() : '';
+            const nameB = b.name && b.name.ua ? b.name.ua.toLowerCase() : '';
+
+            let comparison = 0;
+
+            if (nameA > nameB) {
+                comparison = 1;
+
+            } else if (nameA < nameB) {
+                comparison = -1;
+            }
+
+            return comparison;
+        };
+
+        if (sortDirection === 'asc') {
+            sortedPets.sort(compareFunction);
+            setSortDirection('desc');
+        } else {
+            sortedPets.sort((a, b) => compareFunction(b, a));
+            setSortDirection('asc');
+        }
+
+        setPets(sortedPets);
+    };
+
     useEffect(() => {
         switch (activeButton) {
-            case 'pets':
+            case 'p pets':
                 getAllPets();
                 break;
-            case 'cats':
+            case 'p cats':
                 getCats();
                 break;
-            case 'dogs':
+            case 'p dogs':
                 getDogs();
                 break;
-            case 'treatment':
+            case 'p treatment':
                 getNeedTreatmentPet();
                 break;
+            case 'p adopted':
+                setPets([]);
+                break;
+            case 'p temporary':
+                setPets([]);
+                break;
         }
-    }, [url]);
+    }, [activeButton, petTableUpdate]);
 
     console.log(pets);
-    
+
+    useEffect(() => {
+        const tableBody = document.querySelector('.pet-table tbody');
+        if (tableBody) {
+            tableBody.addEventListener('wheel', handleWheelWrapper);
+        }
+
+        return () => {
+            if (tableBody) {
+                tableBody.removeEventListener('wheel', handleWheelWrapper);
+            }
+        };
+    }, []);
+
     return (
         <div className="pet-table-container">
             {pets.length > 0 ? (
                 <table className="pet-table">
                     <thead>
                         <tr className="pet-table__row">
-                            <th>№</th>
-                            <th>Ім'я</th>
-                            <th>Тип</th>
-                            <th>Стать</th>
-                            <th>Вік</th>
-                            <th>Порода</th>
-                            <th>Розмір</th>
-                            <th>Забарвлення</th>
-                            <th>Характер</th>
-                            <th>Стерилізація</th>
-                            <th>Лікування</th>
-                            <th>id</th>
+                            {headings.map((heading, index) => (
+                                <th key={index} onClick={sortByName}>{heading}</th>
+                            ))}
                         </tr>
                     </thead>
                     <tbody>
-                        {pets.map((pet: IPet, index: number) => (
+                        {pets.map((pet: IPetTable, index: number) => (
                             <tr key={index} className={`pet-table__row ${selectedRowIndex === index ? 'focus' : ''}`} onClick={() => handleRowClick(index)}>
                                 <td>{index + 1}</td>
                                 <td>{pet.name && pet.name.ua}</td>
                                 <td>{pet.type}</td>
                                 <td>{pet.sex}</td>
                                 <td>{pet.age}</td>
-                                <td>{pet.breed}</td>
+                                <td>{pet.breed && pet.breed.ua}</td>
                                 <td>{pet.size}</td>
-                                <td>{pet.color}</td>
+                                <td>{pet.color && pet.color.ua}</td>
                                 <td>{pet.personality && pet.personality.ua}</td>
-                                <td>{pet.sterilization ? "Так" : "Ні"}</td>
-                                <td>{pet.treatment ? "Потребує" : "Не потребує"}</td>
+                                <td>{pet.sterilization}</td>
+                                <td>{pet.treatment}</td>
                                 <td>{pet._id}</td>
                             </tr>
                         ))}
