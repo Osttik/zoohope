@@ -1,10 +1,11 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import { IContact } from "../../../define";
 
 interface IContactsTableProps {
     selectedRowIndex: null | number;
     handleRowClick: (index: number) => void;
-    contacts: any[]
+    contacts: IContact[]
     setContacts: any;
     contactsTableUpdate: boolean;
 }
@@ -32,7 +33,7 @@ export const ContactsTable = ({ selectedRowIndex, handleRowClick, contacts, setC
     const sortByName = () => {
         const sortedContacts = [...contacts];
 
-        const compareFunction = (a: any, b: any) => {
+        const compareFunction = (a: IContact, b: IContact) => {
             const nameA = a.name && a.name.ua ? a.name.ua.toLowerCase() : '';
             const nameB = b.name && b.name.ua ? b.name.ua.toLowerCase() : '';
 
@@ -101,7 +102,7 @@ export const ContactsTable = ({ selectedRowIndex, handleRowClick, contacts, setC
                         </tr>
                     </thead>
                     <tbody>
-                        {contacts.map((contact: any, index: number) => (
+                        {contacts.map((contact: IContact, index: number) => (
                             <tr key={index} className={`pet-table__row ${selectedRowIndex === index ? 'focus' : ''}`} onClick={() => handleRowClick(index)}>
                                 <td>{index + 1}</td>
                                 <td>{contact.name && contact.name.ua}</td>
