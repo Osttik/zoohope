@@ -60,12 +60,16 @@ export const HelpUsPage = () => {
               <div className="helpOption" key={key}>
                 <h1
                   dangerouslySetInnerHTML={
-                    Translate(e.name) as string & { __html: TrustedHTML }
+                    {
+                      __html: TranslateFunc(e.name, i18n)
+                    }
                   }
                 ></h1>
                 <div
                   dangerouslySetInnerHTML={
-                    Translate(e.name) as string & { __html: TrustedHTML }
+                    {
+                      __html: TranslateFunc(e.name, i18n)
+                    }
                   }
                 ></div>
               </div>
