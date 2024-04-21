@@ -1,4 +1,5 @@
 const PetModel = require('../../models/Pet');
+
 //add pet
 module.exports.addPet = async (req, res) => {
     try {
@@ -18,6 +19,7 @@ module.exports.addPet = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+
 //edit pet
 module.exports.updatePet = async (req, res) => {
     try {

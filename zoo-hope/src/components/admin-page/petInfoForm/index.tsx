@@ -115,21 +115,6 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
         updateFormFields();
     }, [petData]);
 
-
-    const handleFileChange = (event: { target: { files: any; }; }) => {
-        const files = event.target.files;
-        const newImages = [];
-
-        for (let i = 0; i < files.length; i++) {
-            const fileURL = URL.createObjectURL(files[i]);
-            newImages.push(fileURL);
-        }
-
-        setImages([...images, ...newImages]);
-        console.log(images);
-        
-    };
-
     const capitalizeFirstLetter = (str: string): string => {
         return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
     };
@@ -330,6 +315,28 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
 
     const handleStoryUaChange = (e: { target: { value: SetStateAction<string>; }; }) => {
         setStoryUa(e.target.value);
+    };
+
+    const handleFileChange = async (e: { target: { files: any; }; }) => {
+        const files = e.target.files;
+        const formData = new FormData();
+    
+        for (let i = 0; i < files.length; i++) {
+            formData.append('images', files[i]);
+        }
+    
+        try {
+            const response = await axios.post('http://localhost:5000/upload-images', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+    
+            const newImages = response.data.map((imagePath: any) => `http://localhost:5000/${imagePath}`);
+            setImages([...images, ...newImages]);
+        } catch (error) {
+            console.error('Error uploading images:', error);
+        }
     };
 
     const cleanForm = () => {
