@@ -3,15 +3,15 @@ import Logo from "../../images/logo/logo.png"
 import "../../styles/index.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from "react";
-import { PetTable } from "./petTable";
-import { ContactsTable } from "./contactsTable";
-import { HelpOptionsTable } from "./helpOptionsTable";
-import { PetInfoForm } from "./petInfoForm";
-import { ContactsForm } from "./contactsForm";
-import { HelpOptionForm } from "./helpOptionsForm";
-import { DeleteBtn } from "./deleteBtn";
-import { EditBtn } from "./editBtn";
-import { DeleteMessage } from "./deleteMessage";
+import { PetTable } from "./petTable/index";
+import { ContactsTable } from "./contactsTable/index";
+import { HelpOptionsTable } from "./helpOptionsTable/index";
+import { PetInfoForm } from "./petInfoForm/index";
+import { ContactsForm } from "./contactsForm/index";
+import { HelpOptionForm } from "./helpOptionsForm/index";
+import { DeleteBtn } from "./deleteBtn/index";
+import { EditBtn } from "./editBtn/index";
+import { DeleteMessage } from "./deleteMessage/index";
 
 interface IPetTable {
     name: {
