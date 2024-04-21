@@ -42,8 +42,8 @@ export function PetInfo({ obj }: IProps) {
           <div className="begPetBlock__descBlock__div">{t('sex')}: <span>{obj.sex==='male'?t('male'):t('female')}</span> </div>
           <div className="begPetBlock__descBlock__div">{t('age')}: <span>{yearsMath(obj)}</span></div>
           <div className="begPetBlock__descBlock__div">{t('size')}: <span>{obj.size}</span> </div>
-          <div className="begPetBlock__descBlock__div">{t('wool')}: <span>{obj.color}</span> </div>
-          <div className="begPetBlock__descBlock__div">{t('breed')}: <span>{obj.breed}</span> </div>
+          <div className="begPetBlock__descBlock__div">{t('wool')}: <span><Translate obj={obj.color}/></span> </div>
+          <div className="begPetBlock__descBlock__div">{t('breed')}: <span><Translate obj={obj.breed}/></span> </div>
           <div id="descBlock__lastBlock" className="begPetBlock__descBlock__div">{t('character')}: <span>{obj.personality.en}</span></div> 
           <button className="begPetBlock__descBlock__button" onClick={() => {setModalActive(true)}}>
             <p>{t('adopt_pet')}</p>
