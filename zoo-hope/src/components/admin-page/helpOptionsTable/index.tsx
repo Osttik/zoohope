@@ -1,11 +1,12 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface IHelpOptionsTableProps {
-    url: string;
-    activeButton: string;
     selectedRowIndex: null | number;
     handleRowClick: (index: number) => void;
+    helpOptions: IHelpOptionsTable[];
+    setHelpOptions: any;
+    helpOptionsTableUpdate: boolean;
 }
 
 interface IHelpOptionsTable {
@@ -20,8 +21,54 @@ interface IHelpOptionsTable {
     _id: string;
 }
 
-export const HelpOptionsTable = ({ url, activeButton, selectedRowIndex, handleRowClick  }: IHelpOptionsTableProps) => {
-    const [helpOptions, setHelpOptions] = useState<IHelpOptionsTable[]>([]);
+export const HelpOptionsTable = ({ selectedRowIndex, handleRowClick, helpOptions, setHelpOptions, helpOptionsTableUpdate }: IHelpOptionsTableProps) => {
+    const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+    const url = 'get-all-help-options';
+
+    //code for horizontal scroll of table cells
+    const handleWheel = (event: WheelEvent) => {
+        event.preventDefault();
+        const target = event.target as HTMLElement;
+    
+        if (target.tagName === 'TD') {
+            target.scrollLeft += event.deltaY;
+        }
+    };
+    
+    const handleWheelWrapper = (event: Event) => {
+        const wheelEvent = event as WheelEvent;
+        handleWheel(wheelEvent);
+    };
+
+    const sortByName = () => {
+        const sortedHelpOptions = [...helpOptions];
+
+        const compareFunction = (a: IHelpOptionsTable, b: IHelpOptionsTable) => {
+            const nameA = a.name && a.name.ua ? a.name.ua.toLowerCase() : '';
+            const nameB = b.name && b.name.ua ? b.name.ua.toLowerCase() : '';
+
+            let comparison = 0;
+            
+            if (nameA > nameB) {
+                comparison = 1;
+
+            } else if (nameA < nameB) {
+                comparison = -1;
+            }
+
+            return comparison;
+        };
+    
+        if (sortDirection === 'asc') {
+            sortedHelpOptions.sort(compareFunction);
+            setSortDirection('desc');
+        } else {
+            sortedHelpOptions.sort((a, b) => compareFunction(b, a));
+            setSortDirection('asc'); 
+        }
+    
+        setHelpOptions(sortedHelpOptions);
+    };
 
     useEffect(() => {
         const getAllHelpOptions = async () => {
@@ -35,9 +82,22 @@ export const HelpOptionsTable = ({ url, activeButton, selectedRowIndex, handleRo
         };
 
         getAllHelpOptions();
-    }, [url]);
+    }, [url, helpOptionsTableUpdate]);
 
     console.log(helpOptions);
+
+    useEffect(() => {
+        const tableBody = document.querySelector('.help-options-table tbody');
+        if (tableBody) {
+            tableBody.addEventListener('wheel', handleWheelWrapper);
+        }
+    
+        return () => {
+            if (tableBody) {
+                tableBody.removeEventListener('wheel', handleWheelWrapper);
+            }
+        };
+    }, []);
     return (
         <div className="help-options-table-container">
             {helpOptions.length > 0 ? (
@@ -45,7 +105,7 @@ export const HelpOptionsTable = ({ url, activeButton, selectedRowIndex, handleRo
                     <thead>
                         <tr className="help-options-table__row">
                             <th>№</th>
-                            <th>Назва</th>
+                            <th onClick={sortByName}>Назва</th>
                             <th>Опис</th>
                             <th>id</th>
                         </tr>

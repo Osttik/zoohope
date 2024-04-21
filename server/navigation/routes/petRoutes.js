@@ -49,6 +49,23 @@ module.exports.getAllPets = async (req, res) => {
 
 };
 
+module.exports.getPetById = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const pet = await PetModel.findById(id);
+
+        if (!pet) {
+            return res.status(404).json({ message: 'can not find this pet' });
+        }
+
+        res.json(pet);
+    } catch (error) {
+        console.error('Error getting pet by id', error);
+        res.status(500).json({ message: error.message });
+    }
+};
+
 //edit pet
 module.exports.updatePet = async (req, res) => {
     try {

@@ -1,11 +1,12 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface IContactsTableProps {
-    url: string;
-    activeButton: string;
     selectedRowIndex: null | number;
     handleRowClick: (index: number) => void;
+    contacts: IContactsTable[]
+    setContacts: any;
+    contactsTableUpdate: boolean;
 }
 
 interface IContactsTable {
@@ -18,8 +19,54 @@ interface IContactsTable {
     _id: string;
 }
 
-export const ContactsTable = ({ url, activeButton, selectedRowIndex, handleRowClick  }: IContactsTableProps) => {
-    const [contacts, setContacts] = useState<IContactsTable[]>([]);
+export const ContactsTable = ({ selectedRowIndex, handleRowClick, contacts, setContacts, contactsTableUpdate }: IContactsTableProps) => {
+    const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+    const url = 'get-all-contacts';
+
+    //code for horizontal scroll of table cells
+    const handleWheel = (event: WheelEvent) => {
+        event.preventDefault();
+        const target = event.target as HTMLElement;
+    
+        if (target.tagName === 'TD') {
+            target.scrollLeft += event.deltaY;
+        }
+    };
+    
+    const handleWheelWrapper = (event: Event) => {
+        const wheelEvent = event as WheelEvent;
+        handleWheel(wheelEvent);
+    };
+
+    const sortByName = () => {
+        const sortedContacts = [...contacts];
+
+        const compareFunction = (a: IContactsTable, b: IContactsTable) => {
+            const nameA = a.name && a.name.ua ? a.name.ua.toLowerCase() : '';
+            const nameB = b.name && b.name.ua ? b.name.ua.toLowerCase() : '';
+
+            let comparison = 0;
+            
+            if (nameA > nameB) {
+                comparison = 1;
+
+            } else if (nameA < nameB) {
+                comparison = -1;
+            }
+
+            return comparison;
+        };
+    
+        if (sortDirection === 'asc') {
+            sortedContacts.sort(compareFunction);
+            setSortDirection('desc');
+        } else {
+            sortedContacts.sort((a, b) => compareFunction(b, a));
+            setSortDirection('asc'); 
+        }
+    
+        setContacts(sortedContacts);
+    };
 
     useEffect(() => {
         const getAllContacts = async () => {
@@ -33,9 +80,22 @@ export const ContactsTable = ({ url, activeButton, selectedRowIndex, handleRowCl
         };
 
         getAllContacts();
-    }, [url]);
+    }, [url, contactsTableUpdate]);
 
     console.log(contacts);
+    
+    useEffect(() => {
+        const tableBody = document.querySelector('.contacts-table tbody');
+        if (tableBody) {
+            tableBody.addEventListener('wheel', handleWheelWrapper);
+        }
+    
+        return () => {
+            if (tableBody) {
+                tableBody.removeEventListener('wheel', handleWheelWrapper);
+            }
+        };
+    }, []);
     return (
         <div className="contacts-table-container">
             {contacts.length > 0 ? (
@@ -43,7 +103,7 @@ export const ContactsTable = ({ url, activeButton, selectedRowIndex, handleRowCl
                     <thead>
                         <tr className="contacts-table__row">
                             <th>№</th>
-                            <th>Назва</th>
+                            <th onClick={sortByName}>Назва</th>
                             <th>Посилання</th>
                             <th>Зображення</th>
                             <th>id</th>
