@@ -38,7 +38,7 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
     const [storyEn, setStoryEn] = useState<string>('');
     const [storyUa, setStoryUa] = useState<string>('');
 
-    const [images, setImages] = useState<string[]>([]);
+    const [images, setImages] = useState<{added: string[], existed: string[]}>({added: [], existed: []});
 
     const [petData, setPetData] = useState<any>(null);
 
@@ -65,7 +65,7 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
             setPersonalityUa(petData.personality.ua);
             setStoryEn(petData.story.en);
             setStoryUa(petData.story.ua);
-            setImages(petData.images);
+            setImages({...images, existed: petData.images});
 
             if (petData.type === 'Пес') {
                 setIsDogChecked(true);
@@ -120,6 +120,7 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
     };
 
     const addPet = async () => {
+    
         try {
             const isFormValid = (
                 nameEn.trim() !== '' &&
@@ -140,13 +141,25 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
                 return alert(`Заповніть всі поля! (поле про стерилізацію і лікування не є обов'язковими)`);
             }
 
+            const imgsData = new FormData();
+    
+            for (let i = 0; i < images.added.length; i++) {
+                imgsData.append('images', images.added[i]);
+            }
+
+            const imgs = await axios.post('http://localhost:5000/upload-images', imgsData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
             const formData = {
                 name: {
                     en: capitalizeFirstLetter(nameEn.trim()),
                     ua: capitalizeFirstLetter(nameUa.trim()),
                 },
                 type: isDogChecked ? 'Пес' : (isCatChecked ? 'Кіт' : ''),
-                images: images,
+                images: [...images.existed, ...imgs.data],
                 sex: isGirlChecked ? 'Дівчинка' : (isBoyChecked ? 'Хлопчик' : ''),
                 age: ((years !== undefined ? years : 0) * 12) + (month !== undefined ? month : 0),
                 breed: noBreedChecked
@@ -174,7 +187,7 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
                     ua: capitalizeFirstLetter(storyUa.trim())
                 },
             };
-
+            console.log(formData)
             const response = await axios.post('http://localhost:5000/add-pet', formData);
             setPetTableUpdate((prev: boolean) => !prev);
 
@@ -208,13 +221,25 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
                 return alert(`Заповніть всі поля! (поле про стерилізацію і лікування не є обов'язковими)`);
             }
 
+            const imgsData = new FormData();
+    
+            for (let i = 0; i < images.added.length; i++) {
+                imgsData.append('images', images.added[i]);
+            }
+
+            const imgs = await axios.post('http://localhost:5000/upload-images', imgsData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            
             const formData = {
                 name: {
                     en: capitalizeFirstLetter(nameEn.trim()),
                     ua: capitalizeFirstLetter(nameUa.trim()),
                 },
                 type: isDogChecked ? 'Пес' : (isCatChecked ? 'Кіт' : ''),
-                images: images,
+                images: [...images.existed, ...imgs.data],
                 sex: isGirlChecked ? 'Дівчинка' : (isBoyChecked ? 'Хлопчик' : ''),
                 age: ((years !== undefined ? years : 0) * 12) + (month !== undefined ? month : 0),
                 breed: noBreedChecked
@@ -263,7 +288,6 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
             addPet();
         }
     }
-
 
     const handleNameEnChange = (e: { target: { value: SetStateAction<string>; }; }) => {
         setNameEn(e.target.value);
@@ -319,24 +343,8 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
 
     const handleFileChange = async (e: { target: { files: any; }; }) => {
         const files = e.target.files;
-        const formData = new FormData();
-    
-        for (let i = 0; i < files.length; i++) {
-            formData.append('images', files[i]);
-        }
-    
-        try {
-            const response = await axios.post('http://localhost:5000/upload-images', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-    
-            const newImages = response.data.map((imagePath: any) => `http://localhost:5000/${imagePath}`);
-            setImages([...images, ...newImages]);
-        } catch (error) {
-            console.error('Error uploading images:', error);
-        }
+        console.log(files)
+        setImages({...images, added: [...images.added, ...files]});
     };
 
     const cleanForm = () => {
@@ -360,8 +368,9 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
         setNoBreedChecked(false);
         setIsSterilizationChecked(false);
         setIsTreatmentChecked(false);
-        setImages([]);
+        setImages({added: [], existed: []});
     }
+
     return (
         <div className="pet-form" style={{ display: display }}>
             <div className="pet-form__container">
@@ -578,11 +587,19 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
                             </div>
 
                             <div className="pet-form__images">
-                                {images.map((image: any, index: number) => (
+                                {images.existed.map((image: any, index: number) => (
                                     <img
                                         key={index}
-                                        src={image}
+                                        src={`http://localhost:5000/${image}`}
                                         alt={`Фото ${index + 1}`}
+                                        className="pet-form__image"
+                                    />
+                                ))}
+                                {images.added.map((image: any, index: number) => (
+                                    <img
+                                        key={images.existed.length + index}
+                                        src={URL.createObjectURL(image)}
+                                        alt={`Фото ${images.existed.length + index + 1}`}
                                         className="pet-form__image"
                                     />
                                 ))}
