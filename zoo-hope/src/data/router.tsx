@@ -22,7 +22,7 @@ const routes: RouteObject[] = [
     path: "/helpUs",
     element: <HelpUsPage />,
   },
-
+  
   { // Needs to be in the end
     path: "*",
     element: <Navigate to="/" />
