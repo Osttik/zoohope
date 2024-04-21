@@ -5,13 +5,12 @@ import { useTranslation } from "react-i18next";
 import { apiGetAllHelpOptions } from "../../api/helpOptions";
 import { IHelpOption } from "../../define";
 import { links } from "../../data/helpUsPage";
-import { Translate } from "../translation";
-
-interface IHelpOptionsArr extends Array<IHelpOption> { }
+import { Translate, TranslateFunc } from "../translation";
+import i18n from "../../i18n/i18n";
 
 export const HelpUsPage = () => {
-  const { t, i18n } = useTranslation();
-  const [helpOptions, setHelpOptions] = useState<IHelpOptionsArr>()
+  const { t } = useTranslation();
+  const [helpOptions, setHelpOptions] = useState<IHelpOption[]>()
 
 
   // For testing
@@ -31,7 +30,8 @@ export const HelpUsPage = () => {
   // ]
 
   const getAllHelpOptions = async () => {
-    const res: IHelpOptionsArr = await apiGetAllHelpOptions()
+    const res: IHelpOption[] = await apiGetAllHelpOptions();
+    console.log("RES", res)
     setHelpOptions(res)
   }
 

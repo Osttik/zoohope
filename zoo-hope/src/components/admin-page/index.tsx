@@ -1,14 +1,76 @@
-import { faAddressBook, faArrowRightFromBracket, faChevronDown, faChevronUp, faCircleUser, faHandshakeAngle, faPaw, faPenToSquare, faPlus, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faAddressBook, faArrowRightFromBracket, faChevronDown, faChevronUp, faCircleUser, faHandshakeAngle, faPaw, faPlus} from "@fortawesome/free-solid-svg-icons";
 import Logo from "../../images/logo/logo.png"
 import "../../styles/index.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from "react";
-import { PetTable } from "./petTable";
-import { ContactsTable } from "./contactsTable";
-import { HelpOptionsTable } from "./helpOptionsTable";
-import { PetInfoForm } from "./petInfoForm";
+import { PetTable } from "./petTable/index";
+import { ContactsTable } from "./contactsTable/index";
+import { HelpOptionsTable } from "./helpOptionsTable/index";
+import { PetInfoForm } from "./petInfoForm/index";
+import { ContactsForm } from "./contactsForm/index";
+import { HelpOptionForm } from "./helpOptionsForm/index";
+import { DeleteBtn } from "./deleteBtn/index";
+import { EditBtn } from "./editBtn/index";
+import { DeleteMessage } from "./deleteMessage/index";
+
+interface IPetTable {
+    name: {
+        ua: string;
+        en: string;
+    };
+    type: string;
+    sex: string;
+    age: string;
+    breed: {
+        ua: string;
+        en: string;
+    };
+    size: string;
+    color: {
+        ua: string;
+        en: string;
+    };
+    personality: {
+        ua: string;
+        en: string;
+    };
+    story: {
+        ua: string;
+        en: string;
+    };
+    image: string;
+    sterilization: string;
+    treatment: string;
+    _id: string;
+}
+
+interface IContactsTable {
+    name: {
+        ua: string;
+        en: string
+    };
+    url: string;
+    icon: string;
+    _id: string;
+}
+
+interface IHelpOptionsTable {
+    name: {
+        ua: string;
+        en: string;
+    };
+    description: {
+        ua: string;
+        en: string;
+    };
+    _id: string;
+}
 
 export const AdminPage = () => {
+    const [pets, setPets] = useState<IPetTable[]>([]);
+    const [contacts, setContacts] = useState<IContactsTable[]>([]);
+    const [helpOptions, setHelpOptions] = useState<IHelpOptionsTable[]>([]);
+
     const [petListIsOpen, setPetListIsOpen] = useState<boolean>(false);
     const [contactsListIsOpen, setContactsListIsOpen] = useState<boolean>(false);
     const [helpListIsOpen, setHelpListIsOpen] = useState<boolean>(false);
@@ -16,20 +78,63 @@ export const AdminPage = () => {
 
     const [activeButton, setActiveButton] = useState<string | null>(null);
 
-    const [displayForm, setDisplayForm] = useState('none');
+    const [isEditBtnClicked, setIsEditBtnClicked] = useState<boolean>(false);
 
-    const [selectedRowIndex, setSelectedRowIndex] = useState<null | number>(null);
+    const [displayPetForm, setDisplayPetForm] = useState<string>('none');
+    const [displayContactsForm, setDisplayContactsForm] = useState<string>('none');
+    const [displayHelpOptionForm, setDisplayHelpOptionForm] = useState<string>('none');
+    const [displayDeleteMessage, setDisplayDeleteMessage] = useState<string>('none');
 
-    const handleRowClick = (index: number) => {
-        setSelectedRowIndex(index);
+    const [selectedPetsRowIndex, setSelectedPetsRowIndex] = useState<null | number>(null);
+    const [selectedContactsRowIndex, setSelectedContactsRowIndex] = useState<null | number>(null);
+    const [selectedHelpRowIndex, setSelectedHelpRowIndex] = useState<null | number>(null);
+
+    const [petTableUpdate, setPetTableUpdate] = useState<boolean>(false);
+    const [contactsTableUpdate, setContactsTableUpdate] = useState<boolean>(false);
+    const [helpOptionsTableUpdate, setHelpOptionsTableUpdate] = useState<boolean>(false);
+
+    const handlePetRowClick = (index: number) => {
+        setSelectedPetsRowIndex(index);
     };
 
-    const showForm = () => {
-        setDisplayForm('block');
+    const handleContactRowClick = (index: number) => {
+        setSelectedContactsRowIndex(index);
     };
 
-    const hideForm = () => {
-        setDisplayForm('none');
+    const handleHelpRowClick = (index: number) => {
+        setSelectedHelpRowIndex(index);
+    };
+
+    const showPetForm = () => {
+        setDisplayPetForm('block');
+    };
+
+    const hidePetForm = () => {
+        setDisplayPetForm('none');
+    };
+
+    const showContactsForm = () => {
+        setDisplayContactsForm('block');
+    }
+
+    const hideContactsForm = () => {
+        setDisplayContactsForm('none');
+    };
+
+    const showHelpOptionForm = () => {
+        setDisplayHelpOptionForm('block');
+    }
+
+    const hideHelpOptionForm = () => {
+        setDisplayHelpOptionForm('none');
+    };
+
+    const showDeleteMessage = () => {
+        setDisplayDeleteMessage('block');
+    };
+
+    const hideDeleteMessage = () => {
+        setDisplayDeleteMessage('none');
     };
 
     const toggleButton = (buttonName: string | null) => {
@@ -51,16 +156,72 @@ export const AdminPage = () => {
     const togglePopUp = () => {
         setPopupIsOpen(!popupIsOpen);
     };
+
+    const openForm = () => {
+        if (activeButton !== null && activeButton !== '' && activeButton.charAt(0) === 'p') {
+            showPetForm();
+        } else if (activeButton !== null && activeButton !== '' && activeButton === 'contacts') {
+            showContactsForm();
+        } else if (activeButton !== null && activeButton !== '' && activeButton === 'help') {
+            showHelpOptionForm();
+        } else {
+            return
+        }
+    }
     return (
         <div className="admin-page">
             <div className="admin-page__container">
-                <PetInfoForm display={displayForm} hideForm={hideForm} />
+                <DeleteMessage
+                    selectedPetRowIndex={selectedPetsRowIndex}
+                    selectedContactsRowIndex={selectedContactsRowIndex}
+                    selectedHelpRowIndex={selectedHelpRowIndex}
+                    display={displayDeleteMessage}
+                    hideMessage={hideDeleteMessage}
+                    pets={pets} 
+                    contacts={contacts}
+                    helpOptions={helpOptions}
+                    activeButton={activeButton}
+                    setPetTableUpdate={setPetTableUpdate}
+                    setContactsTableUpdate={setContactsTableUpdate}
+                    setHelpOptionsTableUpdate={setHelpOptionsTableUpdate}
+                />
+
+                <PetInfoForm
+                    display={displayPetForm}
+                    hideForm={hidePetForm}
+                    setPetTableUpdate={setPetTableUpdate}
+                    setIsEditBtnClicked={setIsEditBtnClicked}
+                    isEditBtnClicked={isEditBtnClicked}
+                    pets={pets}
+                    selectedPetsRowIndex={selectedPetsRowIndex}
+                />
+
+                <ContactsForm
+                    display={displayContactsForm}
+                    hideForm={hideContactsForm}
+                    setContactsTableUpdate={setContactsTableUpdate}
+                    selectedContactsRowIndex={selectedContactsRowIndex}
+                    contacts={contacts}
+                    setIsEditBtnClicked={setIsEditBtnClicked}
+                    isEditBtnClicked={isEditBtnClicked}
+                />
+
+                <HelpOptionForm
+                    display={displayHelpOptionForm}
+                    hideForm={hideHelpOptionForm}
+                    setHelpOptionsTableUpdate={setHelpOptionsTableUpdate}
+                    isEditBtnClicked={isEditBtnClicked}
+                    selectedHelpRowIndex={selectedHelpRowIndex}
+                    helpOptions={helpOptions}
+                    setIsEditBtnClicked={setIsEditBtnClicked}
+                />
+
                 <div className="sidebar">
                     <div className="sidebar__container">
                         <div className="sidebar-top__container">
                             <img src={Logo} alt="zoonadiya-logo" className="sidebar-top__logo" />
 
-                            <p className="sidebar-top__title">Адмін-Сторінка</p>
+                            <p className="sidebar-top__title">Адмін Сторінка</p>
                         </div>
 
                         <div className="sidebar-main">
@@ -83,22 +244,22 @@ export const AdminPage = () => {
                                             <div className="sidebar-option-list" style={{ display: petListIsOpen ? 'block' : 'none' }}>
                                                 <ul className="sidebar-option-list__container">
                                                     <li className="sidebar-option-list__option">
-                                                        <button className={`sidebar-option-list__option-button ${activeButton === 'pets' ? 'active' : ''}`} onClick={() => toggleButton('pets')}>всі тварини</button>
+                                                        <button className={`sidebar-option-list__option-button ${activeButton === 'p pets' ? 'active' : ''}`} onClick={() => toggleButton('p pets')}>всі тварини</button>
                                                     </li>
                                                     <li className="sidebar-option-list__option">
-                                                        <button className={`sidebar-option-list__option-button ${activeButton === 'cats' ? 'active' : ''}`} onClick={() => toggleButton('cats')}>коти</button>
+                                                        <button className={`sidebar-option-list__option-button ${activeButton === 'p cats' ? 'active' : ''}`} onClick={() => toggleButton('p cats')}>коти</button>
                                                     </li>
                                                     <li className="sidebar-option-list__option">
-                                                        <button className={`sidebar-option-list__option-button ${activeButton === 'dogs' ? 'active' : ''}`} onClick={() => toggleButton('dogs')}>собаки</button>
+                                                        <button className={`sidebar-option-list__option-button ${activeButton === 'p dogs' ? 'active' : ''}`} onClick={() => toggleButton('p dogs')}>песики</button>
                                                     </li>
                                                     <li className="sidebar-option-list__option">
-                                                        <button className={`sidebar-option-list__option-button ${activeButton === 'treatment' ? 'active' : ''}`} onClick={() => toggleButton('treatment')}>потребують лікування</button>
+                                                        <button className={`sidebar-option-list__option-button ${activeButton === 'p treatment' ? 'active' : ''}`} onClick={() => toggleButton('p treatment')}>потребують лікування</button>
                                                     </li>
                                                     <li className="sidebar-option-list__option">
-                                                        <button className={`sidebar-option-list__option-button ${activeButton === 'adopted' ? 'active' : ''}`} onClick={() => toggleButton('adopted')}>отримали дім</button>
+                                                        <button className={`sidebar-option-list__option-button ${activeButton === 'p adopted' ? 'active' : ''}`} onClick={() => toggleButton('p adopted')}>отримали дім</button>
                                                     </li>
                                                     <li className="sidebar-option-list__option">
-                                                        <button className={`sidebar-option-list__option-button ${activeButton === 'temporary' ? 'active' : ''}`} onClick={() => toggleButton('temporary')}>на тимчасовому перетримані</button>
+                                                        <button className={`sidebar-option-list__option-button ${activeButton === 'p temporary' ? 'active' : ''}`} onClick={() => toggleButton('p temporary')}>на тимчасовому перетримані</button>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -192,17 +353,32 @@ export const AdminPage = () => {
                     <div className="main__container">
                         <div className="actions">
                             <div className="actions__container">
-                                <abbr title="редагувати">
-                                    <button className="actions__edit-btn" style={{ display: selectedRowIndex !== null ? 'block' : 'none' }}>
-                                        <FontAwesomeIcon icon={faPenToSquare} />
-                                    </button>
-                                </abbr>
-                                <abbr title="видалити">
-                                    <button className="actions__delete-btn" style={{ display: selectedRowIndex !== null ? 'block' : 'none' }}>
-                                        <FontAwesomeIcon icon={faTrashCan} />
-                                    </button>
-                                </abbr>
-                                <button className="actions__add-btn" onClick={showForm}>
+                                <EditBtn
+                                    selectedPetRowIndex={selectedPetsRowIndex}
+                                    setSelectedPetsRowIndex={setSelectedPetsRowIndex}
+                                    selectedContactsRowIndex={selectedContactsRowIndex}
+                                    setSelectedContactsRowIndex={setSelectedContactsRowIndex}
+                                    selectedHelpRowIndex={selectedHelpRowIndex}
+                                    setSelectedHelpRowIndex={setSelectedHelpRowIndex}
+                                    activeButton={activeButton}
+                                    showPetForm={showPetForm}
+                                    showContactsForm={showContactsForm}
+                                    showHelpOptionForm={showHelpOptionForm}
+                                    setIsEditBtnClicked={setIsEditBtnClicked}
+                                />
+
+                                <DeleteBtn
+                                    selectedPetRowIndex={selectedPetsRowIndex}
+                                    setSelectedPetsRowIndex={setSelectedPetsRowIndex}
+                                    selectedContactsRowIndex={selectedContactsRowIndex}
+                                    setSelectedContactsRowIndex={setSelectedContactsRowIndex}
+                                    selectedHelpRowIndex={selectedHelpRowIndex}
+                                    setSelectedHelpRowIndex={setSelectedHelpRowIndex}
+                                    showMessage={showDeleteMessage}
+                                    activeButton={activeButton}
+                                />
+
+                                <button className="actions__add-btn" onClick={openForm}>
                                     <FontAwesomeIcon icon={faPlus} className="actions__add-btn-logo" />
 
                                     <p>додати</p>
@@ -212,14 +388,87 @@ export const AdminPage = () => {
 
                         <div className="main-content">
                             <div className="main-content__container">
-                                {activeButton === 'pets' && <PetTable url={'get-all-pets'} activeButton={activeButton} selectedRowIndex={selectedRowIndex} handleRowClick={handleRowClick}/>}
-                                {activeButton === 'cats' && <PetTable url={'get-all-pets'} activeButton={activeButton} selectedRowIndex={selectedRowIndex} handleRowClick={handleRowClick}/>}
-                                {activeButton === 'dogs' && <PetTable url={'get-all-pets'} activeButton={activeButton} selectedRowIndex={selectedRowIndex} handleRowClick={handleRowClick}/>}
-                                {activeButton === 'treatment' && <PetTable url={'get-all-pets'} activeButton={activeButton} selectedRowIndex={selectedRowIndex} handleRowClick={handleRowClick}/>}
-                                {activeButton === 'adopted' && <PetTable url={'get-all-pets'} activeButton={activeButton} selectedRowIndex={selectedRowIndex} handleRowClick={handleRowClick}/>}
-                                {activeButton === 'temporary' && <PetTable url={'get-all-pets'} activeButton={activeButton} selectedRowIndex={selectedRowIndex} handleRowClick={handleRowClick}/>}
-                                {activeButton === 'contacts' && <ContactsTable url={'get-all-contacts'} activeButton={activeButton} selectedRowIndex={selectedRowIndex} handleRowClick={handleRowClick}/>}
-                                {activeButton === 'help' && <HelpOptionsTable url={'get-all-help-options'} activeButton={activeButton} selectedRowIndex={selectedRowIndex} handleRowClick={handleRowClick}/>}
+                                {activeButton === 'p pets' &&
+                                    <PetTable
+                                        activeButton={activeButton}
+                                        selectedRowIndex={selectedPetsRowIndex}
+                                        handleRowClick={handlePetRowClick}
+                                        pets={pets}
+                                        setPets={setPets}
+                                        petTableUpdate={petTableUpdate}
+                                    />
+                                }
+                                {activeButton === 'p cats' &&
+                                    <PetTable
+                                        activeButton={activeButton}
+                                        selectedRowIndex={selectedPetsRowIndex}
+                                        handleRowClick={handlePetRowClick}
+                                        pets={pets}
+                                        setPets={setPets}
+                                        petTableUpdate={petTableUpdate}
+                                    />
+                                }
+                                {activeButton === 'p dogs' &&
+                                    <PetTable
+                                        activeButton={activeButton}
+                                        selectedRowIndex={selectedPetsRowIndex}
+                                        handleRowClick={handlePetRowClick}
+                                        pets={pets}
+                                        setPets={setPets}
+                                        petTableUpdate={petTableUpdate}
+                                    />
+                                }
+                                {activeButton === 'p treatment' &&
+                                    <PetTable
+                                        activeButton={activeButton}
+                                        selectedRowIndex={selectedPetsRowIndex}
+                                        handleRowClick={handlePetRowClick}
+                                        pets={pets}
+                                        setPets={setPets}
+                                        petTableUpdate={petTableUpdate}
+                                    />
+                                }
+                                {activeButton === 'p adopted' &&
+                                    <PetTable
+                                        activeButton={activeButton}
+                                        selectedRowIndex={selectedPetsRowIndex}
+                                        handleRowClick={handlePetRowClick}
+                                        pets={pets}
+                                        setPets={setPets}
+                                        petTableUpdate={petTableUpdate}
+                                    />
+                                }
+                                {activeButton === 'p temporary' &&
+                                    <PetTable
+                                        activeButton={activeButton}
+                                        selectedRowIndex={selectedPetsRowIndex}
+                                        handleRowClick={handlePetRowClick}
+                                        pets={pets}
+                                        setPets={setPets}
+                                        petTableUpdate={petTableUpdate}
+                                    />
+                                }
+
+                                {activeButton === 'contacts' &&
+                                    <ContactsTable
+                                        selectedRowIndex={selectedContactsRowIndex}
+                                        handleRowClick={handleContactRowClick}
+                                        contacts={contacts}
+                                        setContacts={setContacts}
+                                        contactsTableUpdate={contactsTableUpdate}
+                                    />
+                                }
+
+                                {activeButton === 'help' &&
+                                    <HelpOptionsTable
+                                        selectedRowIndex={selectedHelpRowIndex}
+                                        handleRowClick={handleHelpRowClick}
+                                        helpOptions={helpOptions}
+                                        setHelpOptions={setHelpOptions}
+                                        helpOptionsTableUpdate={helpOptionsTableUpdate}
+                                    />
+                                }
+
                                 {activeButton === null && (
                                     <div className="main-content__greeting">
                                         <p className="greeting__title">Вітаємо!</p>

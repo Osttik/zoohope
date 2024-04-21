@@ -2,22 +2,31 @@ import { apiGetContacts } from "../api/contacts";
 
 const fetchContacts = async () => {
   try {
-    const contactsData = await apiGetContacts();
-    return contactsData;
+    const data = await apiGetContacts();
+    return {
+      socialMedias: data.filter(e => e.icon && e.url && !e.value) || [],
+      contacts: data.filter(e => !e.icon) || []
+    }
   } catch (error) {
     console.log("Contacts Fetch Error: ", error);
-    return [];
+    return {
+      contacts: [],
+      socialMedias: []
+    };
   }
 };
 
 const createElements = async () => {
-  const contacts = await fetchContacts();
+  const data = await fetchContacts();
+
+  const contacts = data.contacts
+  const socialMedias = data.socialMedias
 
   const elements = [
     {
       listName: "Про нас",
       i18Key: "about-us",
-    IListItems: [
+      IListItems: [
         { name: "Хто ми?", i18Key: "who_we_are", url: "/" },
         { name: "Наша історія", i18Key: "our_story", url: "/" },
         { name: "Навіщо ми це робимо?", i18Key: "our_mission", url: "/" },
@@ -26,7 +35,7 @@ const createElements = async () => {
     {
       listName: "Шукають дім",
       i18Key: "looking-for-home",
-    IListItems: [
+      IListItems: [
         { name: "Собаки", i18Key: "dogs", url: "/petList?page=1&type=dog&sex=&minAge=&maxAge=" },
         { name: "Коти", i18Key: "cats", url: "/petList?page=1&type=cat&sex=&minAge=&maxAge=" },
         { name: "Інші тварини", i18Key: "other_pets", url: "/petList" },
@@ -35,7 +44,7 @@ const createElements = async () => {
     {
       listName: "Лікування",
       i18Key: "therapy",
-    IListItems: [
+      IListItems: [
         { name: "Test1", url: "/" },
         { name: "Test2", url: "/" },
         { name: "Test3", url: "/" },
@@ -46,22 +55,19 @@ const createElements = async () => {
     {
       listName: "Стерилізація",
       i18Key: "sterilization",
-    IListItems: [
+      IListItems: [
         { name: "Test1", url: "/" },
         { name: "Test2", url: "/" },
         { name: "Test3", url: "/" },
       ],
     },
-    { i18Key: "contacts",
-    i18Key2: "foot_placeholder",
+    {
+      i18Key: "contacts",
+      i18Key2: "foot_placeholder",
       listName: "Контакти",
       listInput: "Ваше повідомлення",
-      ISocialMedias: contacts,
-      IListItems: [
-        { name: "Email: test@gmail.com",i18Key: "foot_email" },
-        { name: "Телефон: +380XXXXXXX",i18Key: "phone_num" },
-        { name: "Написати нам:",i18Key: "text_us" },
-      ],
+      ISocialMedias: socialMedias,
+      IContacts: contacts,
     },
     {
       footerBottomText: "2024 copyright zoonadia",
