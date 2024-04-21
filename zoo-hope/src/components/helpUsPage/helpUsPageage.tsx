@@ -29,8 +29,6 @@ export const HelpUsPage = () => {
   //   }
   // ]
 
-  //
-
   const getAllHelpOptions = async () => {
     const res: IHelpOption[] = await apiGetAllHelpOptions();
     console.log("RES", res)
@@ -52,26 +50,32 @@ export const HelpUsPage = () => {
         <h2>{t("helpUsDescription")}</h2>
         <div className="links">
           <Link to={links.treatment}>{t("therapy")}</Link>
-          <Link to={links.sterilisation}>{t("sterilization")}</Link >
+          <Link to={links.sterilisation}>{t("sterilization")}</Link>
         </div>
       </section>
-      {helpOptions.length ?
+      {helpOptions.length ? (
         <section className="helpOptions">
           {helpOptions.map((e, key) => {
             return (
               <div className="helpOption" key={key}>
-                {/* <h1 dangerouslySetInnerHTML={Translate(e.name) as string & { __html: TrustedHTML }}></h1>
-                <div dangerouslySetInnerHTML={Translate(e.name) as string & { __html: TrustedHTML }}></div> */}
-                <h1><Translate obj={e.name}/></h1>
-                <div dangerouslySetInnerHTML={{__html: TranslateFunc(e.description, i18n)}}></div>
+                <h1
+                  dangerouslySetInnerHTML={
+                    Translate(e.name) as string & { __html: TrustedHTML }
+                  }
+                ></h1>
+                <div
+                  dangerouslySetInnerHTML={
+                    Translate(e.name) as string & { __html: TrustedHTML }
+                  }
+                ></div>
               </div>
-            )
+            );
           })}
-        </section> :
-        <section className="noHelpOptions">
-          {t("helpNotNeeded")}
         </section>
-      }
+      ) : (
+        <section className="noHelpOptions">{t("helpNotNeeded")}</section>
+      )}
+
     </div>
-  )
+  );
 }
