@@ -1,33 +1,32 @@
 import { useTranslation } from "react-i18next";
 import "../../i18n/i18n";
 
-export function HelpPet(){
-    const { t, i18n } = useTranslation();
-    return(
-    <>
-       
-    <div className="endPetBlock">
+export function HelpPet() {
+  const { t } = useTranslation();
 
-
-        <div className="extraHelpBlock">
-            <div className="helpTextBlock">{t('how_to_help+')}</div>
-            <button className="extraHelpBut">1</button>
-            <button style={{gridRow:'3',gridColumn:'1'}} className="extraHelpBut">2</button>
-            <div className="logExtraHelp"></div>
-            <button style={{justifySelf:'left',gridRow:'2',gridColumn:'3'}} className="extraHelpBut">3</button>
-            <button style={{justifySelf:'left',gridRow:'3',gridColumn:'3'}} className="extraHelpBut">4</button>
+  return (
+    <div className="helpPetBlock">
+        <div className="helpPetBlock__text">
+          <h2>{t('how_to_help+')}</h2>
+          <p>{t('petPage_additional_help')}</p>
         </div>
+        <div className="helpPetBlock__info">
+          <button className="helpPetBlock__info__topLeft helpPetBlock__info__button">
+            <p>{t('pay_for_sterilization')}</p>
+          </button>
+          <button className="helpPetBlock__info__topRight helpPetBlock__info__button">
+            <p>{t('pay_for_therapy')}</p>
+          </button>
+          <button className="helpPetBlock__info__downRight helpPetBlock__info__button">
+            <p>{t('buy_toy')}</p>
+          </button>
+          <button className="helpPetBlock__info__downLeft helpPetBlock__info__button">
+            <p>{t('temporary_detention')}</p>
+          </button>
+          <div className="helpPetBlock__info__logo">
 
-
-        <div className="arDown"> <span style={{borderBottom:'5px solid #39b8ff',borderRight:'5px solid #39b8ff'}}></span><span style={{borderBottom:'5px solid #39b8ff',borderRight:'5px solid #39b8ff'}}></span><span style={{borderBottom:'5px solid #39b8ff',borderRight:'5px solid #39b8ff'}}></span></div>  
+          </div>
+        </div>
     </div>
-
-       
-       
-       
-       
-    </>
-    )
-    
-    
-    }
+  );
+}

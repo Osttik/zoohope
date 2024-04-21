@@ -1,7 +1,8 @@
+import { IPet } from "../define";
 import { requestURL } from "./api";
+import axios from "axios";
 
 export const apiGetAllPets = async () => {
-    const res = await fetch(`${requestURL}/get-all-pets`);
-    const json = await res.json();
-    return (json);
-}
+  const res = await axios.get<IPet[]>(`${requestURL}/get-all-pets`);
+  return res.data;
+};

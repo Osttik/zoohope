@@ -1,3 +1,7 @@
+// function query(){
+// if(sessionStorage.getItem('queryParams')){return `/petList${sessionStorage.getItem('queryParams')}`}
+// else return "/petList?page=1"
+// }
 const elements = [
   { name: "Про нас", url: "/", i18Key: "about-us" },
   { name: "Контакти", url: "#footer", i18Key: "contacts" },
@@ -9,7 +13,7 @@ const elements = [
   {
     name: "Шукають дім",
     i18Key: "looking-for-home",
-    Ielements: [{ name: "DropDownLink1", url: "/petList" }],
+    Ielements: [{ name: "Pet List", url: "/petList?page=1" }],
   },
   {
     name: "Лікування",
@@ -19,7 +23,7 @@ const elements = [
   {
     name: "Стерилізація",
     i18Key: "sterilization",
-    Ielements: [{ name: "DropDownLink1", url: "/" }],
+    Ielements: [{ name: "DropDownLink1", url: "/helpUs" }],
   },
 ];
-export {elements}
+export { elements }

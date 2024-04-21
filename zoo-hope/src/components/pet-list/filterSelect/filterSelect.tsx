@@ -18,13 +18,11 @@ interface IfilterState {
     label: string,
     value: string,
     i18Key?: string
-    
-
-  }[]
+  }[];
 }
 
 export const FilterSelect = (props: IfilterState) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   return (
     <select
       onChange={(e) => {

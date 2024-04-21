@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import { IPet } from "../../../define";
 
 interface IPetTableProps {
     activeButton: string;

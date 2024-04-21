@@ -1,18 +1,14 @@
 import { useTranslation } from "react-i18next";
 import "../../../i18n/i18n";
+import { IPet } from "../../../define";
+import { Translate } from "../../translation";
+import { Link } from "react-router-dom";
 interface cardProps {
-  animalInfo: {
-    image: string,
-    name: string,
-    age: string,
-    sex: string
-    type: string,
-    _id: string,
-  };
+  animalInfo: IPet;
 }
 
 export const PetCard = (props: cardProps) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   function ageWithLabel() {
     const age = Number(props.animalInfo.age)
     if (age === 1) {
@@ -22,16 +18,16 @@ export const PetCard = (props: cardProps) => {
     } else {
         return age + t('years2');
     }
-}
-
+  }
+  
   return(
-    <a href={`animal/${props.animalInfo._id}`} className="petCard">
-        <img src={props.animalInfo.image} alt="ImageOfAnimal"></img>
-        <div className="info">
-          <span className="name">{props.animalInfo.name}</span>
-          <span className="infoRow">{t('age')}: {ageWithLabel()}</span>
-          <span className="infoRow">{t('sex')}: {props.animalInfo.sex === "female" ? t('female') : t('male')}</span>
-        </div>
-    </a>
+    <Link to={`/animal/${props.animalInfo._id}`} className="petCard">
+      <img src={props.animalInfo.image} alt="ImageOfAnimal"></img>
+      <div className="info">
+        <span className="name"><Translate obj={(props.animalInfo.name)}/></span>
+        <span className="infoRow">{t('age')}: {ageWithLabel()}</span>
+        <span className="infoRow">{t('sex')}: {props.animalInfo.sex === "female" ? t('female') : t('male')}</span>
+      </div>
+    </Link>
   )
 }

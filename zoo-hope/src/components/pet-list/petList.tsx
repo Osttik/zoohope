@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import "../../styles/index.scss"
 import { PetCard } from "./petCard/petCard"
 import { FilterSelect } from "./filterSelect/filterSelect";
@@ -9,15 +9,8 @@ import { pageSize, options } from "../../data/petList";
 import { apiGetAllPets } from '../../api/pets';
 import { useTranslation } from "react-i18next";
 import "../../i18n/i18n";
-
-interface IPets {
-  image: string,
-  name: string,
-  age: string,
-  sex: string
-  type: string,
-  _id: string,
-}
+import { IPet } from "../../define";
+import PetContext from "../../PetsContext";
 
 interface Ifilters {
   type: string;
@@ -28,10 +21,11 @@ interface Ifilters {
 }
 
 export const PetList = () => {
-  const { t, i18n } = useTranslation();
+  const pets_data: IPet[] = useContext(PetContext);
+  const { t } = useTranslation();
   const [totalLength, setTotalLength] = useState<number>() // Total length of array of all pets
   const [pageCount, setPageCount] = useState<number>() // Number of pages
-  const [getPets, setPets] = useState<IPets[]>() // Array of pets
+  const [getPets, setPets] = useState<IPet[]>() // Array of pets
   const [areFiltersOpen, setFiltersStatus] = useState<boolean>(false) // Filter dropdown status
   const [searchParams, setsearchParams] = useSearchParams() // Search params (should contain all variables from Ifilters)
   const [filters, setFilters] = useState<Ifilters>({
@@ -41,6 +35,7 @@ export const PetList = () => {
     maxAge: "",
     page: ""
   }) // Filters template
+
 
   const heroImg = "https://placekitten.com/2500/1000"
 
@@ -53,21 +48,22 @@ export const PetList = () => {
 
   const getFilteredPets = async () => {
     try {
-      let allPets = await apiGetAllPets();
+      let allPets = pets_data;
+
       let startIndex = (Number(searchParams.get("page")) - 1) * pageSize;
       let endIndex = startIndex + pageSize;
 
       if (searchParams.get("type")) {
-        allPets = allPets.filter((el: IPets) => el.type.toLowerCase() === searchParams.get("type"));
+        allPets = allPets.filter((el) => el.type.toLowerCase() === searchParams.get("type"));
       }
       if (searchParams.get("sex")) {
-        allPets = allPets.filter((el: IPets) => el.sex.toLowerCase() === searchParams.get("sex"));
+        allPets = allPets.filter((el) => el.sex.toLowerCase() === searchParams.get("sex"));
       }
       if (searchParams.get("maxAge")) {
-        allPets = allPets.filter((el: IPets) => Number(el.age) <= Number(searchParams.get("maxAge")));
+        allPets = allPets.filter((el) => Number(el.age) <= Number(searchParams.get("maxAge")));
       }
       if (searchParams.get("minAge")) {
-        allPets = allPets.filter((el: IPets) => Number(el.age) >= Number(searchParams.get("minAge")));
+        allPets = allPets.filter((el) => Number(el.age) >= Number(searchParams.get("minAge")));
       }
 
       let pageApplied = allPets.reverse().slice(startIndex, endIndex);
@@ -79,10 +75,15 @@ export const PetList = () => {
       setPets([]);
       console.log("Fetch error");
     }
+
   }
   // ---
 
   // Hooks
+  // useEffect(() => {
+  //   sessionStorage.setItem('queryParams', window.location.search)
+  // }, [Object.fromEntries(searchParams.entries())])
+
   useEffect(() => {
     // Initializing page number if not provided
     if (!searchParams.get("page")) {
@@ -102,7 +103,7 @@ export const PetList = () => {
       getFilteredPets();
       setFilters(updatedFilters);
     }
-  }, []);
+  }, [pets_data]);
 
   useEffect(() => {
     // Checking for illegal page numbers
@@ -120,7 +121,7 @@ export const PetList = () => {
 
   useEffect(() => {
     getFilteredPets();
-  }, [searchParams]);
+  }, [searchParams, pets_data]);
   // ---
 
   // Action Functions
@@ -160,7 +161,6 @@ export const PetList = () => {
   if (!getPets) {
     return <>{t('loading')}</>
   }
-
   return (
     <section className="petListSection">
       <div className="hero">
@@ -168,7 +168,7 @@ export const PetList = () => {
           <h1 className="title">{t('adopt_pet')}</h1>
           <h2 className="subtitle">{t('list_h2_title')}</h2>
         </div>
-        <img src={heroImg} alt="Hero Img" className="heroImg" />
+        {/* <img src={heroImg} alt="Hero Img" className="heroImg" /> */}
       </div>
 
       <div>
@@ -207,7 +207,7 @@ export const PetList = () => {
           </div>
         </div>
 
-        <div className="petList">
+        <div className="petList petListSection">
           {getPets.length ?
             getPets.map(el => {
               return (

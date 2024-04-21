@@ -4,20 +4,11 @@ import { useEffect, useState } from "react";
 interface IContactsTableProps {
     selectedRowIndex: null | number;
     handleRowClick: (index: number) => void;
-    contacts: IContactsTable[]
+    contacts: any[]
     setContacts: any;
     contactsTableUpdate: boolean;
 }
 
-interface IContactsTable {
-    name: {
-        ua: string;
-        en: string
-    };
-    url: string;
-    icon: string;
-    _id: string;
-}
 
 export const ContactsTable = ({ selectedRowIndex, handleRowClick, contacts, setContacts, contactsTableUpdate }: IContactsTableProps) => {
     const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
@@ -41,7 +32,7 @@ export const ContactsTable = ({ selectedRowIndex, handleRowClick, contacts, setC
     const sortByName = () => {
         const sortedContacts = [...contacts];
 
-        const compareFunction = (a: IContactsTable, b: IContactsTable) => {
+        const compareFunction = (a: any, b: any) => {
             const nameA = a.name && a.name.ua ? a.name.ua.toLowerCase() : '';
             const nameB = b.name && b.name.ua ? b.name.ua.toLowerCase() : '';
 
@@ -110,7 +101,7 @@ export const ContactsTable = ({ selectedRowIndex, handleRowClick, contacts, setC
                         </tr>
                     </thead>
                     <tbody>
-                        {contacts.map((contact: IContactsTable, index: number) => (
+                        {contacts.map((contact: any, index: number) => (
                             <tr key={index} className={`pet-table__row ${selectedRowIndex === index ? 'focus' : ''}`} onClick={() => handleRowClick(index)}>
                                 <td>{index + 1}</td>
                                 <td>{contact.name && contact.name.ua}</td>
