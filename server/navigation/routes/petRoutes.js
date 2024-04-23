@@ -1,5 +1,6 @@
 const PetModel = require('../../models/Pet');
-
+const fs = require('fs');
+const path = require('path');
 //add pet
 module.exports.addPet = async (req, res) => {
     try {
@@ -75,12 +76,22 @@ module.exports.getPetById = async (req, res) => {
 module.exports.updatePet = async (req, res) => {
     try {
         const { id } = req.params;
-
+        const existedPet = await PetModel.findById(id)
         const updatedPet = await PetModel.findByIdAndUpdate(id, req.body, { new: true });
 
         if (!updatedPet) {
             return res.status(404).json({ message: 'No pet in database' });
         }
+
+        existedPet.images.forEach((img) => {
+            if (updatedPet.images && !updatedPet.images.includes(img)) {
+                const imagePath = path.join(__dirname, '..', '..', 'uploads', img)
+                fs.unlink(imagePath, err => {if (err) {
+                    console.error(err);
+                    return res.status(500).json({ message: err.message });
+                }})
+            }
+        })
 
         res.json(updatedPet);
     } catch (error) {
@@ -88,11 +99,27 @@ module.exports.updatePet = async (req, res) => {
     }
 };
 
+
 //delete pet
 module.exports.deletePet = async (req, res) => {
     try {
         const { id } = req.params;
         
+        const pet = await PetModel.findById(id);
+
+        if (!pet) {
+            return res.status(404).json({ message: 'Pet not found' });
+        }
+
+        pet.images.forEach((img) => {
+            const imagesPath = path.join(__dirname, '..', '..', 'uploads', img);
+            fs.unlink(imagesPath, err => {       
+                if (err) {
+                console.error(err);
+                return res.status(500).json({ message: err.message });
+            }})
+        });
+
         await PetModel.findByIdAndDelete(id);
 
         res.json({ message: 'Pet was deleted successfully' });
@@ -100,6 +127,7 @@ module.exports.deletePet = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
 //get pets with pagination
 module.exports.getSomePets = async (req, res) => {
     const page = parseInt(req.query.page) || 1; 
