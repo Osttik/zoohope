@@ -32,7 +32,7 @@
 
 .begPetBlock {
   width: 90vw;
-  height: 90vh;
+  height: 900px;
   display: flex;
   justify-content: space-around;
   position: relative;
@@ -146,15 +146,15 @@
     }
     &__closeButton{
       border: none;
-      width: 30px;
-      height: 30px;
+      width: 23px;
+      height: 23px;
       background-image: url("../../images/workImg/close.png");
       background-repeat: no-repeat;
       background-size: cover;
     }
     &__closeButtonHover{
-      width: 60px;
-      height: 60px;
+      width: 50px;
+      height: 50px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -187,13 +187,13 @@
         width: 280px;
         border-radius: 30px;
         border: none;
-        margin-left: 60%;
+        margin: auto;
         margin-top: 10px;
         background-color: rgba(57, 184, 255, 1);
         p{
           font-size: 26px;
           color: #fff;
-          height: 45px;
+          height: 41px;
           margin-right: 15px;
           font-weight: 700;
         }
@@ -274,12 +274,12 @@
   text-align: center;
   h2{
     color: #fff;
-    font-size: 60px;
+    font-size: 50px;
     margin-bottom: 30px
   }
   p{
     color: #fff;
-    font-size: 30px;
+    font-size: 25px;
   }
 }
 
@@ -327,7 +327,7 @@
 
 .helpPetBlock {
   width: 90vw;
-  height: 80vh;
+  height: 800px;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -335,11 +335,11 @@
     text-align: center;
     h2{
       color: #fff;
-      font-size: 60px;
+      font-size: 50px;
     }
     p{
       color: #fff;
-      font-size: 30px;
+      font-size: 25px;
       padding-top: 15px;
     }
   }
@@ -399,7 +399,7 @@
 .additionalPetsBlock {
   margin: auto;
   width: 80vw;
-  min-height: 50vh !important;
+  min-height: 600px !important;
   display: flex;
   justify-content: space-around;
   flex-direction: row !important;
@@ -417,10 +417,13 @@
     height: 900px;
     &__descBlock {
       width: 35%;
-      height: 670px;
+      height: 750px;
       font-size: 37px;
       &__div{
         height: 80px;
+      }
+      &__button{
+        margin-top: 50px;
       }
     }
   }
@@ -432,7 +435,6 @@
   }
   .helpPetBlock {
     width: 90vw;
-    height: 80vh;
     &__info{
       height: 60vh;
       width: 100%;
@@ -460,8 +462,11 @@
     height: 80vh;
     &__descBlock {
       width: 35%;
-      height: 670px;
+      height: 750px;
       font-size: 37px;
+      &__button{
+        margin-top: 30px;
+      }
       &__div{
         height: 80px;
       }
@@ -470,9 +475,7 @@
   #descBlock__lastBlock{
     min-height: 100px;
   }
-  .shortStory{
-    margin-top: 60px;
-  }
+
   .helpPetBlock {
     width: 90vw;
     height: 80vh;
@@ -501,7 +504,8 @@
     height: 900px;
     &__descBlock {
       width: 35%;
-      height: 566px;
+      height: 700px;
+      font-size: 30px;
       &__button{
         margin-top: 20px;
       }
@@ -512,7 +516,6 @@
   }
   .helpPetBlock {
     width: 90vw;
-    height: 80vh;
     &__info{
       height: 60vh;
       width: 100%;
@@ -812,11 +815,7 @@
   .popupMainBlock{
     width: 590px;
     &__info{
-      &__form{
-        &__submitButton{
-          margin-left: 48%
-        }
-      }
+
       h2{
         font-size: 35px
       }

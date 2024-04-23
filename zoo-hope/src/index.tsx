@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>{false ? <App /> : <AdminPage />}</BrowserRouter>
+    <BrowserRouter>{true ? <App /> : <AdminPage />}</BrowserRouter>
   </React.StrictMode>
 );
 
