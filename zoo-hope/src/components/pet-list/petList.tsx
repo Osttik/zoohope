@@ -21,7 +21,7 @@ interface Ifilters {
 }
 
 export const PetList = () => {
-  const pets_data: IPet[] = useContext(PetContext);
+  const pets_data: IPet[] = useContext(PetContext)[0];
   const { t } = useTranslation();
   const [totalLength, setTotalLength] = useState<number>() // Total length of array of all pets
   const [pageCount, setPageCount] = useState<number>() // Number of pages

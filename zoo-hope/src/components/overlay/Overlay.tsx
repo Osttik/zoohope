@@ -1,3 +1,4 @@
+import { useLocation } from "react-router";
 import { Footer } from "../footer";
 import { NavBar } from "../navBar";
 
@@ -6,11 +7,13 @@ interface IProps {
 }
 
 export default function Overlay(props: IProps) {
+    const location = useLocation();
+    const isAdminPage = location.pathname.startsWith("/admin");
     return (
         <>
-            <NavBar />
+            {!isAdminPage && <NavBar />}
             {props.children}
-            <Footer />
+            {!isAdminPage && <Footer />}
         </>
     )
 }
