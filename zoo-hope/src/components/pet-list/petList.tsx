@@ -140,14 +140,7 @@ export const PetList = () => {
   }
 
   const reset = () => {
-    Object.keys(filters).forEach(el => {
-      searchParams.delete(el);
-      setsearchParams(searchParams);
-
-      toggleFilters();
-    });
-
-    searchParams.set("page", "1");
+    // Сбросить значения фильтров до начальных
     setFilters({
       type: "",
       sex: "",
@@ -155,6 +148,20 @@ export const PetList = () => {
       maxAge: "",
       page: "",
     });
+  
+    // Очистить параметры поиска
+    searchParams.delete("type");
+    searchParams.delete("sex");
+    searchParams.delete("minAge");
+    searchParams.delete("maxAge");
+    searchParams.set("page", "1");
+    setsearchParams(searchParams);
+  
+    // Показать всех животных
+    getFilteredPets();
+    
+    // Закрыть фильтры (если они были открыты)
+    setFiltersStatus(false);
   }
   // ---
 

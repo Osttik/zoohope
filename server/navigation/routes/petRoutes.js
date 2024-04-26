@@ -1,4 +1,5 @@
 const PetModel = require('../../models/Pet');
+
 //add pet
 module.exports.addPet = async (req, res) => {
     try {
@@ -18,19 +19,23 @@ module.exports.addPet = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+
 //edit pet
 module.exports.updatePet = async (req, res) => {
     try {
         const { id } = req.params;
-        
+        console.log(req.body)
         const updatedPet = await PetModel.findByIdAndUpdate(id, req.body, { new: true });
         if (!updatedPet) {
+            console.log("Doesnt update")
             return res.status(404).json({ message: 'No pet in database' });
         }
         let err = updatedPet.validateSync()
         if (err) {
+            console.log("NMot valid")
             res.status(400).json({message: err.message})
         } else {
+            console.log("done")
             res.json(updatedPet);
         }
     } catch (err) {
@@ -47,6 +52,23 @@ module.exports.getAllPets = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 
+};
+
+module.exports.getPetById = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const pet = await PetModel.findById(id);
+
+        if (!pet) {
+            return res.status(404).json({ message: 'can not find this pet' });
+        }
+
+        res.json(pet);
+    } catch (error) {
+        console.error('Error getting pet by id', error);
+        res.status(500).json({ message: error.message });
+    }
 };
 
 //edit pet

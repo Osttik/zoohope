@@ -24,9 +24,26 @@ module.exports.addHelpOptions = async (req, res) => {
 module.exports.getAllHelpOptions = async (req, res) => {
     try {
         const helpOptions = await HelpOptionsModel.find();
-
+        
         res.json(helpOptions);
     } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+module.exports.getHelpOptionById = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const helpOption = await HelpOptionsModel.findById(id);
+
+        if (!helpOption) {
+            return res.status(404).json({ message: 'can not find this help option' });
+        }
+
+        res.json(helpOption);
+    } catch (error) {
+        console.error('Error getting help option by id', error);
         res.status(500).json({ message: error.message });
     }
 };
