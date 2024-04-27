@@ -1,7 +1,7 @@
 import { PetInfo } from "./PetInfo";
 import { HelpPet } from "./RdPetBlock";
 import { useParams } from "react-router";
-import { apiGetAllPets } from "../../api/pets";
+import { getAllPets } from "../../api/pets";
 import { useEffect, useState, useContext } from "react";
 import Loader from "./loader";
 import { IPet } from "../../define";

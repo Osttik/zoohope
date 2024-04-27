@@ -4,11 +4,11 @@ import { useEffect } from "react";
 
 interface IDeleteBtnProps {
     selectedPetRowIndex: null | number;
-    setSelectedPetsRowIndex: any;
+    setSelectedPetsRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
     selectedContactsRowIndex: null | number;
-    setSelectedContactsRowIndex: any;
+    setSelectedContactsRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
     selectedHelpRowIndex: null | number;
-    setSelectedHelpRowIndex: any;
+    setSelectedHelpRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
     showMessage: () => void;
     activeButton: string | null;
 }
