@@ -64,5 +64,16 @@
   "helpUs": "Help us",
   "helpUsDescription": "Now you can help animals through our website",
   "helpNotNeeded": "No help is needed now :-).",
-  "link": "Link"
+  "link": "Link",
+  "error": "Error",
+  "ok": "Ok",
+  "auth": "Authorization",
+  "noRights": "Not enough rights",
+  "logToAc": "Log in",
+  "invalidPassOrMail": "Invalid mail or password",
+  "min7sym": "Minimum 7 symbols",
+  "badMail": "Bad E-mail",
+  "min4sym": "Minimum 4 symbols",
+  "logIn": "Log in",
+  "required": "Required"
 }

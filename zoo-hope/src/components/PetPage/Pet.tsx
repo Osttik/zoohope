@@ -11,7 +11,7 @@ import { OtherPets } from "./FourthPetBlock";
 export default function Pet() {
     const { id } = useParams()
     const [obj, setObj] = useState<IPet | false>(false);
-    const pets_data = useContext(PetContext);
+    const pets_data = useContext(PetContext)[0];
     useEffect(() => {
         const foundObj = pets_data.find((item: IPet) => item._id === id);
         if (foundObj) { 
