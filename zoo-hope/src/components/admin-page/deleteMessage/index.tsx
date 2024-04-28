@@ -1,6 +1,11 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
+import { deletePet } from "../../../api/pets";
+import { deleteContact } from "../../../api/contacts";
+import { deleteHelpOption } from "../../../api/helpOptions";
+import { IPet } from "../../../define";
+import { IContact } from "../../../define";
+import { IHelpOption } from "../../../define";
 
 interface IDeleteMessageProps {
     selectedPetRowIndex: null | number;
@@ -8,13 +13,13 @@ interface IDeleteMessageProps {
     selectedHelpRowIndex: null | number;
     display: string;
     hideMessage: () => void;
-    pets: any;
-    contacts: any;
-    helpOptions: any
+    pets: IPet[];
+    contacts: IContact[];
+    helpOptions: IHelpOption[];
     activeButton: string | null;
-    setPetTableUpdate: any;
-    setContactsTableUpdate: any;
-    setHelpOptionsTableUpdate: any;
+    setPetTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+    setContactsTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+    setHelpOptionsTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const DeleteMessage = ({ selectedPetRowIndex, selectedContactsRowIndex, selectedHelpRowIndex, display, hideMessage, pets, contacts, helpOptions, activeButton, setPetTableUpdate, setContactsTableUpdate, setHelpOptionsTableUpdate }: IDeleteMessageProps) => {
@@ -34,48 +39,6 @@ export const DeleteMessage = ({ selectedPetRowIndex, selectedContactsRowIndex, s
     const selectedHelpOption = selectedHelpRowIndex !== null ? helpOptions[selectedHelpRowIndex] : null;
     const helpOptionId = selectedHelpOption ? selectedHelpOption._id : null;
 
-    const deletePet = async () => {
-        try {
-            if (petId) {
-                const response = await axios.delete(`http://localhost:5000/delete-pet/${petId}`);
-                console.log(response.data.message);
-                setPetTableUpdate((prev: boolean) => !prev);
-            } else {
-                console.error('Не розуміє id елемента');
-            }
-        } catch (error) {
-            console.error('Помилка при видаленні елемента', error);
-        }
-    };
-
-    const deleteContact = async () => {
-        try {
-            if (contactId) {
-                const response = await axios.delete(`http://localhost:5000/delete-contact/${contactId}`);
-                console.log(response.data.message);
-                setContactsTableUpdate((prev: boolean) => !prev);
-            } else {
-                console.error('Не розуміє id елемента');
-            }
-        } catch (error) {
-            console.error('Помилка при видаленні елемента', error);
-        }
-    };
-
-    const deleteHelpOption = async () => {
-        try {
-            if (helpOptionId) {
-                const response = await axios.delete(`http://localhost:5000/delete-help-option/${helpOptionId}`);
-                console.log(response.data.message);
-                setHelpOptionsTableUpdate((prev: boolean) => !prev);
-            } else {
-                console.error('Не розуміє id елемента');
-            }
-        } catch (error) {
-            console.error('Помилка при видаленні елемента', error);
-        }
-    };
-
     const deleteSelectedElement = () => {
         if (activeButton === null) {
             console.error('activeButton is null');
@@ -84,13 +47,19 @@ export const DeleteMessage = ({ selectedPetRowIndex, selectedContactsRowIndex, s
 
         switch (true) {
             case activeButton.charAt(0) === 'p':
-                deletePet();
+                if (petId) {
+                    deletePet(petId).then(() => setPetTableUpdate((prev: boolean) => !prev))
+                }
                 break;
             case activeButton === 'contacts':
-                deleteContact();
+                if (contactId) {
+                    deleteContact(contactId).then(() => setContactsTableUpdate((prev: boolean) => !prev))
+                }
                 break;
             case activeButton === 'help':
-                deleteHelpOption();
+                if (helpOptionId) {
+                    deleteHelpOption(helpOptionId).then(() => setHelpOptionsTableUpdate((prev: boolean) => !prev))
+                }
                 break;
         }
     }

@@ -6,7 +6,7 @@ import { FilterSelect } from "./filterSelect/filterSelect";
 import { useSearchParams } from "react-router-dom";
 import { PaginationNav } from "./paginationNav/paginatioNav";
 import { pageSize, options } from "../../data/petList";
-import { apiGetAllPets } from '../../api/pets';
+import { getAllPets } from '../../api/pets';
 import { useTranslation } from "react-i18next";
 import "../../i18n/i18n";
 import { IPet } from "../../define";
