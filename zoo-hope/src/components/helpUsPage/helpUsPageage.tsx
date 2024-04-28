@@ -68,7 +68,7 @@ export const HelpUsPage = () => {
                 <div
                   dangerouslySetInnerHTML={
                     {
-                      __html: TranslateFunc(e.name, i18n)
+                      __html: TranslateFunc(e.description, i18n)
                     }
                   }
                 ></div>
