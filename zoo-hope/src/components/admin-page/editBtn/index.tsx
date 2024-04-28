@@ -1,19 +1,19 @@
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 interface IEditBtnProps {
     selectedPetRowIndex: null | number;
-    setSelectedPetsRowIndex: any;
+    setSelectedPetsRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
     selectedContactsRowIndex: null | number;
-    setSelectedContactsRowIndex: any;
+    setSelectedContactsRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
     selectedHelpRowIndex: null | number;
-    setSelectedHelpRowIndex: any;
+    setSelectedHelpRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
     activeButton: string | null;
     showHelpOptionForm: () => void;
     showPetForm: () => void;
     showContactsForm: () => void;
-    setIsEditBtnClicked: any;
+    setIsEditBtnClicked: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const EditBtn = ({ selectedPetRowIndex, setSelectedPetsRowIndex, selectedContactsRowIndex, setSelectedContactsRowIndex, selectedHelpRowIndex, setSelectedHelpRowIndex, activeButton, showPetForm, showContactsForm, showHelpOptionForm, setIsEditBtnClicked }: IEditBtnProps) => {

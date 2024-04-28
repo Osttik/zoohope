@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { apiGetAllPets } from './api/pets';
+import { getAllPets } from './api/pets';
 import PetContext from './PetsContext';
 
 export const PetProvider = ({ children }) => {
@@ -9,7 +9,7 @@ export const PetProvider = ({ children }) => {
   useEffect(() => {
 
     const fetchPets = async () => {
-      const petsData = await apiGetAllPets();
+      const petsData = await getAllPets();
       setPets(petsData);
     };
 

@@ -335,23 +335,17 @@
 
 //table styles
 
-.pet-table-container,
-.contacts-table-container,
-.help-options-table-container {
+.admin-table-container {
     width: 100%;
     overflow-x: auto;
     z-index: 100;
 }
 
-.pet-table,
-.contacts-table,
-.help-options-table {
+.admin-table {
     width: 100%;
 }
 
-.pet-table__row,
-.contacts-table__row,
-.help-options-table__row {
+.admin-table__row {
     cursor: pointer;
 
     >th {
@@ -382,9 +376,7 @@
     }
 }
 
-.pet-table__row.focus,
-.contacts-table__row.focus,
-.help-options-table__row.focus {
+.admin-table__row.focus {
     background-color: $adminPageTransparentYellow;
 
     >td {
@@ -402,7 +394,6 @@
     left: 60%;
     transform: translate(-50%, -50%);
 }
-
 
 //forms styles
 

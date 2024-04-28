@@ -25,6 +25,7 @@ router.get('/get-help-option/:id', helpOptionsRoutes.getHelpOptionById);
 router.put('/update-help-option/:id', helpOptionsRoutes.updateHelpOption);
 router.delete('/delete-help-option/:id', helpOptionsRoutes.deleteHelpOption);
 
-router.post('/upload-images', imageRoute.mutler, imageRoute.uploadImage);
+router.post('/upload-pet-images', imageRoute.mutler, imageRoute.uploadPetImage);
+router.post('/upload-contact-image', imageRoute.mutler, imageRoute.uploadContactImage);
 
 module.exports = router;
