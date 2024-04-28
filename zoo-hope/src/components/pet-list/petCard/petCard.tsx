@@ -4,12 +4,13 @@ import { IPet } from "../../../define";
 import { Translate } from "../../translation";
 import { Link } from "react-router-dom";
 import pet from "../../../images/icons/pet.svg"
+import { requestURL } from "../../../api/api";
 interface cardProps {
   animalInfo: IPet;
 }
 
 export const PetCard = (props: cardProps) => {
-  const imageSrc = props.animalInfo.images && props.animalInfo.images.length > 0 ? props.animalInfo.images[0] : pet
+  const imageSrc = props.animalInfo.images && props.animalInfo.images.length > 0 ? props.animalInfo.images[0] : pet;
 
   const { t } = useTranslation();
   function ageWithLabel() {
@@ -22,10 +23,10 @@ export const PetCard = (props: cardProps) => {
         return age + t('years2');
     }
   }
-  console.log(props)
+  
   return(
     <Link to={`/animal/${props.animalInfo._id}`} className="petCard">
-      <img src={imageSrc} onError={({ currentTarget }) => {
+      <img src={`${requestURL}/${imageSrc}`} onError={({ currentTarget }) => {
       currentTarget.onerror = null; // prevents looping
       currentTarget.src=pet;
   }} alt="ImageOfAnimal"></img>

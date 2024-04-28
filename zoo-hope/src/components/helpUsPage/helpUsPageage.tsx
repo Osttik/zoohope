@@ -31,7 +31,7 @@ export const HelpUsPage = () => {
 
   const getAllHelpOptions = async () => {
     const res: IHelpOption[] = await apiGetAllHelpOptions();
-    console.log("RES", res)
+    
     setHelpOptions(res)
   }
 

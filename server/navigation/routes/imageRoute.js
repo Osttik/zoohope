@@ -1,6 +1,6 @@
 const upload = require('../middleware/upload');
 
-module.exports.mutler = upload.array('images');
+module.exports.mutlerArray = upload.array('images');
 module.exports.uploadPetImage = async (req, res) => {
     try {
         const uploadedImages = req.files;
@@ -18,7 +18,7 @@ module.exports.uploadPetImage = async (req, res) => {
     }
 };
 
-module.exports.mutler = upload.single('image');
+module.exports.mutlerSingle = upload.single('image');
 module.exports.uploadContactImage = async (req, res) => {
     try {
         const uploadedImage = req.file;

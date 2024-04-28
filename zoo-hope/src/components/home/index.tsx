@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 
 export default function Home() {
 	const { t, i18n } = useTranslation();
-	const pets_data: IPet[] = useContext(PetContext);
+	const { pets_data } = useContext(PetContext);
 	const [totalLength, setTotalLength] = useState<number>() // Total length of array of all pets
 	const [getPets, setPets] = useState<IPet[]>()
 
@@ -35,7 +35,7 @@ export default function Home() {
 			setPets(pageApplied);
 		} catch {
 			setPets([]);
-			console.log("Fetch error");
+			console.error("Fetch error");
 		}
 
 	}
@@ -47,7 +47,7 @@ export default function Home() {
 	if (!getPets) {
 		return <></>
 	}
-
+	
 	return (
 		<div className="homePage">
 			<section className="hero">
@@ -115,9 +115,9 @@ export default function Home() {
 				<h1>Шукають дім</h1>
 				<div className="petList">
 					{getPets.length ?
-						getPets.map(el => {
+						getPets.map((el, i) => {
 							return (
-								<PetCard key={el._id} animalInfo={el} />
+								<PetCard key={i} animalInfo={el} />
 							)
 						}) :
 						<div className="notFound">

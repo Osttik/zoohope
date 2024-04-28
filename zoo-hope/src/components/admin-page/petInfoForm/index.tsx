@@ -5,6 +5,7 @@ import { SetStateAction, useState, ChangeEvent, useEffect } from "react";
 import { addPet, updatePet, getOnePet } from "../../../api/pets";
 import { IPet } from "../../../define";
 import axios from "axios";
+import { requestURL } from "../../../api/api";
 
 interface IPetFormProps {
     display: string;
@@ -28,8 +29,8 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
     const [isSterilizationChecked, setIsSterilizationChecked] = useState<boolean>(false);
     const [isTreatmentChecked, setIsTreatmentChecked] = useState<boolean>(false);
 
-    const [years, setYears] = useState<number | undefined>();
-    const [month, setMonth] = useState<number | undefined>();
+    const [years, setYears] = useState<number>(0);
+    const [month, setMonth] = useState<number>(0);
     const [breedEn, setBreedEn] = useState<string>('');
     const [breedUa, setBreedUa] = useState<string>('');
     const [size, setSize] = useState<number>(0);
@@ -41,7 +42,7 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
     const [storyUa, setStoryUa] = useState<string>('');
 
     const [images, setImages] = useState<{ added: string[], existed: string[] }>({ added: [], existed: [] });
-
+    
     const [petData, setPetData] = useState<any>(null);
 
     const selectedContact = selectedPetsRowIndex !== null ? pets[selectedPetsRowIndex] : null;
@@ -325,7 +326,6 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
 
     const handleFileChange = async (e: { target: { files: any; }; }) => {
         const files = e.target.files;
-        console.log(files)
         setImages({ ...images, added: [...images.added, ...files] });
     };
 
@@ -593,7 +593,7 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
                                 {images.existed.map((image: any, index: number) => (
                                     <img
                                         key={index}
-                                        src={`http://localhost:5000/${image}`}
+                                        src={`${requestURL}/${image}`}
                                         alt={`Фото ${index + 1}`}
                                         className="pet-form__image"
                                     />

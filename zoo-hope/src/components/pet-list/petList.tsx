@@ -21,7 +21,7 @@ interface Ifilters {
 }
 
 export const PetList = () => {
-  const pets_data: IPet[] = useContext(PetContext)[0];
+  const { pets_data } = useContext(PetContext);
   const { t } = useTranslation();
   const [totalLength, setTotalLength] = useState<number>() // Total length of array of all pets
   const [pageCount, setPageCount] = useState<number>() // Number of pages
@@ -73,7 +73,7 @@ export const PetList = () => {
       setPets(pageApplied);
     } catch {
       setPets([]);
-      console.log("Fetch error");
+      console.error("Fetch error");
     }
 
   }

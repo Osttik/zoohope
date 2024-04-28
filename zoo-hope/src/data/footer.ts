@@ -8,7 +8,7 @@ const fetchContacts = async () => {
       contacts: data.filter(e => !e.icon) || []
     }
   } catch (error) {
-    console.log("Contacts Fetch Error: ", error);
+    console.error("Contacts Fetch Error: ", error);
     return {
       contacts: [],
       socialMedias: []

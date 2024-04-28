@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import "../../i18n/i18n";
 export const ErrorRoleMes = ({ text }: { text: string }) => {
     const { t } = useTranslation();
-    const setlogErMes = useContext(PetContext)[4];
+    const { setlogErMes } = useContext(PetContext);
     return (
         <div className="errorRoleMes">
             <div className='errorRoleMesT'>
@@ -16,7 +16,7 @@ export const ErrorRoleMes = ({ text }: { text: string }) => {
             </div>
             <div className='errorRoleMesB'>
                 <div className='errorRoleMesBimag'></div>
-                <button onClick={() => { setlogErMes(false) }} type='button' className='button-85'>{t('ok')}</button>
+                <button onClick={() => { setlogErMes("") }} type='button' className='button-85'>{t('ok')}</button>
             </div>
         </div>
     )

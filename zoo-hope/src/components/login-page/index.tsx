@@ -12,9 +12,9 @@ import "../../i18n/i18n";
 export const LoginPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const path = useContext(PetContext)[1];
-  const logErMes = useContext(PetContext)[3];
-  const setlogErMes = useContext(PetContext)[4];
+  const { prevPath } = useContext(PetContext);
+  const { logErMes } = useContext(PetContext);
+  const { setlogErMes } = useContext(PetContext);
 
   const { register, handleSubmit, formState: { errors } } = useForm({ mode: 'onChange' });
 
@@ -32,20 +32,15 @@ export const LoginPage = () => {
 
         document.cookie = `accessToken=${tokens.access_token}; expires=${accessTokenExpires.toUTCString()}; path=/; SameSite=None; Secure`;
         document.cookie = `refreshToken=${tokens.refresh_token}; expires=${refreshTokenExpires.toUTCString()}; path=/; SameSite=None; Secure`;
-        navigate(path || '/')
+        navigate(prevPath || '/')
       }
 
     } catch (error: any) {
-      console.log(error.response.data);
+      console.error(error.response.data);
       setlogErMes('passormail');
 
     }
-
-
-
-
   }
-
 
   return (
     <form className="login_form">

@@ -3,8 +3,6 @@ import ReactDOM from "react-dom/client";
 import "./styles/index.scss";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import { AdminPage } from "./components/admin-page";
-import { LoginPage } from "./components/login-page";
 import App from "./App";
 
 const root = ReactDOM.createRoot(
@@ -13,7 +11,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>{false ? <App /> : <AdminPage />}</BrowserRouter>
+    <BrowserRouter>{<App />}</BrowserRouter>
   </React.StrictMode>
 );
 

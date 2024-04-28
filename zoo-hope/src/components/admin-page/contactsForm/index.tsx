@@ -5,6 +5,7 @@ import { SetStateAction, useEffect, useState } from "react";
 import { addContact, updateContact, getOneContact } from "../../../api/contacts";
 import { IContact } from "../../../define";
 import axios from "axios";
+import { requestURL } from "../../../api/api";
 
 interface IContactsFormProps {
     display: string;
@@ -46,8 +47,6 @@ export const ContactsForm = ({ display, hideForm, setContactsTableUpdate, select
 
             const imgData = new FormData();
             imgData.append('image', image);
-
-            console.log(imgData);
 
             const img = await axios.post('http://localhost:5000/upload-contact-image', imgData, {
                 headers: {
@@ -149,7 +148,7 @@ export const ContactsForm = ({ display, hideForm, setContactsTableUpdate, select
 
     const handleContactsFileChange = (event: any) => {
         const file = event.target.files[0];
-        console.log(file)
+        
         if (file) {
             setImage(file);
         }
@@ -237,7 +236,7 @@ export const ContactsForm = ({ display, hideForm, setContactsTableUpdate, select
                             <div className="contacts-form__images">
                                 {image && (
                                     <img
-                                        src={image instanceof File ? URL.createObjectURL(image) : `http://localhost:5000/${image}`}
+                                        src={image instanceof File ? URL.createObjectURL(image) : `${requestURL}/${image}`}
                                         alt="лого"
                                         className="contacts-form__image"
                                     />
