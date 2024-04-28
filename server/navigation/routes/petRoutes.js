@@ -76,14 +76,15 @@ module.exports.getPetById = async (req, res) => {
 module.exports.updatePet = async (req, res) => {
     try {
         const { id } = req.params;
-        const updatedPet = await PetModel.findByIdAndUpdate(id, req.body, { new: true });
+
+        const existedPet = await PetModel.findById(id)
 
         if (!updatedPet) {
             return res.status(404).json({ message: 'No pet in database' });
         }
 
-        updatedPet.images.forEach((img) => {
-            if (updatedPet.images && !updatedPet.images.includes(img)) {
+        existedPet.images.forEach((img) => {
+            if (!req.body.images.includes(img)) {
                 const imagePath = path.join(__dirname, 'uploads', img)
                 fs.unlink(imagePath, err => {if (err) {
                     console.error(err);
@@ -91,6 +92,8 @@ module.exports.updatePet = async (req, res) => {
                 }})
             }
         })
+
+        const updatedPet = await PetModel.findByIdAndUpdate(id, req.body, { new: true });
 
         res.json(updatedPet);
     } catch (error) {
