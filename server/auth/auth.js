@@ -5,12 +5,12 @@ const bcrypt = require('bcrypt');
 const User = require('./user')
 const auth_router = express.Router();
 
-const secret_key = crypto.randomBytes(32).toString('hex');
-const refresh_secret_key = crypto.randomBytes(32).toString('hex');
+const secret_key = '5a0497d9ddabf3696935676233889ce3dc4bcfd76370707e83cf05fa91b90f58';
+const refresh_secret_key = 'c3f3578ff7b75a99f2ab39e20098d111ddb894629e04c1b2bac1f784e162126d';
 
 const generate_tokens = (user) => {
-  const access_token = jwt.sign({ email: user.email }, secret_key, { expiresIn: '1h' });
-  const refresh_token = jwt.sign({ email: user.email }, refresh_secret_key);
+  const access_token = jwt.sign({ email: user.email, role: user.role }, secret_key, { expiresIn: '1h' });
+  const refresh_token = jwt.sign({ email: user.email, role: user.role }, refresh_secret_key, { expiresIn: '7d' });
   return { access_token, refresh_token };
 };
 
@@ -37,7 +37,7 @@ const verify_token = (requiredRole) => (req, res, next) => {
 };
 
 auth_router.post('/register', async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, role } = req.body;
 
   try {
     const existingUser = await User.findOne({ email });
@@ -46,7 +46,7 @@ auth_router.post('/register', async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ email, password: hashedPassword });
+    const newUser = new User({ email, password: hashedPassword, role });
     await newUser.save();
 
     const tokens = generate_tokens(newUser);
@@ -73,7 +73,7 @@ auth_router.post('/login', async (req, res) => {
   }
 
 
-  const passwordMatch = bcrypt.compare(password, user.password);
+  const passwordMatch = await bcrypt.compare(password, user.password);
   if (!passwordMatch) {
     return res.status(401).send('Invalid email or password');
   }
@@ -81,6 +81,21 @@ auth_router.post('/login', async (req, res) => {
 
   const tokens = generate_tokens(user);
   res.json(tokens);
+});
+
+
+auth_router.post('/verify', (req, res) => {
+  const token = req.body.token;
+
+
+  jwt.verify(token, secret_key, (err, decoded) => {
+    if (err) {
+      console.error('Error verifying token:', err);
+      return res.status(403).send('Поганий токен');
+    }
+
+    res.json(decoded);
+  });
 });
 
 
@@ -92,7 +107,7 @@ auth_router.post('/refresh', async (req, res) => {
       return res.status(403).send('Invalid refresh token');
     }
 
-    const tokens = generate_tokens({ email: decoded.email });
+    const tokens = generate_tokens({ email: decoded.email, role: decoded.role });
     res.json(tokens);
   });
 });

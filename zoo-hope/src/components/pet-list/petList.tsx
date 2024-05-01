@@ -6,7 +6,7 @@ import { FilterSelect } from "./filterSelect/filterSelect";
 import { useSearchParams } from "react-router-dom";
 import { PaginationNav } from "./paginationNav/paginatioNav";
 import { pageSize, options } from "../../data/petList";
-import { apiGetAllPets } from '../../api/pets';
+import { getAllPets } from '../../api/pets';
 import { useTranslation } from "react-i18next";
 import "../../i18n/i18n";
 import { IPet } from "../../define";
@@ -21,7 +21,7 @@ interface Ifilters {
 }
 
 export const PetList = () => {
-  const pets_data: IPet[] = useContext(PetContext);
+  const { pets_data } = useContext(PetContext);
   const { t } = useTranslation();
   const [totalLength, setTotalLength] = useState<number>() // Total length of array of all pets
   const [pageCount, setPageCount] = useState<number>() // Number of pages
@@ -73,7 +73,7 @@ export const PetList = () => {
       setPets(pageApplied);
     } catch {
       setPets([]);
-      console.log("Fetch error");
+      console.error("Fetch error");
     }
 
   }

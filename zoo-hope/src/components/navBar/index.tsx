@@ -50,10 +50,8 @@ export const NavBar = () => {
         let arr: Istates = {}
         Object.keys(states).forEach(e => {
           if (e !== "burger") {
-            arr[e] = false
-            console.log(arr)
+            arr[e] = false;
           }
-          console.log("burgur")
         });
         setStates(arr)
       } else {

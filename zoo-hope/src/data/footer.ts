@@ -1,14 +1,14 @@
-import { apiGetContacts } from "../api/contacts";
+import { getAllContacts } from "../api/contacts";
 
 const fetchContacts = async () => {
   try {
-    const data = await apiGetContacts();
+    const data = await getAllContacts();
     return {
       socialMedias: data.filter(e => e.icon && e.url && !e.value) || [],
       contacts: data.filter(e => !e.icon) || []
     }
   } catch (error) {
-    console.log("Contacts Fetch Error: ", error);
+    console.error("Contacts Fetch Error: ", error);
     return {
       contacts: [],
       socialMedias: []

@@ -1,75 +1,23 @@
-import { faAddressBook, faArrowRightFromBracket, faChevronDown, faChevronUp, faCircleUser, faHandshakeAngle, faPaw, faPlus} from "@fortawesome/free-solid-svg-icons";
+import { faAddressBook, faArrowRightFromBracket, faChevronDown, faChevronUp, faCircleUser, faHandshakeAngle, faPaw, faPlus } from "@fortawesome/free-solid-svg-icons";
 import Logo from "../../images/logo/logo.png"
 import "../../styles/index.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from "react";
-import { PetTable } from "./petTable/index";
-import { ContactsTable } from "./contactsTable/index";
-import { HelpOptionsTable } from "./helpOptionsTable/index";
 import { PetInfoForm } from "./petInfoForm/index";
 import { ContactsForm } from "./contactsForm/index";
 import { HelpOptionForm } from "./helpOptionsForm/index";
 import { DeleteBtn } from "./deleteBtn/index";
 import { EditBtn } from "./editBtn/index";
 import { DeleteMessage } from "./deleteMessage/index";
-
-interface IPetTable {
-    name: {
-        ua: string;
-        en: string;
-    };
-    type: string;
-    sex: string;
-    age: string;
-    breed: {
-        ua: string;
-        en: string;
-    };
-    size: string;
-    color: {
-        ua: string;
-        en: string;
-    };
-    personality: {
-        ua: string;
-        en: string;
-    };
-    story: {
-        ua: string;
-        en: string;
-    };
-    image: string;
-    sterilization: string;
-    treatment: string;
-    _id: string;
-}
-
-interface IContactsTable {
-    name: {
-        ua: string;
-        en: string
-    };
-    url: string;
-    icon: string;
-    _id: string;
-}
-
-interface IHelpOptionsTable {
-    name: {
-        ua: string;
-        en: string;
-    };
-    description: {
-        ua: string;
-        en: string;
-    };
-    _id: string;
-}
+import { Table } from "./table";
+import { IPet } from "../../define";
+import { IContact } from "../../define";
+import { IHelpOption } from "../../define";
 
 export const AdminPage = () => {
-    const [pets, setPets] = useState<IPetTable[]>([]);
-    const [contacts, setContacts] = useState<IContactsTable[]>([]);
-    const [helpOptions, setHelpOptions] = useState<IHelpOptionsTable[]>([]);
+    const [pets, setPets] = useState<IPet[]>([]);
+    const [contacts, setContacts] = useState<IContact[]>([]);
+    const [helpOptions, setHelpOptions] = useState<IHelpOption[]>([]);
 
     const [petListIsOpen, setPetListIsOpen] = useState<boolean>(false);
     const [contactsListIsOpen, setContactsListIsOpen] = useState<boolean>(false);
@@ -177,7 +125,7 @@ export const AdminPage = () => {
                     selectedHelpRowIndex={selectedHelpRowIndex}
                     display={displayDeleteMessage}
                     hideMessage={hideDeleteMessage}
-                    pets={pets} 
+                    pets={pets}
                     contacts={contacts}
                     helpOptions={helpOptions}
                     activeButton={activeButton}
@@ -388,88 +336,26 @@ export const AdminPage = () => {
 
                         <div className="main-content">
                             <div className="main-content__container">
-                                {activeButton === 'p pets' &&
-                                    <PetTable
+                                {activeButton !== null ? (
+                                    <Table
                                         activeButton={activeButton}
-                                        selectedRowIndex={selectedPetsRowIndex}
-                                        handleRowClick={handlePetRowClick}
                                         pets={pets}
                                         setPets={setPets}
-                                        petTableUpdate={petTableUpdate}
-                                    />
-                                }
-                                {activeButton === 'p cats' &&
-                                    <PetTable
-                                        activeButton={activeButton}
-                                        selectedRowIndex={selectedPetsRowIndex}
-                                        handleRowClick={handlePetRowClick}
-                                        pets={pets}
-                                        setPets={setPets}
-                                        petTableUpdate={petTableUpdate}
-                                    />
-                                }
-                                {activeButton === 'p dogs' &&
-                                    <PetTable
-                                        activeButton={activeButton}
-                                        selectedRowIndex={selectedPetsRowIndex}
-                                        handleRowClick={handlePetRowClick}
-                                        pets={pets}
-                                        setPets={setPets}
-                                        petTableUpdate={petTableUpdate}
-                                    />
-                                }
-                                {activeButton === 'p treatment' &&
-                                    <PetTable
-                                        activeButton={activeButton}
-                                        selectedRowIndex={selectedPetsRowIndex}
-                                        handleRowClick={handlePetRowClick}
-                                        pets={pets}
-                                        setPets={setPets}
-                                        petTableUpdate={petTableUpdate}
-                                    />
-                                }
-                                {activeButton === 'p adopted' &&
-                                    <PetTable
-                                        activeButton={activeButton}
-                                        selectedRowIndex={selectedPetsRowIndex}
-                                        handleRowClick={handlePetRowClick}
-                                        pets={pets}
-                                        setPets={setPets}
-                                        petTableUpdate={petTableUpdate}
-                                    />
-                                }
-                                {activeButton === 'p temporary' &&
-                                    <PetTable
-                                        activeButton={activeButton}
-                                        selectedRowIndex={selectedPetsRowIndex}
-                                        handleRowClick={handlePetRowClick}
-                                        pets={pets}
-                                        setPets={setPets}
-                                        petTableUpdate={petTableUpdate}
-                                    />
-                                }
-
-                                {activeButton === 'contacts' &&
-                                    <ContactsTable
-                                        selectedRowIndex={selectedContactsRowIndex}
-                                        handleRowClick={handleContactRowClick}
                                         contacts={contacts}
                                         setContacts={setContacts}
-                                        contactsTableUpdate={contactsTableUpdate}
-                                    />
-                                }
-
-                                {activeButton === 'help' &&
-                                    <HelpOptionsTable
-                                        selectedRowIndex={selectedHelpRowIndex}
-                                        handleRowClick={handleHelpRowClick}
                                         helpOptions={helpOptions}
                                         setHelpOptions={setHelpOptions}
+                                        selectedPetsRowIndex={selectedPetsRowIndex}
+                                        handlePetRowClick={handlePetRowClick}
+                                        selectedContactsRowIndex={selectedContactsRowIndex}
+                                        handleContactRowClick={handleContactRowClick}
+                                        selectedHelpRowIndex={selectedHelpRowIndex}
+                                        handleHelpRowClick={handleHelpRowClick}
+                                        petTableUpdate={petTableUpdate}
+                                        contactsTableUpdate={contactsTableUpdate}
                                         helpOptionsTableUpdate={helpOptionsTableUpdate}
                                     />
-                                }
-
-                                {activeButton === null && (
+                                ) : (
                                     <div className="main-content__greeting">
                                         <p className="greeting__title">Вітаємо!</p>
                                         <p className="greeting__caption">оберіть категорію, щоб побачити інформацію і мати змогу додати нову</p>

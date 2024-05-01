@@ -31,7 +31,7 @@ export const HelpUsPage = () => {
 
   const getAllHelpOptions = async () => {
     const res: IHelpOption[] = await apiGetAllHelpOptions();
-    console.log("RES", res)
+    
     setHelpOptions(res)
   }
 
@@ -68,7 +68,7 @@ export const HelpUsPage = () => {
                 <div
                   dangerouslySetInnerHTML={
                     {
-                      __html: TranslateFunc(e.name, i18n)
+                      __html: TranslateFunc(e.description, i18n)
                     }
                   }
                 ></div>

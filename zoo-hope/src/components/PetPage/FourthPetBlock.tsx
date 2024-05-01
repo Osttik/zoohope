@@ -19,7 +19,6 @@ export function OtherPets() {
         setOtherPets(res.data)
     }
     getData()
-    console.log(id)
   }, [])
   useEffect(() => {
     if(otherPets.length > 0){
@@ -30,8 +29,8 @@ export function OtherPets() {
   }, [otherPets])
   return (    
     <div className="petListSection additionalPetsBlock">
-        {randomPets.map((el) => (
-            <PetCard animalInfo={el}/>
+        {randomPets.map((el, i) => (
+            <PetCard key={i} animalInfo={el}/>
         ))}
     </div>
   )

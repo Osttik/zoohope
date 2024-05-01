@@ -6,6 +6,7 @@ import PopupWindow from "./popupWindow";
 import { useState } from "react";
 import pet from "../../images/icons/pet.svg"
 import { Translate } from "../translation";
+import { requestURL } from "../../api/api";
 
 interface IProps {
   obj: IPet;
@@ -33,7 +34,7 @@ export function PetInfo({ obj }: IProps) {
   return (
     <>
     <div className="begPetBlock">
-        <img className='petPic' src={imageSrc} onError={({ currentTarget }) => {
+        <img className='petPic' src={`${requestURL}/${imageSrc}`} onError={({ currentTarget }) => {
         currentTarget.onerror = null; // prevents looping
         currentTarget.src=pet;
   }}/>

@@ -8,7 +8,6 @@ function getCookie(name: string) {
 }
 
 axios.interceptors.request.use(function (config) {
-   console.log(config)
    if(!!getCookie("access_token")){
       const token = getCookie("access_token")
       config.headers["authorization"] = token;
