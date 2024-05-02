@@ -138,4 +138,7 @@ auth_router.delete('/users/:id', async (req, res) => {
   }
 });
 
-module.exports = auth_router;
+module.exports = {
+  auth_router,
+  verify_token
+};

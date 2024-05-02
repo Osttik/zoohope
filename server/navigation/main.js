@@ -5,8 +5,9 @@ const petRoutes = require('./routes/petRoutes');
 const contactsRoutes = require('./routes/contactsRoutes');
 const helpOptionsRoutes = require('./routes/helpOptionsRoutes');
 const imageRoute = require('./routes/imageRoute');
+const {verify_token} = require('../auth/auth')
 
-router.get('/get-all-pets', petRoutes.getAllPets);
+router.get('/get-all-pets',  petRoutes.getAllPets);
 router.get('/get-pet/:id', petRoutes.getPetById);
 router.put('/update-pet/:id', petRoutes.updatePet);
 router.delete('/delete-pet/:id', petRoutes.deletePet);
