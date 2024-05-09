@@ -2,19 +2,25 @@ import axios from "axios"
 
 // get cookie by name 
 function getCookie(name: string) {
-  const value = `; ${document.cookie}`;
-  const parts: any = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(";").shift();
+   const parts: string[] = document.cookie.split(`; `);
+   const value = parts.find(part => part.split('=')[0] === name)
+   if (!value) {
+      return undefined;
+   }
+   return value.split('=')[1];
 }
 
 axios.interceptors.request.use(function (config) {
-   if(!!getCookie("access_token")){
-      const token = getCookie("access_token")
+
+   console.log(getCookie("accessToken"), document.cookie)
+
+   if(!!getCookie("accessToken")){
+      const token = getCookie("accessToken")
       config.headers["authorization"] = token;
    } else {
       config.headers["authorization"] = null;
    }
-   
+   console.log("config headers", config.headers)
    return config;
 }, function(error){
    return Promise.reject(error)
