@@ -19,6 +19,8 @@ export interface IPet extends IIdentity {
     color: ITranslateble;
     sterilization: string;
     treatment: string;
+    adopted: string;
+    timeAdopted: string;
     personality: ITranslateble;
     story: ITranslateble;
 }

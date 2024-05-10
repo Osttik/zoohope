@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const router = require("./navigation/main");
 const swagger = require('./swagger');
-const auth_router = require('./auth/auth');
+const { auth_router } = require('./auth/auth');
 
 const app = express();
 const port = process.env.PORT || 5000;

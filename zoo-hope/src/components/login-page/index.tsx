@@ -32,7 +32,7 @@ export const LoginPage = () => {
 
         document.cookie = `accessToken=${tokens.access_token}; expires=${accessTokenExpires.toUTCString()}; path=/; SameSite=None; Secure`;
         document.cookie = `refreshToken=${tokens.refresh_token}; expires=${refreshTokenExpires.toUTCString()}; path=/; SameSite=None; Secure`;
-        navigate(prevPath || '/')
+        navigate('/admin');
       }
 
     } catch (error: any) {

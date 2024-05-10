@@ -28,6 +28,8 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
     const [noBreedChecked, setNoBreedChecked] = useState<boolean>(false);
     const [isSterilizationChecked, setIsSterilizationChecked] = useState<boolean>(false);
     const [isTreatmentChecked, setIsTreatmentChecked] = useState<boolean>(false);
+    const [isAdoptedChecked, setIsAdoptedChecked] = useState<boolean>(false);
+    const [isTimeAdoptedChecked, setIsTimeAdoptedChecked] = useState<boolean>(false);
 
     const [years, setYears] = useState<number>(0);
     const [month, setMonth] = useState<number>(0);
@@ -42,7 +44,7 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
     const [storyUa, setStoryUa] = useState<string>('');
 
     const [images, setImages] = useState<{ added: string[], existed: string[] }>({ added: [], existed: [] });
-    
+
     const [petData, setPetData] = useState<any>(null);
 
     const selectedContact = selectedPetsRowIndex !== null ? pets[selectedPetsRowIndex] : null;
@@ -114,6 +116,8 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
                 },
                 sterilization: isSterilizationChecked ? 'Так' : 'Ні',
                 treatment: isTreatmentChecked ? 'Потребує' : 'Не потребує',
+                adopted:  isAdoptedChecked ? 'Так' : 'Ні',
+                timeAdopted:  isTimeAdoptedChecked ? 'Так' : 'Ні',
                 story: {
                     en: capitalizeFirstLetter(storyEn.trim()),
                     ua: capitalizeFirstLetter(storyUa.trim())
@@ -174,6 +178,8 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
 
             setIsSterilizationChecked(petData.sterilization === 'Так');
             setIsTreatmentChecked(petData.treatment === 'Потребує');
+            setIsAdoptedChecked(petData.adopted === 'Так');
+            setIsTimeAdoptedChecked(petData.timeAdopted === 'Так');
 
             const years = Math.floor(petData.age / 12);
             const months = petData.age % 12;
@@ -244,6 +250,8 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
                 },
                 sterilization: isSterilizationChecked ? 'Так' : 'Ні',
                 treatment: isTreatmentChecked ? 'Потребує' : 'Не потребує',
+                adopted: isAdoptedChecked ? 'Так' : 'Ні',
+                timeAdopted: isTimeAdoptedChecked ? 'Так' : 'Ні',
                 story: {
                     en: capitalizeFirstLetter(storyEn.trim()),
                     ua: capitalizeFirstLetter(storyUa.trim())
@@ -606,6 +614,38 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
                                         className="pet-form__image"
                                     />
                                 ))}
+                            </div>
+
+                            <div className="pet-form-ua__additional-options" style={{ display: isEditBtnClicked ? 'block' : 'none' }}>
+                                <div className="additional-options__title">Додаткові опції редагування:</div>
+
+                                <div className="pet-form-ua__checkboxes adopted">
+                                    <label htmlFor="adopted">
+                                        <p>Отримав(-ла) дім</p>
+                                        <input
+                                            type="checkbox"
+                                            name="adopted"
+                                            id="adopted"
+                                            checked={isAdoptedChecked}
+                                            onChange={() => setIsAdoptedChecked(!isAdoptedChecked)}
+                                        />
+                                        <span></span>
+                                    </label>
+                                </div>
+
+                                <div className="pet-form-ua__checkboxes time-adopted">
+                                    <label htmlFor="time-adopted">
+                                        <p>На тимчасовому перетриманні</p>
+                                        <input
+                                            type="checkbox"
+                                            name="time-adopted"
+                                            id="time-adopted"
+                                            checked={isTimeAdoptedChecked}
+                                            onChange={() => setIsTimeAdoptedChecked(!isTimeAdoptedChecked)}
+                                        />
+                                        <span></span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
 

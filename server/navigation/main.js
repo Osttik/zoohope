@@ -4,6 +4,7 @@ const router = express.Router();
 const petRoutes = require('./routes/petRoutes');
 const contactsRoutes = require('./routes/contactsRoutes');
 const helpOptionsRoutes = require('./routes/helpOptionsRoutes');
+const adminsRoutes = require('./routes/adminsRoutes');
 const imageRoute = require('./routes/imageRoute');
 
 router.get('/get-all-pets', petRoutes.getAllPets);
@@ -27,5 +28,10 @@ router.delete('/delete-help-option/:id', helpOptionsRoutes.deleteHelpOption);
 
 router.post('/upload-pet-images', imageRoute.mutlerArray, imageRoute.uploadPetImage);
 router.post('/upload-contact-image', imageRoute.mutlerSingle, imageRoute.uploadContactImage);
+
+router.get('/get-all-admins', adminsRoutes.getAllAdmins);
+router.get('/get-admin/:id', adminsRoutes.getAdminById);
+router.put('/update-admin/:id', adminsRoutes.updateAdmin);
+router.delete('/delete-admin/:id', adminsRoutes.deleteAdmin);
 
 module.exports = router;
