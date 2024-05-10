@@ -75,5 +75,17 @@
   "badMail": "Поганий мейл",
   "min4sym": "Мінімум 4 символа",
   "logIn": "Увійти",
-  "required": "Необхідне поле"
+  "required": "Необхідне поле",
+  "how_support_shelter": "Як підтримати притулок?",
+  "help_us_become_better": "Допоможи нам стати ще краще, сприяй розвитку притулків в Україні!",
+  "home_page_quote": "вам не потрібно бути мільйонером, щоб врятувати життя!",
+  "helpful_info": "Корисна інформація",
+  "helpful_info_caption": "Допоможимо і підкажимо вам!",
+  "adopt_pet_card": "взяти тваринку",
+  "make_donation_card": "зробити донат",
+  "other_options_card": "інші варіанти",
+  "learn_more_link": "дізнатися більше",
+  "how_become_pet_guardian": "як стати опікуном?",
+  "why_is_important_sterilize_animals": "чому важливо стерилізувати тварин?",
+  "how_help_specific_animal": "як допомогти конкретній тваринці?"
 }
