@@ -1,11 +1,12 @@
-import { faAddressBook, faArrowRightFromBracket, faChevronDown, faChevronUp, faCircleUser, faHandshakeAngle, faPaw, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faAddressBook, faArrowRightFromBracket, faChevronDown, faChevronUp, faCircleUser, faHandshakeAngle, faPaw, faPlus, faUserGroup } from "@fortawesome/free-solid-svg-icons";
 import Logo from "../../images/logo/logo.png"
 import "../../styles/index.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PetInfoForm } from "./petInfoForm/index";
 import { ContactsForm } from "./contactsForm/index";
 import { HelpOptionForm } from "./helpOptionsForm/index";
+import { AdminForm } from "./adminForm";
 import { DeleteBtn } from "./deleteBtn/index";
 import { EditBtn } from "./editBtn/index";
 import { DeleteMessage } from "./deleteMessage/index";
@@ -13,11 +14,24 @@ import { Table } from "./table";
 import { IPet } from "../../define";
 import { IContact } from "../../define";
 import { IHelpOption } from "../../define";
+import { IAdmin } from "../../define";
+import { Link } from "react-router-dom";
+import Cookies from 'js-cookie';
+import { jwtDecode } from "jwt-decode";
+
+interface IDecodedToken {
+    name: string;
+    email: string;
+    role: string;
+  }
 
 export const AdminPage = () => {
     const [pets, setPets] = useState<IPet[]>([]);
     const [contacts, setContacts] = useState<IContact[]>([]);
     const [helpOptions, setHelpOptions] = useState<IHelpOption[]>([]);
+    const [admins, setAdmins] = useState<IAdmin[]>([]);
+    const [adminName, setAdminName] = useState<string>('');
+    const [adminRole, setAdminRole] = useState<string>('');
 
     const [petListIsOpen, setPetListIsOpen] = useState<boolean>(false);
     const [contactsListIsOpen, setContactsListIsOpen] = useState<boolean>(false);
@@ -31,15 +45,19 @@ export const AdminPage = () => {
     const [displayPetForm, setDisplayPetForm] = useState<string>('none');
     const [displayContactsForm, setDisplayContactsForm] = useState<string>('none');
     const [displayHelpOptionForm, setDisplayHelpOptionForm] = useState<string>('none');
+    const [displayAdminForm, setDisplayAdminForm] = useState<string>('none');
+
     const [displayDeleteMessage, setDisplayDeleteMessage] = useState<string>('none');
 
     const [selectedPetsRowIndex, setSelectedPetsRowIndex] = useState<null | number>(null);
     const [selectedContactsRowIndex, setSelectedContactsRowIndex] = useState<null | number>(null);
     const [selectedHelpRowIndex, setSelectedHelpRowIndex] = useState<null | number>(null);
+    const [selectedAdminsRowIndex, setSelectedAdminsRowIndex] = useState<null | number>(null);
 
     const [petTableUpdate, setPetTableUpdate] = useState<boolean>(false);
     const [contactsTableUpdate, setContactsTableUpdate] = useState<boolean>(false);
     const [helpOptionsTableUpdate, setHelpOptionsTableUpdate] = useState<boolean>(false);
+    const [adminTableUpdate, setAdminTableUpdate] = useState<boolean>(false);
 
     const handlePetRowClick = (index: number) => {
         setSelectedPetsRowIndex(index);
@@ -51,6 +69,10 @@ export const AdminPage = () => {
 
     const handleHelpRowClick = (index: number) => {
         setSelectedHelpRowIndex(index);
+    };
+
+    const handleAdminRowClick = (index: number) => {
+        setSelectedAdminsRowIndex(index);
     };
 
     const showPetForm = () => {
@@ -75,6 +97,14 @@ export const AdminPage = () => {
 
     const hideHelpOptionForm = () => {
         setDisplayHelpOptionForm('none');
+    };
+
+    const showAdminForm = () => {
+        setDisplayAdminForm('block');
+    }
+
+    const hideAdminForm = () => {
+        setDisplayAdminForm('none');
     };
 
     const showDeleteMessage = () => {
@@ -106,16 +136,54 @@ export const AdminPage = () => {
     };
 
     const openForm = () => {
-        if (activeButton !== null && activeButton !== '' && activeButton.charAt(0) === 'p') {
+        if (activeButton !== null && adminRole === 'super-admin' && activeButton !== '' && activeButton.charAt(0) === 'p') {
             showPetForm();
-        } else if (activeButton !== null && activeButton !== '' && activeButton === 'contacts') {
+        } else if (activeButton !== null && adminRole === 'super-admin' && activeButton !== '' && activeButton === 'contacts') {
             showContactsForm();
-        } else if (activeButton !== null && activeButton !== '' && activeButton === 'help') {
+        } else if (activeButton !== null && adminRole === 'super-admin' && activeButton !== '' && activeButton === 'help') {
             showHelpOptionForm();
+        } else if (activeButton !== null && adminRole === 'super-admin' && activeButton !== '' && activeButton === 'admins') {
+            showAdminForm();
         } else {
             return
         }
     }
+
+    const handleLogout = () => {
+        document.cookie = 'accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        document.cookie = 'refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    }
+
+    const getAdminName = () => {
+        const accessToken = Cookies.get('accessToken');
+        if (!accessToken) {
+            return; 
+        }
+        
+        const decodedToken: IDecodedToken = jwtDecode(accessToken);
+
+        const username = decodedToken.name;
+
+        setAdminName(username)
+    }
+
+    const getAdminRole= () => {
+        const accessToken = Cookies.get('accessToken');
+        if (!accessToken) {
+            return; 
+        }
+        
+        const decodedToken: IDecodedToken = jwtDecode(accessToken);
+
+        const userRole = decodedToken.role;
+
+        setAdminRole(userRole)
+    }
+
+    useEffect(() => {
+        getAdminName() 
+        getAdminRole()  
+    }, [])
     return (
         <div className="admin-page">
             <div className="admin-page__container">
@@ -123,14 +191,17 @@ export const AdminPage = () => {
                     selectedPetRowIndex={selectedPetsRowIndex}
                     selectedContactsRowIndex={selectedContactsRowIndex}
                     selectedHelpRowIndex={selectedHelpRowIndex}
+                    selectedAdminsRowIndex={selectedAdminsRowIndex}
                     display={displayDeleteMessage}
                     hideMessage={hideDeleteMessage}
                     pets={pets}
                     contacts={contacts}
                     helpOptions={helpOptions}
+                    admins={admins}
                     activeButton={activeButton}
                     setPetTableUpdate={setPetTableUpdate}
                     setContactsTableUpdate={setContactsTableUpdate}
+                    setAdminTableUpdate={setAdminTableUpdate}
                     setHelpOptionsTableUpdate={setHelpOptionsTableUpdate}
                 />
 
@@ -161,6 +232,16 @@ export const AdminPage = () => {
                     isEditBtnClicked={isEditBtnClicked}
                     selectedHelpRowIndex={selectedHelpRowIndex}
                     helpOptions={helpOptions}
+                    setIsEditBtnClicked={setIsEditBtnClicked}
+                />
+
+                <AdminForm
+                    display={displayAdminForm}
+                    hideForm={hideAdminForm}
+                    setAdminTableUpdate={setAdminTableUpdate}
+                    isEditBtnClicked={isEditBtnClicked}
+                    selectedAdminsRowIndex={selectedAdminsRowIndex}
+                    admins={admins}
                     setIsEditBtnClicked={setIsEditBtnClicked}
                 />
 
@@ -256,6 +337,16 @@ export const AdminPage = () => {
                                                 </ul>
                                             </div>
                                         </div>
+
+                                        <div className="sidebar-option">
+                                            <div className="sidebar-option__container">
+                                                <div className="sidebar-option__logo">
+                                                    <FontAwesomeIcon icon={faUserGroup} />
+                                                </div>
+
+                                                <button className={`sidebar-option__title ${activeButton === 'admins' ? 'active' : ''}`} onClick={() => toggleButton('admins')}>адміни</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -267,7 +358,7 @@ export const AdminPage = () => {
                                                     <FontAwesomeIcon icon={faCircleUser} />
                                                 </div>
 
-                                                <p className="sidebar-user-info__name">Регіна Тодоренко</p>
+                                                <p className="sidebar-user-info__name">{adminName}</p>
                                             </div>
 
                                             <div className="sidebar-user-menu">
@@ -282,12 +373,12 @@ export const AdminPage = () => {
 
                                         <div className="sidebar-user-popup" style={{ display: popupIsOpen ? 'block' : 'none' }}>
                                             <div className="sidebar-user-popup__container">
-                                                <div className="sidebar-user-popup__btn">
+                                                <Link to={'/login'} className="sidebar-user-popup__btn" onClick={handleLogout}>
                                                     <p>вийти</p>
                                                     <div className="sidebar-user-popup__btn-logo">
                                                         <FontAwesomeIcon icon={faArrowRightFromBracket} />
                                                     </div>
-                                                </div>
+                                                </Link>
                                             </div>
                                         </div>
                                     </div>
@@ -308,11 +399,15 @@ export const AdminPage = () => {
                                     setSelectedContactsRowIndex={setSelectedContactsRowIndex}
                                     selectedHelpRowIndex={selectedHelpRowIndex}
                                     setSelectedHelpRowIndex={setSelectedHelpRowIndex}
+                                    selectedAdminsRowIndex={selectedAdminsRowIndex}
+                                    setSelectedAdminsRowIndex={setSelectedAdminsRowIndex}
                                     activeButton={activeButton}
                                     showPetForm={showPetForm}
                                     showContactsForm={showContactsForm}
                                     showHelpOptionForm={showHelpOptionForm}
+                                    showAdminForm={showAdminForm}
                                     setIsEditBtnClicked={setIsEditBtnClicked}
+                                    adminRole={adminRole}
                                 />
 
                                 <DeleteBtn
@@ -322,8 +417,11 @@ export const AdminPage = () => {
                                     setSelectedContactsRowIndex={setSelectedContactsRowIndex}
                                     selectedHelpRowIndex={selectedHelpRowIndex}
                                     setSelectedHelpRowIndex={setSelectedHelpRowIndex}
+                                    selectedAdminsRowIndex={selectedAdminsRowIndex}
+                                    setSelectedAdminsRowIndex={setSelectedAdminsRowIndex}
                                     showMessage={showDeleteMessage}
                                     activeButton={activeButton}
+                                    adminRole={adminRole}
                                 />
 
                                 <button className="actions__add-btn" onClick={openForm}>
@@ -345,15 +443,20 @@ export const AdminPage = () => {
                                         setContacts={setContacts}
                                         helpOptions={helpOptions}
                                         setHelpOptions={setHelpOptions}
+                                        admins={admins}
+                                        setAdmins={setAdmins}
                                         selectedPetsRowIndex={selectedPetsRowIndex}
                                         handlePetRowClick={handlePetRowClick}
                                         selectedContactsRowIndex={selectedContactsRowIndex}
                                         handleContactRowClick={handleContactRowClick}
                                         selectedHelpRowIndex={selectedHelpRowIndex}
                                         handleHelpRowClick={handleHelpRowClick}
+                                        selectedAdminsRowIndex={selectedAdminsRowIndex}
+                                        handleAdminRowClick={handleAdminRowClick}
                                         petTableUpdate={petTableUpdate}
                                         contactsTableUpdate={contactsTableUpdate}
                                         helpOptionsTableUpdate={helpOptionsTableUpdate}
+                                        adminTableUpdate={adminTableUpdate}
                                     />
                                 ) : (
                                     <div className="main-content__greeting">
