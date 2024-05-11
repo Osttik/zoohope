@@ -65,5 +65,5 @@
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",
     "@types/react-router-hash-link": "^2.4.9"
-  },
+  }
 }
