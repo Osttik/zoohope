@@ -64,9 +64,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/js-cookie": "^3.0.6"
-  },
-  "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
     "@types/react-slick": "^0.23.13"
   }
 }
