@@ -28,6 +28,8 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
     const [noBreedChecked, setNoBreedChecked] = useState<boolean>(false);
     const [isSterilizationChecked, setIsSterilizationChecked] = useState<boolean>(false);
     const [isTreatmentChecked, setIsTreatmentChecked] = useState<boolean>(false);
+    const [isAdoptedChecked, setIsAdoptedChecked] = useState<boolean>(false);
+    const [isTimeAdoptedChecked, setIsTimeAdoptedChecked] = useState<boolean>(false);
 
     const [years, setYears] = useState<number>(0);
     const [month, setMonth] = useState<number>(0);
@@ -42,7 +44,7 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
     const [storyUa, setStoryUa] = useState<string>('');
 
     const [images, setImages] = useState<{ added: string[], existed: string[] }>({ added: [], existed: [] });
-    
+
     const [petData, setPetData] = useState<any>(null);
 
     const selectedContact = selectedPetsRowIndex !== null ? pets[selectedPetsRowIndex] : null;
@@ -114,6 +116,8 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
                 },
                 sterilization: isSterilizationChecked ? 'Так' : 'Ні',
                 treatment: isTreatmentChecked ? 'Потребує' : 'Не потребує',
+                adopted:  isAdoptedChecked ? 'Так' : 'Ні',
+                timeAdopted:  isTimeAdoptedChecked ? 'Так' : 'Ні',
                 story: {
                     en: capitalizeFirstLetter(storyEn.trim()),
                     ua: capitalizeFirstLetter(storyUa.trim())
@@ -174,6 +178,8 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
 
             setIsSterilizationChecked(petData.sterilization === 'Так');
             setIsTreatmentChecked(petData.treatment === 'Потребує');
+            setIsAdoptedChecked(petData.adopted === 'Так');
+            setIsTimeAdoptedChecked(petData.timeAdopted === 'Так');
 
             const years = Math.floor(petData.age / 12);
             const months = petData.age % 12;
@@ -244,6 +250,8 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
                 },
                 sterilization: isSterilizationChecked ? 'Так' : 'Ні',
                 treatment: isTreatmentChecked ? 'Потребує' : 'Не потребує',
+                adopted: isAdoptedChecked ? 'Так' : 'Ні',
+                timeAdopted: isTimeAdoptedChecked ? 'Так' : 'Ні',
                 story: {
                     en: capitalizeFirstLetter(storyEn.trim()),
                     ua: capitalizeFirstLetter(storyUa.trim())
@@ -351,6 +359,16 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
         setIsSterilizationChecked(false);
         setIsTreatmentChecked(false);
         setImages({ added: [], existed: [] });
+    }
+    function UpdatedDeletePhoto (index: number) {
+        const updatedImages = [...images.added];
+        updatedImages.splice(index, 1);
+        setImages({...images, added: updatedImages});
+    }
+    function ExistedDeletePhoto (index: number) {
+        const updatedImages = [...images.existed];
+        updatedImages.splice(index, 1);
+        setImages({...images, existed: updatedImages});
     }
 
     useEffect(() => {
@@ -591,21 +609,59 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
 
                             <div className="pet-form__images">
                                 {images.existed.map((image: any, index: number) => (
-                                    <img
-                                        key={index}
-                                        src={`${requestURL}/${image}`}
-                                        alt={`Фото ${index + 1}`}
-                                        className="pet-form__image"
-                                    />
+                                    <>
+                                        <img
+                                            key={index}
+                                            src={`http://localhost:5000/${image}`}
+                                            alt={`Фото ${index + 1}`}
+                                            className="pet-form__image"
+                                        />
+                                        <button type="button" onClick={() => {ExistedDeletePhoto(index)}}>Delete</button>
+                                    </>
                                 ))}
                                 {images.added.map((image: any, index: number) => (
+                                    <>
                                     <img
                                         key={images.existed.length + index}
                                         src={URL.createObjectURL(image)}
                                         alt={`Фото ${images.existed.length + index + 1}`}
                                         className="pet-form__image"
                                     />
+                                    <button type="button" onClick={(() => UpdatedDeletePhoto(index))}>Delete</button>
+                                    </>
                                 ))}
+                            </div>
+
+                            <div className="pet-form-ua__additional-options" style={{ display: isEditBtnClicked ? 'block' : 'none' }}>
+                                <div className="additional-options__title">Додаткові опції редагування:</div>
+
+                                <div className="pet-form-ua__checkboxes adopted">
+                                    <label htmlFor="adopted">
+                                        <p>Отримав(-ла) дім</p>
+                                        <input
+                                            type="checkbox"
+                                            name="adopted"
+                                            id="adopted"
+                                            checked={isAdoptedChecked}
+                                            onChange={() => setIsAdoptedChecked(!isAdoptedChecked)}
+                                        />
+                                        <span></span>
+                                    </label>
+                                </div>
+
+                                <div className="pet-form-ua__checkboxes time-adopted">
+                                    <label htmlFor="time-adopted">
+                                        <p>На тимчасовому перетриманні</p>
+                                        <input
+                                            type="checkbox"
+                                            name="time-adopted"
+                                            id="time-adopted"
+                                            checked={isTimeAdoptedChecked}
+                                            onChange={() => setIsTimeAdoptedChecked(!isTimeAdoptedChecked)}
+                                        />
+                                        <span></span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
 

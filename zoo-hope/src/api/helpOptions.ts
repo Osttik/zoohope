@@ -8,7 +8,7 @@ export const apiGetAllHelpOptions = async () => {
       return response.data;
 
   } catch (error) {
-      console.error("Error fetching contacts:", error);
+      console.error("Error fetching help options:", error);
       return [];
   }
 };

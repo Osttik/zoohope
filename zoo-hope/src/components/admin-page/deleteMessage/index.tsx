@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { deletePet } from "../../../api/pets";
 import { deleteContact } from "../../../api/contacts";
 import { deleteHelpOption } from "../../../api/helpOptions";
+import { deleteAdmin } from "../../../api/admins";
 import { IPet } from "../../../define";
 import { IContact } from "../../../define";
 import { IHelpOption } from "../../../define";
@@ -11,22 +12,26 @@ interface IDeleteMessageProps {
     selectedPetRowIndex: null | number;
     selectedContactsRowIndex: null | number;
     selectedHelpRowIndex: null | number;
+    selectedAdminsRowIndex: null | number;
     display: string;
     hideMessage: () => void;
     pets: IPet[];
     contacts: IContact[];
     helpOptions: IHelpOption[];
+    admins: any;
     activeButton: string | null;
     setPetTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
     setContactsTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
     setHelpOptionsTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+    setAdminTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const DeleteMessage = ({ selectedPetRowIndex, selectedContactsRowIndex, selectedHelpRowIndex, display, hideMessage, pets, contacts, helpOptions, activeButton, setPetTableUpdate, setContactsTableUpdate, setHelpOptionsTableUpdate }: IDeleteMessageProps) => {
+export const DeleteMessage = ({ selectedPetRowIndex, selectedContactsRowIndex, selectedHelpRowIndex, selectedAdminsRowIndex, display, hideMessage, pets, contacts, helpOptions, admins, activeButton, setPetTableUpdate, setContactsTableUpdate, setHelpOptionsTableUpdate, setAdminTableUpdate }: IDeleteMessageProps) => {
     if (display === "none" ||
         (activeButton === 'pets' && selectedPetRowIndex === null) ||
         (activeButton === 'contacts' && selectedContactsRowIndex === null) ||
-        (activeButton === 'help' && selectedHelpRowIndex === null)) {
+        (activeButton === 'help' && selectedHelpRowIndex === null) ||
+        (activeButton === 'admins' && selectedAdminsRowIndex === null)) {
         return null;
     }
 
@@ -38,6 +43,9 @@ export const DeleteMessage = ({ selectedPetRowIndex, selectedContactsRowIndex, s
 
     const selectedHelpOption = selectedHelpRowIndex !== null ? helpOptions[selectedHelpRowIndex] : null;
     const helpOptionId = selectedHelpOption ? selectedHelpOption._id : null;
+
+    const selectedAdmin = selectedAdminsRowIndex !== null ? admins[selectedAdminsRowIndex] : null;
+    const adminId = selectedAdmin ? selectedAdmin._id : null;
 
     const deleteSelectedElement = () => {
         if (activeButton === null) {
@@ -59,6 +67,11 @@ export const DeleteMessage = ({ selectedPetRowIndex, selectedContactsRowIndex, s
             case activeButton === 'help':
                 if (helpOptionId) {
                     deleteHelpOption(helpOptionId).then(() => setHelpOptionsTableUpdate((prev: boolean) => !prev))
+                }
+                break;
+            case activeButton === 'admins':
+                if (adminId) {
+                    deleteAdmin(adminId).then(() => setAdminTableUpdate((prev: boolean) => !prev)) 
                 }
                 break;
         }
