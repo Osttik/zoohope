@@ -140,4 +140,4 @@ const updateTokens = (user) => {
   return { access_token, refresh_token };
 };
 
-module.exports = { auth_router, updateTokens };
+module.exports = { auth_router, verify_token, updateTokens };

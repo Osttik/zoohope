@@ -360,6 +360,16 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
         setIsTreatmentChecked(false);
         setImages({ added: [], existed: [] });
     }
+    function UpdatedDeletePhoto (index: number) {
+        const updatedImages = [...images.added];
+        updatedImages.splice(index, 1);
+        setImages({...images, added: updatedImages});
+    }
+    function ExistedDeletePhoto (index: number) {
+        const updatedImages = [...images.existed];
+        updatedImages.splice(index, 1);
+        setImages({...images, existed: updatedImages});
+    }
 
     useEffect(() => {
         updateFormFields();
@@ -599,20 +609,26 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
 
                             <div className="pet-form__images">
                                 {images.existed.map((image: any, index: number) => (
-                                    <img
-                                        key={index}
-                                        src={`${requestURL}/${image}`}
-                                        alt={`Фото ${index + 1}`}
-                                        className="pet-form__image"
-                                    />
+                                    <>
+                                        <img
+                                            key={index}
+                                            src={`http://localhost:5000/${image}`}
+                                            alt={`Фото ${index + 1}`}
+                                            className="pet-form__image"
+                                        />
+                                        <button type="button" onClick={() => {ExistedDeletePhoto(index)}}>Delete</button>
+                                    </>
                                 ))}
                                 {images.added.map((image: any, index: number) => (
+                                    <>
                                     <img
                                         key={images.existed.length + index}
                                         src={URL.createObjectURL(image)}
                                         alt={`Фото ${images.existed.length + index + 1}`}
                                         className="pet-form__image"
                                     />
+                                    <button type="button" onClick={(() => UpdatedDeletePhoto(index))}>Delete</button>
+                                    </>
                                 ))}
                             </div>
 

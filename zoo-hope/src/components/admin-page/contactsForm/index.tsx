@@ -182,6 +182,10 @@ export const ContactsForm = ({ display, hideForm, setContactsTableUpdate, select
         updateFormFields();
     }, [contactsData]);
 
+    function deletePhoto() {
+        setImage(null)
+    }
+    
     return (
         <div className="contacts-form" style={{ display: display }}>
             <div className="contacts-form__container">
@@ -235,11 +239,16 @@ export const ContactsForm = ({ display, hideForm, setContactsTableUpdate, select
 
                             <div className="contacts-form__images">
                                 {image && (
-                                    <img
-                                        src={image instanceof File ? URL.createObjectURL(image) : `${requestURL}/${image}`}
-                                        alt="лого"
-                                        className="contacts-form__image"
-                                    />
+                                    <>
+                                        <img
+                                            src={image instanceof File ? URL.createObjectURL(image) : `${requestURL}/${image}`}
+                                            alt="лого"
+                                            className="contacts-form__image"
+                                        />
+                                        <button onClick={deletePhoto}>
+                                            delete
+                                        </button>
+                                    </>
                                 )}
                             </div>
                         </div>

@@ -14,6 +14,7 @@ import { Table } from "./table";
 import { IPet } from "../../define";
 import { IContact } from "../../define";
 import { IHelpOption } from "../../define";
+import { IAdmin } from "../../define";
 import { Link } from "react-router-dom";
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
@@ -28,7 +29,7 @@ export const AdminPage = () => {
     const [pets, setPets] = useState<IPet[]>([]);
     const [contacts, setContacts] = useState<IContact[]>([]);
     const [helpOptions, setHelpOptions] = useState<IHelpOption[]>([]);
-    const [admins, setAdmins] = useState<any[]>([]);
+    const [admins, setAdmins] = useState<IAdmin[]>([]);
     const [adminName, setAdminName] = useState<string>('');
     const [adminRole, setAdminRole] = useState<string>('');
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { IPet } from "../../../define";
 import { IContact } from "../../../define";
 import { IHelpOption } from "../../../define";
+import { IAdmin } from "../../../define";
 import { getAllPets, getCats, getDogs, getNeedTreatmentPet, getAdoptedPets, getTimeAdoptedPets } from "../../../api/pets";
 import { getAllContacts } from "../../../api/contacts";
 import { apiGetAllHelpOptions } from "../../../api/helpOptions";
@@ -15,8 +16,8 @@ interface ITableProps {
     setContacts: React.Dispatch<React.SetStateAction<IContact[]>>;
     helpOptions: IHelpOption[];
     setHelpOptions: React.Dispatch<React.SetStateAction<IHelpOption[]>>;
-    admins: any;
-    setAdmins: any;
+    admins: IAdmin[];
+    setAdmins: React.Dispatch<React.SetStateAction<IAdmin[]>>;
     selectedPetsRowIndex: null | number;
     handlePetRowClick: (index: number) => void;
     selectedContactsRowIndex: null | number;
@@ -296,7 +297,7 @@ export const Table = ({
                         </tr>
                     </thead>
                     <tbody>
-                        {admins.map((option: any, index: number) => (
+                        {admins.map((option: IAdmin, index: number) => (
                             <tr key={option._id} className={`admin-table__row ${selectedAdminsRowIndex === index ? 'focus' : ''}`} onClick={() => handleAdminRowClick(index)}>
                                 <td>{index + 1}</td>
                                 <td>{option.name}</td>

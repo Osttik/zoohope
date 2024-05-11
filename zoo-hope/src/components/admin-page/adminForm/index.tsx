@@ -5,8 +5,19 @@ import { SetStateAction, useEffect, useState } from "react";
 import { addAdmin } from "../../../api/admins";
 import { editAdmin } from "../../../api/admins";
 import { getOneAdmin } from "../../../api/admins";
+import { IAdmin } from "../../../define";
 
-export const AdminForm = ({ display, hideForm, setAdminTableUpdate, isEditBtnClicked, selectedAdminsRowIndex, admins, setIsEditBtnClicked }: any) => {
+interface IAdminFormProps {
+    display: string;
+    hideForm: () => void;
+    setAdminTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+    isEditBtnClicked: boolean;
+    selectedAdminsRowIndex: null | number;
+    admins: IAdmin[];
+    setIsEditBtnClicked: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const AdminForm = ({ display, hideForm, setAdminTableUpdate, isEditBtnClicked, selectedAdminsRowIndex, admins, setIsEditBtnClicked }: IAdminFormProps) => {
     const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');

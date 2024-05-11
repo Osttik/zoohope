@@ -1,4 +1,6 @@
 const ContactsModel = require('../../models/Contacts');
+const fs = require('fs');
+const path = require('path');
 
 //add contacts
 module.exports.addContacts = async (req, res) => {
@@ -53,7 +55,18 @@ module.exports.updateContact = async (req, res) => {
     try {
         const { id } = req.params;
 
+        const existedContact = await ContactsModel.findById(id)
+
+        const existedImage = existedContact.icon
+        const newImage = req.body.icon
+
+        if (newImage !== existedImage && existedImage) {
+            imagePath = path.join(__dirname, "../../uploads", existedImage)
+            fs.unlinkSync(imagePath)
+        }
+
         const updatedContact = await ContactsModel.findByIdAndUpdate(id, req.body, { new: true });
+
         if (!updatedContact) {
             return res.status(404).json({ message: 'No contact in database' });
         }
@@ -64,7 +77,7 @@ module.exports.updateContact = async (req, res) => {
             res.json(updatedContact)
         }
     } catch (err) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ message: err.message });
     }
 };
 
@@ -73,7 +86,17 @@ module.exports.deleteContact = async (req, res) => {
     try {
         const { id } = req.params;
 
+        const contact = await ContactsModel.findById(id)
+        
         await ContactsModel.findByIdAndDelete(id);
+
+        const image = contact.icon
+
+        if (image) {
+            const imagePath = path.join(__dirname, "../../uploads", image)
+            fs.unlinkSync(imagePath)
+        }
+
 
         res.json({ message: 'Contact was deleted successfully' });
     } catch (error) {

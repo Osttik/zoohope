@@ -39,3 +39,10 @@ export interface IContact extends IIdentity {
     icon?: string;
     value?: string;
 }
+
+export interface IAdmin extends IIdentity {
+    name: string;
+    email: string;
+    password: string;
+    role: string;
+}
