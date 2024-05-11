@@ -2,6 +2,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { requestURL } from "../../api/api";
+import pet from "../../images/icons/pet.svg";
 
 const CustomNextArrow = (props: any) => {
   const { onClick } = props;
@@ -24,7 +25,10 @@ const MyCarousel = ({ images }: any) => {
     slidesToScroll: 1,
     customPaging: function (i: number) {
       return (
-        <img className="listImgSlide" src={`${requestURL}/${images[i]}`} alt={`Slide ${i + 1}`} />
+        <img className="listImgSlide" src={`${requestURL}/${images[i]}`} alt={`Slide ${i + 1}`} onError={({ currentTarget }) => {
+          currentTarget.onerror = null; // prevents looping
+          currentTarget.src = pet;
+        }} />
       );
     }
   };
@@ -33,7 +37,10 @@ const MyCarousel = ({ images }: any) => {
     <Slider {...settings}>
       {images.map((imageUrl: string, index: number) => (
         <div key={index}>
-          <img className="imgSlide" src={`${requestURL}/${imageUrl}`} alt={`Slide ${index + 1}`} />
+          <img className="imgSlide" src={`${requestURL}/${imageUrl}`} alt={`Slide ${index + 1}`} onError={({ currentTarget }) => {
+          currentTarget.onerror = null; // prevents looping
+          currentTarget.src = pet;
+        }} />
         </div>
       ))}
     </Slider>
