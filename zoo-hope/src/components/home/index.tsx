@@ -53,8 +53,8 @@ export default function Home() {
 			<section className="hero">
 				<div className="box">
 					<div className="text">
-						<h1>Врятуйте тварин від війни</h1>
-						<h2>Тварини - живі істоти і вони також потребують підтримки</h2>
+						<h1>{t('homePageTitle')}</h1>
+						<h2>{t('homePage_sub_title')}</h2>
 					</div>
 					<div className="donate">
 						<Donate />
@@ -87,32 +87,32 @@ export default function Home() {
 			<section className="reportSection">
 				<div className="box">
 					<div className="text">
-						<h1>ЗВІТНІСТЬ</h1>
-						<h2>Наша робота за 2023 рік:</h2>
+						<h1>{t('reporting')}</h1>
+						<h2>{t('our_work')}</h2>
 					</div>
 					<div className="report">
 						<div>
 							<h1>140</h1>
-							<h2>тварин підібрано</h2>
+							<h2>{t('animals_taken')}</h2>
 						</div>
 						<div>
 							<h1>250</h1>
-							<h2>тварин вакціновано</h2>
+							<h2>{t('animals_vaccinated')}</h2>
 						</div>
 						<div>
 							<h1>349</h1>
-							<h2>тварин вилікувано</h2>
+							<h2>{t('animals_cured')}</h2>
 						</div>
 						<div>
 							<h1>175</h1>
-							<h2>тварин знайшли дім</h2>
+							<h2>{t('animals_found_home')}</h2>
 						</div>
 					</div>
 				</div>
 			</section>
 
 			<section className="petListSection">
-				<h1>Шукають дім</h1>
+				<h1>{t('looking-for-home')}</h1>
 				<div className="petList">
 					{getPets.length ?
 						getPets.map((el, i) => {
@@ -127,7 +127,7 @@ export default function Home() {
 
 					}
 				</div>
-				<Link to={"/petList"}>Більше Тваринок</Link>
+				<Link to={"/petList"}>{t('more-animals')}</Link>
 			</section>
 		</div>
 	);
