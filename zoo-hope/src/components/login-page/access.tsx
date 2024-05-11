@@ -45,7 +45,7 @@ function getCookieValue(key: string) {
   return null;
 }
 
-export const AccessFunc = ({ children, role }: { children: JSX.Element, role: 'user' | 'admin' }) => {
+export const AccessFunc = ({ children, role }: { children: JSX.Element, role: 'super-admin' | 'admin' }) => {
   const navigate = useNavigate();
   const { setlogErMes } = useContext(PetContext);
   const { setPrevPath } = useContext(PetContext);
@@ -75,7 +75,7 @@ export const AccessFunc = ({ children, role }: { children: JSX.Element, role: 'u
         }
       } else {
         const userData = await verifyAc(accessToken).then((a) => { return a });
-        if (userData.role == role || userData.role == 'admin') {
+        if (userData.role == role || userData.role == 'admin' || userData.role == 'super-admin') {
           setLoading(false);
         } else { setlogErMes('role'); setPrevPath('/admin'); navigate('/login') }
       }

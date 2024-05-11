@@ -27,7 +27,9 @@ const PetSchema = new mongoose.Schema({
     ua: String
   },
   sterilization: String,
-  treatment: String
+  treatment: String,
+  adopted: String,
+  timeAdopted: String,
 });
 
 const PetModel = mongoose.model("pets", PetSchema);
