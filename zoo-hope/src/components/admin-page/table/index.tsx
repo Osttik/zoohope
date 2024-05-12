@@ -199,8 +199,8 @@ export const Table = ({
                 break;
             case 'admins':
                 getAllAdmins().then(setAdmins);
-                console.log(admins);
-
+                break;
+            default:
                 break;
         }
     }, [activeButton, petTableUpdate, contactsTableUpdate, helpOptionsTableUpdate, adminTableUpdate]);
