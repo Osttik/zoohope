@@ -8,6 +8,7 @@ import "../../i18n/i18n"
 import { BurgerMenu } from "./burger/burger";
 import { Translation } from "./translation/translation";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { HashLink } from 'react-router-hash-link';
 
 interface Istates {
   [key: string]: boolean
@@ -100,9 +101,9 @@ export const NavBar = () => {
                   ))}
               </NavDropdown>
             ) : (
-              <NavLink to={e.url!} key={key} className="navbar__group__link navbar__text">
+              <HashLink smooth to={e.url!} key={key} className="navbar__group__link navbar__text asdasda">
                 {t(e.i18Key)}
-              </NavLink>
+              </HashLink>
             )
           )}
         </div>

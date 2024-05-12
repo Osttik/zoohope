@@ -47,7 +47,7 @@ export default function Home() {
 	if (!getPets) {
 		return <></>
 	}
-	
+
 	return (
 		<div className="homePage">
 			<section className="hero">
@@ -84,7 +84,7 @@ export default function Home() {
 				}
 			</section>
 
-			<section className="reportSection">
+			<section className="reportSection" id="reports">
 				<div className="box">
 					<div className="text">
 						<h1>{t('reporting')}</h1>
