@@ -37,3 +37,8 @@ export interface IContact extends IIdentity {
     icon?: string;
     value?: string;
 }
+
+export interface ISetting extends IIdentity {
+  key: string;
+  value: string;
+}

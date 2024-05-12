@@ -3,25 +3,31 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 
 interface IDeleteMessageProps {
-    selectedPetRowIndex: null | number;
-    selectedContactsRowIndex: null | number;
-    selectedHelpRowIndex: null | number;
-    display: string;
-    hideMessage: () => void;
-    pets: any;
-    contacts: any;
-    helpOptions: any
-    activeButton: string | null;
-    setPetTableUpdate: any;
-    setContactsTableUpdate: any;
-    setHelpOptionsTableUpdate: any;
+  selectedPetRowIndex: null | number;
+  selectedContactsRowIndex: null | number;
+  selectedHelpRowIndex: null | number;
+  selectedSettingsRowIndex: null | number;
+  display: string;
+  hideMessage: () => void;
+  pets: any;
+  contacts: any;
+  settings: any;
+  helpOptions: any;
+  activeButton: string | null;
+  setPetTableUpdate: any;
+  setContactsTableUpdate: any;
+  setSettingsTableUpdate: any;
+  setHelpOptionsTableUpdate: any;
 }
 
-export const DeleteMessage = ({ selectedPetRowIndex, selectedContactsRowIndex, selectedHelpRowIndex, display, hideMessage, pets, contacts, helpOptions, activeButton, setPetTableUpdate, setContactsTableUpdate, setHelpOptionsTableUpdate }: IDeleteMessageProps) => {
+export const DeleteMessage = ({ selectedPetRowIndex, selectedContactsRowIndex, selectedHelpRowIndex, selectedSettingsRowIndex, 
+    display, hideMessage, pets, contacts, settings, helpOptions, activeButton, setPetTableUpdate, setContactsTableUpdate, setSettingsTableUpdate, setHelpOptionsTableUpdate }: IDeleteMessageProps) => {
     if (display === "none" ||
         (activeButton === 'pets' && selectedPetRowIndex === null) ||
         (activeButton === 'contacts' && selectedContactsRowIndex === null) ||
-        (activeButton === 'help' && selectedHelpRowIndex === null)) {
+        (activeButton === 'help' && selectedHelpRowIndex === null) ||
+        (activeButton === 'settings' && selectedSettingsRowIndex === null)
+    ) {
         return null;
     }
 
@@ -33,6 +39,9 @@ export const DeleteMessage = ({ selectedPetRowIndex, selectedContactsRowIndex, s
 
     const selectedHelpOption = selectedHelpRowIndex !== null ? helpOptions[selectedHelpRowIndex] : null;
     const helpOptionId = selectedHelpOption ? selectedHelpOption._id : null;
+
+    const selectedSetting = selectedSettingsRowIndex !== null ? settings[selectedSettingsRowIndex] : null;
+    const settingId = selectedSetting ? selectedSetting._id : null;
 
     const deletePet = async () => {
         try {
@@ -76,6 +85,22 @@ export const DeleteMessage = ({ selectedPetRowIndex, selectedContactsRowIndex, s
         }
     };
 
+        const deleteSetting = async () => {
+          try {
+            if (settingId) {
+              const response = await axios.delete(
+                `http://localhost:5000/delete-setting/${settingId}`
+              );
+              console.log(response.data.message);
+              setSettingsTableUpdate((prev: boolean) => !prev);
+            } else {
+              console.error("Не розуміє id елемента");
+            }
+          } catch (error) {
+            console.error("Помилка при видаленні елемента", error);
+          }
+        };
+
     const deleteSelectedElement = () => {
         if (activeButton === null) {
             console.error('activeButton is null');
@@ -88,6 +113,9 @@ export const DeleteMessage = ({ selectedPetRowIndex, selectedContactsRowIndex, s
                 break;
             case activeButton === 'contacts':
                 deleteContact();
+                break;
+            case activeButton === 'settings':
+                deleteSetting();
                 break;
             case activeButton === 'help':
                 deleteHelpOption();

@@ -7,14 +7,23 @@ interface IDeleteBtnProps {
     setSelectedPetsRowIndex: any;
     selectedContactsRowIndex: null | number;
     setSelectedContactsRowIndex: any;
+    selectedSettingsRowIndex: null | number;
+    setSelectedSettingsRowIndex: any;
     selectedHelpRowIndex: null | number;
     setSelectedHelpRowIndex: any;
     showMessage: () => void;
     activeButton: string | null;
 }
 
-export const DeleteBtn = ({ selectedPetRowIndex, setSelectedPetsRowIndex, selectedContactsRowIndex, setSelectedContactsRowIndex, selectedHelpRowIndex, setSelectedHelpRowIndex, showMessage, activeButton }: IDeleteBtnProps) => {
-    const display = selectedPetRowIndex !== null || selectedContactsRowIndex !== null || selectedHelpRowIndex !== null;
+export const DeleteBtn = ({ selectedPetRowIndex, setSelectedPetsRowIndex, 
+    selectedContactsRowIndex, setSelectedContactsRowIndex, 
+    selectedSettingsRowIndex, setSelectedSettingsRowIndex,
+     selectedHelpRowIndex, setSelectedHelpRowIndex, showMessage, activeButton }: IDeleteBtnProps) => {
+    const display = 
+    selectedPetRowIndex !== null || 
+    selectedContactsRowIndex !== null ||
+    selectedSettingsRowIndex !== null ||
+    selectedHelpRowIndex !== null;
 
     const handleButtonClick = () => {
         if (selectedPetRowIndex !== null) {
@@ -25,6 +34,11 @@ export const DeleteBtn = ({ selectedPetRowIndex, setSelectedPetsRowIndex, select
         if (selectedContactsRowIndex !== null) {
             setSelectedPetsRowIndex(null);
             setSelectedHelpRowIndex(null);
+        }
+
+        if (selectedSettingsRowIndex !== null) {
+            setSelectedSettingsRowIndex(null);
+            setSelectedContactsRowIndex(null);
         }
 
         if (selectedHelpRowIndex !== null) {
@@ -38,6 +52,7 @@ export const DeleteBtn = ({ selectedPetRowIndex, setSelectedPetsRowIndex, select
     useEffect(() => {
         setSelectedPetsRowIndex(null);
         setSelectedContactsRowIndex(null);
+        setSelectedSettingsRowIndex(null)
         setSelectedHelpRowIndex(null);
     }, [activeButton]);
     return (

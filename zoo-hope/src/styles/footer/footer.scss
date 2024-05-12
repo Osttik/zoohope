@@ -52,15 +52,17 @@ ol {
 
    &__navigation {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 1fr;
       row-gap: 75px;
       margin-bottom: 55px;
    }
 
    &__nav-block {}
 
-   &__bottom {}
+   &__bottom {
+      text-align: center;
+   }
 }
 
 .footer-nav-block {
@@ -176,11 +178,12 @@ ol {
    font-weight: 600;
    font-size: 16px;
    display: flex;
-   justify-content: space-between;
+   justify-content: center;
    align-items: center;
 
    &__text {
       color: #fff;
+      text-align: center;
    }
 
    &__link {
