@@ -1,37 +1,33 @@
-import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import { requestURL } from "../../api/api";
 import "../../i18n/i18n";
-import axios from "axios";
-import { Translate } from "../translation";
 import { IPet } from "../../define";
 import { PetCard } from "../pet-list/petCard/petCard";
 import { useParams } from "react-router";
+import { getAllPets } from "../../api/pets";
 
-export function OtherPets() {
-  const { t } = useTranslation();
-  const [otherPets, setOtherPets] = useState<IPet[]>([]);
+export function OtherPetsBlock() {
   const [randomPets, setRandomPets] = useState<IPet[]>([]);
+
   let {id} = useParams()
+
   useEffect(() => {
     const getData = async() => {
-        const res = await axios.get(`${requestURL}/get-all-pets`);
-        setOtherPets(res.data)
+      const res = await getAllPets();
+
+      if(res.length > 0){
+        const filterArr = res.filter((pet: IPet) => pet._id !== id)
+        const randomPets = getOtherPets(filterArr);
+        setRandomPets(randomPets);
+      }
     }
     getData()
-  }, [])
-  useEffect(() => {
-    if(otherPets.length > 0){
-      const filterArr = otherPets.filter((pet) => pet._id !== id)
-      const randomPets = getOtherPets(filterArr);
-      setRandomPets(randomPets);
-    }
-  }, [otherPets])
+  }, []);
+
   return (    
     <div className="petListSection additionalPetsBlock">
-        {randomPets.map((el, i) => (
-            <PetCard key={i} animalInfo={el}/>
-        ))}
+      {randomPets.map((el, i) => (
+        <PetCard key={i} animalInfo={el}/>
+      ))}
     </div>
   )
 }

@@ -4,8 +4,7 @@ import Logo from "../../../images/logo/logo.png";
 import { SetStateAction, useState, ChangeEvent, useEffect } from "react";
 import { addPet, updatePet, getOnePet } from "../../../api/pets";
 import { IPet } from "../../../define";
-import axios from "axios";
-import { requestURL } from "../../../api/api";
+import { uploadImages } from "../../../api/images";
 
 interface IPetFormProps {
     display: string;
@@ -81,11 +80,9 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
                 imgsData.append('images', images.added[i]);
             }
 
-            const imgs = await axios.post('http://localhost:5000/upload-pet-images', imgsData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
+            const imgs = await uploadImages(imgsData);
+
+            if (!imgs) return;
 
             const formData = {
                 name: {
@@ -93,7 +90,7 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
                     ua: capitalizeFirstLetter(nameUa.trim()),
                 },
                 type: isDogChecked ? 'Пес' : (isCatChecked ? 'Кіт' : ''),
-                images: [...images.existed, ...imgs.data],
+                images: [...images.existed, ...imgs],
                 sex: isGirlChecked ? 'Дівчинка' : (isBoyChecked ? 'Хлопчик' : ''),
                 age: ((years !== undefined ? years : 0) * 12) + (month !== undefined ? month : 0),
                 breed: noBreedChecked
@@ -215,11 +212,9 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
                 imgsData.append('images', images.added[i]);
             }
 
-            const imgs = await axios.post('http://localhost:5000/upload-pet-images', imgsData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
+            const imgs = await uploadImages(imgsData);
+
+            if (!imgs) return;
 
             const formData = {
                 name: {
@@ -227,7 +222,7 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
                     ua: capitalizeFirstLetter(nameUa.trim()),
                 },
                 type: isDogChecked ? 'Пес' : (isCatChecked ? 'Кіт' : ''),
-                images: [...images.existed, ...imgs.data],
+                images: [...images.existed, ...imgs],
                 sex: isGirlChecked ? 'Дівчинка' : (isBoyChecked ? 'Хлопчик' : ''),
                 age: ((years !== undefined ? years : 0) * 12) + (month !== undefined ? month : 0),
                 breed: noBreedChecked

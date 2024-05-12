@@ -4,20 +4,21 @@ import axios from "./axios";
 
 export const getAllPets = async () => {
     try {
-        const response = await axios.get(`${requestURL}/get-all-pets`);
-        const data = response.data.filter((pet: IPet) => pet.adopted === 'Ні');
-        return data;
+        const response = await axios.get<IPet[]>(`${requestURL}/get-all-pets`);
+        const data = response.data.filter(pet => pet.adopted === 'Ні');
 
+        return data;
     } catch (error) {
         console.error("Error fetching pets:", error);
+
         return [];
     }
 };
 
 export const getCats = async () => {
     try {
-        const response = await axios.get(`${requestURL}/get-all-pets`);
-        const data = response.data.filter((pet: IPet) => pet.type === 'Кіт');
+        const response = await axios.get<IPet[]>(`${requestURL}/get-all-pets`);
+        const data = response.data.filter(pet => pet.type === 'Кіт');
         return data;
 
     } catch (error) {
@@ -28,8 +29,8 @@ export const getCats = async () => {
 
 export const getDogs = async () => {
     try {
-        const response = await axios.get(`${requestURL}/get-all-pets`);
-        const data = response.data.filter((pet: IPet) => pet.type === 'Пес');
+        const response = await axios.get<IPet[]>(`${requestURL}/get-all-pets`);
+        const data = response.data.filter(pet => pet.type === 'Пес');
         return data;
 
     } catch (error) {
@@ -40,7 +41,7 @@ export const getDogs = async () => {
 
 export const getNeedTreatmentPet = async () => {
     try {
-        const response = await axios.get(`${requestURL}/get-all-pets`);
+        const response = await axios.get<IPet[]>(`${requestURL}/get-all-pets`);
         const data = response.data.filter((pet: IPet) => pet.treatment === 'Потребує');
         return data;
 
@@ -52,7 +53,7 @@ export const getNeedTreatmentPet = async () => {
 
 export const getAdoptedPets = async () => {
     try {
-        const response = await axios.get(`${requestURL}/get-all-pets`);
+        const response = await axios.get<IPet[]>(`${requestURL}/get-all-pets`);
         const data = response.data.filter((pet: IPet) => pet.adopted === 'Так');
         return data;
 
@@ -64,7 +65,7 @@ export const getAdoptedPets = async () => {
 
 export const getTimeAdoptedPets = async () => {
     try {
-        const response = await axios.get(`${requestURL}/get-all-pets`);
+        const response = await axios.get<IPet[]>(`${requestURL}/get-all-pets`);
         const data = response.data.filter((pet: IPet) => pet.timeAdopted === 'Так');
         return data;
 
@@ -76,7 +77,7 @@ export const getTimeAdoptedPets = async () => {
 
 export const addPet = async (formData: any) => {
     try {
-        const response = await axios.post(`${requestURL}/add-pet`, formData);
+        const response = await axios.post<IPet>(`${requestURL}/add-pet`, formData);
         return response.data;
     } catch (error) {
         console.error('Error adding pet:', error);
@@ -85,7 +86,7 @@ export const addPet = async (formData: any) => {
 
 export const updatePet = async (formData: any, id: string) => {
     try {
-        const response = await axios.put(`${requestURL}/update-pet/${id}`, formData);
+        const response = await axios.put<IPet>(`${requestURL}/update-pet/${id}`, formData);
         return response.data;
 
     } catch (error) {
@@ -95,7 +96,7 @@ export const updatePet = async (formData: any, id: string) => {
 
 export const getOnePet = async (id: string) => {
     try {
-        const response = await axios.get(`${requestURL}/get-pet/${id}`);
+        const response = await axios.get<IPet>(`${requestURL}/get-pet/${id}`);
         return response.data;
 
     } catch (error) {
@@ -106,7 +107,7 @@ export const getOnePet = async (id: string) => {
 export const deletePet = async (id: string) => {
     try {
         if (id) {
-            const response = await axios.delete(`${requestURL}/delete-pet/${id}`);
+            const response = await axios.delete<IPet>(`${requestURL}/delete-pet/${id}`);
             return response.data;
         } else {
             console.error('Не розуміє id елемента');

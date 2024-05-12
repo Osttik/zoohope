@@ -1,23 +1,19 @@
 import { useTranslation } from "react-i18next";
 import "../../i18n/i18n";
-import { Link } from "react-router-dom";
 import { IPet } from "../../define";
 import PopupWindow from "./popupWindow";
 import { useState } from "react";
 import pet from "../../images/icons/pet.svg"
 import { Translate } from "../translation";
 import { requestURL } from "../../api/api";
-import MyCarousel from "./Swiper";
+import Carousel from "./Swiper";
 
 interface IProps {
   obj: IPet;
 }
 
 export function PetInfo({ obj }: IProps) {
-  const imageSrc = obj.images && obj.images.length > 0 ? obj.images[0] : pet
-  const imagesSrc = obj.images && obj.images.length > 0 ? obj.images : pet
-  console.log(imagesSrc.length);
-
+  const imagesSrc = obj.images && obj.images.length > 0 ? obj.images : pet;
 
   const [modalActive, setModalActive] = useState(false)
 
@@ -37,15 +33,14 @@ export function PetInfo({ obj }: IProps) {
 
   return (
     <>
-
       <div className="begPetBlock">
-        {Array.isArray(imagesSrc) ? imagesSrc.length > 1 ? <MyCarousel images={imagesSrc} /> :
-          <><img className='petPic' src={`${requestURL}/${imagesSrc[0]}`} onError={({ currentTarget }) => {
+        {Array.isArray(imagesSrc) ? imagesSrc.length > 1 ? <Carousel images={imagesSrc} /> :
+          <><img className='petPic' alt="pet img" src={`${requestURL}/${imagesSrc[0]}`} onError={({ currentTarget }) => {
             currentTarget.onerror = null; // prevents looping
             currentTarget.src = pet;
           }} />
           </> :
-          <><img className='petPic' src={imagesSrc} onError={({ currentTarget }) => {
+          <><img className='petPic' alt="pet img" src={imagesSrc} onError={({ currentTarget }) => {
             currentTarget.onerror = null; // prevents looping
             currentTarget.src = pet;
           }} />
@@ -66,9 +61,11 @@ export function PetInfo({ obj }: IProps) {
       </div>
       <PopupWindow active={modalActive} setActive={setModalActive} />
       <div className="shortStory">
-        <h2>{t('short_description')}:</h2>
-        <p>{obj.story.en}
-          {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nec massa sem. Proin at est et lectus viverra fermentum at at sem. Duis dapibus accumsan. */}
+        <h2>
+          {t('short_description')}:
+        </h2>
+        <p>
+          {obj.story.en}
         </p>
       </div></>
   );

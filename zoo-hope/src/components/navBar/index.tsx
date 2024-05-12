@@ -7,18 +7,18 @@ import { useTranslation } from "react-i18next";
 import "../../i18n/i18n"
 import { BurgerMenu } from "./burger/burger";
 import { Translation } from "./translation/translation";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { HashLink } from 'react-router-hash-link';
 
 interface Istates {
-  [key: string]: boolean
+  [key: string]: boolean;
 }
 
 export const NavBar = () => {
   const { t, i18n } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState<"UA" | "EN">("UA")
 
-  const [states, setStates] = useState<Istates>({ burger: false, })
+  const [states, setStates] = useState<Istates>({ burger: false })
 
   const navigate = useNavigate()
 
@@ -66,7 +66,7 @@ export const NavBar = () => {
   // Closes burger menu if user clicked out of menu
   window.onclick = (e) => {
     const tgt = e.target as HTMLElement
-    if (!tgt.closest(".allOptions") && !tgt.closest(".container-navbar") || tgt.closest(".navbar__logo")) {
+    if ((!tgt.closest(".allOptions") && !tgt.closest(".container-navbar")) || tgt.closest(".navbar__logo")) {
       setStates({ ...states, "burger": false })
     }
   }

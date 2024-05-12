@@ -11,8 +11,8 @@ interface cardProps {
 
 export const PetCard = (props: cardProps) => {
   const imageSrc = props.animalInfo.images && props.animalInfo.images.length > 0 ? props.animalInfo.images[0] : pet;
-
   const { t } = useTranslation();
+
   function ageWithLabel() {
     const age = Number(props.animalInfo.age)
     if (age === 1) {
@@ -27,10 +27,9 @@ export const PetCard = (props: cardProps) => {
   return(
     <Link to={`/animal/${props.animalInfo._id}`} className="petCard">
       <img src={`${requestURL}/${imageSrc}`} onError={({ currentTarget }) => {
-      currentTarget.onerror = null; // prevents looping
-      currentTarget.src=pet;
-  }} alt="ImageOfAnimal"></img>
-      {/* <img src={props.animalInfo.image} alt="ImageOfAnimal"></img> */}
+        currentTarget.onerror = null; // prevents looping
+        currentTarget.src=pet;
+      }} alt="ImageOfAnimal"></img>
       <div className="info">
         <span className="name"><Translate obj={(props.animalInfo.name)}/></span>
         <span className="infoRow">{t('age')}: {ageWithLabel()}</span>

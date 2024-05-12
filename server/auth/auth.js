@@ -83,7 +83,6 @@ auth_router.post('/login', async (req, res) => {
 auth_router.post('/verify', (req, res) => {
   const token = req.body.token;
 
-
   jwt.verify(token, secret_key, (err, decoded) => {
     if (err) {
       console.error('Error verifying token:', err);

@@ -23,15 +23,14 @@ interface IDecodedToken {
     name: string;
     email: string;
     role: string;
-  }
+}
 
 export const AdminPage = () => {
     const [pets, setPets] = useState<IPet[]>([]);
     const [contacts, setContacts] = useState<IContact[]>([]);
     const [helpOptions, setHelpOptions] = useState<IHelpOption[]>([]);
     const [admins, setAdmins] = useState<IAdmin[]>([]);
-    const [adminName, setAdminName] = useState<string>('');
-    const [adminRole, setAdminRole] = useState<string>('');
+    const [currentAdmin, setCurrentAdmin] = useState<IDecodedToken | undefined>(undefined);
 
     const [petListIsOpen, setPetListIsOpen] = useState<boolean>(false);
     const [contactsListIsOpen, setContactsListIsOpen] = useState<boolean>(false);
@@ -136,13 +135,13 @@ export const AdminPage = () => {
     };
 
     const openForm = () => {
-        if (activeButton !== null && adminRole === 'super-admin' && activeButton !== '' && activeButton.charAt(0) === 'p') {
+        if (activeButton !== null && currentAdmin?.role === 'super-admin' && activeButton !== '' && activeButton.charAt(0) === 'p') {
             showPetForm();
-        } else if (activeButton !== null && adminRole === 'super-admin' && activeButton !== '' && activeButton === 'contacts') {
+        } else if (activeButton !== null && currentAdmin?.role === 'super-admin' && activeButton !== '' && activeButton === 'contacts') {
             showContactsForm();
-        } else if (activeButton !== null && adminRole === 'super-admin' && activeButton !== '' && activeButton === 'help') {
+        } else if (activeButton !== null && currentAdmin?.role === 'super-admin' && activeButton !== '' && activeButton === 'help') {
             showHelpOptionForm();
-        } else if (activeButton !== null && adminRole === 'super-admin' && activeButton !== '' && activeButton === 'admins') {
+        } else if (activeButton !== null && currentAdmin?.role === 'super-admin' && activeButton !== '' && activeButton === 'admins') {
             showAdminForm();
         } else {
             return
@@ -154,7 +153,7 @@ export const AdminPage = () => {
         document.cookie = 'refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     }
 
-    const getAdminName = () => {
+    const getAdmin = () => {
         const accessToken = Cookies.get('accessToken');
         if (!accessToken) {
             return; 
@@ -162,28 +161,13 @@ export const AdminPage = () => {
         
         const decodedToken: IDecodedToken = jwtDecode(accessToken);
 
-        const username = decodedToken.name;
-
-        setAdminName(username)
-    }
-
-    const getAdminRole= () => {
-        const accessToken = Cookies.get('accessToken');
-        if (!accessToken) {
-            return; 
-        }
-        
-        const decodedToken: IDecodedToken = jwtDecode(accessToken);
-
-        const userRole = decodedToken.role;
-
-        setAdminRole(userRole)
+        setCurrentAdmin(decodedToken);
     }
 
     useEffect(() => {
-        getAdminName() 
-        getAdminRole()  
-    }, [])
+        getAdmin(); 
+    }, []);
+
     return (
         <div className="admin-page">
             <div className="admin-page__container">
@@ -358,7 +342,7 @@ export const AdminPage = () => {
                                                     <FontAwesomeIcon icon={faCircleUser} />
                                                 </div>
 
-                                                <p className="sidebar-user-info__name">{adminName}</p>
+                                                <p className="sidebar-user-info__name">{currentAdmin?.name}</p>
                                             </div>
 
                                             <div className="sidebar-user-menu">
@@ -407,7 +391,7 @@ export const AdminPage = () => {
                                     showHelpOptionForm={showHelpOptionForm}
                                     showAdminForm={showAdminForm}
                                     setIsEditBtnClicked={setIsEditBtnClicked}
-                                    adminRole={adminRole}
+                                    adminRole={currentAdmin ? currentAdmin!.role : ""}
                                 />
 
                                 <DeleteBtn
@@ -421,7 +405,7 @@ export const AdminPage = () => {
                                     setSelectedAdminsRowIndex={setSelectedAdminsRowIndex}
                                     showMessage={showDeleteMessage}
                                     activeButton={activeButton}
-                                    adminRole={adminRole}
+                                    adminRole={currentAdmin ? currentAdmin!.role : ""}
                                 />
 
                                 <button className="actions__add-btn" onClick={openForm}>

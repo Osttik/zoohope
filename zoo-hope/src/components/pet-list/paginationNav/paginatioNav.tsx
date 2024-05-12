@@ -50,7 +50,6 @@ export const PaginationNav = (props: IpaginationNav) => {
         {linkToPage(0)}
         {linkToPage(1)}
         {linkToPage(2)}
-
         
         {Number(props.searchParam.get("page")) + 1 <= props.length ?
           <button

@@ -67,9 +67,9 @@ module.exports.deleteAdmin = async (req, res) => {
             return res.status(403).json({ message: 'Only super-admin can perform this operation' });
         }
 
-        await User.findByIdAndDelete(id);
+        var admin = await User.findByIdAndDelete(id);
 
-        res.json({ message: 'Admin was deleted successfully' });
+        res.json(admin);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

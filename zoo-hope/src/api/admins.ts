@@ -1,10 +1,11 @@
 import Cookies from "js-cookie";
 import { requestURL } from "./api";
 import axios from "./axios";
+import { IAdmin, ITokens } from "../define";
 
 export const getAllAdmins = async () => {
     try {
-        const response = await axios.get<any[]>(`${requestURL}/get-all-admins`);
+        const response = await axios.get<IAdmin[]>(`${requestURL}/get-all-admins`);
         return response.data;
 
     } catch (error) {
@@ -15,7 +16,7 @@ export const getAllAdmins = async () => {
 
 export const addAdmin = async (formData: any) => {
     try {
-        const response = await axios.post(`${requestURL}/register`, formData);
+        const response = await axios.post<IAdmin>(`${requestURL}/register`, formData);
         return response.data;
 
     } catch (error) {
@@ -25,7 +26,7 @@ export const addAdmin = async (formData: any) => {
 
 export const editAdmin = async (formData: any, id: string) => {
     try {
-        const response = await axios.put(`${requestURL}/update-admin/${id}`, formData);
+        const response = await axios.put<{ updatedAdmin: IAdmin, tokens: ITokens }>(`${requestURL}/update-admin/${id}`, formData);
         const { updatedAdmin, tokens } = response.data;
         
         Cookies.set('accessToken', tokens.access_token);
@@ -40,7 +41,7 @@ export const editAdmin = async (formData: any, id: string) => {
 
 export const getOneAdmin = async (id: string) => {
     try {
-        const response = await axios.get(`${requestURL}/get-admin/${id}`);
+        const response = await axios.get<IAdmin>(`${requestURL}/get-admin/${id}`);
         return response.data;
 
     } catch (error) {
@@ -51,7 +52,7 @@ export const getOneAdmin = async (id: string) => {
 export const deleteAdmin = async (id: string) => {
     try {
         if (id) {
-            const response = await axios.delete(`${requestURL}/delete-admin/${id}`);
+            const response = await axios.delete<IAdmin>(`${requestURL}/delete-admin/${id}`);
             return response.data;
 
         } else {
@@ -61,3 +62,33 @@ export const deleteAdmin = async (id: string) => {
         console.error('Помилка при видаленні елемента', error);
     }
 };
+
+export const login = async (data: { email: string, password: string}) => {
+    try {
+        var responce = await axios.post<ITokens>(`${requestURL}/login`, data);
+
+        return responce.data;
+    } catch (error) {
+        console.error('Помилка', error);
+    }
+}
+
+export const refresh = async (data: string) => {
+    try {
+        var responce = await axios.post<ITokens>(`${requestURL}/refresh`, { refresh_token: data });
+
+        return responce.data;
+    } catch (error) {
+        console.error('Помилка', error);
+    }
+}
+
+export const verify = async (data: string) => {
+    try {
+        var responce = await axios.post<IAdmin>(`${requestURL}/verify`, { token: data });
+
+        return responce.data;
+    } catch (error) {
+        console.error('Помилка', error);
+    }
+}

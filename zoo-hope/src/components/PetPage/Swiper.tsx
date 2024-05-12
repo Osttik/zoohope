@@ -4,17 +4,21 @@ import "slick-carousel/slick/slick-theme.css";
 import { requestURL } from "../../api/api";
 import pet from "../../images/icons/pet.svg";
 
-const CustomNextArrow = (props: any) => {
+const CustomNextArrow = (props: { onClick?: (_: any) => void}) => {
   const { onClick } = props;
   return <div className="slick-arrow-next" onClick={onClick}></div>;
 };
 
-const CustomPrevArrow = (props: any) => {
+const CustomPrevArrow = (props: { onClick?: (_: any) => void}) => {
   const { onClick } = props;
   return <div className="slick-arrow-prev" onClick={onClick}></div>;
 };
 
-const MyCarousel = ({ images }: any) => {
+interface IProps {
+  images: string[]
+}
+
+const Carousel = ({ images }: IProps) => {
   const settings = {
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
@@ -47,4 +51,4 @@ const MyCarousel = ({ images }: any) => {
   );
 }
 
-export default MyCarousel;
+export default Carousel;
