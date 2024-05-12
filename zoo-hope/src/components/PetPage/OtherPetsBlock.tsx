@@ -1,27 +1,23 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "../../i18n/i18n";
 import { IPet } from "../../define";
 import { PetCard } from "../pet-list/petCard/petCard";
 import { useParams } from "react-router";
-import { getAllPets } from "../../api/pets";
+import PetContext from "../../PetsContext";
 
 export function OtherPetsBlock() {
   const [randomPets, setRandomPets] = useState<IPet[]>([]);
+	const { pets_data } = useContext(PetContext);
 
   let {id} = useParams()
 
   useEffect(() => {
-    const getData = async() => {
-      const res = await getAllPets();
-
-      if(res.length > 0){
-        const filterArr = res.filter((pet: IPet) => pet._id !== id)
-        const randomPets = getOtherPets(filterArr);
-        setRandomPets(randomPets);
-      }
+    if(pets_data.length > 0) {
+      const filterArr = pets_data.filter((pet: IPet) => pet._id !== id)
+      const randomPets = getOtherPets(filterArr);
+      setRandomPets(randomPets);
     }
-    getData()
-  }, []);
+  }, [id]);
 
   return (    
     <div className="petListSection additionalPetsBlock">
