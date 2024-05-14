@@ -1,10 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { IPet } from "../../../define";
 import { IContact } from "../../../define";
 import { IHelpOption } from "../../../define";
-import { getAllPets, getCats, getDogs, getNeedTreatmentPet } from "../../../api/pets";
+import { IAdmin } from "../../../define";
+import { getAllPets, getCats, getDogs, getNeedTreatmentPet, getAdoptedPets, getTimeAdoptedPets } from "../../../api/pets";
 import { getAllContacts } from "../../../api/contacts";
 import { apiGetAllHelpOptions } from "../../../api/helpOptions";
+import { getAllAdmins } from "../../../api/admins";
 
 interface ITableProps {
     activeButton: string;
@@ -14,15 +16,20 @@ interface ITableProps {
     setContacts: React.Dispatch<React.SetStateAction<IContact[]>>;
     helpOptions: IHelpOption[];
     setHelpOptions: React.Dispatch<React.SetStateAction<IHelpOption[]>>;
+    admins: IAdmin[];
+    setAdmins: React.Dispatch<React.SetStateAction<IAdmin[]>>;
     selectedPetsRowIndex: null | number;
     handlePetRowClick: (index: number) => void;
     selectedContactsRowIndex: null | number;
     handleContactRowClick: (index: number) => void;
     selectedHelpRowIndex: null | number;
     handleHelpRowClick: (index: number) => void;
+    selectedAdminsRowIndex: null | number;
+    handleAdminRowClick: (index: number) => void;
     petTableUpdate: boolean;
     contactsTableUpdate: boolean;
     helpOptionsTableUpdate: boolean;
+    adminTableUpdate: boolean;
 }
 
 export const Table = ({
@@ -33,15 +40,22 @@ export const Table = ({
     setContacts,
     helpOptions,
     setHelpOptions,
+    admins,
+    setAdmins,
     selectedPetsRowIndex,
     handlePetRowClick,
     selectedContactsRowIndex,
     handleContactRowClick,
     selectedHelpRowIndex,
     handleHelpRowClick,
+    selectedAdminsRowIndex,
+    handleAdminRowClick,
     petTableUpdate,
     contactsTableUpdate,
-    helpOptionsTableUpdate }: ITableProps) => {
+    helpOptionsTableUpdate,
+    adminTableUpdate }: ITableProps) => {
+
+    const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
 
     const petHeadings = [
         "№", "Ім'я", "Тип", "Стать", "Вік(місяців)", "Порода",
@@ -52,6 +66,8 @@ export const Table = ({
     const contactHeadings = ["№", "Назва", "Посилання", "id"];
 
     const helpOptionsHeadings = ["№", "Назва", "Опис", "id"];
+
+    const adminsHeadings = ["№", "Ім'я", "Email", "Роль"];
 
     //code for horizontal scroll of table cells
     const handleWheel = (event: WheelEvent) => {
@@ -68,6 +84,93 @@ export const Table = ({
         handleWheel(wheelEvent);
     };
 
+    const sortByName = (columnIndex: number) => {
+        if (activeButton === null) {
+            console.error('activeButton is null');
+        }
+        switch (true) {
+            case activeButton.charAt(0) === 'p':
+                if (columnIndex === 1) {
+                    const sortedPets = [...pets];
+                    sortedPets.sort((a, b) => {
+                        const nameA = a.name && a.name.ua ? a.name.ua : '';
+                        const nameB = b.name && b.name.ua ? b.name.ua : '';
+
+                        if (nameA < nameB) {
+                            return sortDirection === 'asc' ? -1 : 1;
+                        }
+
+                        if (nameA > nameB) {
+                            return sortDirection === 'asc' ? 1 : -1;
+                        }
+                        return 0;
+                    });
+                    setPets(sortedPets);
+                    setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+                }
+                break;
+            case activeButton === 'contacts':
+                if (columnIndex === 1) {
+                    const sortedContacts = [...contacts];
+                    sortedContacts.sort((a, b) => {
+                        const nameA = a.name && a.name.ua ? a.name.ua : '';
+                        const nameB = b.name && b.name.ua ? b.name.ua : '';
+
+                        if (nameA < nameB) {
+                            return sortDirection === 'asc' ? -1 : 1;
+                        }
+
+                        if (nameA > nameB) {
+                            return sortDirection === 'asc' ? 1 : -1;
+                        }
+                        return 0;
+                    });
+                    setContacts(sortedContacts);
+                    setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+                }
+                break;
+            case activeButton === 'help':
+                if (columnIndex === 1) {
+                    const sortedHelpOptions = [...helpOptions];
+                    sortedHelpOptions.sort((a, b) => {
+                        const nameA = a.name && a.name.ua ? a.name.ua : '';
+                        const nameB = b.name && b.name.ua ? b.name.ua : '';
+
+                        if (nameA < nameB) {
+                            return sortDirection === 'asc' ? -1 : 1;
+                        }
+
+                        if (nameA > nameB) {
+                            return sortDirection === 'asc' ? 1 : -1;
+                        }
+                        return 0;
+                    });
+                    setHelpOptions(sortedHelpOptions);
+                    setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+                }
+                break;
+            case activeButton === 'admins':
+                if (columnIndex === 1) {
+                    const sortedAdmins = [...admins];
+                    sortedAdmins.sort((a, b) => {
+                        const nameA = a.name ? a.name : '';
+                        const nameB = b.name ? b.name : '';
+
+                        if (nameA < nameB) {
+                            return sortDirection === 'asc' ? -1 : 1;
+                        }
+
+                        if (nameA > nameB) {
+                            return sortDirection === 'asc' ? 1 : -1;
+                        }
+                        return 0;
+                    });
+                    setAdmins(sortedAdmins);
+                    setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+                }
+                break;
+        }
+    };
     useEffect(() => {
         switch (activeButton) {
             case 'p pets':
@@ -83,10 +186,10 @@ export const Table = ({
                 getNeedTreatmentPet().then(setPets);
                 break;
             case 'p adopted':
-                setPets([]);
+                getAdoptedPets().then(setPets);
                 break;
             case 'p temporary':
-                setPets([]);
+                getTimeAdoptedPets().then(setPets);
                 break;
             case 'contacts':
                 getAllContacts().then(setContacts);
@@ -94,8 +197,13 @@ export const Table = ({
             case 'help':
                 apiGetAllHelpOptions().then(setHelpOptions);
                 break;
+            case 'admins':
+                getAllAdmins().then(setAdmins);
+                break;
+            default:
+                break;
         }
-    }, [activeButton, petTableUpdate, contactsTableUpdate, helpOptionsTableUpdate]);
+    }, [activeButton, petTableUpdate, contactsTableUpdate, helpOptionsTableUpdate, adminTableUpdate]);
 
     useEffect(() => {
         const tableBody = document.querySelector('.admin-table tbody');
@@ -116,7 +224,7 @@ export const Table = ({
                     <thead>
                         <tr className="admin-table__row">
                             {petHeadings.map((heading, index) => (
-                                <th key={index}>{heading}</th>
+                                <th onClick={() => sortByName(index)} key={index}>{heading}</th>
                             ))}
                         </tr>
                     </thead>
@@ -144,7 +252,7 @@ export const Table = ({
                     <thead>
                         <tr className="admin-table__row">
                             {contactHeadings.map((heading, index) => (
-                                <th key={index}>{heading}</th>
+                                <th onClick={() => sortByName(index)} key={index}>{heading}</th>
                             ))}
                         </tr>
                     </thead>
@@ -164,7 +272,7 @@ export const Table = ({
                     <thead>
                         <tr className="admin-table__row">
                             {helpOptionsHeadings.map((heading, index) => (
-                                <th key={index}>{heading}</th>
+                                <th onClick={() => sortByName(index)} key={index}>{heading}</th>
                             ))}
                         </tr>
                     </thead>
@@ -175,6 +283,26 @@ export const Table = ({
                                 <td>{option.name && option.name.ua}</td>
                                 <td>{option.description && option.description.ua}</td>
                                 <td>{option._id}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            ) : admins.length > 0 && activeButton === 'admins' ? (
+                <table className="admin-table">
+                    <thead>
+                        <tr className="admin-table__row">
+                            {adminsHeadings.map((heading, index) => (
+                                <th onClick={() => sortByName(index)} key={index}>{heading}</th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {admins.map((option: IAdmin, index: number) => (
+                            <tr key={option._id} className={`admin-table__row ${selectedAdminsRowIndex === index ? 'focus' : ''}`} onClick={() => handleAdminRowClick(index)}>
+                                <td>{index + 1}</td>
+                                <td>{option.name}</td>
+                                <td>{option.email}</td>
+                                <td>{option.role}</td>
                             </tr>
                         ))}
                     </tbody>

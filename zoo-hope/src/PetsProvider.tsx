@@ -1,20 +1,20 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { getAllPets } from './api/pets';
 import PetContext from './PetsContext';
+import { IPet } from './define';
 
 export const PetProvider = ({ children }: any) => {
   const [logErMes, setlogErMes] = useState("");
   const [prevPath, setPrevPath] = useState("");
-  const [pets_data, setPets] = useState([]);
-  useEffect(() => {
+  const [pets_data, setPets] = useState<IPet[]>([]);
 
+  useEffect(() => {
     const fetchPets = async () => {
       const petsData = await getAllPets();
       setPets(petsData);
     };
 
     fetchPets();
-
   }, []);
 
   return (

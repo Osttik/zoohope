@@ -4,8 +4,8 @@ import Logo from "../../../images/logo/logo.png";
 import { SetStateAction, useEffect, useState } from "react";
 import { addContact, updateContact, getOneContact } from "../../../api/contacts";
 import { IContact } from "../../../define";
-import axios from "axios";
 import { requestURL } from "../../../api/api";
+import { uploadImage } from "../../../api/images";
 
 interface IContactsFormProps {
     display: string;
@@ -48,11 +48,7 @@ export const ContactsForm = ({ display, hideForm, setContactsTableUpdate, select
             const imgData = new FormData();
             imgData.append('image', image);
 
-            const img = await axios.post('http://localhost:5000/upload-contact-image', imgData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
+            const img = await uploadImage(imgData);
 
             const formData = {
                 name: {
@@ -60,7 +56,7 @@ export const ContactsForm = ({ display, hideForm, setContactsTableUpdate, select
                     ua: capitalizeFirstLetter(nameUa.trim())
                 },
                 url: contactUrl.trim(),
-                icon: img.data,
+                icon: img,
             }
 
             await addContact(formData);
@@ -97,11 +93,7 @@ export const ContactsForm = ({ display, hideForm, setContactsTableUpdate, select
             const imgData = new FormData();
             imgData.append('image', image);
 
-            const img = await axios.post('http://localhost:5000/upload-contact-image', imgData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
+            const img = await uploadImage(imgData);
 
             const formData = {
                 name: {
@@ -109,7 +101,7 @@ export const ContactsForm = ({ display, hideForm, setContactsTableUpdate, select
                     ua: capitalizeFirstLetter(nameUa.trim())
                 },
                 url: contactUrl.trim(),
-                icon: img.data,
+                icon: img,
             }
 
             if (contactId){
@@ -182,6 +174,10 @@ export const ContactsForm = ({ display, hideForm, setContactsTableUpdate, select
         updateFormFields();
     }, [contactsData]);
 
+    function deletePhoto() {
+        setImage(null)
+    }
+    
     return (
         <div className="contacts-form" style={{ display: display }}>
             <div className="contacts-form__container">
@@ -235,11 +231,16 @@ export const ContactsForm = ({ display, hideForm, setContactsTableUpdate, select
 
                             <div className="contacts-form__images">
                                 {image && (
-                                    <img
-                                        src={image instanceof File ? URL.createObjectURL(image) : `${requestURL}/${image}`}
-                                        alt="лого"
-                                        className="contacts-form__image"
-                                    />
+                                    <>
+                                        <img
+                                            src={image instanceof File ? URL.createObjectURL(image) : `${requestURL}/${image}`}
+                                            alt="лого"
+                                            className="contacts-form__image"
+                                        />
+                                        <button onClick={deletePhoto}>
+                                            delete
+                                        </button>
+                                    </>
                                 )}
                             </div>
                         </div>

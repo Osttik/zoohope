@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { apiGetAllHelpOptions } from "../../api/helpOptions";
 import { IHelpOption } from "../../define";
 import { links } from "../../data/helpUsPage";
-import { Translate, TranslateFunc } from "../translation";
+import { TranslateFunc } from "../translation";
 import i18n from "../../i18n/i18n";
 
 export const HelpUsPage = () => {

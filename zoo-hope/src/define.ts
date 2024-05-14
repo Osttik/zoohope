@@ -19,6 +19,8 @@ export interface IPet extends IIdentity {
     color: ITranslateble;
     sterilization: string;
     treatment: string;
+    adopted: string;
+    timeAdopted: string;
     personality: ITranslateble;
     story: ITranslateble;
 }
@@ -36,4 +38,16 @@ export interface IContact extends IIdentity {
     url?: string;
     icon?: string;
     value?: string;
+}
+
+export interface IAdmin extends IIdentity {
+    name: string;
+    email: string;
+    password: string;
+    role: string;
+}
+
+export interface ITokens {
+    access_token: string;
+    refresh_token: string;
 }

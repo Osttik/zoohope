@@ -57,8 +57,8 @@ export default function Home() {
 			<section className="hero">
 				<div className="box">
 					<div className="text">
-						<h1>Врятуйте тварин від війни</h1>
-						<h2>Тварини - живі істоти і вони також потребують підтримки</h2>
+						<h1>{t('homePageTitle')}</h1>
+						<h2>{t('homePage_sub_title')}</h2>
 					</div>
 					<div className="donate">
 						<Donate />
@@ -175,7 +175,7 @@ export default function Home() {
 			</section>
 
 			<section className="petListSection">
-				<h1>Шукають дім</h1>
+				<h1>{t('looking-for-home')}</h1>
 				<div className="petList">
 					{getPets.length ?
 						getPets.map((el, i) => {
@@ -190,7 +190,7 @@ export default function Home() {
 
 					}
 				</div>
-				<Link to={"/petList"}>Більше Тваринок</Link>
+				<Link to={"/petList"}>{t('more-animals')}</Link>
 			</section>
 
 			<section className="info">

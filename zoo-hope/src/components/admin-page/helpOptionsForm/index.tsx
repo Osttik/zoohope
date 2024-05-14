@@ -153,7 +153,7 @@ export const HelpOptionForm = ({ display, hideForm, setHelpOptionsTableUpdate, i
                         setHelpOptionData(data);
                     }
                 } catch (error) {
-                    console.error('Error fetch contacts data:', error);
+                    console.error('Error fetch help option data:', error);
                 }
             }
         };

@@ -9,6 +9,7 @@ interface IProps {
 export default function Overlay(props: IProps) {
     const location = useLocation();
     const isAdminPage = location.pathname.startsWith("/admin");
+    
     return (
         <>
             {!isAdminPage && <NavBar />}

@@ -6,9 +6,9 @@ import "../../i18n/i18n";
 interface PopupWindowProps {
     active: boolean;
     setActive: (active: boolean) => void;
-  }
+}
   
-  export default function PopupWindow({ active, setActive }: PopupWindowProps) {
+export default function PopupWindow({ active, setActive }: PopupWindowProps) {
 
     const { t } = useTranslation();
 
