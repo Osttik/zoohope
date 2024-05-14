@@ -62,7 +62,7 @@
   }
 
   .aboutUsSection {
-    background-color: $primaryDarkColor;
+    background-color: $blackBackground;
     padding-bottom: 70px;
     display: flex;
     flex-direction: column;
@@ -176,77 +176,17 @@
     }
   }
 
-  .reportSection {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-color: #feda3b;
-    padding: 30px 0 50px 0;
-
-    .box {
-      width: 100%;
-      max-width: 1110px;
-
-      .text {
-        h1 {
-          font-size: 60px;
-          margin-bottom: 15px;
-          font-weight: 700;
-        }
-
-        h2 {
-          font-size: 36px;
-          margin-bottom: 20px;
-        }
-
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-      }
-
-      .report {
-        display: flex;
-        flex-wrap: wrap;
-        width: 100%;
-        justify-content: space-between;
-        margin-top: 15px;
-
-        &>div {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-
-          h1 {
-            font-size: 110px;
-            font-weight: 700;
-          }
-
-          h2 {
-            font-size: 24px;
-          }
-
-          h1,
-          h2 {
-            margin: 0;
-          }
-        }
-      }
-    }
-  }
-
   .support {
     width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    // background-color: $blackBackground;
 
     .support__container {
       width: 1120px;
-      padding: 70px 0 70px 0;
+      padding: 50px 0 80px 0;
       display: flex;
       flex-direction: column;
       gap: 70px;
@@ -255,7 +195,7 @@
         >h1 {
           color: $adminPageDefaultWhite;
           font-weight: 700;
-          font-size: 55px;
+          font-size: 50px;
         }
 
         >p {
@@ -341,38 +281,6 @@
     }
   }
 
-  .quote {
-    width: 100vw;
-    height: 200px;
-    background-color: #feda3b;
-    display: flex;
-    justify-content: center;
-
-    .quote__container {
-      width: 1440px;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      gap: 40px;
-      justify-content: space-between;
-      overflow: hidden;
-
-      .quote__icon {
-        width: 200px;
-        fill: $adminPageDefaultWhite;
-        opacity: .5;
-        margin-bottom: -100px;
-      }
-
-      .quote__quote {
-        text-align: center;
-        font-size: 40px;
-        font-weight: 700;
-      }
-    }
-  }
-
-
   .petListSection {
     min-height: fit-content;
     background-color: $blackBackground;
@@ -380,7 +288,7 @@
     h1 {
       font-size: 50px;
       font-weight: 700;
-      margin: 60px 0 50px 0;
+      margin: 50px 0 50px 0;
     }
 
     .petCard {
@@ -398,7 +306,7 @@
       height: 50px;
       width: 330px;
       font-size: 24px;
-      margin: 60px 0 60px 0;
+      margin: 60px 0 80px 0;
       font-weight: bold;
       background-color: $primaryColor;
       border-radius: 25px;
@@ -418,11 +326,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    // background-color: rgba(29, 26, 26, 0.689);
 
     .info__container {
       width: 1125px;
-      padding: 40px 0;
+      padding: 50px 0 40px 0;
       display: flex;
       justify-content: space-between;
 

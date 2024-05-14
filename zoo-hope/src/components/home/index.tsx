@@ -99,7 +99,17 @@ export default function Home() {
 				</div>
 			</section>
 
-			<section className="reportSection">
+			{/* <section className="quote">
+				<div className="quote__container">
+					<PawIcon className="quote__icon" />
+
+					<p className="quote__quote">{t('home_page_quote')}</p>
+
+					<PawIcon className="quote__icon" />
+				</div>
+			</section> */}
+
+			{/* <section className="reportSection">
 				<div className="box">
 					<div className="text">
 						<h1>Звітність</h1>
@@ -124,7 +134,7 @@ export default function Home() {
 						</div>
 					</div>
 				</div>
-			</section>
+			</section> */}
 
 			<section className="support">
 				<div className="support__container">
@@ -163,16 +173,6 @@ export default function Home() {
 					</div>
 				</div>
 			</section>
-
-			{/* <section className="quote">
-				<div className="quote__container">
-					<PawIcon className="quote__icon" />
-
-					<p className="quote__quote">{t('home_page_quote')}</p>
-
-					<PawIcon className="quote__icon" />
-				</div>
-			</section> */}
 
 			<section className="petListSection">
 				<h1>Шукають дім</h1>
