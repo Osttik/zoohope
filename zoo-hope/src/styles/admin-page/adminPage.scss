@@ -583,7 +583,10 @@
         color: $adminPagePlaceholder;
     }
 }
-
+.help-option-form__form-content__quill{
+    width: 100%;
+    border: 2.2px solid $primaryColor;
+}
 .pet-form-ua__checkboxes {
     display: flex;
     gap: calc(var(--index) * 1.4);
