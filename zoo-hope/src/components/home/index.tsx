@@ -13,12 +13,17 @@ import { ReactComponent as LinkIcon } from "../../images/homePage/arrow-up-right
 import { ReactComponent as DogIcon } from "../../images/homePage/pomeranian-svgrepo-com.svg";
 import donateIcon from "../../images/homePage/donate-icon.png"
 import { ReactComponent as PawIcon } from "../../images/homePage/noun-paw.svg";
+import { Question } from "./question";
+import { IHelpfulInfo } from "../../define";
+import { getAllHelpfulInfo } from "../../api/helpfulInfo";
+import { Link as ScrollLink, Element } from 'react-scroll';
 
 export default function Home() {
 	const { t, i18n } = useTranslation();
 	const { pets_data } = useContext(PetContext);
-	const [totalLength, setTotalLength] = useState<number>() // Total length of array of all pets
-	const [getPets, setPets] = useState<IPet[]>()
+	const [totalLength, setTotalLength] = useState<number>();
+	const [getPets, setPets] = useState<IPet[]>();
+	const [questions, setQuestions] = useState<IHelpfulInfo[]>([]);
 
 	const getFirstPets = async () => {
 		try {
@@ -45,17 +50,20 @@ export default function Home() {
 	}
 
 	useEffect(() => {
+		getAllHelpfulInfo().then(setQuestions);
+	}, [])
+
+	useEffect(() => {
 		getFirstPets()
 	}, [pets_data])
 
 	if (!getPets) {
 		return <></>
 	}
-
 	return (
 		<div className="homePage">
 			<section className="hero">
-				<div className="box">
+				{/* <div className="box">
 					<div className="text">
 						<h1>{t('homePageTitle')}</h1>
 						<h2>{t('homePage_sub_title')}</h2>
@@ -64,6 +72,21 @@ export default function Home() {
 						<Donate />
 					</div>
 					<img className="dog" src={dog} alt="dog" />
+				</div> */}
+
+				<div className="hero__container">
+					<div className="hero__content">
+						<div className="hero__text">
+							<h1>{t('homePageTitle')}</h1>
+							<p>{t('homePage_sub_title')}</p>
+						</div>
+
+						<img className="dog" src={dog} alt="dog" />
+					</div>
+
+					<div className="hero__donate">
+						<Donate />
+					</div>
 				</div>
 			</section>
 
@@ -71,70 +94,35 @@ export default function Home() {
 				<div className="about-us__navigation">
 					<h2>{t('about-us')}</h2>
 					<div className="about-us__btns">
-						<button>{t('who_we_are')}</button>
-						<button>{t('our_story')}</button>
-						<button>{t('our_mission')}</button>
+						<ScrollLink to="who_are_we?" smooth={true} duration={100}>
+							<button>{t('who_we_are')}</button>
+						</ScrollLink>
+						<ScrollLink to="our_story" smooth={true} duration={100}>
+							<button>{t('our_story')}</button>
+						</ScrollLink>
+						<ScrollLink to="why_are_we_doing_this?" smooth={true} duration={100}>
+							<button>{t('our_mission')}</button>
+						</ScrollLink>
 					</div>
 				</div>
 
 				<div className="about-us__content">
-					{
-						data.map((el, key) => (
-							<div key={key} className="box">
-								<div className="img">
-									<img alt="animal" src={el.img} />
-									<span className="circle" style={{ backgroundColor: key === 1 ? 'rgb(255, 214, 0)' : `rgba(${57 + key * 50}, ${184 - key * 80}, ${255 + (key * 50) * ((-1) ** key)}, 1)` }}></span>
-								</div>
-								<div className="text">
-									<h1><Translate obj={el.title} /></h1>
-									{
-										el.description[i18n.language as "en" | "ua"].map((text, key) => (
-											<p key={key}>{text}</p>
-										))
-									}
-								</div>
+					{data.map((el, key) => (
+						<Element name={el.title.en.replace(/\s+/g, '_').toLowerCase()} key={key} className="box">
+							<div className="img">
+								<img alt="animal" src={el.img} />
+								<span className="circle" style={{ backgroundColor: key === 1 ? 'rgb(255, 214, 0)' : `rgba(${57 + key * 50}, ${184 - key * 80}, ${255 + (key * 50) * ((-1) ** key)}, 1)` }}></span>
 							</div>
-						))
-					}
+							<div className="text">
+								<h1><Translate obj={el.title} /></h1>
+								{el.description[i18n.language as "en" | "ua"].map((text, key) => (
+									<p key={key}>{text}</p>
+								))}
+							</div>
+						</Element>
+					))}
 				</div>
 			</section>
-
-			{/* <section className="quote">
-				<div className="quote__container">
-					<PawIcon className="quote__icon" />
-
-					<p className="quote__quote">{t('home_page_quote')}</p>
-
-					<PawIcon className="quote__icon" />
-				</div>
-			</section> */}
-
-			{/* <section className="reportSection">
-				<div className="box">
-					<div className="text">
-						<h1>Звітність</h1>
-						<h2>Наші результати за цей час</h2>
-					</div>
-					<div className="report">
-						<div>
-							<h1>250</h1>
-							<h2>тварин підібрано</h2>
-						</div>
-						<div>
-							<h1>242</h1>
-							<h2>тварин вакціновано</h2>
-						</div>
-						<div>
-							<h1>215</h1>
-							<h2>тварин вилікувано</h2>
-						</div>
-						<div>
-							<h1>180</h1>
-							<h2>тварин знайшли дім</h2>
-						</div>
-					</div>
-				</div>
-			</section> */}
 
 			<section className="support">
 				<div className="support__container">
@@ -176,6 +164,7 @@ export default function Home() {
 
 			<section className="petListSection">
 				<h1>{t('looking-for-home')}</h1>
+				<p className="pet-list-caption">Оберіть свого майбутнього друга та подаруйте йому щасливе життя!</p>
 				<div className="petList">
 					{getPets.length ?
 						getPets.map((el, i) => {
@@ -201,32 +190,26 @@ export default function Home() {
 					</div>
 
 					<div className="info__content">
-						<div className="info__info">
-							<div className="info__info-content">
-								<h1 className="info__title">{t('how_become_pet_guardian')}</h1>
-								<Link to={'/'} className="info__link">{t('learn_more_link')} <LinkIcon className="info__link-icon" /></Link>
-							</div>
+						{questions.slice(0, 3).map((question: IHelpfulInfo, index: number) => {
+							let circleClass = '';
 
-							<div className="info__circle blue"></div>
-						</div>
+							if (index === 0) {
+								circleClass = 'blue';
 
-						<div className="info__info">
-							<div className="info__circle purple"></div>
+							} else if (index === 1) {
+								circleClass = 'purple';
 
-							<div className="info__info-content">
-								<h1 className="info__title">{t('why_is_important_sterilize_animals')}</h1>
-								<Link to={'/'} className="info__link">{t('learn_more_link')} <LinkIcon className="info__link-icon" /></Link>
-							</div>
-						</div>
-
-						<div className="info__info">
-							<div className="info__info-content">
-								<h1 className="info__title">{t('how_help_specific_animal')}</h1>
-								<Link to={'/'} className="info__link">{t('learn_more_link')} <LinkIcon className="info__link-icon" /></Link>
-							</div>
-
-							<div className="info__circle yellow"></div>
-						</div>
+							} else if (index === 2) {
+								circleClass = 'yellow';
+							}
+							return (
+								<Question
+									key={index}
+									data={question}
+									circleClass={circleClass}
+								/>
+							);
+						})}
 					</div>
 				</div>
 			</section>

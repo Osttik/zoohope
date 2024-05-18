@@ -1,4 +1,4 @@
-import { faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faTrashCan, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Logo from "../../../images/logo/logo.png";
 import { SetStateAction, useState, ChangeEvent, useEffect } from "react";
@@ -113,8 +113,8 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
                 },
                 sterilization: isSterilizationChecked ? 'Так' : 'Ні',
                 treatment: isTreatmentChecked ? 'Потребує' : 'Не потребує',
-                adopted:  isAdoptedChecked ? 'Так' : 'Ні',
-                timeAdopted:  isTimeAdoptedChecked ? 'Так' : 'Ні',
+                adopted: isAdoptedChecked ? 'Так' : 'Ні',
+                timeAdopted: isTimeAdoptedChecked ? 'Так' : 'Ні',
                 story: {
                     en: capitalizeFirstLetter(storyEn.trim()),
                     ua: capitalizeFirstLetter(storyUa.trim())
@@ -355,15 +355,17 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
         setIsTreatmentChecked(false);
         setImages({ added: [], existed: [] });
     }
-    function UpdatedDeletePhoto (index: number) {
+
+    function UpdatedDeletePhoto(index: number) {
         const updatedImages = [...images.added];
         updatedImages.splice(index, 1);
-        setImages({...images, added: updatedImages});
+        setImages({ ...images, added: updatedImages });
     }
-    function ExistedDeletePhoto (index: number) {
+
+    function ExistedDeletePhoto(index: number) {
         const updatedImages = [...images.existed];
         updatedImages.splice(index, 1);
-        setImages({...images, existed: updatedImages});
+        setImages({ ...images, existed: updatedImages });
     }
 
     useEffect(() => {
@@ -611,18 +613,22 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
                                             alt={`Фото ${index + 1}`}
                                             className="pet-form__image"
                                         />
-                                        <button type="button" onClick={() => {ExistedDeletePhoto(index)}}>Delete</button>
+                                        <button className="delete-image-btn" type="button" onClick={() => { ExistedDeletePhoto(index) }}>
+                                            <FontAwesomeIcon icon={faTrashCan} />
+                                        </button>
                                     </>
                                 ))}
                                 {images.added.map((image: any, index: number) => (
                                     <>
-                                    <img
-                                        key={images.existed.length + index}
-                                        src={URL.createObjectURL(image)}
-                                        alt={`Фото ${images.existed.length + index + 1}`}
-                                        className="pet-form__image"
-                                    />
-                                    <button type="button" onClick={(() => UpdatedDeletePhoto(index))}>Delete</button>
+                                        <img
+                                            key={images.existed.length + index}
+                                            src={URL.createObjectURL(image)}
+                                            alt={`Фото ${images.existed.length + index + 1}`}
+                                            className="pet-form__image"
+                                        />
+                                        <button className="delete-image-btn" type="button" onClick={(() => UpdatedDeletePhoto(index))}>
+                                            <FontAwesomeIcon icon={faTrashCan} />
+                                        </button>
                                     </>
                                 ))}
                             </div>

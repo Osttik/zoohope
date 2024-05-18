@@ -1,5 +1,9 @@
 @use "./../defines.scss" as defines;
 
+:root {
+  --index: calc(1vw + 1vh)
+}
+
 .wrapper_donate {
   display: inline-flex;
   align-items: center;
@@ -30,6 +34,7 @@
     font-size: 50px;
     border: none;
     border-radius: 44px;
+    outline: none;
   }
 
   &__input {
@@ -82,13 +87,14 @@
   }
 }
 
-.wrapper_buttons__pay { 
+.wrapper_buttons__pay {
   width: 100%;
   box-shadow: 70px #78c5f0b0;
   transition: 0.5s;
   border-radius: 100px;
+
   a {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,      Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     font-size: 30px;
     font-weight: 700;
     background-color: deepskyblue;
@@ -102,7 +108,7 @@
     justify-content: center;
     width: 100%;
     overflow: hidden;
-}
+  }
 
   & img {
     padding-left: 10px;
@@ -163,19 +169,76 @@
   }
 }
 
-@media(max-width: 450px) {
+@media (max-width: 780px) {
+  .wrapper {
+    &_donate {
+      width: calc(var(--index) * 35);
+
+      span{
+        font-size: calc(var(--index) * 2.3);
+      }
+
+      &__input {
+        &::after {
+          font-size: calc(var(--index) * 2.7);
+        }
+
+        input {
+          width: 100%;
+          height: max-content;
+          padding: calc(var(--index) * 1.8) calc(var(--index) * 6.2);
+          font-size: calc(var(--index) * 2.7);
+        }
+      }
+    }
+
+    &_buttons {
+      &__pay {
+
+        a {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: calc(var(--index) * 2.1);
+          min-width: 80px;
+        }
+
+        img {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .wrapper_buttons {
+    display: flex;
+    gap: calc(var(--index) * 1.6);
+  
+    & button {
+      font-size: calc(var(--index) * 2.1);
+      padding: 3px 16px 3px 16px;
+    }
+  }
+}
+
+@media(max-width: 498px) {
   .wrapper {
     &_donate {
       padding: 20px 15px;
       width: 100%;
 
       span {
-        font-size: 25px;
+        font-size: calc(var(--index) * 2.4);
       }
 
       &__input {
+        &::after {
+          font-size: calc(var(--index) * 3.4);
+        }
         input {
-          height: 50px;
+          height: max-content;
+          padding: calc(var(--index) * 2.5) calc(var(--index) * 7.9);
+          font-size: calc(var(--index) * 3.5);
         }
       }
     }
@@ -193,16 +256,37 @@
 
         a {
           display: flex;
-          justify-content: center;
           align-items: center;
-          font-size: 25px;
-          padding: 0;
-          text-align: center;
-          width: 90%;
-          height: 50px;
+          justify-content: center;
+          font-size: calc(var(--index) * 2.3);
+          padding: 10px 0;
           min-width: 0;
+          max-width: 90%;
         }
       }
+    }
+  }
+
+  .wrapper_buttons {
+    display: flex;
+    gap: calc(var(--index) * 1.6);
+  
+    & button {
+      font-size: calc(var(--index) * 2.4);
+      padding: 3px 16px 3px 16px;
+    }
+  }
+}
+
+@media (max-width: 382px) {
+  .wrapper_buttons {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: calc(var(--index) * 1);
+  
+    & button {
+      font-size: calc(var(--index) * 2.4);
+      padding: 3px 16px 3px 16px;
     }
   }
 }

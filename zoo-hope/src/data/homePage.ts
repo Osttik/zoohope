@@ -56,12 +56,12 @@ const data: Idata[] = [
     },
     description: {
       en: [
-        "We believe that every animal deserves love, care, and a worthy home. Our mission is to provide safety and protection to homeless animals, help them recover, and find new owners who will love them endlessly.", 
-        "We do everything possible to ensure that every animal that comes to us receives the best care and attention. Our actions are aimed not only at changing the lives of animals but also at changing the world they live in, inspiring kindness and responsibility.",
+        "We believe that every animal deserves respect, protection from cruelty, and a loving home. Our mission is to ensure the safety and protection of stray animals, as well as their treatment, vaccination, sterilization, and placement into new homes.", 
+        "We are committed to each animal. Our actions are aimed at changing the lives of animals and promoting a compassionate and responsible attitude towards animals in society. We strive to create a world where every animal has the chance for a happy and safe life, and where kindness and responsibility are the norm.",
       ],
       ua: [
-        "Ми віримо в те, що кожна тварина заслуговує на любов, піклування та гідний дім. Наша місія полягає в тому, щоб забезпечити безпеку та захист безпритульним тваринам, допомогти їм відновитися та знайти нових власників, які будуть безмежно їх любити.",
-        "Ми робимо все можливе, щоб кожна тваринка, яка потрапляє до нас, отримувала найкращий догляд та увагу. Наші дії покликані не лише змінити життя тварин, але і змінити світ, де вони живуть, спонукаючи до доброти та відповідальності."
+        "Ми віримо, що кожна тварина заслуговує на повагу, захист від жорстокості та гідний дім. Наша місія полягає в забезпеченні безпеки та захисту безпритульних тварин, а також у їхньому лікуванні, вакцинації, стерилізації та прилаштуванні до нових домівок.",
+        "Ми віддані кожній тваринці. Наші дії спрямовані на зміну життя тварин, а також на формування доброзичливого та відповідального ставлення до тварин у суспільстві. Ми прагнемо створити світ, де кожна тварина має шанс на щасливе та безпечне життя, а доброта та відповідальність є нормою."
       ]
     },
     img: img_3

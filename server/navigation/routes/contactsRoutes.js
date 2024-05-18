@@ -88,7 +88,7 @@ module.exports.deleteContact = async (req, res) => {
 
         const contact = await ContactsModel.findById(id)
         
-        var contact = await ContactsModel.findByIdAndDelete(id);
+        var deletedContact = await ContactsModel.findByIdAndDelete(id);
 
         const image = contact.icon
 
@@ -97,7 +97,7 @@ module.exports.deleteContact = async (req, res) => {
             fs.unlinkSync(imagePath)
         }
 
-        res.json(contact);
+        res.json(deletedContact);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

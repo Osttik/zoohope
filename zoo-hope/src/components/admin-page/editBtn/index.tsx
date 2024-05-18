@@ -11,17 +11,43 @@ interface IEditBtnProps {
     setSelectedHelpRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
     selectedAdminsRowIndex: null | number;
     setSelectedAdminsRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
+    selectedHelpfulInfoRowIndex: null | number;
+    setSelectedHelpfulInfoRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
     activeButton: string | null;
     showHelpOptionForm: () => void;
     showPetForm: () => void;
     showContactsForm: () => void;
     showAdminForm: () => void;
+    showHelpfulInfoForm: () => void;
     setIsEditBtnClicked: React.Dispatch<React.SetStateAction<boolean>>;
     adminRole: string;
 }
 
-export const EditBtn = ({ selectedPetRowIndex, setSelectedPetsRowIndex, selectedContactsRowIndex, setSelectedContactsRowIndex, selectedHelpRowIndex, setSelectedHelpRowIndex, selectedAdminsRowIndex, setSelectedAdminsRowIndex, activeButton, showPetForm, showContactsForm, showHelpOptionForm, showAdminForm, setIsEditBtnClicked, adminRole }: IEditBtnProps) => {
-    const display = selectedPetRowIndex !== null || selectedContactsRowIndex !== null || selectedHelpRowIndex !== null || selectedAdminsRowIndex !== null;
+export const EditBtn = ({
+    selectedPetRowIndex,
+    setSelectedPetsRowIndex,
+    selectedContactsRowIndex,
+    setSelectedContactsRowIndex,
+    selectedHelpRowIndex,
+    setSelectedHelpRowIndex,
+    selectedAdminsRowIndex,
+    setSelectedAdminsRowIndex,
+    selectedHelpfulInfoRowIndex,
+    setSelectedHelpfulInfoRowIndex,
+    activeButton,
+    showPetForm,
+    showContactsForm,
+    showHelpOptionForm,
+    showAdminForm,
+    showHelpfulInfoForm,
+    setIsEditBtnClicked,
+    adminRole }: IEditBtnProps) => {
+
+    const display = selectedPetRowIndex !== null ||
+        selectedContactsRowIndex !== null ||
+        selectedHelpRowIndex !== null ||
+        selectedAdminsRowIndex !== null ||
+        selectedHelpfulInfoRowIndex !== null;
 
     const showEditForm = () => {
         if (activeButton === null) {
@@ -42,6 +68,10 @@ export const EditBtn = ({ selectedPetRowIndex, setSelectedPetsRowIndex, selected
                 showHelpOptionForm();
                 setIsEditBtnClicked(true);
                 break;
+            case activeButton === 'info':
+                showHelpfulInfoForm();
+                setIsEditBtnClicked(true);
+                break;
             case activeButton === 'admins':
                 showAdminForm();
                 setIsEditBtnClicked(true);
@@ -50,29 +80,39 @@ export const EditBtn = ({ selectedPetRowIndex, setSelectedPetsRowIndex, selected
     }
 
     const handleButtonClick = () => {
-
         if (selectedPetRowIndex !== null) {
             setSelectedContactsRowIndex(null);
             setSelectedHelpRowIndex(null);
             setSelectedAdminsRowIndex(null);
+            setSelectedHelpfulInfoRowIndex(null);
         }
 
         if (selectedContactsRowIndex !== null) {
             setSelectedPetsRowIndex(null);
             setSelectedHelpRowIndex(null);
             setSelectedAdminsRowIndex(null);
+            setSelectedHelpfulInfoRowIndex(null);
         }
 
         if (selectedHelpRowIndex !== null) {
             setSelectedPetsRowIndex(null);
             setSelectedContactsRowIndex(null);
             setSelectedAdminsRowIndex(null);
+            setSelectedHelpfulInfoRowIndex(null);
+        }
+
+        if (selectedHelpfulInfoRowIndex !== null) {
+            setSelectedPetsRowIndex(null);
+            setSelectedContactsRowIndex(null);
+            setSelectedAdminsRowIndex(null);
+            setSelectedHelpRowIndex(null);
         }
 
         if (selectedAdminsRowIndex !== null) {
             setSelectedPetsRowIndex(null);
             setSelectedContactsRowIndex(null);
             setSelectedHelpRowIndex(null);
+            setSelectedHelpfulInfoRowIndex(null);
         }
 
         showEditForm();
@@ -83,11 +123,12 @@ export const EditBtn = ({ selectedPetRowIndex, setSelectedPetsRowIndex, selected
         setSelectedContactsRowIndex(null);
         setSelectedHelpRowIndex(null);
         setSelectedAdminsRowIndex(null);
+        setSelectedHelpfulInfoRowIndex(null);
     }, [activeButton]);
 
     return (
         <abbr title="редагувати">
-            <button className="actions__edit-btn" onClick={handleButtonClick} style={{ display: display && adminRole === 'super-admin' ? 'block' : 'none' }}>
+            <button className="actions__edit-btn" onClick={handleButtonClick} style={{ display: display && (activeButton !== 'admins' || adminRole === 'super-admin') ? 'block' : 'none' }}>
                 <FontAwesomeIcon icon={faPenToSquare} />
             </button>
         </abbr>

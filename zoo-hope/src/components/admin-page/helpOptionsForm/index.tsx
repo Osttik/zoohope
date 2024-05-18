@@ -33,8 +33,6 @@ export const HelpOptionForm = ({ display, hideForm, setHelpOptionsTableUpdate, i
     const handleAddHelpOption = async () => {
         try {
             const isFormValid = (
-                nameEn.trim() !== '' &&
-                nameUa.trim() !== '' &&
                 descriptionEn.trim() !== '' &&
                 descriptionUa.trim() !== ''
             );
@@ -77,8 +75,6 @@ export const HelpOptionForm = ({ display, hideForm, setHelpOptionsTableUpdate, i
     const handleEditHelpOption = async () => {
         try {
             const isFormValid = (
-                nameEn.trim() !== '' &&
-                nameUa.trim() !== '' &&
                 descriptionEn.trim() !== '' &&
                 descriptionUa.trim() !== ''
             );
@@ -199,6 +195,8 @@ export const HelpOptionForm = ({ display, hideForm, setHelpOptionsTableUpdate, i
                                 value={descriptionUa}
                                 onChange={handleDescriptionUaChange}>
                             </textarea>
+
+                            <p>**поле "Назва/Name" не є обов'язковою</p>
                         </div>
 
                         <div className="help-option-form-en">
