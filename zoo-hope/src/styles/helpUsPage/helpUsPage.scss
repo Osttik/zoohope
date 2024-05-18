@@ -1,89 +1,83 @@
-@import '../defines.scss';
-
-.helpUsPage {
-
-  & * {
-    color: #fff;
-  }
-
-  background-color: $primaryDarkColor;
-
-  .hero {
-    background-color: #453B52;
-    width: 100vw;
-    height: 100vh;
+.GeneralHelp {
+  background-color: #61d0ff;
+  &__text {
     display: flex;
-    flex-direction: column;
+    gap: 40px;
     justify-content: center;
     align-items: center;
-    color: #fff;
-
-    h2 {
-      font-size: 20px;
-      color: #B7B7B7;
-    }
-
+    flex-direction: column;
+    height: 70vh;
+    position: relative;
     h1 {
-      font-size: 70px;
+      font-family: "Open Sans", sans-serif;
+      font-weight: bold;
+      font-size: 64px;
     }
-
-    .links {
-      display: flex;
-      gap: 32px;
-      padding-top: 42px;
-
-      &>a {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        text-decoration: none;
-        width: 281px;
-        height: 50px;
-        border-radius: 25px;
-        font-size: 24px;
-        font-weight: 700;
-        color: #fff;
-
-        &:first-child {
-          background-color: $blueColor;
-        }
-
-        &:last-child {
-          border: 1px solid #fff;
-        }
-
-        &:visited {
-          color: #fff;
-        }
+    a {
+      font-family: "Open Sans", sans-serif;
+      font-weight: 300;
+      font-size: 24px;
+      background-color: #1a1a1a;
+      padding: 8px 35px 8px 35px;
+      border-radius: 10px;
+      color: #fafafa;
+      text-decoration: none;
+      transition: 0.2s;
+      &:hover {
+        color: gray;
+        padding: 8px 40px 8px 40px;
       }
     }
   }
-
-  .helpOption {
-    color: #fff;
-    text-align: start;
-    padding: 106px 0;
-
-    h1 {
-      margin-bottom: 48px;
-      font-size: 40px;
+  &__button {
+    &_arrow1 {
+      margin-right: 30px;
+      animation-name: MoveArrow1;
+      animation-duration: 1s; /* Тривалість анімації */
+      animation-iteration-count: infinite; /* Безкінечне повторення */
     }
-
-    div {
-      font-size: 20px;
+    &_arrow2 {
+      margin-left: 30px;
+      animation-name: MoveArrow2;
+      animation-duration: 1s; /* Тривалість анімації */
+      animation-iteration-count: infinite; /* Безкінечне повторення */
+    }
+    @keyframes MoveArrow1 {
+      0% {
+        margin-right: 30px;
+      }
+      50% {
+        margin-right: 20px;
+      }
+      100% {
+        margin-right: 30px;
+      }
+    }
+    @keyframes MoveArrow2 {
+      0% {
+        margin-left: 30px;
+      }
+      50% {
+        margin-left: 20px;
+      }
+      100% {
+        margin-left: 30px;
+      }
     }
   }
-
-  .helpOptions {
-    margin: 0 auto;
-    width: 1120px;
+  .BackgroundForHelpUs {
+    position: absolute;
+    bottom: 0;
   }
 }
-
-.noHelpOptions {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 40px;
-  height: 50vh;
+.YouCanHelp {
+  background-color: #1e1e1e;
+  h2 {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 600;
+    font-size: 48px;
+    color: white;
+    text-align: center;
+    padding-top: 120px;
+  }
 }

@@ -8,15 +8,14 @@ import { FooterNavBlock } from "../footerNavBlock";
 import { useEffect, useState } from "react";
 
 export const Footer = () => {
-  const [elements, setElements] = useState<Array<object>>()
-
+  const [elements, setElements] = useState<Array<object>>();
 
   useEffect(() => {
-    createElements().then(el => setElements(el))
-  }, [])
+    createElements().then((el) => setElements(el));
+  }, []);
 
   if (!elements) {
-    return <></>
+    return <></>;
   }
 
   return (
@@ -37,14 +36,18 @@ export const Footer = () => {
         </div>
         <div className="footer__bottom footer-bottom">
           {elements.map((e: Object, i: number) => {
-            return e.hasOwnProperty("footerBottomText") && (
-              <FooterBottomText key={i} props={e} />
-            )
+            return (
+              e.hasOwnProperty("footerBottomText") && (
+                <FooterBottomText key={i} props={e} />
+              )
+            );
           })}
           {elements.map((e: Object, i: number) => {
-            return e.hasOwnProperty("footerBottomLink") && (
-              <FooterNavBlockLink key={i} props={e} />
-            )
+            return (
+              e.hasOwnProperty("footerBottomLink") && (
+                <FooterNavBlockLink key={i} props={e} />
+              )
+            );
           })}
         </div>
       </div>
