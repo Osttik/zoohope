@@ -7,6 +7,8 @@ import { getAllPets, getCats, getDogs, getNeedTreatmentPet, getAdoptedPets, getT
 import { getAllContacts } from "../../../api/contacts";
 import { apiGetAllHelpOptions } from "../../../api/helpOptions";
 import { getAllAdmins } from "../../../api/admins";
+import { IHelpfulInfo } from "../../../define";
+import { getAllHelpfulInfo } from "../../../api/helpfulInfo";
 
 interface ITableProps {
     activeButton: string;
@@ -18,6 +20,8 @@ interface ITableProps {
     setHelpOptions: React.Dispatch<React.SetStateAction<IHelpOption[]>>;
     admins: IAdmin[];
     setAdmins: React.Dispatch<React.SetStateAction<IAdmin[]>>;
+    helpfulInfo: IHelpfulInfo[];
+    setHelpfulInfo: React.Dispatch<React.SetStateAction<IHelpfulInfo[]>>;
     selectedPetsRowIndex: null | number;
     handlePetRowClick: (index: number) => void;
     selectedContactsRowIndex: null | number;
@@ -26,10 +30,13 @@ interface ITableProps {
     handleHelpRowClick: (index: number) => void;
     selectedAdminsRowIndex: null | number;
     handleAdminRowClick: (index: number) => void;
+    selectedHelpfulInfoRowIndex: null | number;
+    handleHelpfulInfoRowClick: (index: number) => void;
     petTableUpdate: boolean;
     contactsTableUpdate: boolean;
     helpOptionsTableUpdate: boolean;
     adminTableUpdate: boolean;
+    helpfulInfoTableUpdate: boolean;
 }
 
 export const Table = ({
@@ -42,6 +49,8 @@ export const Table = ({
     setHelpOptions,
     admins,
     setAdmins,
+    helpfulInfo,
+    setHelpfulInfo,
     selectedPetsRowIndex,
     handlePetRowClick,
     selectedContactsRowIndex,
@@ -50,10 +59,13 @@ export const Table = ({
     handleHelpRowClick,
     selectedAdminsRowIndex,
     handleAdminRowClick,
+    selectedHelpfulInfoRowIndex,
+    handleHelpfulInfoRowClick,
     petTableUpdate,
     contactsTableUpdate,
     helpOptionsTableUpdate,
-    adminTableUpdate }: ITableProps) => {
+    adminTableUpdate,
+    helpfulInfoTableUpdate }: ITableProps) => {
 
     const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
 
@@ -66,6 +78,8 @@ export const Table = ({
     const contactHeadings = ["№", "Назва", "Посилання", "id"];
 
     const helpOptionsHeadings = ["№", "Назва", "Опис", "id"];
+
+    const helpfulInfoHeadings = ["№", "Питання", "Інформація", "id"];
 
     const adminsHeadings = ["№", "Ім'я", "Email", "Роль"];
 
@@ -84,93 +98,71 @@ export const Table = ({
         handleWheel(wheelEvent);
     };
 
+    const sortListByName = (list: any[], nameGetter: (item: any) => string) => {
+        const sortedList = [...list];
+        sortedList.sort((a, b) => {
+            const nameA = nameGetter(a);
+            const nameB = nameGetter(b);
+
+            if (nameA < nameB) {
+                return sortDirection === 'asc' ? -1 : 1;
+            }
+
+            if (nameA > nameB) {
+                return sortDirection === 'asc' ? 1 : -1;
+            }
+
+            return 0;
+        });
+        return sortedList;
+    };
+
     const sortByName = (columnIndex: number) => {
         if (activeButton === null) {
             console.error('activeButton is null');
+            return;
         }
+
+        let sortedList = [];
+
         switch (true) {
             case activeButton.charAt(0) === 'p':
                 if (columnIndex === 1) {
-                    const sortedPets = [...pets];
-                    sortedPets.sort((a, b) => {
-                        const nameA = a.name && a.name.ua ? a.name.ua : '';
-                        const nameB = b.name && b.name.ua ? b.name.ua : '';
-
-                        if (nameA < nameB) {
-                            return sortDirection === 'asc' ? -1 : 1;
-                        }
-
-                        if (nameA > nameB) {
-                            return sortDirection === 'asc' ? 1 : -1;
-                        }
-                        return 0;
-                    });
-                    setPets(sortedPets);
-                    setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+                    sortedList = sortListByName(pets, (item) => item.name && item.name.ua ? item.name.ua : '');
+                    setPets(sortedList);
                 }
                 break;
             case activeButton === 'contacts':
                 if (columnIndex === 1) {
-                    const sortedContacts = [...contacts];
-                    sortedContacts.sort((a, b) => {
-                        const nameA = a.name && a.name.ua ? a.name.ua : '';
-                        const nameB = b.name && b.name.ua ? b.name.ua : '';
-
-                        if (nameA < nameB) {
-                            return sortDirection === 'asc' ? -1 : 1;
-                        }
-
-                        if (nameA > nameB) {
-                            return sortDirection === 'asc' ? 1 : -1;
-                        }
-                        return 0;
-                    });
-                    setContacts(sortedContacts);
-                    setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+                    sortedList = sortListByName(contacts, (item) => item.name && item.name.ua ? item.name.ua : '');
+                    setContacts(sortedList);
                 }
                 break;
             case activeButton === 'help':
                 if (columnIndex === 1) {
-                    const sortedHelpOptions = [...helpOptions];
-                    sortedHelpOptions.sort((a, b) => {
-                        const nameA = a.name && a.name.ua ? a.name.ua : '';
-                        const nameB = b.name && b.name.ua ? b.name.ua : '';
-
-                        if (nameA < nameB) {
-                            return sortDirection === 'asc' ? -1 : 1;
-                        }
-
-                        if (nameA > nameB) {
-                            return sortDirection === 'asc' ? 1 : -1;
-                        }
-                        return 0;
-                    });
-                    setHelpOptions(sortedHelpOptions);
-                    setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+                    sortedList = sortListByName(helpOptions, (item) => item.name && item.name.ua ? item.name.ua : '');
+                    setHelpOptions(sortedList);
+                }
+                break;
+            case activeButton === 'info':
+                if (columnIndex === 1) {
+                    sortedList = sortListByName(helpfulInfo, (item) => item.question && item.question.ua ? item.question.ua : '');
+                    setHelpfulInfo(sortedList);
                 }
                 break;
             case activeButton === 'admins':
                 if (columnIndex === 1) {
-                    const sortedAdmins = [...admins];
-                    sortedAdmins.sort((a, b) => {
-                        const nameA = a.name ? a.name : '';
-                        const nameB = b.name ? b.name : '';
-
-                        if (nameA < nameB) {
-                            return sortDirection === 'asc' ? -1 : 1;
-                        }
-
-                        if (nameA > nameB) {
-                            return sortDirection === 'asc' ? 1 : -1;
-                        }
-                        return 0;
-                    });
-                    setAdmins(sortedAdmins);
-                    setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+                    sortedList = sortListByName(admins, (item) => item.name ? item.name : '');
+                    setAdmins(sortedList);
                 }
                 break;
+            default:
+                break;
         }
+
+        setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
     };
+
     useEffect(() => {
         switch (activeButton) {
             case 'p pets':
@@ -197,13 +189,16 @@ export const Table = ({
             case 'help':
                 apiGetAllHelpOptions().then(setHelpOptions);
                 break;
+            case 'info':
+                getAllHelpfulInfo().then(setHelpfulInfo);
+                break;
             case 'admins':
                 getAllAdmins().then(setAdmins);
                 break;
             default:
                 break;
         }
-    }, [activeButton, petTableUpdate, contactsTableUpdate, helpOptionsTableUpdate, adminTableUpdate]);
+    }, [activeButton, petTableUpdate, contactsTableUpdate, helpOptionsTableUpdate, adminTableUpdate, helpfulInfoTableUpdate]);
 
     useEffect(() => {
         const tableBody = document.querySelector('.admin-table tbody');
@@ -282,6 +277,26 @@ export const Table = ({
                                 <td>{index + 1}</td>
                                 <td>{option.name && option.name.ua}</td>
                                 <td>{option.description && option.description.ua}</td>
+                                <td>{option._id}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            ) : helpfulInfo.length > 0 && activeButton === 'info' ? (
+                <table className="admin-table">
+                    <thead>
+                        <tr className="admin-table__row">
+                            {helpfulInfoHeadings.map((heading, index) => (
+                                <th onClick={() => sortByName(index)} key={index}>{heading}</th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {helpfulInfo.map((option: IHelpfulInfo, index: number) => (
+                            <tr key={option._id} className={`admin-table__row ${selectedHelpfulInfoRowIndex === index ? 'focus' : ''}`} onClick={() => handleHelpfulInfoRowClick(index)}>
+                                <td>{index + 1}</td>
+                                <td>{option.question && option.question.ua}</td>
+                                <td>{option.information && option.information.ua}</td>
                                 <td>{option._id}</td>
                             </tr>
                         ))}

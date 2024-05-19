@@ -4,34 +4,60 @@ import { deletePet } from "../../../api/pets";
 import { deleteContact } from "../../../api/contacts";
 import { deleteHelpOption } from "../../../api/helpOptions";
 import { deleteAdmin } from "../../../api/admins";
+import { deleteHelpfulInfo } from "../../../api/helpfulInfo";
 import { IPet } from "../../../define";
 import { IContact } from "../../../define";
 import { IHelpOption } from "../../../define";
+import { IAdmin } from "../../../define";
+import { IHelpfulInfo } from "../../../define";
 
 interface IDeleteMessageProps {
     selectedPetRowIndex: null | number;
     selectedContactsRowIndex: null | number;
     selectedHelpRowIndex: null | number;
     selectedAdminsRowIndex: null | number;
+    selectedHelpfulInfoRowIndex: null | number;
     display: string;
     hideMessage: () => void;
     pets: IPet[];
     contacts: IContact[];
     helpOptions: IHelpOption[];
-    admins: any;
+    admins: IAdmin[];
+    helpfulInfo: IHelpfulInfo[]
     activeButton: string | null;
     setPetTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
     setContactsTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
     setHelpOptionsTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
     setAdminTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+    setHelpfulInfoTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const DeleteMessage = ({ selectedPetRowIndex, selectedContactsRowIndex, selectedHelpRowIndex, selectedAdminsRowIndex, display, hideMessage, pets, contacts, helpOptions, admins, activeButton, setPetTableUpdate, setContactsTableUpdate, setHelpOptionsTableUpdate, setAdminTableUpdate }: IDeleteMessageProps) => {
+export const DeleteMessage = ({
+    selectedPetRowIndex,
+    selectedContactsRowIndex,
+    selectedHelpRowIndex,
+    selectedAdminsRowIndex,
+    selectedHelpfulInfoRowIndex,
+    display,
+    hideMessage,
+    pets,
+    contacts,
+    helpOptions,
+    admins,
+    helpfulInfo,
+    activeButton,
+    setPetTableUpdate,
+    setContactsTableUpdate,
+    setHelpOptionsTableUpdate,
+    setAdminTableUpdate,
+    setHelpfulInfoTableUpdate }: IDeleteMessageProps) => {
+
     if (display === "none" ||
         (activeButton === 'pets' && selectedPetRowIndex === null) ||
         (activeButton === 'contacts' && selectedContactsRowIndex === null) ||
         (activeButton === 'help' && selectedHelpRowIndex === null) ||
-        (activeButton === 'admins' && selectedAdminsRowIndex === null)) {
+        (activeButton === 'admins' && selectedAdminsRowIndex === null) ||
+        (activeButton === 'info' && selectedHelpfulInfoRowIndex === null)) {
         return null;
     }
 
@@ -46,6 +72,9 @@ export const DeleteMessage = ({ selectedPetRowIndex, selectedContactsRowIndex, s
 
     const selectedAdmin = selectedAdminsRowIndex !== null ? admins[selectedAdminsRowIndex] : null;
     const adminId = selectedAdmin ? selectedAdmin._id : null;
+
+    const selectedHelpfulInfo = selectedHelpfulInfoRowIndex !== null ? helpfulInfo[selectedHelpfulInfoRowIndex] : null;
+    const helpfulInfoId = selectedHelpfulInfo ? selectedHelpfulInfo._id : null;
 
     const deleteSelectedElement = () => {
         if (activeButton === null) {
@@ -69,9 +98,14 @@ export const DeleteMessage = ({ selectedPetRowIndex, selectedContactsRowIndex, s
                     deleteHelpOption(helpOptionId).then(() => setHelpOptionsTableUpdate((prev: boolean) => !prev))
                 }
                 break;
+            case activeButton === 'info':
+                if (helpfulInfoId) {
+                    deleteHelpfulInfo(helpfulInfoId).then(() => setHelpfulInfoTableUpdate((prev: boolean) => !prev))
+                }
+                break;
             case activeButton === 'admins':
                 if (adminId) {
-                    deleteAdmin(adminId).then(() => setAdminTableUpdate((prev: boolean) => !prev)) 
+                    deleteAdmin(adminId).then(() => setAdminTableUpdate((prev: boolean) => !prev))
                 }
                 break;
         }
