@@ -4,6 +4,9 @@ import Logo from "../../../images/logo/logo.png";
 import { SetStateAction, useEffect, useState } from "react";
 import { addHelpOption, editHelpOption, getOneHelpOption } from "../../../api/helpOptions";
 import { IHelpOption } from "../../../define";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { QuillModules } from "../../../data/adminHelpUs";
 
 interface IHelpOptionFormProps {
     display: string;
@@ -129,14 +132,6 @@ export const HelpOptionForm = ({ display, hideForm, setHelpOptionsTableUpdate, i
         setNameUa(e.target.value);
     };
 
-    const handleDescriptionEnChange = (e: { target: { value: SetStateAction<string>; }; }) => {
-        setDescriptionEn(e.target.value);
-    };
-
-    const handleDescriptionUaChange = (e: { target: { value: SetStateAction<string>; }; }) => {
-        setDescriptionUa(e.target.value);
-    };
-
     const cleanForm = () => {
         setNameEn('');
         setNameUa('');
@@ -183,6 +178,7 @@ export const HelpOptionForm = ({ display, hideForm, setHelpOptionsTableUpdate, i
                     <div className="help-option-form__form-content">
                         <div className="help-option-form-ua">
                             <div className="help-option-form-ua__title">Дані до першочергового заповнення:</div>
+                            
 
                             <input
                                 className="help-option-form-ua__input name"
@@ -192,13 +188,22 @@ export const HelpOptionForm = ({ display, hideForm, setHelpOptionsTableUpdate, i
                                 onChange={handleNameUaChange}
                             />
 
-                            <textarea
+                            <div className="help-option-form__form-content__quill">
+                                <ReactQuill
+                                    theme="snow"
+                                    value={descriptionUa}
+                                    onChange={setDescriptionUa}
+                                    modules={QuillModules}
+                                />
+                            </div>
+
+                            {/* <textarea
                                 className="help-option-form-ua__textarea"
                                 id="description"
                                 placeholder="Опис"
                                 value={descriptionUa}
-                                onChange={handleDescriptionUaChange}>
-                            </textarea>
+                                >
+                            </textarea> */}
                         </div>
 
                         <div className="help-option-form-en">
@@ -211,14 +216,23 @@ export const HelpOptionForm = ({ display, hideForm, setHelpOptionsTableUpdate, i
                                 value={nameEn}
                                 onChange={handleNameEnChange}
                             />
+                            
+                            <div className="help-option-form__form-content__quill">
+                                <ReactQuill
+                                    theme="snow"
+                                    value={descriptionEn}
+                                    onChange={setDescriptionEn}
+                                    modules={QuillModules}
+                                />
+                            </div>
 
-                            <textarea
+                            {/* <textarea
                                 className="help-option-form-en__textarea"
                                 id="description"
                                 placeholder="Description"
                                 value={descriptionEn}
                                 onChange={handleDescriptionEnChange}>
-                            </textarea>
+                            </textarea> */}
                         </div>
                     </div>
 

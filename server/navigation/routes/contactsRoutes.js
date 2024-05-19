@@ -88,7 +88,7 @@ module.exports.deleteContact = async (req, res) => {
 
         const contact = await ContactsModel.findById(id)
         
-        var contact = await ContactsModel.findByIdAndDelete(id);
+        await ContactsModel.findByIdAndDelete(id);
 
         const image = contact.icon
 
