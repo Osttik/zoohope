@@ -17,6 +17,7 @@ import { Question } from "./question";
 import { IHelpfulInfo } from "../../define";
 import { getAllHelpfulInfo } from "../../api/helpfulInfo";
 import { Link as ScrollLink, Element } from 'react-scroll';
+import { reportState } from "../../data/general";
 
 export default function Home() {
 	const { t, i18n } = useTranslation();
@@ -63,17 +64,6 @@ export default function Home() {
 	return (
 		<div className="homePage">
 			<section className="hero">
-				{/* <div className="box">
-					<div className="text">
-						<h1>{t('homePageTitle')}</h1>
-						<h2>{t('homePage_sub_title')}</h2>
-					</div>
-					<div className="donate">
-						<Donate />
-					</div>
-					<img className="dog" src={dog} alt="dog" />
-				</div> */}
-
 				<div className="hero__container">
 					<div className="hero__content">
 						<div className="hero__text">
@@ -161,6 +151,36 @@ export default function Home() {
 					</div>
 				</div>
 			</section>
+
+
+
+			{reportState ?
+				<section className="reportSection" id="reports">
+					<div className="box">
+						<div className="text">
+							<h1>{t('reporting')}</h1>
+							<h2>{t('our_work')}</h2>
+						</div>
+						<div className="report">
+							<div>
+								<h1>140</h1>
+								<h2>{t('animals_taken')}</h2>
+							</div>
+							<div>
+								<h1>250</h1>
+								<h2>{t('animals_vaccinated')}</h2>
+							</div>
+							<div>
+								<h1>349</h1>
+								<h2>{t('animals_cured')}</h2>
+							</div>
+							<div>
+								<h1>175</h1>
+								<h2>{t('animals_found_home')}</h2>
+							</div>
+						</div>
+					</div>
+				</section> : <></>}
 
 			<section className="petListSection">
 				<h1>{t('looking-for-home')}</h1>

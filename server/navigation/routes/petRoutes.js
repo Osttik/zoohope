@@ -116,7 +116,7 @@ module.exports.deletePet = async (req, res) => {
             }})
         });
 
-        var deletedPet = await PetModel.findByIdAndDelete(id);
+        await PetModel.findByIdAndDelete(id);
 
         res.json(deletedPet);
     } catch (error) {
