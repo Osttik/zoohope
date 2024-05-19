@@ -20,14 +20,33 @@ export function PetInfo({ obj }: IProps) {
   const { t } = useTranslation();
 
   function yearsMath(obj: IPet) {
-    if (obj.age === 1) {
-      return obj.age + t('1year')
+    let allMonth = obj.age;
+    let years = Math.floor(allMonth / 12)
+    let month = allMonth % 12
+
+    const monthToString = (month: number) => {
+      if (month === 1) {
+        return `${month} ${t('1month')}`
+      } else if (month > 1 && month < 5) {
+        return `${month} ${t('month2')}`
+      } else if ( month > 4) {
+        return `${month} ${t('month')}`
+      }
     }
-    else if (obj.age === 2, obj.age === 3, obj.age === 4) {
-      return obj.age + t('years')
+
+    const monthString = monthToString(month)
+
+    if (years === 0) {
+      return monthString
     }
-    else {
-      return obj.age + t('years2')
+    else if(years === 1) {
+      return month > 0 ? `${years} ${t('1year')} ${monthString}` : `${years} ${t('1year')}`
+    }
+    else if(years > 1 && years < 5) {
+      return month > 0 ? `${years} ${t('years')} ${monthString}` : `${years} ${t('years')}`
+    }
+    else if(years > 4) {
+      return month > 0 ? `${years} ${t('years2')} ${monthString}` : `${years} ${t('years2')}`
     }
   }
 
@@ -50,10 +69,10 @@ export function PetInfo({ obj }: IProps) {
           <div className="nameDiv"><Translate obj={obj.name} /></div>
           <div className="begPetBlock__descBlock__div">{t('sex')}: <span>{obj.sex === 'male' ? t('male') : t('female')}</span> </div>
           <div className="begPetBlock__descBlock__div">{t('age')}: <span>{yearsMath(obj)}</span></div>
-          <div className="begPetBlock__descBlock__div">{t('size')}: <span>{obj.size}</span> </div>
+          <div className="begPetBlock__descBlock__div">{t('size')}: <span>{`${obj.size} ${t('cm')}`}</span> </div>
           <div className="begPetBlock__descBlock__div">{t('wool')}: <span><Translate obj={obj.color} /></span> </div>
           <div className="begPetBlock__descBlock__div">{t('breed')}: <span><Translate obj={obj.breed} /></span> </div>
-          <div id="descBlock__lastBlock" className="begPetBlock__descBlock__div">{t('character')}: <span>{obj.personality.en}</span></div>
+          <div id="descBlock__lastBlock" className="begPetBlock__descBlock__div">{t('character')}: <span><Translate obj={obj.personality}/></span></div>
           <button className="begPetBlock__descBlock__button" onClick={() => { setModalActive(true) }}>
             <p>{t('adopt_pet')}</p>
           </button>
@@ -65,7 +84,7 @@ export function PetInfo({ obj }: IProps) {
           {t('short_description')}:
         </h2>
         <p>
-          {obj.story.en}
+          <Translate obj={obj.story}/>
         </p>
       </div></>
   );
