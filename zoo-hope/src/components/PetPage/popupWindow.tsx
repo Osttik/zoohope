@@ -7,14 +7,15 @@ import { useRef } from "react";
 interface PopupWindowProps {
     active: boolean;
     setActive: (active: boolean) => void;
-  }
+}
   
-  export default function PopupWindow({ active, setActive }: PopupWindowProps) {
-    const firstNameRef = useRef<any>(null)
-    const lastNameRef = useRef<any>(null);
-    const emailRef = useRef<any>(null);
-    const commentRef = useRef<any>(null);
-    const phoneRef = useRef<any>(null)
+export default function PopupWindow({ active, setActive }: PopupWindowProps) {
+    const firstNameRef = useRef<HTMLInputElement>(null)
+    const lastNameRef = useRef<HTMLInputElement>(null);
+    const emailRef = useRef<HTMLInputElement>(null);
+    const commentRef = useRef<HTMLTextAreaElement>(null);
+    const phoneRef = useRef<HTMLInputElement>(null)
+
     const { t } = useTranslation();
 
     function setCookie(cname:string, cvalue:string, exdays:number) {
@@ -26,11 +27,11 @@ interface PopupWindowProps {
 
     const handleClick = async () => {
         await apiSendMail(
-          emailRef.current?.value,
-          commentRef.current?.value,
-          firstNameRef.current?.value,
-          lastNameRef.current?.value,
-          phoneRef.current?.value
+          emailRef.current!.value,
+          commentRef.current!.value,
+          firstNameRef.current!.value,
+          lastNameRef.current!.value,
+          phoneRef.current!.value
         );
     }
     

@@ -1,6 +1,13 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
+import { deletePet } from "../../../api/pets";
+import { deleteContact } from "../../../api/contacts";
+import { deleteHelpOption } from "../../../api/helpOptions";
+import { deleteAdmin } from "../../../api/admins";
+import { IPet } from "../../../define";
+import { IContact } from "../../../define";
+import { IHelpOption } from "../../../define";
+import axios from "../../../api/axios";
 
 interface IDeleteMessageProps {
   selectedPetRowIndex: null | number;
@@ -9,25 +16,46 @@ interface IDeleteMessageProps {
   selectedSettingsRowIndex: null | number;
   display: string;
   hideMessage: () => void;
-  pets: any;
-  contacts: any;
   settings: any;
-  helpOptions: any;
-  activeButton: string | null;
-  setPetTableUpdate: any;
-  setContactsTableUpdate: any;
   setSettingsTableUpdate: any;
-  setHelpOptionsTableUpdate: any;
+  selectedAdminsRowIndex: null | number;
+  pets: IPet[];
+  contacts: IContact[];
+  helpOptions: IHelpOption[];
+  admins: any;
+  activeButton: string | null;
+  setPetTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+  setContactsTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+  setHelpOptionsTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+  setAdminTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const DeleteMessage = ({ selectedPetRowIndex, selectedContactsRowIndex, selectedHelpRowIndex, selectedSettingsRowIndex, 
-    display, hideMessage, pets, contacts, settings, helpOptions, activeButton, setPetTableUpdate, setContactsTableUpdate, setSettingsTableUpdate, setHelpOptionsTableUpdate }: IDeleteMessageProps) => {
+export const DeleteMessage = ({ 
+    selectedPetRowIndex, 
+    selectedContactsRowIndex, 
+    selectedHelpRowIndex, 
+    selectedSettingsRowIndex, 
+    selectedAdminsRowIndex,
+    admins,
+    display, 
+    hideMessage, 
+    pets, 
+    contacts, 
+    settings, 
+    helpOptions, 
+    activeButton, 
+    setPetTableUpdate, 
+    setContactsTableUpdate, 
+    setSettingsTableUpdate, 
+    setHelpOptionsTableUpdate,
+    setAdminTableUpdate
+}: IDeleteMessageProps) => {
     if (display === "none" ||
         (activeButton === 'pets' && selectedPetRowIndex === null) ||
         (activeButton === 'contacts' && selectedContactsRowIndex === null) ||
         (activeButton === 'help' && selectedHelpRowIndex === null) ||
-        (activeButton === 'settings' && selectedSettingsRowIndex === null)
-    ) {
+        (activeButton === 'settings' && selectedSettingsRowIndex === null) ||
+        (activeButton === 'admins' && selectedAdminsRowIndex === null)) {
         return null;
     }
 
@@ -42,6 +70,9 @@ export const DeleteMessage = ({ selectedPetRowIndex, selectedContactsRowIndex, s
 
     const selectedSetting = selectedSettingsRowIndex !== null ? settings[selectedSettingsRowIndex] : null;
     const settingId = selectedSetting ? selectedSetting._id : null;
+    
+    const selectedAdmin = selectedAdminsRowIndex !== null ? admins[selectedAdminsRowIndex] : null;
+    const adminId = selectedAdmin ? selectedAdmin._id : null;
 
     const deletePet = async () => {
         try {
@@ -109,16 +140,27 @@ export const DeleteMessage = ({ selectedPetRowIndex, selectedContactsRowIndex, s
 
         switch (true) {
             case activeButton.charAt(0) === 'p':
-                deletePet();
+                if (petId) {
+                    deletePet().then(() => setPetTableUpdate((prev: boolean) => !prev))
+                }
                 break;
             case activeButton === 'contacts':
-                deleteContact();
+                if (contactId) {
+                    deleteContact().then(() => setContactsTableUpdate((prev: boolean) => !prev))
+                }
                 break;
             case activeButton === 'settings':
                 deleteSetting();
                 break;
             case activeButton === 'help':
-                deleteHelpOption();
+                if (helpOptionId) {
+                    deleteHelpOption().then(() => setHelpOptionsTableUpdate((prev: boolean) => !prev))
+                }
+                break;
+            case activeButton === 'admins':
+                if (adminId) {
+                    deleteAdmin(adminId).then(() => setAdminTableUpdate((prev: boolean) => !prev)) 
+                }
                 break;
         }
     }

@@ -5,7 +5,6 @@ import { Translate, TranslateFunc } from "../translation";
 
 export const FooterNavBlockText = ({ props }: any) => {
   const { i18n } = useTranslation()
-  console.log(props)
 
   return (
     <li className="footer-nav-block__item">

@@ -1,16 +1,19 @@
 import { faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Logo from "../../../images/logo/logo.png";
-import axios from "axios";
 import { SetStateAction, useEffect, useState } from "react";
+import { addContact, updateContact, getOneContact } from "../../../api/contacts";
+import { IContact } from "../../../define";
+import { requestURL } from "../../../api/api";
+import { uploadImage } from "../../../api/images";
 
 interface IContactsFormProps {
     display: string;
     hideForm: () => void;
-    setContactsTableUpdate: any;
+    setContactsTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
     selectedContactsRowIndex: null | number;
-    contacts: any;
-    setIsEditBtnClicked: any;
+    contacts: IContact[];
+    setIsEditBtnClicked: React.Dispatch<React.SetStateAction<boolean>>;
     isEditBtnClicked: boolean;
 }
 
@@ -18,75 +21,79 @@ export const ContactsForm = ({ display, hideForm, setContactsTableUpdate, select
     const [nameEn, setNameEn] = useState<string>('');
     const [nameUa, setNameUa] = useState<string>('');
     const [contactUrl, setContactUrl] = useState<string>('');
-    const [iconUrl, setIconUrl] = useState<string>('');
 
-    const [image, setImage] = useState<string>('');
+    const [image, setImage] = useState<any>('');
 
     const [contactsData, setContactsData] = useState<any>(null);
 
     const selectedContact = selectedContactsRowIndex !== null ? contacts[selectedContactsRowIndex] : null;
     const contactId = selectedContact ? selectedContact._id : null;
 
-    const fetchContactsData = async (id: string) => {
-        try {
-            const response = await axios.get(`http://localhost:5000/get-contact/${id}`);
-            setContactsData(response.data);
-        } catch (error) {
-            console.error('Error fetching contacts data:', error);
-        }
+    const capitalizeFirstLetter = (str: string): string => {
+        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
     };
+
+    const handleAddContact = async () => {
+        try {
+            const isFormValid = (
+                nameEn.trim() !== '' &&
+                nameUa.trim() !== '' &&
+                contactUrl.trim() !== ''
+            );
+
+            if (!isFormValid) {
+                return alert('Заповніть всі поля!');
+            }
+
+            const imgData = new FormData();
+            imgData.append('image', image);
+
+            const img = await uploadImage(imgData);
+
+            const formData = {
+                name: {
+                    en: capitalizeFirstLetter(nameEn.trim()),
+                    ua: capitalizeFirstLetter(nameUa.trim())
+                },
+                url: contactUrl.trim(),
+                icon: img,
+            }
+
+            await addContact(formData);
+            setContactsTableUpdate((prev: any) => !prev);
+
+            cleanForm();
+            hideForm();
+        } catch (error) {
+            console.error('Error adding contact:', error);
+        }
+    }
 
     const updateFormFields = () => {
         if (contactsData) {
             setNameEn(contactsData.name.en);
             setNameUa(contactsData.name.ua);
             setContactUrl(contactsData.url);
-
-            if (contactsData.icon && !image) {
-                setImage('');
-                setIconUrl(contactsData.icon);
-            } else {
-                setImage(contactsData.icon); 
-                setIconUrl(''); 
-            }
+            setImage(contactsData.icon);
         }
     };
 
-    useEffect(() => {
-        if (isEditBtnClicked && selectedContactsRowIndex !== null) {
-            fetchContactsData(contactId);
-        }
-    }, [isEditBtnClicked, selectedContactsRowIndex]);
-
-    useEffect(() => {
-        updateFormFields();
-    }, [contactsData]);
-
-
-    const handleContactsFileChange = (event: any) => {
-        const file = event.target.files[0];
-        if (file) {
-            const fileURL = URL.createObjectURL(file);
-            setImage(fileURL);
-        }
-    };
-
-    const capitalizeFirstLetter = (str: string): string => {
-        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-    };
-
-    const addContact = async () => {
+    const handleUpdateContact = async () => {
         try {
             const isFormValid = (
                 nameEn.trim() !== '' &&
                 nameUa.trim() !== '' &&
-                contactUrl.trim() !== '' &&
-                (iconUrl.trim() !== '' || image !== '')
+                contactUrl.trim() !== ''
             );
 
             if (!isFormValid) {
                 return alert('Заповніть всі поля!');
             }
+
+            const imgData = new FormData();
+            imgData.append('image', image);
+
+            const img = await uploadImage(imgData);
 
             const formData = {
                 name: {
@@ -94,51 +101,18 @@ export const ContactsForm = ({ display, hideForm, setContactsTableUpdate, select
                     ua: capitalizeFirstLetter(nameUa.trim())
                 },
                 url: contactUrl.trim(),
-                icon: image ? image : iconUrl.trim(),
+                icon: img,
             }
 
-            const response = await axios.post('http://localhost:5000/add-contact', formData);
-            setContactsTableUpdate((prev: boolean) => !prev);
-
-            cleanForm();
-            hideForm();
-
-            console.log('Contact added successfully:', response.data);
-        } catch (error) {
-            console.error('Error adding contact:', error);
-        }
-    }
-
-    const updateContact = async () => {
-        try {
-            const isFormValid = (
-                nameEn.trim() !== '' &&
-                nameUa.trim() !== '' &&
-                contactUrl.trim() !== '' &&
-                (iconUrl.trim() !== '' || image !== '')
-            );
-
-            if (!isFormValid) {
-                return alert('Заповніть всі поля!');
+            if (contactId){
+                await updateContact(formData, contactId);
             }
 
-            const formData = {
-                name: {
-                    en: capitalizeFirstLetter(nameEn.trim()),
-                    ua: capitalizeFirstLetter(nameUa.trim())
-                },
-                url: contactUrl.trim(),
-                icon: image ? image : iconUrl.trim(),
-            }
-
-            const response = await axios.put(`http://localhost:5000/update-contact/${contactId}`, formData);
             setContactsTableUpdate((prev: boolean) => !prev);
 
             cleanForm();
             hideForm();
             setIsEditBtnClicked(false);
-
-            console.log('Contact updated successfully:', response.data);
         } catch (error) {
             console.error('Error updating contact:', error);
         }
@@ -146,9 +120,9 @@ export const ContactsForm = ({ display, hideForm, setContactsTableUpdate, select
 
     const saveContact = () => {
         if (isEditBtnClicked === true) {
-            updateContact();
+            handleUpdateContact();
         } else {
-            addContact();
+            handleAddContact();
         }
     }
 
@@ -164,17 +138,46 @@ export const ContactsForm = ({ display, hideForm, setContactsTableUpdate, select
         setContactUrl(e.target.value);
     };
 
-    const handleIconUrlChange = (e: { target: { value: SetStateAction<string>; }; }) => {
-        setIconUrl(e.target.value);
+    const handleContactsFileChange = (event: any) => {
+        const file = event.target.files[0];
+        
+        if (file) {
+            setImage(file);
+        }
     };
 
     const cleanForm = () => {
         setNameEn('');
         setNameUa('');
         setContactUrl('');
-        setIconUrl('');
         setImage('');
     }
+
+    useEffect(() => {
+        const fetchContactData = async () => {
+            if (isEditBtnClicked && selectedContactsRowIndex !== null) {
+                try {
+                    if(contactId){
+                        const data = await getOneContact(contactId);
+                        setContactsData(data);
+                    }
+                } catch (error) {
+                    console.error('Error fetch contacts data:', error);
+                }
+            }
+        };
+
+        fetchContactData();
+    }, [isEditBtnClicked, selectedContactsRowIndex]);
+
+    useEffect(() => {
+        updateFormFields();
+    }, [contactsData]);
+
+    function deletePhoto() {
+        setImage(null)
+    }
+    
     return (
         <div className="contacts-form" style={{ display: display }}>
             <div className="contacts-form__container">
@@ -212,19 +215,7 @@ export const ContactsForm = ({ display, hideForm, setContactsTableUpdate, select
 
                             <div className="contacts-form-ua__icon">
                                 <p className="contacts-form-ua__icon-title">Додати іконку:</p>
-
-                                <p className="contacts-form-ua__icon-caption">Виберіть одне з двох:</p>
                             </div>
-
-                            <input
-                                className="contacts-form-ua__input link"
-                                type="text"
-                                placeholder="Додати посилання"
-                                value={iconUrl}
-                                onChange={handleIconUrlChange}
-                            />
-
-                            <p className="contacts-form-ua__icon-caption">або</p>
 
                             <div className="contacts-form__files">
                                 <label htmlFor="contact-image" className="contacts-form__files-lable">Завантажити фото</label>
@@ -240,11 +231,16 @@ export const ContactsForm = ({ display, hideForm, setContactsTableUpdate, select
 
                             <div className="contacts-form__images">
                                 {image && (
-                                    <img
-                                        src={image}
-                                        alt="лого"
-                                        className="contacts-form__image"
-                                    />
+                                    <>
+                                        <img
+                                            src={image instanceof File ? URL.createObjectURL(image) : `${requestURL}/${image}`}
+                                            alt="лого"
+                                            className="contacts-form__image"
+                                        />
+                                        <button onClick={deletePhoto}>
+                                            delete
+                                        </button>
+                                    </>
                                 )}
                             </div>
                         </div>

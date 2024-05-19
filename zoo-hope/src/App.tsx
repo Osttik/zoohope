@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import routes from "./data/router";
 import Overlay from "./components/overlay/Overlay";
-import PetContext from "./PetsContext";
 import { PetProvider } from "./PetsProvider";
 
 function App() {

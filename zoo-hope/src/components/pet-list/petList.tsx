@@ -6,7 +6,6 @@ import { FilterSelect } from "./filterSelect/filterSelect";
 import { useSearchParams } from "react-router-dom";
 import { PaginationNav } from "./paginationNav/paginatioNav";
 import { pageSize, options } from "../../data/petList";
-import { apiGetAllPets } from '../../api/pets';
 import { useTranslation } from "react-i18next";
 import "../../i18n/i18n";
 import { IPet } from "../../define";
@@ -21,9 +20,8 @@ interface Ifilters {
 }
 
 export const PetList = () => {
-  const pets_data: IPet[] = useContext(PetContext);
+  const { pets_data } = useContext(PetContext);
   const { t } = useTranslation();
-  const [totalLength, setTotalLength] = useState<number>() // Total length of array of all pets
   const [pageCount, setPageCount] = useState<number>() // Number of pages
   const [getPets, setPets] = useState<IPet[]>() // Array of pets
   const [areFiltersOpen, setFiltersStatus] = useState<boolean>(false) // Filter dropdown status
@@ -36,8 +34,6 @@ export const PetList = () => {
     page: ""
   }) // Filters template
 
-
-  const heroImg = "https://placekitten.com/2500/1000"
 
   // Basic functions
   const maxAgeCalc = () => {
@@ -68,21 +64,17 @@ export const PetList = () => {
 
       let pageApplied = allPets.reverse().slice(startIndex, endIndex);
 
-      setTotalLength(allPets.length);
       setPageCount(Math.ceil(allPets.length / pageSize));
       setPets(pageApplied);
     } catch {
       setPets([]);
-      console.log("Fetch error");
+      console.error("Fetch error");
     }
 
   }
   // ---
 
   // Hooks
-  // useEffect(() => {
-  //   sessionStorage.setItem('queryParams', window.location.search)
-  // }, [Object.fromEntries(searchParams.entries())])
 
   useEffect(() => {
     // Initializing page number if not provided
@@ -168,6 +160,7 @@ export const PetList = () => {
   if (!getPets) {
     return <>{t('loading')}</>
   }
+
   return (
     <section className="petListSection">
       <div className="hero">
@@ -223,16 +216,14 @@ export const PetList = () => {
             }) :
             <div className="notFound">
               <p className="notFoundTitle">{t('nothing_found')}</p>
-              <p className="notFoundDescription">{totalLength ? t('change_filters') : t('mb_no_pets')}</p>
+              <p className="notFoundDescription">{pets_data.length > 0 ? t('change_filters') : t('mb_no_pets')}</p>
             </div>
 
           }
         </div>
       </div>
       <div className="nav">
-
         <PaginationNav searchParam={searchParams} setSearchParams={setsearchParams} length={pageCount || 0} allPets={getPets} />
-
       </div>
     </section>
   )

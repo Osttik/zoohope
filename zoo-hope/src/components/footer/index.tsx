@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 export const Footer = () => {
   const [elements, setElements] = useState<Array<object>>()
 
-
   useEffect(() => {
     createElements().then(el => setElements(el))
   }, [])

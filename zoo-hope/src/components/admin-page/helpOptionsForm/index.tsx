@@ -2,16 +2,17 @@ import { faXmark, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Logo from "../../../images/logo/logo.png";
 import { SetStateAction, useEffect, useState } from "react";
-import axios from "axios";
+import { addHelpOption, editHelpOption, getOneHelpOption } from "../../../api/helpOptions";
+import { IHelpOption } from "../../../define";
 
 interface IHelpOptionFormProps {
     display: string;
     hideForm: () => void;
-    setHelpOptionsTableUpdate: any;
+    setHelpOptionsTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
     isEditBtnClicked: boolean;
     selectedHelpRowIndex: null | number;
-    helpOptions: any;
-    setIsEditBtnClicked: any;
+    helpOptions: IHelpOption[];
+    setIsEditBtnClicked: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const HelpOptionForm = ({ display, hideForm, setHelpOptionsTableUpdate, isEditBtnClicked, selectedHelpRowIndex, helpOptions, setIsEditBtnClicked }: IHelpOptionFormProps) => {
@@ -25,14 +26,44 @@ export const HelpOptionForm = ({ display, hideForm, setHelpOptionsTableUpdate, i
     const selectedHelpOption = selectedHelpRowIndex !== null ? helpOptions[selectedHelpRowIndex] : null;
     const helpOptionId = selectedHelpOption ? selectedHelpOption._id : null;
 
-    const fetchHelpOptionData = async (id: string) => {
-        try {
-            const response = await axios.get(`http://localhost:5000/get-help-option/${id}`);
-            setHelpOptionData(response.data);
-        } catch (error) {
-            console.error('Error fetching help option data:', error);
-        }
+    const capitalizeFirstLetter = (str: string): string => {
+        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
     };
+
+    const handleAddHelpOption = async () => {
+        try {
+            const isFormValid = (
+                nameEn.trim() !== '' &&
+                nameUa.trim() !== '' &&
+                descriptionEn.trim() !== '' &&
+                descriptionUa.trim() !== ''
+            );
+
+            if (!isFormValid) {
+                return alert('Заповніть всі поля!');
+            }
+
+            const formData = {
+                name: {
+                    en: capitalizeFirstLetter(nameEn.trim()),
+                    ua: capitalizeFirstLetter(nameUa.trim())
+                },
+                description: {
+                    en: capitalizeFirstLetter(descriptionEn.trim()),
+                    ua: capitalizeFirstLetter(descriptionUa.trim())
+                }
+            }
+
+            await addHelpOption(formData);
+            setHelpOptionsTableUpdate((prev: boolean) => !prev);
+
+            cleanForm();
+            hideForm();
+
+        } catch (error) {
+            console.error('Error adding help option:', error);
+        }
+    }
 
     const updateFormFields = () => {
         if (helpOptionData) {
@@ -43,22 +74,7 @@ export const HelpOptionForm = ({ display, hideForm, setHelpOptionsTableUpdate, i
         }
     };
 
-    useEffect(() => {
-        if (isEditBtnClicked && selectedHelpRowIndex !== null) {
-            fetchHelpOptionData(helpOptionId);
-        }
-    }, [isEditBtnClicked, selectedHelpRowIndex]);
-
-    useEffect(() => {
-        updateFormFields();
-    }, [helpOptionData]);
-
-
-    const capitalizeFirstLetter = (str: string): string => {
-        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-    };
-
-    const editHelpOption = async () => {
+    const handleEditHelpOption = async () => {
         try {
             const isFormValid = (
                 nameEn.trim() !== '' &&
@@ -83,60 +99,25 @@ export const HelpOptionForm = ({ display, hideForm, setHelpOptionsTableUpdate, i
                 }
             };
 
-            const response = await axios.put(`http://localhost:5000/update-help-option/${helpOptionId}`, formData);
+            if (helpOptionId) {
+                await editHelpOption(formData, helpOptionId);
+            }
             setHelpOptionsTableUpdate((prev: boolean) => !prev);
 
             cleanForm();
             hideForm();
             setIsEditBtnClicked(false);
-            
-            console.log('Help option edited successfully:', response.data);
+
         } catch (error) {
             console.error('Error editing help option:', error);
         }
     };
 
-    const addHelpOption = async () => {
-        try {
-            const isFormValid = (
-                nameEn.trim() !== '' &&
-                nameUa.trim() !== '' &&
-                descriptionEn.trim() !== '' &&
-                descriptionUa.trim() !== '' 
-            );
-
-            if (!isFormValid) {
-                return alert('Заповніть всі поля!');
-            }
-
-            const formData = {
-                name: {
-                    en: capitalizeFirstLetter(nameEn.trim()),
-                    ua: capitalizeFirstLetter(nameUa.trim())
-                },
-                description: {
-                    en: capitalizeFirstLetter(descriptionEn.trim()),
-                    ua: capitalizeFirstLetter(descriptionUa.trim())
-                }
-            }
-
-            const response = await axios.post('http://localhost:5000/add-help-option', formData);
-            setHelpOptionsTableUpdate((prev: boolean) => !prev);
-
-            cleanForm();
-            hideForm(); 
-
-            console.log('Help option added successfully:', response.data);
-        } catch (error) {
-            console.error('Error adding help option:', error);
-        }
-    }
-
     const saveHelpOption = () => {
         if (isEditBtnClicked === true) {
-            editHelpOption();
+            handleEditHelpOption();
         } else {
-            addHelpOption();
+            handleAddHelpOption();
         }
     }
 
@@ -162,11 +143,33 @@ export const HelpOptionForm = ({ display, hideForm, setHelpOptionsTableUpdate, i
         setDescriptionEn('');
         setDescriptionUa('');
     }
+
+    useEffect(() => {
+        const fetchHelpOptionData = async () => {
+            if (isEditBtnClicked && selectedHelpRowIndex !== null) {
+                try {
+                    if (helpOptionId) {
+                        const data = await getOneHelpOption(helpOptionId);
+                        setHelpOptionData(data);
+                    }
+                } catch (error) {
+                    console.error('Error fetch help option data:', error);
+                }
+            }
+        };
+
+        fetchHelpOptionData();
+    }, [isEditBtnClicked, selectedHelpRowIndex]);
+
+    useEffect(() => {
+        updateFormFields();
+    }, [helpOptionData]);
+
     return (
         <div className="help-option-form" style={{ display: display }}>
             <div className="help-option-form__container">
                 <div className="help-option-form__close-btn">
-                    <button onClick={() => { hideForm(); cleanForm(); setIsEditBtnClicked(false)}}>
+                    <button onClick={() => { hideForm(); cleanForm(); setIsEditBtnClicked(false) }}>
                         <FontAwesomeIcon icon={faXmark} />
                     </button>
                 </div>
