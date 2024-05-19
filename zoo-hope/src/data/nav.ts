@@ -10,7 +10,11 @@ const elements = [
   {
     name: "Шукають дім",
     i18Key: "looking-for-home",
-    Ielements: [{ name: "Pet List", url: "/petList?page=1" }],
+    Ielements: [
+      { name: "Всі тварини", url: "/petList?page=1" },
+      { name: "Собаки", url: "/petList?page=1&type=dog&sex=&minAge=&maxAge=" },
+      { name: "Коти", url: "/petList?page=1&type=cat&sex=&minAge=&maxAge=" },
+    ],
   },
 ];
-export { elements }
+export { elements };
