@@ -9,6 +9,7 @@ import PetContext from "../../PetsContext";
 import { IPet } from "../../define";
 import { PetCard } from "../pet-list/petCard/petCard";
 import { Link } from "react-router-dom";
+import { reportState } from "../../data/general";
 
 export default function Home() {
 	const { t, i18n } = useTranslation();
@@ -84,32 +85,33 @@ export default function Home() {
 				}
 			</section>
 
-			<section className="reportSection" id="reports">
-				<div className="box">
-					<div className="text">
-						<h1>{t('reporting')}</h1>
-						<h2>{t('our_work')}</h2>
+			{reportState ?
+				<section className="reportSection" id="reports">
+					<div className="box">
+						<div className="text">
+							<h1>{t('reporting')}</h1>
+							<h2>{t('our_work')}</h2>
+						</div>
+						<div className="report">
+							<div>
+								<h1>140</h1>
+								<h2>{t('animals_taken')}</h2>
+							</div>
+							<div>
+								<h1>250</h1>
+								<h2>{t('animals_vaccinated')}</h2>
+							</div>
+							<div>
+								<h1>349</h1>
+								<h2>{t('animals_cured')}</h2>
+							</div>
+							<div>
+								<h1>175</h1>
+								<h2>{t('animals_found_home')}</h2>
+							</div>
+						</div>
 					</div>
-					<div className="report">
-						<div>
-							<h1>140</h1>
-							<h2>{t('animals_taken')}</h2>
-						</div>
-						<div>
-							<h1>250</h1>
-							<h2>{t('animals_vaccinated')}</h2>
-						</div>
-						<div>
-							<h1>349</h1>
-							<h2>{t('animals_cured')}</h2>
-						</div>
-						<div>
-							<h1>175</h1>
-							<h2>{t('animals_found_home')}</h2>
-						</div>
-					</div>
-				</div>
-			</section>
+				</section> : <></>}
 
 			<section className="petListSection">
 				<h1>{t('looking-for-home')}</h1>
