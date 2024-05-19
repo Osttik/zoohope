@@ -118,7 +118,7 @@ module.exports.deletePet = async (req, res) => {
 
         await PetModel.findByIdAndDelete(id);
 
-        res.json(pet);
+        res.json(deletedPet);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

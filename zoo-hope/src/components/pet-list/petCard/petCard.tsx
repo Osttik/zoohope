@@ -40,7 +40,6 @@ export const PetCard = (props: cardProps) => {
         return years + t('years2');
     }
   }
-  
   return(
     <Link to={`/animal/${props.animalInfo._id}`} className="petCard">
       <img src={`${requestURL}/${imageSrc}`} onError={({ currentTarget }) => {
@@ -50,7 +49,7 @@ export const PetCard = (props: cardProps) => {
       <div className="info">
         <span className="name"><Translate obj={(props.animalInfo.name)}/></span>
         <span className="infoRow">{t('age')}: {ageWithLabel()}</span>
-        <span className="infoRow">{t('sex')}: {props.animalInfo.sex === "female" ? t('female') : t('male')}</span>
+        <span className="infoRow">{t('sex')}: {props.animalInfo.sex === "Дівчинка" ? t('female') : t('male')}</span>
       </div>
     </Link>
   )

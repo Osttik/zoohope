@@ -36,8 +36,6 @@ export const HelpOptionForm = ({ display, hideForm, setHelpOptionsTableUpdate, i
     const handleAddHelpOption = async () => {
         try {
             const isFormValid = (
-                nameEn.trim() !== '' &&
-                nameUa.trim() !== '' &&
                 descriptionEn.trim() !== '' &&
                 descriptionUa.trim() !== ''
             );
@@ -80,8 +78,6 @@ export const HelpOptionForm = ({ display, hideForm, setHelpOptionsTableUpdate, i
     const handleEditHelpOption = async () => {
         try {
             const isFormValid = (
-                nameEn.trim() !== '' &&
-                nameUa.trim() !== '' &&
                 descriptionEn.trim() !== '' &&
                 descriptionUa.trim() !== ''
             );

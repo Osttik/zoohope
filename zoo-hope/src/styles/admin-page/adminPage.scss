@@ -1,14 +1,14 @@
 @import '../defines.scss';
 
-* {
-    color: $adminPageDefaultBlack;
-}
-
 :root {
     --index: calc(1vw + 1vh)
 }
 
 .admin-page {
+    * {
+        color: $adminPageDefaultBlack;
+    }
+    
     width: 100vw;
     height: 100vh;
     background-color: $adminPageBackground;
@@ -407,7 +407,8 @@
 .pet-form,
 .contacts-form,
 .help-option-form,
-.admin-form {
+.admin-form,
+.helpful-info-form {
     position: absolute;
     width: 100vw;
     height: 100vh;
@@ -418,7 +419,8 @@
 .pet-form__container,
 .contacts-form__container,
 .help-option-form__container,
-.admin-form__container {
+.admin-form__container,
+.helpful-info-form__container {
     width: 60%;
     height: 100%;
     background-color: $adminPageDefaultWhite;
@@ -433,7 +435,8 @@
 .pet-form__header,
 .contacts-form__header,
 .help-option-form__header,
-.admins-form__header {
+.admins-form__header,
+.helpful-info-form__header {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -445,14 +448,16 @@
 .pet-form__logo,
 .contacts-form__logo,
 .help-option-form__logo,
-.admins-form__logo {
+.admins-form__logo,
+.helpful-info-form__logo {
     width: 11.5%;
 }
 
 .pet-form__title,
 .contacts-form__title,
 .help-option-form__title,
-.admins-form__title {
+.admins-form__title,
+.helpful-info-form__title {
     font-size: calc(var(--index) * 1.2);
     font-weight: 600;
 }
@@ -466,7 +471,8 @@
 
 .contacts-form__form,
 .help-option-form__form,
-.admins-form__form {
+.admins-form__form,
+.helpful-info-form__form {
     display: flex;
     flex-direction: column;
     gap: calc(var(--index) * 2);
@@ -477,7 +483,8 @@
 .pet-form__form-content,
 .contacts-form__form-content,
 .help-option-form__form-content,
-.admins-form__form-content {
+.admins-form__form-content,
+.helpful-info-form__form-content {
     display: flex;
     gap: calc(var(--index) * 4);
     margin-top: calc(var(--index) * 1.4);
@@ -488,7 +495,9 @@
 .contacts-form-ua,
 .contacts-form-en,
 .help-option-form-ua,
-.help-option-form-en {
+.help-option-form-en,
+.helpful-info-form-ua,
+.helpful-info-form-en {
     flex: 1;
 
     display: flex;
@@ -522,7 +531,9 @@
 .contacts-form-en__title,
 .help-option-form-ua__title,
 .help-option-form-en__title,
-.admins-form-ua__title {
+.admins-form-ua__title,
+.helpful-info-form-ua__title,
+.helpful-info-form-en__title {
     font-size: calc(var(--index) * .8);
     text-align: start;
     font-weight: 500;
@@ -531,7 +542,8 @@
 
 .pet-form-ua__input,
 .contacts-form-ua__input,
-.help-option-form-ua__input {
+.help-option-form-ua__input,
+.helpful-info-form-ua__input {
     width: 100%;
     border: none;
     border-bottom: 2.2px solid $primaryColor;
@@ -572,7 +584,8 @@
 
 .pet-form-en__input,
 .contacts-form-en__input,
-.help-option-form-en__input {
+.help-option-form-en__input,
+.helpful-info-form-en__input {
     width: 100%;
     border: none;
     border-bottom: 2.2px solid $primaryColor;
@@ -717,7 +730,9 @@
 .pet-form-ua__textarea,
 .pet-form-en__textarea,
 .help-option-form-ua__textarea,
-.help-option-form-en__textarea {
+.help-option-form-en__textarea,
+.helpful-info-form-ua__textarea,
+.helpful-info-form-en__textarea {
     width: 100%;
     height: calc(var(--index) * 6);
     border: 2.2px solid $primaryColor;
@@ -734,7 +749,8 @@
 .pet-form__close-btn,
 .contacts-form__close-btn,
 .help-option-form__close-btn,
-.admin-form__close-btn {
+.admin-form__close-btn,
+.helpful-info-form__close-btn {
     width: 100%;
     margin-top: calc(var(--index) * -.3);
 
@@ -762,7 +778,8 @@
 .pet-form__add-btn,
 .contacts-form__add-btn,
 .help-option-form__add-btn,
-.admins-form__add-btn {
+.admins-form__add-btn,
+.helpful-info-form__add-btn {
     width: 100%;
 
     >button {
@@ -800,7 +817,8 @@
         >.pet-form__add-btn-logo,
         .contacts-form__add-btn-logo,
         .help-option-form__add-btn-logo,
-        .admins-form__add-btn-logo {
+        .admins-form__add-btn-logo,
+        .helpful-info-form__add-btn-logo {
             margin-bottom: -3px;
         }
     }
@@ -840,10 +858,26 @@
 .pet-form__images,
 .contacts-form__images {
     width: 100%;
-    height: calc(var(--index) * 1.5);
+    height: max-content;
     display: flex;
     gap: calc(var(--index) * .8);
     flex-wrap: wrap;
+
+    >img{
+        height: calc(var(--index) * 1.5);
+    }
+}
+
+.delete-image-btn{
+    background: none;
+    font-size:  calc(var(--index) * .7);
+    border: none;
+    outline: none;
+    margin-left: -8px;
+
+    &:hover{
+        background-color: $adminPageTransparentYellow;
+    }
 }
 
 .pet-form__image,
@@ -866,6 +900,14 @@
 .contacts-form-ua__icon-caption {
     font-size: calc(var(--index) * .7);
     font-weight: 500;
+}
+
+.help-option-form-ua {
+    >p {
+        font-size: calc(var(--index) * .6);
+        font-weight: 600;
+        opacity: .5;
+    }
 }
 
 .delete-message {

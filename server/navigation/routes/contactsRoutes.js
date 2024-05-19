@@ -97,7 +97,7 @@ module.exports.deleteContact = async (req, res) => {
             fs.unlinkSync(imagePath)
         }
 
-        res.json(contact);
+        res.json(deletedContact);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

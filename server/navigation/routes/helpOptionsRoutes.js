@@ -73,7 +73,7 @@ module.exports.deleteHelpOption = async (req, res) => {
     try {
         const { id } = req.params;
 
-        var helpOption = await HelpOptionsModel.findByIdAndDelete(id);
+        let helpOption = await HelpOptionsModel.findByIdAndDelete(id);
 
         res.json(helpOption);
     } catch (error) {

@@ -1,4 +1,4 @@
-import { faAddressBook, faArrowRightFromBracket, faChevronDown, faChevronUp, faCircleUser, faHandshakeAngle, faPaw, faPlus, faUserGroup } from "@fortawesome/free-solid-svg-icons";
+import { faAddressBook, faArrowRightFromBracket, faChevronDown, faChevronUp, faCircleInfo, faCircleUser, faHandshakeAngle, faPaw, faPlus, faUserGroup } from "@fortawesome/free-solid-svg-icons";
 import Logo from "../../images/logo/logo.png"
 import "../../styles/index.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { PetInfoForm } from "./petInfoForm/index";
 import { ContactsForm } from "./contactsForm/index";
 import { HelpOptionForm } from "./helpOptionsForm/index";
+import { HelpfulInfoForm } from "./helpfulInfoForm";
 import { AdminForm } from "./adminForm";
 import { DeleteBtn } from "./deleteBtn/index";
 import { EditBtn } from "./editBtn/index";
@@ -14,6 +15,7 @@ import { Table } from "./table";
 import { IPet } from "../../define";
 import { IContact } from "../../define";
 import { IHelpOption } from "../../define";
+import { IHelpfulInfo } from "../../define";
 import { IAdmin } from "../../define";
 import { Link } from "react-router-dom";
 import Cookies from 'js-cookie';
@@ -29,12 +31,14 @@ export const AdminPage = () => {
     const [pets, setPets] = useState<IPet[]>([]);
     const [contacts, setContacts] = useState<IContact[]>([]);
     const [helpOptions, setHelpOptions] = useState<IHelpOption[]>([]);
+    const [helpfulInfo, setHelpfulInfo] = useState<IHelpfulInfo[]>([]);
     const [admins, setAdmins] = useState<IAdmin[]>([]);
     const [currentAdmin, setCurrentAdmin] = useState<IDecodedToken | undefined>(undefined);
 
     const [petListIsOpen, setPetListIsOpen] = useState<boolean>(false);
     const [contactsListIsOpen, setContactsListIsOpen] = useState<boolean>(false);
     const [helpListIsOpen, setHelpListIsOpen] = useState<boolean>(false);
+    const [helpfulInfoIsOpen, setHelpfulInfoIsOpen] = useState<boolean>(false);
     const [popupIsOpen, setPopupIsOpen] = useState<boolean>(false);
 
     const [activeButton, setActiveButton] = useState<string | null>(null);
@@ -44,6 +48,7 @@ export const AdminPage = () => {
     const [displayPetForm, setDisplayPetForm] = useState<string>('none');
     const [displayContactsForm, setDisplayContactsForm] = useState<string>('none');
     const [displayHelpOptionForm, setDisplayHelpOptionForm] = useState<string>('none');
+    const [displayHelpfulInfoForm, setDisplayHelpfulInfoForm] = useState<string>('none');
     const [displayAdminForm, setDisplayAdminForm] = useState<string>('none');
 
     const [displayDeleteMessage, setDisplayDeleteMessage] = useState<string>('none');
@@ -51,11 +56,13 @@ export const AdminPage = () => {
     const [selectedPetsRowIndex, setSelectedPetsRowIndex] = useState<null | number>(null);
     const [selectedContactsRowIndex, setSelectedContactsRowIndex] = useState<null | number>(null);
     const [selectedHelpRowIndex, setSelectedHelpRowIndex] = useState<null | number>(null);
+    const [selectedHelpfulInfoRowIndex, setSelectedHelpfulInfoRowIndex] = useState<null | number>(null);
     const [selectedAdminsRowIndex, setSelectedAdminsRowIndex] = useState<null | number>(null);
 
     const [petTableUpdate, setPetTableUpdate] = useState<boolean>(false);
     const [contactsTableUpdate, setContactsTableUpdate] = useState<boolean>(false);
     const [helpOptionsTableUpdate, setHelpOptionsTableUpdate] = useState<boolean>(false);
+    const [helpfulInfoTableUpdate, setHelpfulInfoTableUpdate] = useState<boolean>(false);
     const [adminTableUpdate, setAdminTableUpdate] = useState<boolean>(false);
 
     const handlePetRowClick = (index: number) => {
@@ -72,6 +79,10 @@ export const AdminPage = () => {
 
     const handleAdminRowClick = (index: number) => {
         setSelectedAdminsRowIndex(index);
+    };
+
+    const handleHelpfulInfoRowClick = (index: number) => {
+        setSelectedHelpfulInfoRowIndex(index);
     };
 
     const showPetForm = () => {
@@ -96,6 +107,14 @@ export const AdminPage = () => {
 
     const hideHelpOptionForm = () => {
         setDisplayHelpOptionForm('none');
+    };
+
+    const showHelpfulInfoForm = () => {
+        setDisplayHelpfulInfoForm('block');
+    }
+
+    const hideHelpfulInfoForm = () => {
+        setDisplayHelpfulInfoForm('none');
     };
 
     const showAdminForm = () => {
@@ -130,17 +149,23 @@ export const AdminPage = () => {
         setHelpListIsOpen(!helpListIsOpen);
     };
 
+    const toggleHelpfulInfoList = () => {
+        setHelpfulInfoIsOpen(!helpfulInfoIsOpen);
+    };
+
     const togglePopUp = () => {
         setPopupIsOpen(!popupIsOpen);
     };
 
     const openForm = () => {
-        if (activeButton !== null && currentAdmin?.role === 'super-admin' && activeButton !== '' && activeButton.charAt(0) === 'p') {
+        if (activeButton !== null && activeButton !== '' && activeButton.charAt(0) === 'p') {
             showPetForm();
-        } else if (activeButton !== null && currentAdmin?.role === 'super-admin' && activeButton !== '' && activeButton === 'contacts') {
+        } else if (activeButton !== null && activeButton !== '' && activeButton === 'contacts') {
             showContactsForm();
-        } else if (activeButton !== null && currentAdmin?.role === 'super-admin' && activeButton !== '' && activeButton === 'help') {
+        } else if (activeButton !== null && activeButton !== '' && activeButton === 'help') {
             showHelpOptionForm();
+        } else if (activeButton !== null && activeButton !== '' && activeButton === 'info') {
+            showHelpfulInfoForm();
         } else if (activeButton !== null && currentAdmin?.role === 'super-admin' && activeButton !== '' && activeButton === 'admins') {
             showAdminForm();
         } else {
@@ -156,16 +181,16 @@ export const AdminPage = () => {
     const getAdmin = () => {
         const accessToken = Cookies.get('accessToken');
         if (!accessToken) {
-            return; 
+            return;
         }
-        
+
         const decodedToken: IDecodedToken = jwtDecode(accessToken);
 
         setCurrentAdmin(decodedToken);
     }
 
     useEffect(() => {
-        getAdmin(); 
+        getAdmin();
     }, []);
 
     return (
@@ -176,17 +201,20 @@ export const AdminPage = () => {
                     selectedContactsRowIndex={selectedContactsRowIndex}
                     selectedHelpRowIndex={selectedHelpRowIndex}
                     selectedAdminsRowIndex={selectedAdminsRowIndex}
+                    selectedHelpfulInfoRowIndex={selectedHelpfulInfoRowIndex}
                     display={displayDeleteMessage}
                     hideMessage={hideDeleteMessage}
                     pets={pets}
                     contacts={contacts}
                     helpOptions={helpOptions}
                     admins={admins}
+                    helpfulInfo={helpfulInfo}
                     activeButton={activeButton}
                     setPetTableUpdate={setPetTableUpdate}
                     setContactsTableUpdate={setContactsTableUpdate}
                     setAdminTableUpdate={setAdminTableUpdate}
                     setHelpOptionsTableUpdate={setHelpOptionsTableUpdate}
+                    setHelpfulInfoTableUpdate={setHelpfulInfoTableUpdate}
                 />
 
                 <PetInfoForm
@@ -216,6 +244,16 @@ export const AdminPage = () => {
                     isEditBtnClicked={isEditBtnClicked}
                     selectedHelpRowIndex={selectedHelpRowIndex}
                     helpOptions={helpOptions}
+                    setIsEditBtnClicked={setIsEditBtnClicked}
+                />
+
+                <HelpfulInfoForm
+                    display={displayHelpfulInfoForm}
+                    hideForm={hideHelpfulInfoForm}
+                    setHelpfulInfoTableUpdate={setHelpfulInfoTableUpdate}
+                    isEditBtnClicked={isEditBtnClicked}
+                    selectedHelpfulInfoRowIndex={selectedHelpfulInfoRowIndex}
+                    helpfulInfo={helpfulInfo}
                     setIsEditBtnClicked={setIsEditBtnClicked}
                 />
 
@@ -325,6 +363,28 @@ export const AdminPage = () => {
                                         <div className="sidebar-option">
                                             <div className="sidebar-option__container">
                                                 <div className="sidebar-option__logo">
+                                                    <FontAwesomeIcon icon={faCircleInfo} />
+                                                </div>
+
+                                                <p className="sidebar-option__title">корисна інформація</p>
+
+                                                <button className="sidebar-option__dropdown-btn" onClick={toggleHelpfulInfoList}>
+                                                    <FontAwesomeIcon icon={helpfulInfoIsOpen ? faChevronUp : faChevronDown} />
+                                                </button>
+                                            </div>
+
+                                            <div className="sidebar-option-list" style={{ display: helpfulInfoIsOpen ? 'block' : 'none' }}>
+                                                <ul className="sidebar-option-list__container">
+                                                    <li className="sidebar-option-list__option">
+                                                        <button className={`sidebar-option-list__option-button ${activeButton === 'info' ? 'active' : ''}`} onClick={() => toggleButton('info')}>всі питання</button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div className="sidebar-option">
+                                            <div className="sidebar-option__container">
+                                                <div className="sidebar-option__logo">
                                                     <FontAwesomeIcon icon={faUserGroup} />
                                                 </div>
 
@@ -385,11 +445,14 @@ export const AdminPage = () => {
                                     setSelectedHelpRowIndex={setSelectedHelpRowIndex}
                                     selectedAdminsRowIndex={selectedAdminsRowIndex}
                                     setSelectedAdminsRowIndex={setSelectedAdminsRowIndex}
+                                    selectedHelpfulInfoRowIndex={selectedHelpfulInfoRowIndex}
+                                    setSelectedHelpfulInfoRowIndex={setSelectedHelpfulInfoRowIndex}
                                     activeButton={activeButton}
                                     showPetForm={showPetForm}
                                     showContactsForm={showContactsForm}
                                     showHelpOptionForm={showHelpOptionForm}
                                     showAdminForm={showAdminForm}
+                                    showHelpfulInfoForm={showHelpfulInfoForm}
                                     setIsEditBtnClicked={setIsEditBtnClicked}
                                     adminRole={currentAdmin ? currentAdmin!.role : ""}
                                 />
@@ -403,6 +466,8 @@ export const AdminPage = () => {
                                     setSelectedHelpRowIndex={setSelectedHelpRowIndex}
                                     selectedAdminsRowIndex={selectedAdminsRowIndex}
                                     setSelectedAdminsRowIndex={setSelectedAdminsRowIndex}
+                                    selectedHelpfulInfoRowIndex={selectedHelpfulInfoRowIndex}
+                                    setSelectedHelpfulInfoRowIndex={setSelectedHelpfulInfoRowIndex}
                                     showMessage={showDeleteMessage}
                                     activeButton={activeButton}
                                     adminRole={currentAdmin ? currentAdmin!.role : ""}
@@ -429,6 +494,8 @@ export const AdminPage = () => {
                                         setHelpOptions={setHelpOptions}
                                         admins={admins}
                                         setAdmins={setAdmins}
+                                        helpfulInfo={helpfulInfo}
+                                        setHelpfulInfo={setHelpfulInfo}
                                         selectedPetsRowIndex={selectedPetsRowIndex}
                                         handlePetRowClick={handlePetRowClick}
                                         selectedContactsRowIndex={selectedContactsRowIndex}
@@ -437,9 +504,12 @@ export const AdminPage = () => {
                                         handleHelpRowClick={handleHelpRowClick}
                                         selectedAdminsRowIndex={selectedAdminsRowIndex}
                                         handleAdminRowClick={handleAdminRowClick}
+                                        selectedHelpfulInfoRowIndex={selectedHelpfulInfoRowIndex}
+                                        handleHelpfulInfoRowClick={handleHelpfulInfoRowClick}
                                         petTableUpdate={petTableUpdate}
                                         contactsTableUpdate={contactsTableUpdate}
                                         helpOptionsTableUpdate={helpOptionsTableUpdate}
+                                        helpfulInfoTableUpdate={helpfulInfoTableUpdate}
                                         adminTableUpdate={adminTableUpdate}
                                     />
                                 ) : (
