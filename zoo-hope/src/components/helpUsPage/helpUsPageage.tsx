@@ -27,7 +27,7 @@ const HelpUsPage: React.FC = () => {
       <section className="YouCanHelp">
         <h2>Чим ви можете допомогти?</h2>
         <div className="YouCanHelp_Options">
-          <div className="YouCanHelp__Options1">
+          <div className="YouCanHelp__Options">
             <span>🍗ЇЖА ДЛЯ ТВАРИН:</span>
           </div>
         </div>
