@@ -4,6 +4,10 @@ export interface ITranslateble {
     ua: string;
 }
 
+export interface ITranslatebleQuestions {
+    [key: string]: string | string[] | JSX.Element[];
+}
+
 interface IIdentity {
     _id: string;
 }
@@ -55,4 +59,9 @@ export interface IAdmin extends IIdentity {
 export interface ITokens {
     access_token: string;
     refresh_token: string;
+}
+
+export interface IHelpfulInfo extends IIdentity {
+    question: ITranslateble,
+    information: ITranslateble
 }

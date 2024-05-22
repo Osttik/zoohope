@@ -6,6 +6,7 @@ const contactsRoutes = require('./routes/contactsRoutes');
 const mailRoutes = require('./routes/mailRoutes');
 const settingRoutes = require('./routes/settingRoutes')
 const helpOptionsRoutes = require('./routes/helpOptionsRoutes');
+const helpfulInfoRoutes = require('./routes/helpfulInfoRoutes');
 const adminsRoutes = require('./routes/adminsRoutes');
 const imageRoute = require('./routes/imageRoute');
 const {verify_token} = require('../auth/auth')
@@ -37,6 +38,12 @@ router.get('/get-help-option/:id', helpOptionsRoutes.getHelpOptionById);
 router.post('/add-help-option', verify_token(['super-admin', 'admin']), helpOptionsRoutes.addHelpOptions);
 router.put('/update-help-option/:id', verify_token(['super-admin', 'admin']), helpOptionsRoutes.updateHelpOption);
 router.delete('/delete-help-option/:id', verify_token(['super-admin', 'admin']), helpOptionsRoutes.deleteHelpOption);
+
+router.get('/get-all-helpful-info', helpfulInfoRoutes.getAllHelpfulInfo);
+router.get('/get-helpful-info/:id', helpfulInfoRoutes.getHelpfulInfoById);
+router.post('/add-helpful-info', verify_token(['super-admin', 'admin']), helpfulInfoRoutes.addHelpfulInfo);
+router.put('/update-helpful-info/:id', verify_token(['super-admin', 'admin']), helpfulInfoRoutes.updateHelpfulInfo);
+router.delete('/delete-helpful-info/:id', verify_token(['super-admin', 'admin']), helpfulInfoRoutes.deleteHelpOption);
 
 router.post('/upload-pet-images', verify_token(['super-admin', 'admin']), imageRoute.mutlerArray, imageRoute.uploadPetImage);
 router.post('/upload-contact-image', verify_token(['super-admin', 'admin']), imageRoute.mutlerSingle, imageRoute.uploadContactImage);

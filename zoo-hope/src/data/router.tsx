@@ -6,6 +6,7 @@ import { HelpUsPage } from "../components/helpUsPage/helpUsPageage";
 import { LoginPage } from "../components/login-page";
 import { AdminPage } from "../components/admin-page";
 import { AccessFunc } from "../components/login-page/access";
+import { HelpfulInfoPage } from "../components/helpfulInfoPage";
 
 
 const routes: RouteObject[] = [
@@ -32,6 +33,10 @@ const routes: RouteObject[] = [
   {
     path: "/helpUs",
     element: <HelpUsPage />,
+  },
+  {
+    path: "/helpful-info/:id",
+    element: <HelpfulInfoPage />,
   },
   
   { // Needs to be in the end

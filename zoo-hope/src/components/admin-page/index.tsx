@@ -6,6 +6,7 @@ import {
   faCircleUser,
   faHandshakeAngle,
   faPaw,
+  faCircleInfo,
   faPlus,
   faUserGroup
 } from "@fortawesome/free-solid-svg-icons";
@@ -19,11 +20,13 @@ import { HelpOptionsTable } from "./helpOptionsTable/index";
 import { PetInfoForm } from "./petInfoForm/index";
 import { ContactsForm } from "./contactsForm/index";
 import { HelpOptionForm } from "./helpOptionsForm/index";
+import { HelpfulInfoForm } from "./helpfulInfoForm";
 import { AdminForm } from "./adminForm";
 import { DeleteBtn } from "./deleteBtn/index";
 import { EditBtn } from "./editBtn/index";
 import { DeleteMessage } from "./deleteMessage/index";
 import { Table } from "./table";
+import { IHelpfulInfo } from "../../define";
 import { IAdmin } from "../../define";
 import { Link } from "react-router-dom";
 import Cookies from 'js-cookie';
@@ -39,27 +42,26 @@ interface IDecodedToken {
 }
 
 export const AdminPage = () => {
-  const [pets, setPets] = useState<IPet[]>([]);
-  const [contacts, setContacts] = useState<IContact[]>([]);
-  const [helpOptions, setHelpOptions] = useState<IHelpOption[]>([]);
   const [settings, setSettings] = useState<ISetting[]>([]);
-  const [petListIsOpen, setPetListIsOpen] = useState<boolean>(false);
-  const [contactsListIsOpen, setContactsListIsOpen] = useState<boolean>(false);
-  const [helpListIsOpen, setHelpListIsOpen] = useState<boolean>(false);
   const [settingsListIsOpen, setSettingsListIsOpen] = useState<boolean>(false);
-  const [popupIsOpen, setPopupIsOpen] = useState<boolean>(false);
-  const [admins, setAdmins] = useState<IAdmin[]>([]);
-  const [currentAdmin, setCurrentAdmin] = useState<IDecodedToken | undefined>(undefined);
 
   const [activeButton, setActiveButton] = useState<string | null>(null);
+    const [pets, setPets] = useState<IPet[]>([]);
+    const [contacts, setContacts] = useState<IContact[]>([]);
+    const [helpOptions, setHelpOptions] = useState<IHelpOption[]>([]);
+    const [helpfulInfo, setHelpfulInfo] = useState<IHelpfulInfo[]>([]);
+    const [admins, setAdmins] = useState<IAdmin[]>([]);
+    const [currentAdmin, setCurrentAdmin] = useState<IDecodedToken | undefined>(undefined);
+
+    const [petListIsOpen, setPetListIsOpen] = useState<boolean>(false);
+    const [contactsListIsOpen, setContactsListIsOpen] = useState<boolean>(false);
+    const [helpListIsOpen, setHelpListIsOpen] = useState<boolean>(false);
+    const [helpfulInfoIsOpen, setHelpfulInfoIsOpen] = useState<boolean>(false);
+    const [popupIsOpen, setPopupIsOpen] = useState<boolean>(false);
 
   const [isEditBtnClicked, setIsEditBtnClicked] = useState<boolean>(false);
   
-  const [displayPetForm, setDisplayPetForm] = useState<string>('none');
-  const [displayContactsForm, setDisplayContactsForm] = useState<string>('none');
   const [displaySettingForm, setDisplaySettingForm] = useState<string>("none");
-  const [displayHelpOptionForm, setDisplayHelpOptionForm] = useState<string>('none');
-  const [displayAdminForm, setDisplayAdminForm] = useState<string>('none');
 
   const [displayDeleteMessage, setDisplayDeleteMessage] = useState<string>('none');
 
@@ -68,12 +70,19 @@ export const AdminPage = () => {
   const [selectedHelpRowIndex, setSelectedHelpRowIndex] = useState<null | number>(null);
   const [selectedAdminsRowIndex, setSelectedAdminsRowIndex] = useState<null | number>(null);
   const [selectedSettingsRowIndex, setSelectedSettingsRowIndex] = useState<null | number>(null);
+    const [displayPetForm, setDisplayPetForm] = useState<string>('none');
+    const [displayContactsForm, setDisplayContactsForm] = useState<string>('none');
+    const [displayHelpOptionForm, setDisplayHelpOptionForm] = useState<string>('none');
+    const [displayHelpfulInfoForm, setDisplayHelpfulInfoForm] = useState<string>('none');
+    const [displayAdminForm, setDisplayAdminForm] = useState<string>('none');
 
   const [petTableUpdate, setPetTableUpdate] = useState<boolean>(false);
   const [contactsTableUpdate, setContactsTableUpdate] = useState<boolean>(false);
   const [helpOptionsTableUpdate, setHelpOptionsTableUpdate] = useState<boolean>(false);
   const [adminTableUpdate, setAdminTableUpdate] = useState<boolean>(false);
   const [settingsTableUpdate, setSettingsTableUpdate] = useState<boolean>(false);
+  const [selectedHelpfulInfoRowIndex, setSelectedHelpfulInfoRowIndex] = useState<null | number>(null);
+  const [helpfulInfoTableUpdate, setHelpfulInfoTableUpdate] = useState<boolean>(false);
 
 
   const handlePetRowClick = (index: number) => {
@@ -99,6 +108,10 @@ export const AdminPage = () => {
   const showPetForm = () => {
     setDisplayPetForm('block');
   };
+    const handleHelpfulInfoRowClick = (index: number) => {
+        setSelectedHelpfulInfoRowIndex(index);
+    };
+
 
   const hidePetForm = () => {
     setDisplayPetForm("none");
@@ -128,24 +141,33 @@ export const AdminPage = () => {
     setDisplaySettingForm("none");
   };
 
-  const showDeleteMessage = () => {
-    setDisplayDeleteMessage("block");
-  };
+    const showHelpfulInfoForm = () => {
+        setDisplayHelpfulInfoForm('block');
+    }
 
-  const hideDeleteMessage = () => {
-    setDisplayDeleteMessage("none");
-  };
+    const hideHelpfulInfoForm = () => {
+        setDisplayHelpfulInfoForm('none');
+    };
 
+    const showAdminForm = () => {
+        setDisplayAdminForm('block');
+    }
 
-  const showAdminForm = () => {
-    setDisplayAdminForm('block');
-  }
+    const hideAdminForm = () => {
+        setDisplayAdminForm('none');
+    };
 
-  const hideAdminForm = () => {
-    setDisplayAdminForm('none');
-  };
+    const showDeleteMessage = () => {
+        setDisplayDeleteMessage('block');
+    };
 
+    const hideDeleteMessage = () => {
+        setDisplayDeleteMessage('none');
+    };
 
+    const toggleHelpfulInfoList = () => {
+        setHelpfulInfoIsOpen(!helpfulInfoIsOpen);
+    };
 
 const handleLogout = () => {
     document.cookie = 'accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
@@ -191,7 +213,6 @@ useEffect(() => {
     setPopupIsOpen(!popupIsOpen);
   };
 
-
   const openForm = () => {
     if (
       activeButton !== null &&
@@ -221,7 +242,9 @@ useEffect(() => {
       activeButton === "help"
     ) {
       showHelpOptionForm();
-    } else if (activeButton !== null && currentAdmin?.role === 'super-admin' && activeButton !== '' && activeButton === 'admins') {
+    }else if (activeButton !== null && activeButton !== '' && activeButton === 'info') {
+      showHelpfulInfoForm();
+  } else if (activeButton !== null && currentAdmin?.role === 'super-admin' && activeButton !== '' && activeButton === 'admins') {
       showAdminForm();
     } else {
       return;
@@ -581,25 +604,30 @@ useEffect(() => {
                     showContactsForm={showContactsForm}
                     showSettingsForm={showSettingsForm}
                     showHelpOptionForm={showHelpOptionForm}
-                    setIsEditBtnClicked={setIsEditBtnClicked} selectedAdminsRowIndex={null} setSelectedAdminsRowIndex={function (value: SetStateAction<number | null>): void {
-                      throw new Error("Function not implemented.");
-                    } } showAdminForm={function (): void {
-                      throw new Error("Function not implemented.");
-                    } } adminRole={""}                />
+                    setIsEditBtnClicked={setIsEditBtnClicked} 
+                    selectedAdminsRowIndex={selectedAdminsRowIndex} 
+                    setSelectedAdminsRowIndex={setSelectedAdminsRowIndex} 
+                    showAdminForm={showAdminForm} 
+                    adminRole={currentAdmin!.role}                
+                  />
 
                 <DeleteBtn
-                    selectedPetRowIndex={selectedPetsRowIndex}
-                    setSelectedPetsRowIndex={setSelectedPetsRowIndex}
-                    selectedContactsRowIndex={selectedContactsRowIndex}
-                    setSelectedContactsRowIndex={setSelectedContactsRowIndex}
-                    selectedSettingsRowIndex={selectedSettingsRowIndex}
-                    setSelectedSettingsRowIndex={setSelectedSettingsRowIndex}
-                    selectedHelpRowIndex={selectedHelpRowIndex}
-                    setSelectedHelpRowIndex={setSelectedHelpRowIndex}
-                    showMessage={showDeleteMessage}
-                    activeButton={activeButton} selectedAdminsRowIndex={null} setSelectedAdminsRowIndex={function (value: SetStateAction<number | null>): void {
-                      throw new Error("Function not implemented.");
-                    } } adminRole={""}                />
+                  selectedPetRowIndex={selectedPetsRowIndex}
+                  setSelectedPetsRowIndex={setSelectedPetsRowIndex}
+                  selectedContactsRowIndex={selectedContactsRowIndex}
+                  setSelectedContactsRowIndex={setSelectedContactsRowIndex}
+                  selectedSettingsRowIndex={selectedSettingsRowIndex}
+                  setSelectedSettingsRowIndex={setSelectedSettingsRowIndex}
+                  selectedHelpRowIndex={selectedHelpRowIndex}
+                  setSelectedHelpRowIndex={setSelectedHelpRowIndex}
+                  showMessage={showDeleteMessage}
+                  activeButton={activeButton} 
+                  selectedAdminsRowIndex={selectedAdminsRowIndex} 
+                  setSelectedAdminsRowIndex={setSelectedAdminsRowIndex} 
+                  adminRole={currentAdmin!.role} 
+                  selectedHelpfulInfoRowIndex={selectedHelpfulInfoRowIndex} 
+                  setSelectedHelpfulInfoRowIndex={setSelectedHelpfulInfoRowIndex}                
+                />
 
                 <button className="actions__add-btn" onClick={openForm}>
                   <FontAwesomeIcon

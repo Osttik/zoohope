@@ -19,6 +19,13 @@
       border-radius: 25px;
       outline: 0;
       border: 0;
+      transition: .2s all ease-out;
+
+      &:hover {
+        border: 3px solid $primaryColor;
+        background-color: $adminPageDefaultWhite;
+        transition: .2s all ease-out;
+      }
     }
 
     // Apply And Reset Buttons

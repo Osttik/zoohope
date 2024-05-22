@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
 
 interface IEditBtnProps {
-  selectedPetRowIndex: null | number;
   selectedSettingsRowIndex: null | number;
   setSelectedSettingsRowIndex: any;
   showSettingsForm: () => void;
+  selectedPetRowIndex: null | number;
   setSelectedPetsRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
   selectedContactsRowIndex: null | number;
   setSelectedContactsRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
@@ -14,11 +14,14 @@ interface IEditBtnProps {
   setSelectedHelpRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
   selectedAdminsRowIndex: null | number;
   setSelectedAdminsRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
+  selectedHelpfulInfoRowIndex: null | number;
+  setSelectedHelpfulInfoRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
   activeButton: string | null;
   showHelpOptionForm: () => void;
   showPetForm: () => void;
   showContactsForm: () => void;
   showAdminForm: () => void;
+  showHelpfulInfoForm: () => void;
   setIsEditBtnClicked: React.Dispatch<React.SetStateAction<boolean>>;
   adminRole: string;
 }
@@ -42,6 +45,9 @@ export const EditBtn = ({
   showHelpOptionForm,
   setIsEditBtnClicked,
   showAdminForm,
+    selectedHelpfulInfoRowIndex,
+    setSelectedHelpfulInfoRowIndex,
+    showHelpfulInfoForm,
 }: IEditBtnProps) => {
   const display =
     selectedPetRowIndex !== null ||
@@ -75,55 +81,69 @@ export const EditBtn = ({
                 showHelpOptionForm();
                 setIsEditBtnClicked(true);
                 break;
+            case activeButton === 'info':
+                showHelpfulInfoForm();
+                setIsEditBtnClicked(true);
+                break;
             case activeButton === 'admins':
                 showAdminForm();
                 setIsEditBtnClicked(true);
                 break;
         }
     }
-    
-    if (selectedPetRowIndex !== null) {
-      setSelectedContactsRowIndex(null);
-      setSelectedHelpRowIndex(null);
-      setSelectedAdminsRowIndex(null);
-    }
+}
 
-    if (selectedContactsRowIndex !== null) {
-        setSelectedPetsRowIndex(null);
-        setSelectedHelpRowIndex(null);
-        setSelectedAdminsRowIndex(null);
-    }
+    /*const handleButtonClick = () => {
+        if (selectedPetRowIndex !== null) {
+            setSelectedContactsRowIndex(null);
+            setSelectedHelpRowIndex(null);
+            setSelectedAdminsRowIndex(null);
+            setSelectedHelpfulInfoRowIndex(null);
+        }
 
-    if (selectedHelpRowIndex !== null) {
+        if (selectedContactsRowIndex !== null) {
+            setSelectedPetsRowIndex(null);
+            setSelectedHelpRowIndex(null);
+            setSelectedAdminsRowIndex(null);
+            setSelectedHelpfulInfoRowIndex(null);
+        }
+
+        if (selectedHelpRowIndex !== null) {
+            setSelectedPetsRowIndex(null);
+            setSelectedContactsRowIndex(null);
+            setSelectedAdminsRowIndex(null);
+            setSelectedHelpfulInfoRowIndex(null);
+        }
+
+        if (selectedHelpfulInfoRowIndex !== null) {
+            setSelectedPetsRowIndex(null);
+            setSelectedContactsRowIndex(null);
+            setSelectedAdminsRowIndex(null);
+            setSelectedHelpRowIndex(null);
+        }
+
+        if (selectedAdminsRowIndex !== null) {
+            setSelectedPetsRowIndex(null);
+            setSelectedContactsRowIndex(null);
+            setSelectedHelpRowIndex(null);
+            setSelectedHelpfulInfoRowIndex(null);
+        }
+    }*/
+
+    useEffect(() => {
         setSelectedPetsRowIndex(null);
         setSelectedContactsRowIndex(null);
-        setSelectedAdminsRowIndex(null);
-    }
-
-    if (selectedAdminsRowIndex !== null) {
-        setSelectedPetsRowIndex(null);
-        setSelectedContactsRowIndex(null);
+        setSelectedSettingsRowIndex(null);
         setSelectedHelpRowIndex(null);
-    }
-  };
+        setSelectedAdminsRowIndex(null);
+        setSelectedHelpfulInfoRowIndex(null);
+    }, [activeButton]);
 
-  useEffect(() => {
-    setSelectedPetsRowIndex(null);
-    setSelectedContactsRowIndex(null);
-    setSelectedSettingsRowIndex(null);
-    setSelectedHelpRowIndex(null);
-    setSelectedAdminsRowIndex(null);
-  }, [activeButton]);
-
-  return (
-    <abbr title="редагувати">
-      <button
-        className="actions__edit-btn"
-        onClick={handleButtonClick}
-        style={{ display: display && adminRole === 'super-admin' ? "block" : "none" }}
-      >
-        <FontAwesomeIcon icon={faPenToSquare} />
-      </button>
-    </abbr>
-  );
-};
+    return (
+        <abbr title="редагувати">
+            <button className="actions__edit-btn" onClick={handleButtonClick} style={{ display: display && (activeButton !== 'admins' || adminRole === 'super-admin') ? 'block' : 'none' }}>
+                <FontAwesomeIcon icon={faPenToSquare} />
+            </button>
+        </abbr>
+    )
+}

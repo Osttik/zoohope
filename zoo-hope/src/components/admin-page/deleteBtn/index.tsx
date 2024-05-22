@@ -11,8 +11,10 @@ interface IDeleteBtnProps {
     setSelectedContactsRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
     selectedHelpRowIndex: null | number;
     setSelectedHelpRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
-    selectedAdminsRowIndex: null | number; 
+    selectedAdminsRowIndex: null | number;
     setSelectedAdminsRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
+    selectedHelpfulInfoRowIndex: null | number;
+    setSelectedHelpfulInfoRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
     showMessage: () => void;
     activeButton: string | null;
     adminRole: string;
@@ -31,7 +33,9 @@ export const DeleteBtn = ({
     setSelectedAdminsRowIndex, 
     showMessage, 
     activeButton, 
-    adminRole 
+    adminRole,
+    selectedHelpfulInfoRowIndex,
+    setSelectedHelpfulInfoRowIndex,
 }: IDeleteBtnProps) => {
     const display = selectedPetRowIndex !== null || 
     selectedContactsRowIndex !== null || 
@@ -44,12 +48,14 @@ export const DeleteBtn = ({
             setSelectedContactsRowIndex(null);
             setSelectedHelpRowIndex(null);
             setSelectedAdminsRowIndex(null);
+            setSelectedHelpfulInfoRowIndex(null);
         }
 
         if (selectedContactsRowIndex !== null) {
             setSelectedPetsRowIndex(null);
             setSelectedHelpRowIndex(null);
             setSelectedAdminsRowIndex(null);
+            setSelectedHelpfulInfoRowIndex(null);
         }
 
         if (selectedSettingsRowIndex !== null) {
@@ -61,15 +67,24 @@ export const DeleteBtn = ({
             setSelectedPetsRowIndex(null);
             setSelectedContactsRowIndex(null);
             setSelectedAdminsRowIndex(null);
+            setSelectedHelpfulInfoRowIndex(null);
+        }
+
+        if (selectedHelpfulInfoRowIndex !== null) {
+            setSelectedPetsRowIndex(null);
+            setSelectedContactsRowIndex(null);
+            setSelectedAdminsRowIndex(null);
+            setSelectedHelpRowIndex(null);
         }
 
         if (selectedAdminsRowIndex !== null) {
             setSelectedPetsRowIndex(null);
             setSelectedContactsRowIndex(null);
             setSelectedHelpRowIndex(null);
+            setSelectedHelpfulInfoRowIndex(null);
         }
 
-        showMessage(); 
+        showMessage();
     };
 
     useEffect(() => {
@@ -78,10 +93,11 @@ export const DeleteBtn = ({
         setSelectedSettingsRowIndex(null)
         setSelectedHelpRowIndex(null);
         setSelectedAdminsRowIndex(null);
+        setSelectedHelpfulInfoRowIndex(null);
     }, [activeButton]);
     return (
         <abbr title="видалити" >
-            <button className="actions__delete-btn" onClick={handleButtonClick} style={{ display: display && adminRole === 'super-admin' ? 'block' : 'none' }}>
+            <button className="actions__delete-btn" onClick={handleButtonClick} style={{ display: display && (activeButton !== 'admins' || adminRole === 'super-admin') ? 'block' : 'none' }}>
                 <FontAwesomeIcon icon={faTrashCan} />
             </button>
         </abbr>
