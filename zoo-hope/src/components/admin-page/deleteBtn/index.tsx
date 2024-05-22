@@ -6,6 +6,8 @@ interface IDeleteBtnProps {
     selectedPetRowIndex: null | number;
     setSelectedPetsRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
     selectedContactsRowIndex: null | number;
+    selectedSettingsRowIndex: null | number;
+    setSelectedSettingsRowIndex: any;
     setSelectedContactsRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
     selectedHelpRowIndex: null | number;
     setSelectedHelpRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
@@ -18,26 +20,28 @@ interface IDeleteBtnProps {
     adminRole: string;
 }
 
-export const DeleteBtn = ({
-    selectedPetRowIndex,
-    setSelectedPetsRowIndex,
-    selectedContactsRowIndex,
-    setSelectedContactsRowIndex,
-    selectedHelpRowIndex,
-    setSelectedHelpRowIndex,
-    selectedAdminsRowIndex,
-    setSelectedAdminsRowIndex,
+export const DeleteBtn = ({ 
+    selectedPetRowIndex, 
+    setSelectedPetsRowIndex, 
+    selectedContactsRowIndex, 
+    setSelectedContactsRowIndex, 
+    selectedSettingsRowIndex,
+    setSelectedSettingsRowIndex,
+    selectedHelpRowIndex, 
+    setSelectedHelpRowIndex, 
+    selectedAdminsRowIndex, 
+    setSelectedAdminsRowIndex, 
+    showMessage, 
+    activeButton, 
+    adminRole,
     selectedHelpfulInfoRowIndex,
     setSelectedHelpfulInfoRowIndex,
-    showMessage,
-    activeButton,
-    adminRole }: IDeleteBtnProps) => {
-
-    const display = selectedPetRowIndex !== null ||
-        selectedContactsRowIndex !== null ||
-        selectedHelpRowIndex !== null ||
-        selectedAdminsRowIndex !== null ||
-        selectedHelpfulInfoRowIndex !== null;
+}: IDeleteBtnProps) => {
+    const display = selectedPetRowIndex !== null || 
+    selectedContactsRowIndex !== null || 
+    selectedHelpRowIndex !== null ||
+    selectedSettingsRowIndex !== null ||
+    selectedAdminsRowIndex !== null;
 
     const handleButtonClick = () => {
         if (selectedPetRowIndex !== null) {
@@ -52,6 +56,11 @@ export const DeleteBtn = ({
             setSelectedHelpRowIndex(null);
             setSelectedAdminsRowIndex(null);
             setSelectedHelpfulInfoRowIndex(null);
+        }
+
+        if (selectedSettingsRowIndex !== null) {
+            setSelectedSettingsRowIndex(null);
+            setSelectedContactsRowIndex(null);
         }
 
         if (selectedHelpRowIndex !== null) {
@@ -81,6 +90,7 @@ export const DeleteBtn = ({
     useEffect(() => {
         setSelectedPetsRowIndex(null);
         setSelectedContactsRowIndex(null);
+        setSelectedSettingsRowIndex(null)
         setSelectedHelpRowIndex(null);
         setSelectedAdminsRowIndex(null);
         setSelectedHelpfulInfoRowIndex(null);

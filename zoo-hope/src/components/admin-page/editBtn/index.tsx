@@ -3,58 +3,67 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
 
 interface IEditBtnProps {
-    selectedPetRowIndex: null | number;
-    setSelectedPetsRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
-    selectedContactsRowIndex: null | number;
-    setSelectedContactsRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
-    selectedHelpRowIndex: null | number;
-    setSelectedHelpRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
-    selectedAdminsRowIndex: null | number;
-    setSelectedAdminsRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
-    selectedHelpfulInfoRowIndex: null | number;
-    setSelectedHelpfulInfoRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
-    activeButton: string | null;
-    showHelpOptionForm: () => void;
-    showPetForm: () => void;
-    showContactsForm: () => void;
-    showAdminForm: () => void;
-    showHelpfulInfoForm: () => void;
-    setIsEditBtnClicked: React.Dispatch<React.SetStateAction<boolean>>;
-    adminRole: string;
+  selectedSettingsRowIndex: null | number;
+  setSelectedSettingsRowIndex: any;
+  showSettingsForm: () => void;
+  selectedPetRowIndex: null | number;
+  setSelectedPetsRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
+  selectedContactsRowIndex: null | number;
+  setSelectedContactsRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
+  selectedHelpRowIndex: null | number;
+  setSelectedHelpRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
+  selectedAdminsRowIndex: null | number;
+  setSelectedAdminsRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
+  selectedHelpfulInfoRowIndex: null | number;
+  setSelectedHelpfulInfoRowIndex: React.Dispatch<React.SetStateAction<null | number>>;
+  activeButton: string | null;
+  showHelpOptionForm: () => void;
+  showPetForm: () => void;
+  showContactsForm: () => void;
+  showAdminForm: () => void;
+  showHelpfulInfoForm: () => void;
+  setIsEditBtnClicked: React.Dispatch<React.SetStateAction<boolean>>;
+  adminRole: string;
 }
 
 export const EditBtn = ({
-    selectedPetRowIndex,
-    setSelectedPetsRowIndex,
-    selectedContactsRowIndex,
-    setSelectedContactsRowIndex,
-    selectedHelpRowIndex,
-    setSelectedHelpRowIndex,
-    selectedAdminsRowIndex,
-    setSelectedAdminsRowIndex,
+  selectedPetRowIndex,
+  setSelectedPetsRowIndex,
+  selectedContactsRowIndex,
+  setSelectedContactsRowIndex,
+  selectedSettingsRowIndex,
+  setSelectedSettingsRowIndex,
+  selectedHelpRowIndex,
+  selectedAdminsRowIndex,
+  adminRole,
+  setSelectedAdminsRowIndex,
+  setSelectedHelpRowIndex,
+  activeButton,
+  showPetForm,
+  showContactsForm,
+  showSettingsForm,
+  showHelpOptionForm,
+  setIsEditBtnClicked,
+  showAdminForm,
     selectedHelpfulInfoRowIndex,
     setSelectedHelpfulInfoRowIndex,
-    activeButton,
-    showPetForm,
-    showContactsForm,
-    showHelpOptionForm,
-    showAdminForm,
     showHelpfulInfoForm,
-    setIsEditBtnClicked,
-    adminRole }: IEditBtnProps) => {
+}: IEditBtnProps) => {
+  const display =
+    selectedPetRowIndex !== null ||
+    selectedContactsRowIndex !== null ||
+    selectedSettingsRowIndex !== null ||
+    selectedHelpRowIndex !== null || 
+    selectedAdminsRowIndex !== null;
 
-    const display = selectedPetRowIndex !== null ||
-        selectedContactsRowIndex !== null ||
-        selectedHelpRowIndex !== null ||
-        selectedAdminsRowIndex !== null ||
-        selectedHelpfulInfoRowIndex !== null;
-
-    const showEditForm = () => {
-        if (activeButton === null) {
-            console.error('activeButton is null');
-            return;
-        }
-
+  const handleButtonClick = () => {
+    if (activeButton === null) {
+      console.error("activeButton is null");
+      return;
+    }
+    if (selectedPetRowIndex !== null) {
+      setSelectedContactsRowIndex(null);
+      setSelectedHelpRowIndex(null);
         switch (true) {
             case activeButton.charAt(0) === 'p':
                 showPetForm();
@@ -62,6 +71,10 @@ export const EditBtn = ({
                 break;
             case activeButton === 'contacts':
                 showContactsForm();
+                setIsEditBtnClicked(true);
+                break;
+            case activeButton === "settings":
+                showSettingsForm();
                 setIsEditBtnClicked(true);
                 break;
             case activeButton === 'help':
@@ -78,8 +91,9 @@ export const EditBtn = ({
                 break;
         }
     }
+}
 
-    const handleButtonClick = () => {
+    /*const handleButtonClick = () => {
         if (selectedPetRowIndex !== null) {
             setSelectedContactsRowIndex(null);
             setSelectedHelpRowIndex(null);
@@ -114,13 +128,12 @@ export const EditBtn = ({
             setSelectedHelpRowIndex(null);
             setSelectedHelpfulInfoRowIndex(null);
         }
-
-        showEditForm();
-    };
+    }*/
 
     useEffect(() => {
         setSelectedPetsRowIndex(null);
         setSelectedContactsRowIndex(null);
+        setSelectedSettingsRowIndex(null);
         setSelectedHelpRowIndex(null);
         setSelectedAdminsRowIndex(null);
         setSelectedHelpfulInfoRowIndex(null);
