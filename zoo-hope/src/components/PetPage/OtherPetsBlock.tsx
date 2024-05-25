@@ -4,26 +4,31 @@ import { IPet } from "../../define";
 import { PetCard } from "../pet-list/petCard/petCard";
 import { useParams } from "react-router";
 import PetContext from "../../PetsContext";
+import { useTranslation } from "react-i18next";
 
 export function OtherPetsBlock() {
   const [randomPets, setRandomPets] = useState<IPet[]>([]);
-	const { pets_data } = useContext(PetContext);
+  const { pets_data } = useContext(PetContext);
+  const { t } = useTranslation();
 
-  let {id} = useParams()
+  let { id } = useParams()
 
   useEffect(() => {
-    if(pets_data.length > 0) {
+    if (pets_data.length > 0) {
       const filterArr = pets_data.filter((pet: IPet) => pet._id !== id)
       const randomPets = getOtherPets(filterArr);
       setRandomPets(randomPets);
     }
   }, [id]);
 
-  return (    
-    <div className="petListSection additionalPetsBlock">
-      {randomPets.map((el, i) => (
-        <PetCard key={i} animalInfo={el}/>
-      ))}
+  return (
+    <div className="petList__container">
+      <h1 className="petList__title">{t('other_pet_need_home')}</h1>
+      <div className="petListSection additionalPetsBlock">
+        {randomPets.map((el, i) => (
+          <PetCard key={i} animalInfo={el} />
+        ))}
+      </div>
     </div>
   )
 }
@@ -35,7 +40,7 @@ function getOtherPets(otherPets: IPet[]) {
     if (!randomIndexes.includes(randomIndex)) {
       randomIndexes.push(randomIndex);
     }
-    }
+  }
   const randomPets = randomIndexes.map((index) => (otherPets[index]));
   return randomPets;
 }
