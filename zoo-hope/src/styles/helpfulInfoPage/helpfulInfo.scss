@@ -1,7 +1,5 @@
 @import '../defines.scss';
 
-
-
 :root {
     --index: calc(1vw + 1vh)
 }
@@ -111,10 +109,13 @@
                     }
 
                     .question__text {
+                        border: 2.5px solid $primaryColor;
+                        opacity: .9;
+                        padding: 30px 30px;
                         >p {
                             font-size: 20px;
                             font-weight: 600;
-                            opacity: .9;
+                            opacity: 1;
                             color: $adminPageDefaultWhite;
                         }
                     }
