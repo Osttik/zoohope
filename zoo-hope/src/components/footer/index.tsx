@@ -27,23 +27,25 @@ export const Footer = () => {
         </div>
         <div className="footer__navigation">
           {elements.map((e: Object, i: number) =>
-            e.hasOwnProperty("listInput") ? (
-              <FooterNavContactsBlock key={i} props={e} />
-            ) : (
+            (
               <FooterNavBlock key={i} props={e} />
             )
           )}
         </div>
         <div className="footer__bottom footer-bottom">
           {elements.map((e: Object, i: number) => {
-            return e.hasOwnProperty("footerBottomText") && (
-              <FooterBottomText key={i} props={e} />
-            )
+            return (
+              e.hasOwnProperty("footerBottomText") && (
+                <FooterBottomText key={i} props={e} />
+              )
+            );
           })}
           {elements.map((e: Object, i: number) => {
-            return e.hasOwnProperty("footerBottomLink") && (
-              <FooterNavBlockLink key={i} props={e} />
-            )
+            return (
+              e.hasOwnProperty("footerBottomLink") && (
+                <FooterNavBlockLink key={i} props={e} />
+              )
+            );
           })}
         </div>
       </div>

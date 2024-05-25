@@ -49,6 +49,12 @@ export const PetList = () => {
       let startIndex = (Number(searchParams.get("page")) - 1) * pageSize;
       let endIndex = startIndex + pageSize;
 
+      const petYears = (age: number) => {
+        let years = Math.floor(age / 12)
+
+        return years
+      }
+
       if (searchParams.get("type")) {
         allPets = allPets.filter((el) => el.type.toLowerCase() === searchParams.get("type"));
       }
@@ -56,10 +62,10 @@ export const PetList = () => {
         allPets = allPets.filter((el) => el.sex.toLowerCase() === searchParams.get("sex"));
       }
       if (searchParams.get("maxAge")) {
-        allPets = allPets.filter((el) => Number(el.age) <= Number(searchParams.get("maxAge")));
+        allPets = allPets.filter((el) => Number(petYears(el.age)) <= Number(searchParams.get("maxAge")));
       }
       if (searchParams.get("minAge")) {
-        allPets = allPets.filter((el) => Number(el.age) >= Number(searchParams.get("minAge")));
+        allPets = allPets.filter((el) => Number(petYears(el.age)) >= Number(searchParams.get("minAge")));
       }
 
       let pageApplied = allPets.reverse().slice(startIndex, endIndex);

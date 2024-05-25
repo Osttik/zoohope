@@ -53,23 +53,6 @@ const createElements = async () => {
       ],
     },
     {
-      listName: "Стерилізація",
-      i18Key: "sterilization",
-      IListItems: [
-        { name: "Test1", url: "/" },
-        { name: "Test2", url: "/" },
-        { name: "Test3", url: "/" },
-      ],
-    },
-    {
-      i18Key: "contacts",
-      i18Key2: "foot_placeholder",
-      listName: "Контакти",
-      listInput: "Ваше повідомлення",
-      ISocialMedias: socialMedias,
-      IContacts: contacts,
-    },
-    {
       footerBottomText: "2024 copyright zoonadia",
     },
     {

@@ -44,6 +44,11 @@ export interface IContact extends IIdentity {
     value?: string;
 }
 
+export interface ISetting extends IIdentity {
+  key: string;
+  value: string;
+}
+
 export interface IAdmin extends IIdentity {
     name: string;
     email: string;
