@@ -51,42 +51,15 @@
   }
   
   .login_form {
-    background-color: #1e1e1e;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 50px;
-    width: 100%;
-    height: 100vh;
   
     &__input {
-      background-color: white;
-      font-family: "Open Sans", sans-serif;
-      font-size: 20px;
-      border: none;
-      border-radius: 10px;
-      padding-left: 15px;
+      font-size: 20px;  
       width: 80vw;
-      height: 57px;
     }
   
     &__button {
-      font-family: "Open Sans", sans-serif;
       font-size: 22px;
-      width: auto;
-      border: 3px solid white;
-      padding: 15px 40px 15px 40px;
-      border-radius: 10px;
-      height: auto;
-      background-color: #1e1e1e;
-      color: white;
-      transition: 0.5s;
-  
-      &:hover {
-        background-color: white;
-        color: black;
-      }
+
     }
   }
 }
