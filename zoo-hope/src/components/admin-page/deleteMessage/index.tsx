@@ -5,46 +5,40 @@ import { deleteContact } from "../../../api/contacts";
 import { deleteHelpOption } from "../../../api/helpOptions";
 import { deleteAdmin } from "../../../api/admins";
 import { deleteHelpfulInfo } from "../../../api/helpfulInfo";
-import { IPet } from "../../../define";
-import { IContact } from "../../../define";
-import { IHelpOption } from "../../../define";
-import { IAdmin } from "../../../define";
-import { IHelpfulInfo } from "../../../define";
-import axios from "../../../api/axios";
+import { deleteSetting } from "../../../api/settings";
+import { IPet, IContact, IHelpOption, IAdmin, IHelpfulInfo, ISetting } from "../../../define";
 
 interface IDeleteMessageProps {
     selectedPetRowIndex: null | number;
     selectedContactsRowIndex: null | number;
     selectedHelpRowIndex: null | number;
+    selectedAdminsRowIndex: null | number;
+    selectedHelpfulInfoRowIndex: null | number;
     selectedSettingsRowIndex: null | number;
     display: string;
     hideMessage: () => void;
-    settings: any;
-    setSettingsTableUpdate: any;
-    selectedAdminsRowIndex: null | number;
     pets: IPet[];
     contacts: IContact[];
     helpOptions: IHelpOption[];
     admins: IAdmin[];
+    helpfulInfo: IHelpfulInfo[];
+    settings: ISetting[];
     activeButton: string | null;
     setPetTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
     setContactsTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
     setHelpOptionsTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
     setAdminTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
-    selectedHelpfulInfoRowIndex: null | number;
-    helpfulInfo: IHelpfulInfo[];
     setHelpfulInfoTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+    setSettingsTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const DeleteMessage = ({ 
-    selectedPetRowIndex, 
-    selectedContactsRowIndex, 
-    selectedHelpRowIndex, 
-    selectedSettingsRowIndex, 
+export const DeleteMessage = ({
+    selectedPetRowIndex,
+    selectedContactsRowIndex,
+    selectedHelpRowIndex,
     selectedAdminsRowIndex,
-    settings,
-    setSettingsTableUpdate,
     selectedHelpfulInfoRowIndex,
+    selectedSettingsRowIndex,
     display,
     hideMessage,
     pets,
@@ -52,20 +46,22 @@ export const DeleteMessage = ({
     helpOptions,
     admins,
     helpfulInfo,
+    settings,
     activeButton,
     setPetTableUpdate,
     setContactsTableUpdate,
     setHelpOptionsTableUpdate,
     setAdminTableUpdate,
     setHelpfulInfoTableUpdate,
-}: any) => {
+    setSettingsTableUpdate }: IDeleteMessageProps) => {
+
     if (display === "none" ||
         (activeButton === 'pets' && selectedPetRowIndex === null) ||
         (activeButton === 'contacts' && selectedContactsRowIndex === null) ||
         (activeButton === 'help' && selectedHelpRowIndex === null) ||
-        (activeButton === 'settings' && selectedSettingsRowIndex === null) ||
         (activeButton === 'admins' && selectedAdminsRowIndex === null) ||
-        (activeButton === 'info' && selectedHelpfulInfoRowIndex === null)) {
+        (activeButton === 'info' && selectedHelpfulInfoRowIndex === null) ||
+        (activeButton === 'settings' && selectedSettingsRowIndex === null)) {
         return null;
     }
 
@@ -78,93 +74,34 @@ export const DeleteMessage = ({
     const selectedHelpOption = selectedHelpRowIndex !== null ? helpOptions[selectedHelpRowIndex] : null;
     const helpOptionId = selectedHelpOption ? selectedHelpOption._id : null;
 
-    const selectedSetting = selectedSettingsRowIndex !== null ? settings[selectedSettingsRowIndex] : null;
-    const settingId = selectedSetting ? selectedSetting._id : null;
-    
     const selectedAdmin = selectedAdminsRowIndex !== null ? admins[selectedAdminsRowIndex] : null;
     const adminId = selectedAdmin ? selectedAdmin._id : null;
-    
+
     const selectedHelpfulInfo = selectedHelpfulInfoRowIndex !== null ? helpfulInfo[selectedHelpfulInfoRowIndex] : null;
     const helpfulInfoId = selectedHelpfulInfo ? selectedHelpfulInfo._id : null;
 
-    const deletePetCallback = async () => {
-        try {
-            if (petId) {
-                await deletePet(petId);
-                setPetTableUpdate((prev: boolean) => !prev);
-            } else {
-                console.error('Не розуміє id елемента');
-            }
-        } catch (error) {
-            console.error('Помилка при видаленні елемента', error);
-        }
-    };
-
-    const deleteContactCallback = async () => {
-        try {
-            if (contactId) {
-                await deleteContact(contactId);
-                setContactsTableUpdate((prev: boolean) => !prev);
-            } else {
-                console.error('Не розуміє id елемента');
-            }
-        } catch (error) {
-            console.error('Помилка при видаленні елемента', error);
-        }
-    };
-
-    const deleteHelpOptionCallback = async () => {
-        try {
-            if (helpOptionId) {
-                await deleteHelpOption(helpOptionId);
-                setHelpOptionsTableUpdate((prev: boolean) => !prev);
-            } else {
-                console.error('Не розуміє id елемента');
-            }
-        } catch (error) {
-            console.error('Помилка при видаленні елемента', error);
-        }
-    };
-
-        const deleteSettingCallback = async () => {
-          try {
-            if (settingId) {
-              const response = await axios.delete(
-                `http://localhost:5000/delete-setting/${settingId}`
-              );
-              console.log(response.data.message);
-              setSettingsTableUpdate((prev: boolean) => !prev);
-            } else {
-              console.error("Не розуміє id елемента");
-            }
-          } catch (error) {
-            console.error("Помилка при видаленні елемента", error);
-          }
-        };
+    const selectedSetting = selectedSettingsRowIndex !== null ? settings[selectedSettingsRowIndex] : null;
+    const settingId = selectedSetting ? selectedSetting._id : null;
 
     const deleteSelectedElement = () => {
         if (activeButton === null) {
             console.error('activeButton is null');
             return;
         }
-
         switch (true) {
             case activeButton.charAt(0) === 'p':
                 if (petId) {
-                    deletePetCallback().then(() => setPetTableUpdate((prev: boolean) => !prev))
+                    deletePet(petId).then(() => setPetTableUpdate((prev: boolean) => !prev))
                 }
                 break;
             case activeButton === 'contacts':
                 if (contactId) {
-                    deleteContactCallback().then(() => setContactsTableUpdate((prev: boolean) => !prev))
+                    deleteContact(contactId).then(() => setContactsTableUpdate((prev: boolean) => !prev))
                 }
-                break;
-            case activeButton === 'settings':
-                deleteSettingCallback();
                 break;
             case activeButton === 'help':
                 if (helpOptionId) {
-                    deleteHelpOptionCallback().then(() => setHelpOptionsTableUpdate((prev: boolean) => !prev))
+                    deleteHelpOption(helpOptionId).then(() => setHelpOptionsTableUpdate((prev: boolean) => !prev))
                 }
                 break;
             case activeButton === 'info':
@@ -175,6 +112,11 @@ export const DeleteMessage = ({
             case activeButton === 'admins':
                 if (adminId) {
                     deleteAdmin(adminId).then(() => setAdminTableUpdate((prev: boolean) => !prev))
+                }
+                break;
+            case activeButton === 'settings':
+                if (settingId) {
+                    deleteSetting(settingId).then(() => setSettingsTableUpdate((prev: boolean) => !prev))
                 }
                 break;
         }
