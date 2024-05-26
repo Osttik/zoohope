@@ -70,6 +70,7 @@ export const login = async (data: { email: string, password: string}) => {
         return responce.data;
     } catch (error) {
         console.error('Помилка', error);
+        return(false)
     }
 }
 

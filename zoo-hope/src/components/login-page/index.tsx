@@ -28,7 +28,7 @@ export const LoginPage = () => {
         document.cookie = `accessToken=${response.access_token}; expires=${accessTokenExpires.toUTCString()}; path=/; SameSite=None; Secure`;
         document.cookie = `refreshToken=${response.refresh_token}; expires=${refreshTokenExpires.toUTCString()}; path=/; SameSite=None; Secure`;
         navigate('/admin');
-      }
+      } else { setlogErMes('passormail'); }
 
     } catch (error: any) {
       console.error(error.response.data);

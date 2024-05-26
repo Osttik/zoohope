@@ -14,9 +14,9 @@ import Logo from "../../images/logo/logo.png";
 import "../../styles/index.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SetStateAction, useEffect, useState } from "react";
-import { PetTable } from "./petTable/index";
-import { ContactsTable } from "./contactsTable/index";
-import { HelpOptionsTable } from "./helpOptionsTable/index";
+// import { PetTable } from "./petTable/index";
+// import { ContactsTable } from "./contactsTable/index";
+// import { HelpOptionsTable } from "./helpOptionsTable/index";
 import { PetInfoForm } from "./petInfoForm/index";
 import { ContactsForm } from "./contactsForm/index";
 import { HelpOptionForm } from "./helpOptionsForm/index";
@@ -268,11 +268,12 @@ useEffect(() => {
           setPetTableUpdate={setPetTableUpdate}
           setContactsTableUpdate={setContactsTableUpdate}
           setSettingsTableUpdate={setSettingsTableUpdate}
-          setHelpOptionsTableUpdate={setHelpOptionsTableUpdate} 
-          selectedAdminsRowIndex={selectedAdminsRowIndex} 
-          admins={admins} 
-          setAdminTableUpdate={setAdminTableUpdate}        
-        />
+          setHelpOptionsTableUpdate={setHelpOptionsTableUpdate}
+          selectedAdminsRowIndex={selectedAdminsRowIndex}
+          admins={admins}
+          setAdminTableUpdate={setAdminTableUpdate} selectedHelpfulInfoRowIndex={null} helpfulInfo={[]} setHelpfulInfoTableUpdate={function (value: SetStateAction<boolean>): void {
+            throw new Error("Function not implemented.");
+          } }        />
 
         <PetInfoForm
           display={displayPetForm}
@@ -591,25 +592,28 @@ useEffect(() => {
             <div className="actions">
               <div className="actions__container">
                 <EditBtn
-                    selectedPetRowIndex={selectedPetsRowIndex}
-                    setSelectedPetsRowIndex={setSelectedPetsRowIndex}
-                    selectedContactsRowIndex={selectedContactsRowIndex}
-                    setSelectedContactsRowIndex={setSelectedContactsRowIndex}
-                    selectedSettingsRowIndex={selectedSettingsRowIndex}
-                    setSelectedSettingsRowIndex={setSelectedSettingsRowIndex}
-                    selectedHelpRowIndex={selectedHelpRowIndex}
-                    setSelectedHelpRowIndex={setSelectedHelpRowIndex}
-                    activeButton={activeButton}
-                    showPetForm={showPetForm}
-                    showContactsForm={showContactsForm}
-                    showSettingsForm={showSettingsForm}
-                    showHelpOptionForm={showHelpOptionForm}
-                    setIsEditBtnClicked={setIsEditBtnClicked} 
-                    selectedAdminsRowIndex={selectedAdminsRowIndex} 
-                    setSelectedAdminsRowIndex={setSelectedAdminsRowIndex} 
-                    showAdminForm={showAdminForm} 
-                    adminRole={currentAdmin!.role}                
-                  />
+                  selectedPetRowIndex={selectedPetsRowIndex}
+                  setSelectedPetsRowIndex={setSelectedPetsRowIndex}
+                  selectedContactsRowIndex={selectedContactsRowIndex}
+                  setSelectedContactsRowIndex={setSelectedContactsRowIndex}
+                  selectedSettingsRowIndex={selectedSettingsRowIndex}
+                  setSelectedSettingsRowIndex={setSelectedSettingsRowIndex}
+                  selectedHelpRowIndex={selectedHelpRowIndex}
+                  setSelectedHelpRowIndex={setSelectedHelpRowIndex}
+                  activeButton={activeButton}
+                  showPetForm={showPetForm}
+                  showContactsForm={showContactsForm}
+                  showSettingsForm={showSettingsForm}
+                  showHelpOptionForm={showHelpOptionForm}
+                  setIsEditBtnClicked={setIsEditBtnClicked}
+                  selectedAdminsRowIndex={selectedAdminsRowIndex}
+                  setSelectedAdminsRowIndex={setSelectedAdminsRowIndex}
+                  showAdminForm={showAdminForm}
+                  adminRole={'g'} selectedHelpfulInfoRowIndex={null} setSelectedHelpfulInfoRowIndex={function (value: SetStateAction<number | null>): void {
+                    
+                  } } showHelpfulInfoForm={function (): void {
+                    
+                  } }                  />
 
                 <DeleteBtn
                   selectedPetRowIndex={selectedPetsRowIndex}
@@ -624,7 +628,7 @@ useEffect(() => {
                   activeButton={activeButton} 
                   selectedAdminsRowIndex={selectedAdminsRowIndex} 
                   setSelectedAdminsRowIndex={setSelectedAdminsRowIndex} 
-                  adminRole={currentAdmin!.role} 
+                  adminRole={'g'} 
                   selectedHelpfulInfoRowIndex={selectedHelpfulInfoRowIndex} 
                   setSelectedHelpfulInfoRowIndex={setSelectedHelpfulInfoRowIndex}                
                 />
@@ -642,7 +646,7 @@ useEffect(() => {
 
             <div className="main-content">
               <div className="main-content__container">
-                {activeButton === "p pets" && (
+                {/* {activeButton === "p pets" && (
                   <PetTable
                     activeButton={activeButton}
                     selectedRowIndex={selectedPetsRowIndex}
@@ -651,8 +655,8 @@ useEffect(() => {
                     setPets={setPets}
                     petTableUpdate={petTableUpdate}
                   />
-                )}
-                {activeButton === "p cats" && (
+                )} */}
+                {/* {activeButton === "p cats" && (
                   <PetTable
                     activeButton={activeButton}
                     selectedRowIndex={selectedPetsRowIndex}
@@ -721,7 +725,7 @@ useEffect(() => {
                     setHelpOptions={setHelpOptions}
                     helpOptionsTableUpdate={helpOptionsTableUpdate}
                   />
-                )}
+                )} */}
 
                 {activeButton === "settings" && (
                   <SettingsTable

@@ -105,7 +105,7 @@ export default function Home() {
 							</div>
 							<div className="text">
 								<h1><Translate obj={el.title} /></h1>
-								{el.description[i18n.language as "en" | "ua"].map((text, key) => (
+								{el.description[i18n.language == 'en-US' ? 'en' : 'ua'].map((text, key) => (
 									<p key={key}>{text}</p>
 								))}
 							</div>
