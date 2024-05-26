@@ -9,6 +9,8 @@ import { apiGetAllHelpOptions } from "../../../api/helpOptions";
 import { getAllAdmins } from "../../../api/admins";
 import { IHelpfulInfo } from "../../../define";
 import { getAllHelpfulInfo } from "../../../api/helpfulInfo";
+import { ISetting } from "../../../define";
+import { getAllSettings } from "../../../api/settings";
 
 interface ITableProps {
     activeButton: string;
@@ -22,6 +24,8 @@ interface ITableProps {
     setAdmins: React.Dispatch<React.SetStateAction<IAdmin[]>>;
     helpfulInfo: IHelpfulInfo[];
     setHelpfulInfo: React.Dispatch<React.SetStateAction<IHelpfulInfo[]>>;
+    settings: ISetting[];
+    setSettings: React.Dispatch<React.SetStateAction<ISetting[]>>;
     selectedPetsRowIndex: null | number;
     handlePetRowClick: (index: number) => void;
     selectedContactsRowIndex: null | number;
@@ -32,11 +36,14 @@ interface ITableProps {
     handleAdminRowClick: (index: number) => void;
     selectedHelpfulInfoRowIndex: null | number;
     handleHelpfulInfoRowClick: (index: number) => void;
+    selectedSettingsRowIndex: null | number;
+    handleSettingsRowClick: (index: number) => void;
     petTableUpdate: boolean;
     contactsTableUpdate: boolean;
     helpOptionsTableUpdate: boolean;
     adminTableUpdate: boolean;
     helpfulInfoTableUpdate: boolean;
+    settingsTableUpdate: boolean;
 }
 
 export const Table = ({
@@ -51,6 +58,8 @@ export const Table = ({
     setAdmins,
     helpfulInfo,
     setHelpfulInfo,
+    settings,
+    setSettings,
     selectedPetsRowIndex,
     handlePetRowClick,
     selectedContactsRowIndex,
@@ -61,11 +70,14 @@ export const Table = ({
     handleAdminRowClick,
     selectedHelpfulInfoRowIndex,
     handleHelpfulInfoRowClick,
+    selectedSettingsRowIndex,
+    handleSettingsRowClick,
     petTableUpdate,
     contactsTableUpdate,
     helpOptionsTableUpdate,
     adminTableUpdate,
-    helpfulInfoTableUpdate }: ITableProps) => {
+    helpfulInfoTableUpdate,
+    settingsTableUpdate }: ITableProps) => {
 
     const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
 
@@ -82,6 +94,8 @@ export const Table = ({
     const helpfulInfoHeadings = ["№", "Питання", "Інформація", "id"];
 
     const adminsHeadings = ["№", "Ім'я", "Email", "Роль"];
+
+    const settingsHeadings = ["№", "Назва", "Опис", "id"];
 
     //code for horizontal scroll of table cells
     const handleWheel = (event: WheelEvent) => {
@@ -156,6 +170,12 @@ export const Table = ({
                     setAdmins(sortedList);
                 }
                 break;
+            case activeButton === 'settings':
+                if (columnIndex === 1) {
+                    sortedList = sortListByName(settings, (item) => item.key ? item.key : '');
+                    setSettings(sortedList);
+                }
+                break;
             default:
                 break;
         }
@@ -195,10 +215,19 @@ export const Table = ({
             case 'admins':
                 getAllAdmins().then(setAdmins);
                 break;
+            case 'settings':
+                getAllSettings().then(setSettings);
+                break;
             default:
                 break;
         }
-    }, [activeButton, petTableUpdate, contactsTableUpdate, helpOptionsTableUpdate, adminTableUpdate, helpfulInfoTableUpdate]);
+    }, [activeButton, 
+        petTableUpdate, 
+        contactsTableUpdate, 
+        helpOptionsTableUpdate, 
+        adminTableUpdate, 
+        helpfulInfoTableUpdate, 
+        settingsTableUpdate]);
 
     useEffect(() => {
         const tableBody = document.querySelector('.admin-table tbody');
@@ -297,6 +326,26 @@ export const Table = ({
                                 <td>{index + 1}</td>
                                 <td>{option.question && option.question.ua}</td>
                                 <td>{option.information && option.information.ua}</td>
+                                <td>{option._id}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            ) : settings.length > 0 && activeButton === 'settings' ? (
+                <table className="admin-table">
+                    <thead>
+                        <tr className="admin-table__row">
+                            {settingsHeadings.map((heading, index) => (
+                                <th onClick={() => sortByName(index)} key={index}>{heading}</th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {settings.map((option: ISetting, index: number) => (
+                            <tr key={option._id} className={`admin-table__row ${selectedSettingsRowIndex === index ? 'focus' : ''}`} onClick={() => handleSettingsRowClick(index)}>
+                                <td>{index + 1}</td>
+                                <td>{option.key}</td>
+                                <td>{option.value}</td>
                                 <td>{option._id}</td>
                             </tr>
                         ))}
