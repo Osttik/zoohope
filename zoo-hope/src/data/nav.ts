@@ -14,8 +14,8 @@ const elements = [
     i18Key: "looking-for-home",
     Ielements: [
       { name: "Всі тварини", url: "/petList?page=1" },
-      { name: "Собаки", url: "/petList?page=1&type=dog&sex=&minAge=&maxAge=" },
-      { name: "Коти", url: "/petList?page=1&type=cat&sex=&minAge=&maxAge=" },
+      { name: "Собаки", url: "/petList?page=1&type=пес&sex=&minAge=&maxAge=" },
+      { name: "Коти", url: "/petList?page=1&type=кіт&sex=&minAge=&maxAge=" },
     ],
   },
 ];
