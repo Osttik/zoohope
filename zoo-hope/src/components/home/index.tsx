@@ -105,7 +105,7 @@ export default function Home() {
 							</div>
 							<div className="text" id={el.title.en.replace(/\s+/g, '_').toLowerCase()}>
 								<h1><Translate obj={el.title} /></h1>
-								{el.description[i18n.language == 'en-US' ? 'en' : 'ua'].map((text, key) => (
+								{el.description[i18n.language == 'en-US' ? 'en' : 'ua'] && el.description[i18n.language == 'en-US' ? 'en' : 'ua'].map((text, key) => (
 									<p key={key}>{text}</p>
 								))}
 							</div>

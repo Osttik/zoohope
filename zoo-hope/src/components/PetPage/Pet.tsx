@@ -8,7 +8,7 @@ import PetContext from "../../PetsContext";
 import { OtherPetsBlock } from "./OtherPetsBlock";
 
 export default function Pet() {
-  const { id } = useParams()
+  const { id } = useParams();
   const [obj, setObj] = useState<IPet | false>(false);
   const { pets_data } = useContext(PetContext);
 
@@ -19,7 +19,7 @@ export default function Pet() {
       setObj(foundObj); 
     }
   }, [id, pets_data]);
-
+  console.log(obj);
   return (
     <div className="App">
       {obj === false ? (

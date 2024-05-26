@@ -14,6 +14,7 @@ export function OtherPetsBlock() {
   let { id } = useParams()
 
   useEffect(() => {
+    console.log("Called")
     if (pets_data.length > 0) {
       const filterArr = pets_data.filter((pet: IPet) => pet._id !== id)
       const randomPets = getOtherPets(filterArr);
@@ -23,19 +24,23 @@ export function OtherPetsBlock() {
 
   return (
     <div className="petList__container">
-      <h1 className="petList__title">{t('other_pet_need_home')}</h1>
-      <div className="petListSection additionalPetsBlock">
-        {randomPets.map((el, i) => (
-          <PetCard key={i} animalInfo={el} />
-        ))}
-      </div>
+    {randomPets && randomPets.length > 0 && (
+      <>
+        <h1 className="petList__title">{t('other_pet_need_home')}</h1>
+        <div className="petListSection additionalPetsBlock">
+          {randomPets.map((el, i) => (
+            <PetCard key={i} animalInfo={el} />
+          ))}
+        </div>
+      </>
+    )}
     </div>
   )
 }
 
 function getOtherPets(otherPets: IPet[]) {
   const randomIndexes: number[] = [];
-  while (randomIndexes.length <= 1) {
+  while (randomIndexes.length <= 1 && otherPets.length > 0) {
     const randomIndex = Math.floor(Math.random() * otherPets.length);
     if (!randomIndexes.includes(randomIndex)) {
       randomIndexes.push(randomIndex);
