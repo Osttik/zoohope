@@ -36,8 +36,8 @@ const createElements = async () => {
       listName: "Шукають дім",
       i18Key: "looking-for-home",
       IListItems: [
-        { name: "Собаки", i18Key: "dogs", url: "/petList?page=1&type=dog&sex=&minAge=&maxAge=" },
-        { name: "Коти", i18Key: "cats", url: "/petList?page=1&type=cat&sex=&minAge=&maxAge=" },
+        { name: "Собаки", i18Key: "dogs", url: "/petList?page=1&type=пес&sex=&minAge=&maxAge=" },
+        { name: "Коти", i18Key: "cats", url: "/petList?page=1&type=кіт&sex=&minAge=&maxAge=" },
         { name: "Інші тварини", i18Key: "other_pets", url: "/petList" },
       ],
     },
