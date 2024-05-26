@@ -99,11 +99,11 @@ export default function Home() {
 				<div className="about-us__content">
 					{data.map((el, key) => (
 						<Element name={el.title.en.replace(/\s+/g, '_').toLowerCase()} key={key} className="box">
-							<div className="img" id={el.title.en.replace(/\s+/g, '_').toLowerCase()}>
+							<div className="img">
 								<img alt="animal" src={el.img} />
 								<span className="circle" style={{ backgroundColor: key === 1 ? 'rgb(255, 214, 0)' : `rgba(${57 + key * 50}, ${184 - key * 80}, ${255 + (key * 50) * ((-1) ** key)}, 1)` }}></span>
 							</div>
-							<div className="text">
+							<div className="text" id={el.title.en.replace(/\s+/g, '_').toLowerCase()}>
 								<h1><Translate obj={el.title} /></h1>
 								{el.description[i18n.language == 'en-US' ? 'en' : 'ua'].map((text, key) => (
 									<p key={key}>{text}</p>
