@@ -51,10 +51,8 @@ ol {
    }
 
    &__navigation {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: 1fr;
-      row-gap: 75px;
+      display: flex;
+      justify-content: space-around;
       margin-bottom: 55px;
    }
 

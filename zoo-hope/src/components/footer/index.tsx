@@ -26,7 +26,7 @@ export const Footer = () => {
           <p className="footer__logo-text">zoonadia</p>
         </div>
         <div className="footer__navigation">
-          {elements.map((e: Object, i: number) =>
+          {elements.filter((e: any) => e.listName).map((e: Object, i: number) =>
             (
               <FooterNavBlock key={i} props={e} />
             )

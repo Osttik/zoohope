@@ -99,7 +99,7 @@ export default function Home() {
 				<div className="about-us__content">
 					{data.map((el, key) => (
 						<Element name={el.title.en.replace(/\s+/g, '_').toLowerCase()} key={key} className="box">
-							<div className="img">
+							<div className="img" id={el.title.en.replace(/\s+/g, '_').toLowerCase()}>
 								<img alt="animal" src={el.img} />
 								<span className="circle" style={{ backgroundColor: key === 1 ? 'rgb(255, 214, 0)' : `rgba(${57 + key * 50}, ${184 - key * 80}, ${255 + (key * 50) * ((-1) ** key)}, 1)` }}></span>
 							</div>

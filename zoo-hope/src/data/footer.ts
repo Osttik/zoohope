@@ -27,9 +27,9 @@ const createElements = async () => {
       listName: "Про нас",
       i18Key: "about-us",
       IListItems: [
-        { name: "Хто ми?", i18Key: "who_we_are", url: "/" },
-        { name: "Наша історія", i18Key: "our_story", url: "/" },
-        { name: "Навіщо ми це робимо?", i18Key: "our_mission", url: "/" },
+        { name: "Хто ми?", i18Key: "who_we_are", url: "/#who_are_we?" },
+        { name: "Наша історія", i18Key: "our_story", url: "/#our_story" },
+        { name: "Навіщо ми це робимо?", i18Key: "our_mission", url: "/#why_are_we_doing_this?" },
       ],
     },
     {
@@ -41,7 +41,7 @@ const createElements = async () => {
         { name: "Інші тварини", i18Key: "other_pets", url: "/petList" },
       ],
     },
-    {
+    /*{
       listName: "Лікування",
       i18Key: "therapy",
       IListItems: [
@@ -51,7 +51,7 @@ const createElements = async () => {
         { name: "Test4", url: "/" },
         { name: "Test5", url: "/" },
       ],
-    },
+    },*/
     {
       footerBottomText: "2024 copyright zoonadia",
     },
