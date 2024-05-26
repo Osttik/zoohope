@@ -13,27 +13,27 @@ import { IHelpfulInfo } from "../../../define";
 import axios from "../../../api/axios";
 
 interface IDeleteMessageProps {
-  selectedPetRowIndex: null | number;
-  selectedContactsRowIndex: null | number;
-  selectedHelpRowIndex: null | number;
-  selectedSettingsRowIndex: null | number;
-  display: string;
-  hideMessage: () => void;
-  settings: any;
-  setSettingsTableUpdate: any;
-  selectedAdminsRowIndex: null | number;
-  pets: IPet[];
-  contacts: IContact[];
-  helpOptions: IHelpOption[];
-  admins: any;
-  activeButton: string | null;
-  setPetTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
-  setContactsTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
-  setHelpOptionsTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
-  setAdminTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
-  selectedHelpfulInfoRowIndex: null | number;
-  helpfulInfo: IHelpfulInfo[];
-  setHelpfulInfoTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+    selectedPetRowIndex: null | number;
+    selectedContactsRowIndex: null | number;
+    selectedHelpRowIndex: null | number;
+    selectedSettingsRowIndex: null | number;
+    display: string;
+    hideMessage: () => void;
+    settings: any;
+    setSettingsTableUpdate: any;
+    selectedAdminsRowIndex: null | number;
+    pets: IPet[];
+    contacts: IContact[];
+    helpOptions: IHelpOption[];
+    admins: IAdmin[];
+    activeButton: string | null;
+    setPetTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+    setContactsTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+    setHelpOptionsTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+    setAdminTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+    selectedHelpfulInfoRowIndex: null | number;
+    helpfulInfo: IHelpfulInfo[];
+    setHelpfulInfoTableUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const DeleteMessage = ({ 
@@ -57,8 +57,8 @@ export const DeleteMessage = ({
     setContactsTableUpdate,
     setHelpOptionsTableUpdate,
     setAdminTableUpdate,
-    setHelpfulInfoTableUpdate
-}: IDeleteMessageProps) => {
+    setHelpfulInfoTableUpdate,
+}: any) => {
     if (display === "none" ||
         (activeButton === 'pets' && selectedPetRowIndex === null) ||
         (activeButton === 'contacts' && selectedContactsRowIndex === null) ||

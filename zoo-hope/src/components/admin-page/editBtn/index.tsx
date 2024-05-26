@@ -48,7 +48,7 @@ export const EditBtn = ({
     selectedHelpfulInfoRowIndex,
     setSelectedHelpfulInfoRowIndex,
     showHelpfulInfoForm,
-}: IEditBtnProps) => {
+}: any) => {
   const display =
     selectedPetRowIndex !== null ||
     selectedContactsRowIndex !== null ||

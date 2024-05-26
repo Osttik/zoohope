@@ -14,9 +14,6 @@ import Logo from "../../images/logo/logo.png";
 import "../../styles/index.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SetStateAction, useEffect, useState } from "react";
-// import { PetTable } from "./petTable/index";
-// import { ContactsTable } from "./contactsTable/index";
-// import { HelpOptionsTable } from "./helpOptionsTable/index";
 import { PetInfoForm } from "./petInfoForm/index";
 import { ContactsForm } from "./contactsForm/index";
 import { HelpOptionForm } from "./helpOptionsForm/index";
@@ -46,21 +43,21 @@ export const AdminPage = () => {
   const [settingsListIsOpen, setSettingsListIsOpen] = useState<boolean>(false);
 
   const [activeButton, setActiveButton] = useState<string | null>(null);
-    const [pets, setPets] = useState<IPet[]>([]);
-    const [contacts, setContacts] = useState<IContact[]>([]);
-    const [helpOptions, setHelpOptions] = useState<IHelpOption[]>([]);
-    const [helpfulInfo, setHelpfulInfo] = useState<IHelpfulInfo[]>([]);
-    const [admins, setAdmins] = useState<IAdmin[]>([]);
-    const [currentAdmin, setCurrentAdmin] = useState<IDecodedToken | undefined>(undefined);
+  const [pets, setPets] = useState<IPet[]>([]);
+  const [contacts, setContacts] = useState<IContact[]>([]);
+  const [helpOptions, setHelpOptions] = useState<IHelpOption[]>([]);
+  const [helpfulInfo, setHelpfulInfo] = useState<IHelpfulInfo[]>([]);
+  const [admins, setAdmins] = useState<IAdmin[]>([]);
+  const [currentAdmin, setCurrentAdmin] = useState<IDecodedToken | undefined>(undefined);
 
-    const [petListIsOpen, setPetListIsOpen] = useState<boolean>(false);
-    const [contactsListIsOpen, setContactsListIsOpen] = useState<boolean>(false);
-    const [helpListIsOpen, setHelpListIsOpen] = useState<boolean>(false);
-    const [helpfulInfoIsOpen, setHelpfulInfoIsOpen] = useState<boolean>(false);
-    const [popupIsOpen, setPopupIsOpen] = useState<boolean>(false);
+  const [petListIsOpen, setPetListIsOpen] = useState<boolean>(false);
+  const [contactsListIsOpen, setContactsListIsOpen] = useState<boolean>(false);
+  const [helpListIsOpen, setHelpListIsOpen] = useState<boolean>(false);
+  const [helpfulInfoIsOpen, setHelpfulInfoIsOpen] = useState<boolean>(false);
+  const [popupIsOpen, setPopupIsOpen] = useState<boolean>(false);
 
   const [isEditBtnClicked, setIsEditBtnClicked] = useState<boolean>(false);
-  
+
   const [displaySettingForm, setDisplaySettingForm] = useState<string>("none");
 
   const [displayDeleteMessage, setDisplayDeleteMessage] = useState<string>('none');
@@ -70,11 +67,11 @@ export const AdminPage = () => {
   const [selectedHelpRowIndex, setSelectedHelpRowIndex] = useState<null | number>(null);
   const [selectedAdminsRowIndex, setSelectedAdminsRowIndex] = useState<null | number>(null);
   const [selectedSettingsRowIndex, setSelectedSettingsRowIndex] = useState<null | number>(null);
-    const [displayPetForm, setDisplayPetForm] = useState<string>('none');
-    const [displayContactsForm, setDisplayContactsForm] = useState<string>('none');
-    const [displayHelpOptionForm, setDisplayHelpOptionForm] = useState<string>('none');
-    const [displayHelpfulInfoForm, setDisplayHelpfulInfoForm] = useState<string>('none');
-    const [displayAdminForm, setDisplayAdminForm] = useState<string>('none');
+  const [displayPetForm, setDisplayPetForm] = useState<string>('none');
+  const [displayContactsForm, setDisplayContactsForm] = useState<string>('none');
+  const [displayHelpOptionForm, setDisplayHelpOptionForm] = useState<string>('none');
+  const [displayHelpfulInfoForm, setDisplayHelpfulInfoForm] = useState<string>('none');
+  const [displayAdminForm, setDisplayAdminForm] = useState<string>('none');
 
   const [petTableUpdate, setPetTableUpdate] = useState<boolean>(false);
   const [contactsTableUpdate, setContactsTableUpdate] = useState<boolean>(false);
@@ -108,9 +105,9 @@ export const AdminPage = () => {
   const showPetForm = () => {
     setDisplayPetForm('block');
   };
-    const handleHelpfulInfoRowClick = (index: number) => {
-        setSelectedHelpfulInfoRowIndex(index);
-    };
+  const handleHelpfulInfoRowClick = (index: number) => {
+    setSelectedHelpfulInfoRowIndex(index);
+  };
 
 
   const hidePetForm = () => {
@@ -141,53 +138,53 @@ export const AdminPage = () => {
     setDisplaySettingForm("none");
   };
 
-    const showHelpfulInfoForm = () => {
-        setDisplayHelpfulInfoForm('block');
-    }
+  const showHelpfulInfoForm = () => {
+    setDisplayHelpfulInfoForm('block');
+  }
 
-    const hideHelpfulInfoForm = () => {
-        setDisplayHelpfulInfoForm('none');
-    };
+  const hideHelpfulInfoForm = () => {
+    setDisplayHelpfulInfoForm('none');
+  };
 
-    const showAdminForm = () => {
-        setDisplayAdminForm('block');
-    }
+  const showAdminForm = () => {
+    setDisplayAdminForm('block');
+  }
 
-    const hideAdminForm = () => {
-        setDisplayAdminForm('none');
-    };
+  const hideAdminForm = () => {
+    setDisplayAdminForm('none');
+  };
 
-    const showDeleteMessage = () => {
-        setDisplayDeleteMessage('block');
-    };
+  const showDeleteMessage = () => {
+    setDisplayDeleteMessage('block');
+  };
 
-    const hideDeleteMessage = () => {
-        setDisplayDeleteMessage('none');
-    };
+  const hideDeleteMessage = () => {
+    setDisplayDeleteMessage('none');
+  };
 
-    const toggleHelpfulInfoList = () => {
-        setHelpfulInfoIsOpen(!helpfulInfoIsOpen);
-    };
+  const toggleHelpfulInfoList = () => {
+    setHelpfulInfoIsOpen(!helpfulInfoIsOpen);
+  };
 
-const handleLogout = () => {
+  const handleLogout = () => {
     document.cookie = 'accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     document.cookie = 'refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-}
+  }
 
-const getAdmin = () => {
+  const getAdmin = () => {
     const accessToken = Cookies.get('accessToken');
     if (!accessToken) {
-        return; 
+      return;
     }
-    
+
     const decodedToken: IDecodedToken = jwtDecode(accessToken);
 
     setCurrentAdmin(decodedToken);
-}
+  }
 
-useEffect(() => {
-    getAdmin(); 
-}, []);
+  useEffect(() => {
+    getAdmin();
+  }, []);
 
   const toggleButton = (buttonName: string | null) => {
     setActiveButton(buttonName === activeButton ? null : buttonName);
@@ -242,9 +239,9 @@ useEffect(() => {
       activeButton === "help"
     ) {
       showHelpOptionForm();
-    }else if (activeButton !== null && activeButton !== '' && activeButton === 'info') {
+    } else if (activeButton !== null && activeButton !== '' && activeButton === 'info') {
       showHelpfulInfoForm();
-  } else if (activeButton !== null && currentAdmin?.role === 'super-admin' && activeButton !== '' && activeButton === 'admins') {
+    } else if (activeButton !== null && currentAdmin?.role === 'super-admin' && activeButton !== '' && activeButton === 'admins') {
       showAdminForm();
     } else {
       return;
@@ -271,9 +268,8 @@ useEffect(() => {
           setHelpOptionsTableUpdate={setHelpOptionsTableUpdate}
           selectedAdminsRowIndex={selectedAdminsRowIndex}
           admins={admins}
-          setAdminTableUpdate={setAdminTableUpdate} selectedHelpfulInfoRowIndex={null} helpfulInfo={[]} setHelpfulInfoTableUpdate={function (value: SetStateAction<boolean>): void {
-            throw new Error("Function not implemented.");
-          } }        />
+          setAdminTableUpdate={setAdminTableUpdate}
+        />
 
         <PetInfoForm
           display={displayPetForm}
@@ -356,9 +352,8 @@ useEffect(() => {
                         <ul className="sidebar-option-list__container">
                           <li className="sidebar-option-list__option">
                             <button
-                              className={`sidebar-option-list__option-button ${
-                                activeButton === "p pets" ? "active" : ""
-                              }`}
+                              className={`sidebar-option-list__option-button ${activeButton === "p pets" ? "active" : ""
+                                }`}
                               onClick={() => toggleButton("p pets")}
                             >
                               всі тварини
@@ -366,9 +361,8 @@ useEffect(() => {
                           </li>
                           <li className="sidebar-option-list__option">
                             <button
-                              className={`sidebar-option-list__option-button ${
-                                activeButton === "p cats" ? "active" : ""
-                              }`}
+                              className={`sidebar-option-list__option-button ${activeButton === "p cats" ? "active" : ""
+                                }`}
                               onClick={() => toggleButton("p cats")}
                             >
                               коти
@@ -376,9 +370,8 @@ useEffect(() => {
                           </li>
                           <li className="sidebar-option-list__option">
                             <button
-                              className={`sidebar-option-list__option-button ${
-                                activeButton === "p dogs" ? "active" : ""
-                              }`}
+                              className={`sidebar-option-list__option-button ${activeButton === "p dogs" ? "active" : ""
+                                }`}
                               onClick={() => toggleButton("p dogs")}
                             >
                               песики
@@ -386,9 +379,8 @@ useEffect(() => {
                           </li>
                           <li className="sidebar-option-list__option">
                             <button
-                              className={`sidebar-option-list__option-button ${
-                                activeButton === "p treatment" ? "active" : ""
-                              }`}
+                              className={`sidebar-option-list__option-button ${activeButton === "p treatment" ? "active" : ""
+                                }`}
                               onClick={() => toggleButton("p treatment")}
                             >
                               потребують лікування
@@ -396,9 +388,8 @@ useEffect(() => {
                           </li>
                           <li className="sidebar-option-list__option">
                             <button
-                              className={`sidebar-option-list__option-button ${
-                                activeButton === "p adopted" ? "active" : ""
-                              }`}
+                              className={`sidebar-option-list__option-button ${activeButton === "p adopted" ? "active" : ""
+                                }`}
                               onClick={() => toggleButton("p adopted")}
                             >
                               отримали дім
@@ -406,9 +397,8 @@ useEffect(() => {
                           </li>
                           <li className="sidebar-option-list__option">
                             <button
-                              className={`sidebar-option-list__option-button ${
-                                activeButton === "p temporary" ? "active" : ""
-                              }`}
+                              className={`sidebar-option-list__option-button ${activeButton === "p temporary" ? "active" : ""
+                                }`}
                               onClick={() => toggleButton("p temporary")}
                             >
                               на тимчасовому перетримані
@@ -447,9 +437,8 @@ useEffect(() => {
                         <ul className="sidebar-option-list__container">
                           <li className="sidebar-option-list__option">
                             <button
-                              className={`sidebar-option-list__option-button ${
-                                activeButton === "contacts" ? "active" : ""
-                              }`}
+                              className={`sidebar-option-list__option-button ${activeButton === "contacts" ? "active" : ""
+                                }`}
                               onClick={() => toggleButton("contacts")}
                             >
                               всі контакти
@@ -486,9 +475,8 @@ useEffect(() => {
                         <ul className="sidebar-option-list__container">
                           <li className="sidebar-option-list__option">
                             <button
-                              className={`sidebar-option-list__option-button ${
-                                activeButton === "help" ? "active" : ""
-                              }`}
+                              className={`sidebar-option-list__option-button ${activeButton === "help" ? "active" : ""
+                                }`}
                               onClick={() => toggleButton("help")}
                             >
                               всі варіанти допомоги
@@ -527,9 +515,8 @@ useEffect(() => {
                         <ul className="sidebar-option-list__container">
                           <li className="sidebar-option-list__option">
                             <button
-                              className={`sidebar-option-list__option-button ${
-                                activeButton === "settings" ? "active" : ""
-                              }`}
+                              className={`sidebar-option-list__option-button ${activeButton === "settings" ? "active" : ""
+                                }`}
                               onClick={() => toggleButton("settings")}
                             >
                               всі налаштування
@@ -609,11 +596,8 @@ useEffect(() => {
                   selectedAdminsRowIndex={selectedAdminsRowIndex}
                   setSelectedAdminsRowIndex={setSelectedAdminsRowIndex}
                   showAdminForm={showAdminForm}
-                  adminRole={'g'} selectedHelpfulInfoRowIndex={null} setSelectedHelpfulInfoRowIndex={function (value: SetStateAction<number | null>): void {
-                    
-                  } } showHelpfulInfoForm={function (): void {
-                    
-                  } }                  />
+                  adminRole={currentAdmin!.role}
+                />
 
                 <DeleteBtn
                   selectedPetRowIndex={selectedPetsRowIndex}
@@ -625,12 +609,12 @@ useEffect(() => {
                   selectedHelpRowIndex={selectedHelpRowIndex}
                   setSelectedHelpRowIndex={setSelectedHelpRowIndex}
                   showMessage={showDeleteMessage}
-                  activeButton={activeButton} 
-                  selectedAdminsRowIndex={selectedAdminsRowIndex} 
-                  setSelectedAdminsRowIndex={setSelectedAdminsRowIndex} 
-                  adminRole={'g'} 
-                  selectedHelpfulInfoRowIndex={selectedHelpfulInfoRowIndex} 
-                  setSelectedHelpfulInfoRowIndex={setSelectedHelpfulInfoRowIndex}                
+                  activeButton={activeButton}
+                  selectedAdminsRowIndex={selectedAdminsRowIndex}
+                  setSelectedAdminsRowIndex={setSelectedAdminsRowIndex}
+                  adminRole={currentAdmin!.role}
+                  selectedHelpfulInfoRowIndex={selectedHelpfulInfoRowIndex}
+                  setSelectedHelpfulInfoRowIndex={setSelectedHelpfulInfoRowIndex}
                 />
 
                 <button className="actions__add-btn" onClick={openForm}>
@@ -646,98 +630,6 @@ useEffect(() => {
 
             <div className="main-content">
               <div className="main-content__container">
-                {/* {activeButton === "p pets" && (
-                  <PetTable
-                    activeButton={activeButton}
-                    selectedRowIndex={selectedPetsRowIndex}
-                    handleRowClick={handlePetRowClick}
-                    pets={pets}
-                    setPets={setPets}
-                    petTableUpdate={petTableUpdate}
-                  />
-                )} */}
-                {/* {activeButton === "p cats" && (
-                  <PetTable
-                    activeButton={activeButton}
-                    selectedRowIndex={selectedPetsRowIndex}
-                    handleRowClick={handlePetRowClick}
-                    pets={pets}
-                    setPets={setPets}
-                    petTableUpdate={petTableUpdate}
-                  />
-                )}
-                {activeButton === "p dogs" && (
-                  <PetTable
-                    activeButton={activeButton}
-                    selectedRowIndex={selectedPetsRowIndex}
-                    handleRowClick={handlePetRowClick}
-                    pets={pets}
-                    setPets={setPets}
-                    petTableUpdate={petTableUpdate}
-                  />
-                )}
-                {activeButton === "p treatment" && (
-                  <PetTable
-                    activeButton={activeButton}
-                    selectedRowIndex={selectedPetsRowIndex}
-                    handleRowClick={handlePetRowClick}
-                    pets={pets}
-                    setPets={setPets}
-                    petTableUpdate={petTableUpdate}
-                  />
-                )}
-                {activeButton === "p adopted" && (
-                  <PetTable
-                    activeButton={activeButton}
-                    selectedRowIndex={selectedPetsRowIndex}
-                    handleRowClick={handlePetRowClick}
-                    pets={pets}
-                    setPets={setPets}
-                    petTableUpdate={petTableUpdate}
-                  />
-                )}
-                {activeButton === "p temporary" && (
-                  <PetTable
-                    activeButton={activeButton}
-                    selectedRowIndex={selectedPetsRowIndex}
-                    handleRowClick={handlePetRowClick}
-                    pets={pets}
-                    setPets={setPets}
-                    petTableUpdate={petTableUpdate}
-                  />
-                )}
-
-                {activeButton === "contacts" && (
-                  <ContactsTable
-                    selectedRowIndex={selectedContactsRowIndex}
-                    handleRowClick={handleContactRowClick}
-                    contacts={contacts}
-                    setContacts={setContacts}
-                    contactsTableUpdate={contactsTableUpdate}
-                  />
-                )}
-
-                {activeButton === "help" && (
-                  <HelpOptionsTable
-                    selectedRowIndex={selectedHelpRowIndex}
-                    handleRowClick={handleHelpRowClick}
-                    helpOptions={helpOptions}
-                    setHelpOptions={setHelpOptions}
-                    helpOptionsTableUpdate={helpOptionsTableUpdate}
-                  />
-                )} */}
-
-                {activeButton === "settings" && (
-                  <SettingsTable
-                    selectedRowIndex={selectedSettingsRowIndex}
-                    handleRowClick={handleSettingRowClick}
-                    settings={settings}
-                    setSettings={setSettings}
-                    settingsTableUpdate={settingsTableUpdate}
-                  />
-                )}
-
-                {activeButton === null && (
                   <div className="main-content__greeting">
                     <p className="greeting__title">Вітаємо!</p>
                     <p className="greeting__caption">
@@ -745,7 +637,6 @@ useEffect(() => {
                       додати нову
                     </p>
                   </div>
-                )}
               </div>
             </div>
           </div>
