@@ -105,5 +105,12 @@
   "how_become_pet_guardian": "how to become a guardian?",
   "why_is_important_sterilize_animals": "why is it important to sterilize animals?",
   "how_help_specific_animal": "how to help a specific animal?",
-  "helpful_info_page_description": "Thanks to us, learn more about how to become a guardian, how to help a specific animal or useful information about your animal. Let's consciously help our pets!"
+  "helpful_info_page_description": "Thanks to us, learn more about how to become a guardian, how to help a specific animal or useful information about your animal. Let's consciously help our pets!",
+  "message_pay_btn": "pay",
+  "message_title_warning": "Attention!",
+  "message_first_rule": "Before sending the payment, in the comments to the payment specify the",
+  "message_second_rule": "name of the pet and the type of assistance.",
+  "message_example_title": "Example:",
+  "message_example": "«Murka payment for treatment»",
+  "message_third_rule": "The payment amount can be any, thank you!"
 }

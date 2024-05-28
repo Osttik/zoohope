@@ -815,6 +815,104 @@
 
 
 
+.popup-warning {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  left: 0;
+  top: 0;
+  transform: scale(0);
+  z-index: 99;
+  transform: scale(1);
+}
+
+.popup-warning__container {
+  width: 800px;
+  height: max-content;
+  background-color: $primaryColor;
+  overflow-y: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 25px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
+}
+
+.popup-warning__head {
+  width: 100%;
+  height: max-content;
+  background-color: $adminPageDefaultWhite;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 7px 30px;
+
+  >button {
+    background: none;
+    outline: none;
+    border: none;
+    font-size: 32px;
+    color: #000000;
+  }
+}
+
+.popup-warning__content {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  padding: 30px;
+
+  >h1 {
+    font-size: 60px;
+    font-weight: 700;
+  }
+
+  >p {
+    width: 70%;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+
+    >span {
+      font-weight: 700;
+    }
+  }
+
+  >a {
+    text-decoration: none;
+    color: $adminPageDefaultWhite;
+    font-size: 24px;
+    font-weight: 600;
+    background-color: $blueColor;
+    padding: 14px 55px;
+    border-radius: 35px;
+    border: 2.5px solid $blueColor;
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    -ms-border-radius: 35px;
+    -o-border-radius: 35px;
+    margin-top: 15px;
+    transition: .3s all ease-out;
+
+    &:hover {
+      background-color: $adminPageDefaultWhite;
+      color: $blueColor;
+      transition: .3s all ease-out;
+    }
+  }
+}
+
+
 @media (max-width: 1121px) {
   .begPetBlock {
     width: 100vw;
@@ -1016,6 +1114,38 @@
       }
     }
   }
+
+  .popup-warning__container {
+    width: 70vw;
+  }
+  
+  .popup-warning__head {
+    width: 100%;
+    padding: calc(var(--index) * .3) calc(var(--index) * 1.8);
+  
+    >button {
+      font-size: calc(var(--index) * 2);
+    }
+  }
+  
+  .popup-warning__content {
+    gap:  calc(var(--index) * 1.4);
+    padding: calc(var(--index) * 1.8);
+  
+    >h1 {
+      font-size: calc(var(--index) * 3.5);
+    }
+  
+    >p {
+      width: 70%;
+      font-size: calc(var(--index) * 1.2);
+    }
+  
+    >a {
+      font-size: calc(var(--index) * 1.4);
+      padding: calc(var(--index) * .8) calc(var(--index) * 3.2);
+    }
+  }
 }
 
 @media (max-width: 880px) {
@@ -1054,6 +1184,14 @@
   .petList__title {
     width: 90%;
     text-align: center;
+  }
+
+  .popup-warning__content {
+  
+    >p {
+      width: 80%;
+      font-size: calc(var(--index) * 1.2);
+    }
   }
 }
 
@@ -1229,6 +1367,38 @@
           }
         }
       }
+    }
+  }
+
+  .popup-warning__container {
+    width: 80vw;
+  }
+  
+  .popup-warning__head {
+    width: 100%;
+    padding: calc(var(--index) * .3) calc(var(--index) * 1.8);
+  
+    >button {
+      font-size: calc(var(--index) * 2.4);
+    }
+  }
+  
+  .popup-warning__content {
+    gap:  calc(var(--index) * 1.4);
+    padding: calc(var(--index) * 1.8);
+  
+    >h1 {
+      font-size: calc(var(--index) * 3.5);
+    }
+  
+    >p {
+      width: 85%;
+      font-size: calc(var(--index) * 1.5);
+    }
+  
+    >a {
+      font-size: calc(var(--index) * 1.7);
+      padding: calc(var(--index) * .8) calc(var(--index) * 3.8);
     }
   }
 }
@@ -1582,6 +1752,38 @@
           font-size: calc(var(--index) * 1.7);
         }
       }
+    }
+  }
+
+  .popup-warning__container {
+    width: 86vw;
+  }
+  
+  .popup-warning__head {
+    width: 100%;
+    padding: calc(var(--index) * .3) calc(var(--index) * 1.8);
+  
+    >button {
+      font-size: calc(var(--index) * 2.6);
+    }
+  }
+  
+  .popup-warning__content {
+    gap:  calc(var(--index) * 1.4);
+    padding: calc(var(--index) * 1.8);
+  
+    >h1 {
+      font-size: calc(var(--index) * 3.6);
+    }
+  
+    >p {
+      width: 90%;
+      font-size: calc(var(--index) * 1.7);
+    }
+  
+    >a {
+      font-size: calc(var(--index) * 1.9);
+      padding: calc(var(--index) * .8) calc(var(--index) * 3.8);
     }
   }
 }
