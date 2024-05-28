@@ -5,6 +5,7 @@ import { SetStateAction, useState, ChangeEvent, useEffect } from "react";
 import { addPet, updatePet, getOnePet } from "../../../api/pets";
 import { IPet } from "../../../define";
 import { uploadImages } from "../../../api/images";
+import { requestURL } from "../../../api/api";
 
 interface IPetFormProps {
     display: string;
@@ -609,7 +610,7 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
                                     <>
                                         <img
                                             key={index}
-                                            src={`http://localhost:5000/${image}`}
+                                            src={`${requestURL}/${image}`}
                                             alt={`Фото ${index + 1}`}
                                             className="pet-form__image"
                                         />

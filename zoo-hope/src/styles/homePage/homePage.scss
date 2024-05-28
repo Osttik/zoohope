@@ -218,7 +218,7 @@
         width: 100%;
         display: flex;
         justify-content: space-between;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         gap: calc(var(--index) * 2);
 
         .support__card {
@@ -613,6 +613,7 @@
               .support-card__circle-icon.donate {
                 width: calc(var(--index) * 6.5);
                 margin-top: calc(var(--index) * -1.2);
+                height: auto;
               }
             }
           }
@@ -792,6 +793,7 @@
               .support-card__circle-icon.donate {
                 width: calc(var(--index) * 7.5);
                 margin-top: calc(var(--index) * -1.8);
+                height: auto;
               }
             }
           }
@@ -1128,6 +1130,7 @@
               .support-card__circle-icon.donate {
                 width: calc(var(--index) * 8.5);
                 margin-top: calc(var(--index) * -1.4);
+                height: auto;
               }
             }
           }
