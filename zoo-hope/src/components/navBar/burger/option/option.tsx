@@ -35,6 +35,7 @@ export const Optionss = (props: IProps) => {
         {t(props.element.i18Key)}
       </button>
       <div className={props.states[props.element.i18Key] ? "" : "closed"}>
+        <div className="optionDropdown-block">
         {props.element.Ielements?.map((e, key) => {
           return (
             <Link to={e.url} className="optionDropdown" key={key}>
@@ -42,6 +43,7 @@ export const Optionss = (props: IProps) => {
             </Link>
           );
         })}
+        </div>
       </div>
     </div>
   );

@@ -122,7 +122,7 @@
 }
 
 .closed {
-  display: none;
+  display: none !important;
 }
 
 .burger {
@@ -142,6 +142,17 @@
   background-color: $lightGreyColor;
   color: #fff;
   font-size: 18px;
+  display: flex;
+  flex-direction: column;
+
+  &__link{
+    text-decoration: none;
+    color: $adminPageDefaultWhite;
+    font-weight: 600;
+    width: 300px;
+    padding-left: 6px;
+    margin: 20px 0px 20px 25px;
+  }
 
   .option {
     .optionBtn {
@@ -167,6 +178,7 @@
       box-sizing: border-box;
       font-weight: 600;
       text-align: left;
+      margin-left: 25px;
 
       &:after {
         transition: all 0.1s ease-out;
@@ -192,8 +204,17 @@
       }
     }
 
+    .optionDropdown-block{
+      display: flex;
+      flex-direction: column;
+      padding-left: 20px;
+    }
+
     .optionDropdown {
-      padding: 0 0 15px 25px;
+      padding: 0 0 15px 30px;
+      text-decoration: none;
+      color: $adminPageDefaultWhite;
+      font-weight: 500;
     }
 
     &:nth-child(even) {
@@ -242,7 +263,7 @@
     .navbar__button-group {
       width: 100%;
       display: flex;
-      border-top: 3px $lightGreyColor solid;
+      border-top: 0px $lightGreyColor solid;
       border-bottom: 3px $lightGreyColor solid;
 
       button {
