@@ -114,5 +114,6 @@
   "message_example": "«Murka payment for treatment»",
   "message_third_rule": "The payment amount can be any, thank you!",
   "email": "Email:",
-  "phone": "Phone:"
+  "phone": "Phone:",
+  "need_treatment": "Need treatment"
 }
