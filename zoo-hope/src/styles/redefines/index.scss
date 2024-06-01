@@ -172,9 +172,9 @@
 @media (max-width: 780px) {
   .wrapper {
     &_donate {
-      width: calc(var(--index) * 35);
+      width: 90vw;
 
-      span{
+      span {
         font-size: calc(var(--index) * 2.3);
       }
 
@@ -213,7 +213,7 @@
   .wrapper_buttons {
     display: flex;
     gap: calc(var(--index) * 1.6);
-  
+
     & button {
       font-size: calc(var(--index) * 2.1);
       padding: 3px 16px 3px 16px;
@@ -225,9 +225,9 @@
   .wrapper {
     &_donate {
       padding: 20px 15px;
-      width: 100%;
-
-      span {
+      width: 90vw;
+      border-radius: 40px;
+      span{
         font-size: calc(var(--index) * 2.4);
       }
 
@@ -235,6 +235,7 @@
         &::after {
           font-size: calc(var(--index) * 3.4);
         }
+
         input {
           height: max-content;
           padding: calc(var(--index) * 2.5) calc(var(--index) * 7.9);
@@ -270,7 +271,7 @@
   .wrapper_buttons {
     display: flex;
     gap: calc(var(--index) * 1.6);
-  
+
     & button {
       font-size: calc(var(--index) * 2.4);
       padding: 3px 16px 3px 16px;
@@ -279,11 +280,18 @@
 }
 
 @media (max-width: 382px) {
+  .wrapper {
+    &_donate {
+      padding: 20px 15px;
+      width: 94vw;
+    }
+  }
+
   .wrapper_buttons {
     display: flex;
     flex-wrap: nowrap;
     gap: calc(var(--index) * 1);
-  
+
     & button {
       font-size: calc(var(--index) * 2.4);
       padding: 3px 16px 3px 16px;

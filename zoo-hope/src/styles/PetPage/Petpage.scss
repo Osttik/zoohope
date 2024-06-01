@@ -105,6 +105,7 @@
         font-size: 28px;
         font-weight: 600;
         margin-right: 30px;
+        color: rgba(35, 31, 32, 1);
       }
     }
 
@@ -745,6 +746,7 @@
       font-size: 26px;
       font-weight: 600;
       transition: 0.5s;
+      color: rgba(35, 31, 32, 1);
     }
 
     &__button:hover {
@@ -990,7 +992,7 @@
         height: calc(var(--index) * 19);
 
         &__inputComent {
-          width: calc(var(--index) * 38);
+          width: 84vw;
           height: calc(var(--index) * 7.2);
           padding: calc(var(--index) * .7) calc(var(--index) * 1.7);
           font-size: calc(var(--index) * 1.2);
@@ -1002,7 +1004,7 @@
 
         &__input {
           height: calc(var(--index) * 3.6);
-          width: calc(var(--index) * 18);
+          width: 100%;
           padding-left: calc(var(--index) * 2);
           font-size: calc(var(--index) * 1.2);
         }
@@ -1291,7 +1293,7 @@
         gap: calc(var(--index) * 1);
 
         &__inputComent {
-          width: calc(var(--index) * 34);
+          width: 84vw;
           height: calc(var(--index) * 7.6);
           padding: calc(var(--index) * .7) calc(var(--index) * 1.7);
           font-size: calc(var(--index) * 1.4);
@@ -1473,7 +1475,7 @@
         gap: calc(var(--index) * 1.1);
 
         &__inputComent {
-          width: calc(var(--index) * 31);
+          width: 85vw;
           height: calc(var(--index) * 7.8);
           padding: calc(var(--index) * .7) calc(var(--index) * 1.7);
           font-size: calc(var(--index) * 1.5);
@@ -1559,7 +1561,7 @@
         gap: calc(var(--index) * 1.1);
 
         &__inputComent {
-          width: calc(var(--index) * 28);
+          width: 82vw;
           height: calc(var(--index) * 9);
           padding: calc(var(--index) * .7) calc(var(--index) * 1.7);
           font-size: calc(var(--index) * 1.7);
