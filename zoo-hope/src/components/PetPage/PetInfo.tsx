@@ -15,7 +15,7 @@ interface IProps {
 export function PetInfo({ obj }: IProps) {
   const imagesSrc = obj.images && obj.images.length > 0 ? obj.images : pet;
 
-  const [modalActive, setModalActive] = useState(false)
+  const [modalActive, setModalActive] = useState(false);
 
   const { t } = useTranslation();
 
