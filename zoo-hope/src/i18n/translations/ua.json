@@ -112,5 +112,8 @@
   "message_second_rule": "ім’я тваринки і вид допомоги.",
   "message_example_title": "Приклад:",
   "message_example": "«Мурка оплата лікування»",
-  "message_third_rule": "Сума платежу може бути будь-якою, дякую!"
+  "message_third_rule": "Сума платежу може бути будь-якою, дякую!",
+  "email": "Пошта:",
+  "phone": "Телефон:",
+  "need_treatment": "Потребує лікування"
 }
