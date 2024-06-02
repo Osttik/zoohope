@@ -50,7 +50,7 @@ router.post('/upload-contact-image', verify_token(['super-admin', 'admin']), ima
 
 router.get('/get-all-admins', adminsRoutes.getAllAdmins);
 router.get('/get-admin/:id', adminsRoutes.getAdminById);
-router.put('/update-admin/:id', adminsRoutes.updateAdmin);
-router.delete('/delete-admin/:id', adminsRoutes.deleteAdmin);
+router.put('/update-admin/:id', verify_token(['super-admin']), adminsRoutes.updateAdmin);
+router.delete('/delete-admin/:id', verify_token(['super-admin']), adminsRoutes.deleteAdmin);
 
 module.exports = router;

@@ -184,7 +184,7 @@ export default function Home() {
 
 			<section className="petListSection">
 				<h1>{t('looking-for-home')}</h1>
-				<p className="pet-list-caption">Оберіть свого майбутнього друга та подаруйте йому щасливе життя!</p>
+				<p className="pet-list-caption">{t('pet_looking_for_home_caption')}</p>
 				<div className="petList">
 					{getPets.length ?
 						getPets.map((el, i) => {
