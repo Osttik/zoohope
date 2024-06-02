@@ -84,5 +84,8 @@
   "badMail": "Bad E-mail",
   "min4sym": "Minimum 4 symbols",
   "logIn": "Log in",
-  "required": "Required"
+  "required": "Required",
+  "help": "Help",
+  "HowYouCanHelp": "How you can help?",
+  "WhereWe": "Where we are located:"
 }

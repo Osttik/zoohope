@@ -72,6 +72,7 @@
 }
 .YouCanHelp {
   background-color: #1e1e1e;
+  padding-bottom: 250px;
   h2 {
     font-family: "Open Sans", sans-serif;
     font-weight: 600;
@@ -79,5 +80,116 @@
     color: white;
     text-align: center;
     padding-top: 120px;
+  }
+  &_Options {
+    display: inline-flex;
+    flex-direction: column;
+  }
+  &__Option {
+    &_title {
+      div {
+        padding-left: 50px;
+        font-size: 30px;
+      }
+    }
+  }
+  &__Option {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 100px;
+    color: white;
+    padding-left: 150px;
+    h4 {
+      font-size: 18px;
+    }
+  }
+}
+.WhereWe {
+  display: inline-flex;
+  flex-direction: column;
+  padding-left: 300px;
+  text-align: center;
+  color: #ffd600;
+  font-size: 32px;
+  font-weight: 600;
+  & span {
+    margin-bottom: 30px;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  h1 {
+    font-size: 80px;
+    text-align: center;
+  }
+  .GeneralHelp {
+    &__button {
+      display: flex;
+      align-items: center;
+    }
+  }
+  .BackgroundForHelpUs {
+    width: 850px;
+  }
+  .YouCanHelp {
+    &__Option {
+      padding-left: 90px;
+      &_title div {
+        font-size: 40px;
+        padding-left: 25px;
+      }
+      h4 {
+        font-size: 20px;
+      }
+    }
+  }
+  .WhereWe {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 0;
+    padding-top: 70px;
+    &__map {
+      height: 500px;
+      width: 500px;
+    }
+    span {
+      font-size: 40px;
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  h1 {
+    font-size: 50px !important;
+    text-align: center;
+  }
+  .GeneralHelp {
+    &__button {
+      display: flex;
+      align-items: center;
+    }
+  }
+  .BackgroundForHelpUs {
+    width: 485px !important;
+  }
+  .YouCanHelp {
+    &__Option {
+      padding-left: 35px;
+      &_title div {
+        padding-left: 25px;
+      }
+    }
+  }
+  .WhereWe {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 0;
+    padding-top: 70px;
+    &__map {
+      height: 300px;
+      width: 300px;
+    }
   }
 }
