@@ -1,85 +1,74 @@
-import { Link } from "react-router-dom"
-import "../../styles/helpUsPage/helpUsPage.scss"
-import { useEffect, useState } from "react"
+import { Link } from "react-router-dom";
+import "../../styles/helpUsPage/helpUsPage.scss";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { apiGetAllHelpOptions } from "../../api/helpOptions";
 import { IHelpOption } from "../../define";
 import { links } from "../../data/helpUsPage";
 import { TranslateFunc } from "../translation";
 import i18n from "../../i18n/i18n";
-
-export const HelpUsPage = () => {
-  const { t } = useTranslation();
-  const [helpOptions, setHelpOptions] = useState<IHelpOption[]>()
-
-
-  // For testing
-
-  // const test: IHelpOptionsArr = [
-  //   {
-  //     name: {
-  //       ua: 'Способи допомоги тваринкам',
-  //       en: 'Ways to help animals',
-  //     },
-  //     description: {
-  //       ua: 'У світі існує безліч способів, якими ми можемо допомогти нашим пухнастим друзям. Одним з найефективніших методів є прихисток бездомних тварин. Відкриття та підтримка притулків для тварин дозволяє забезпечити їм тимчасовий чи постійний притулок, харчування та медичний догляд. Багато з цих тварин шукають лише любов і турботу, яку ми можемо надати. Іншим способом є спонсорство тварин у притулках або на фермах, де їх утримують. Це допомагає забезпечити фінансову підтримку для їхнього утримання та лікування. Крім цього, поширення усвідомлення про важливість захисту тварин може стимулювати людей приймати відповідальні рішення стосовно їхнього ставлення до тварин та їхнього середовища.',
-  //       en: 'There are many ways in the world that we can help our furry friends. One of the most effective methods is a shelter for homeless animals. Opening and supporting shelters for animals allows you to provide them with temporary or permanent shelter, food and medical care. Many of these animals are just looking for the love and care that we can provide. Another way is to sponsor animals in shelters or farms where they are kept. This helps provide financial support for their maintenance and treatment. In addition, spreading awareness about the importance of animal protection can encourage people to make responsible decisions about their treatment of animals and their environment.'
-  //     },
-  //     _id: "35e5rdsf45s63f"
-  //   }
-  // ]
-
-  const getAllHelpOptions = async () => {
-    const res: IHelpOption[] = await apiGetAllHelpOptions();
-    
-    setHelpOptions(res)
-  }
-
+import Arrow1 from "../../images/workImg/Arrow1.png";
+import Arrow2 from "../../images/workImg/Arrow2.png";
+import BackgroundForHelpUs from "../../images/background/0-0.png";
+import { t } from "i18next";
+const HelpUsPage: React.FC = () => {
+  const [helpOptions, setHelpOptions] = useState<IHelpOption[]>([]);
   useEffect(() => {
-    getAllHelpOptions()
-    // setHelpOptions(test) // For testing
-  }, [])
-
-  if (!helpOptions) {
-    return <>{t('loading')}</>
-  }
+    apiGetAllHelpOptions().then((e) => {
+      setHelpOptions(e);
+    });
+  }, []);
   return (
-    <div className="helpUsPage">
-      <section className="hero">
-        <h1>{t("helpUs")}</h1>
-        <h2>{t("helpUsDescription")}</h2>
-        <div className="links">
-          <Link to={links.treatment}>{t("therapy")}</Link>
-          <Link to={links.sterilisation}>{t("sterilization")}</Link>
+    <>
+      <section className="GeneralHelp">
+        <div className="GeneralHelp__text">
+          <h1>{t("helpUs")}</h1>
+          <div className="GeneralHelp__button">
+            <img src={Arrow1} className="GeneralHelp__button_arrow1" />
+            <a href="#YouCanHelp">{t("help")}</a>
+            <img src={Arrow2} className="GeneralHelp__button_arrow2" />
+          </div>
+          <img src={BackgroundForHelpUs} className="BackgroundForHelpUs" />
         </div>
       </section>
-      {helpOptions.length ? (
-        <section className="helpOptions">
-          {helpOptions.map((e, key) => {
-            return (
-              <div className="helpOption" key={key}>
-                <h1
-                  dangerouslySetInnerHTML={
-                    {
-                      __html: TranslateFunc(e.name, i18n)
-                    }
-                  }
-                ></h1>
+      <section className="YouCanHelp" id="YouCanHelp">
+        <h2>{t("HowYouCanHelp")}</h2>
+        <div className="YouCanHelp_Options">
+          {helpOptions.map((option, i) => (
+            <div key={i} className="YouCanHelp__Option">
+              <span className="YouCanHelp__Option_title">
                 <div
-                  dangerouslySetInnerHTML={
-                    {
-                      __html: TranslateFunc(e.description, i18n)
-                    }
-                  }
-                ></div>
-              </div>
-            );
-          })}
-        </section>
-      ) : (
-        <section className="noHelpOptions">{t("helpNotNeeded")}</section>
-      )}
-
-    </div>
+                  dangerouslySetInnerHTML={{
+                    __html: TranslateFunc(option.name, i18n),
+                  }}
+                />
+              </span>
+              <span>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: TranslateFunc(option.description, i18n),
+                  }}
+                />
+              </span>
+            </div>
+          ))}
+        </div>
+        <div className="WhereWe">
+          <span>{t("WhereWe")}</span>
+          <iframe
+            className="WhereWe__map"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d32573.32108695322!2d25.84006405148263!3d51.34849810560319!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47260d7bbc5d8b0d%3A0xfb28dbe30ef1e100!2z0JLQsNGA0LDRiCwg0KDRltCy0L3QtdC90YHRjNC60LAg0L7QsdC70LDRgdGC0Yw!5e0!3m2!1suk!2sua!4v1717269943059!5m2!1suk!2sua"
+            width="600"
+            height="450"
+            style={{ border: 0 }} // Заміна рядка на об'єкт
+            allowFullScreen={false}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+      </section>
+    </>
   );
-}
+};
+
+export default HelpUsPage;
