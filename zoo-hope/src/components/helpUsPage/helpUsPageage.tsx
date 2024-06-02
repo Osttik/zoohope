@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { apiGetAllHelpOptions } from "../../api/helpOptions";
 import { IHelpOption } from "../../define";
 import { links } from "../../data/helpUsPage";
-import { Translate, TranslateFunc } from "../translation";
+import { TranslateFunc } from "../translation";
 import i18n from "../../i18n/i18n";
 import Arrow1 from "../../images/workImg/Arrow1.png";
 import Arrow2 from "../../images/workImg/Arrow2.png";

@@ -23,6 +23,7 @@ interface IfilterState {
 
 export const FilterSelect = (props: IfilterState) => {
   const { t } = useTranslation();
+
   return (
     <select
       onChange={(e) => {
@@ -30,13 +31,11 @@ export const FilterSelect = (props: IfilterState) => {
       }}
       value={(props.filter.get as any)[props.filter.type]}
     >
-
       {props.options.map(el => {
         return (
           <option key={el.value} label={el.i18Key?t(el.i18Key):el.label} value={el.value}></option>
         )
       })}
-
     </select>
   )
 }

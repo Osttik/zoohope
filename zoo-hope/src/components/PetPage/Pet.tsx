@@ -1,24 +1,25 @@
 import { PetInfo } from "./PetInfo";
-import { HelpPet } from "./RdPetBlock";
+import { HelpPetBlock } from "./HelpPetBlock";
 import { useParams } from "react-router";
-import { getAllPets } from "../../api/pets";
 import { useEffect, useState, useContext } from "react";
 import Loader from "./loader";
 import { IPet } from "../../define";
 import PetContext from "../../PetsContext";
-import { OtherPets } from "./FourthPetBlock";
+import { OtherPetsBlock } from "./OtherPetsBlock";
 
 export default function Pet() {
-    const { id } = useParams()
-    const [obj, setObj] = useState<IPet | false>(false);
-    const { pets_data } = useContext(PetContext);
-    useEffect(() => {
-        const foundObj = pets_data.find((item: IPet) => item._id === id);
-        if (foundObj) { 
-            setObj(foundObj); 
-        }
-    }, [id, pets_data]);
+  const { id } = useParams();
+  const [obj, setObj] = useState<IPet | false>(false);
+  const { pets_data } = useContext(PetContext);
 
+  useEffect(() => {
+    const foundObj = pets_data.find((item: IPet) => item._id === id);
+    
+    if (foundObj) { 
+      setObj(foundObj); 
+    }
+  }, [id, pets_data]);
+  console.log(obj);
   return (
     <div className="App">
       {obj === false ? (
@@ -26,8 +27,8 @@ export default function Pet() {
       ) : (
         <div className="mainPetBlock">
           <PetInfo obj={obj} />
-          <HelpPet />
-          <OtherPets/>
+          <HelpPetBlock />
+          <OtherPetsBlock />
         </div>
       )}
     </div>

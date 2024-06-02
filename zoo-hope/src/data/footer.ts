@@ -27,21 +27,21 @@ const createElements = async () => {
       listName: "Про нас",
       i18Key: "about-us",
       IListItems: [
-        { name: "Хто ми?", i18Key: "who_we_are", url: "/" },
-        { name: "Наша історія", i18Key: "our_story", url: "/" },
-        { name: "Навіщо ми це робимо?", i18Key: "our_mission", url: "/" },
+        { name: "Хто ми?", i18Key: "who_we_are", url: "/#who_are_we?" },
+        { name: "Наша історія", i18Key: "our_story", url: "/#our_story" },
+        { name: "Навіщо ми це робимо?", i18Key: "our_mission", url: "/#why_are_we_doing_this?" },
       ],
     },
     {
       listName: "Шукають дім",
       i18Key: "looking-for-home",
       IListItems: [
-        { name: "Собаки", i18Key: "dogs", url: "/petList?page=1&type=dog&sex=&minAge=&maxAge=" },
-        { name: "Коти", i18Key: "cats", url: "/petList?page=1&type=cat&sex=&minAge=&maxAge=" },
+        { name: "Собаки", i18Key: "dogs", url: "/petList?page=1&type=пес&sex=&minAge=&maxAge=" },
+        { name: "Коти", i18Key: "cats", url: "/petList?page=1&type=кіт&sex=&minAge=&maxAge=" },
         { name: "Інші тварини", i18Key: "other_pets", url: "/petList" },
       ],
     },
-    {
+    /*{
       listName: "Лікування",
       i18Key: "therapy",
       IListItems: [
@@ -51,24 +51,7 @@ const createElements = async () => {
         { name: "Test4", url: "/" },
         { name: "Test5", url: "/" },
       ],
-    },
-    {
-      listName: "Стерилізація",
-      i18Key: "sterilization",
-      IListItems: [
-        { name: "Test1", url: "/" },
-        { name: "Test2", url: "/" },
-        { name: "Test3", url: "/" },
-      ],
-    },
-    {
-      i18Key: "contacts",
-      i18Key2: "foot_placeholder",
-      listName: "Контакти",
-      listInput: "Ваше повідомлення",
-      ISocialMedias: socialMedias,
-      IContacts: contacts,
-    },
+    },*/
     {
       footerBottomText: "2024 copyright zoonadia",
     },

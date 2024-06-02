@@ -1,10 +1,10 @@
-import { faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faTrashCan, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Logo from "../../../images/logo/logo.png";
 import { SetStateAction, useState, ChangeEvent, useEffect } from "react";
 import { addPet, updatePet, getOnePet } from "../../../api/pets";
 import { IPet } from "../../../define";
-import axios from "axios";
+import { uploadImages } from "../../../api/images";
 import { requestURL } from "../../../api/api";
 
 interface IPetFormProps {
@@ -28,6 +28,8 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
     const [noBreedChecked, setNoBreedChecked] = useState<boolean>(false);
     const [isSterilizationChecked, setIsSterilizationChecked] = useState<boolean>(false);
     const [isTreatmentChecked, setIsTreatmentChecked] = useState<boolean>(false);
+    const [isAdoptedChecked, setIsAdoptedChecked] = useState<boolean>(false);
+    const [isTimeAdoptedChecked, setIsTimeAdoptedChecked] = useState<boolean>(false);
 
     const [years, setYears] = useState<number>(0);
     const [month, setMonth] = useState<number>(0);
@@ -42,7 +44,7 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
     const [storyUa, setStoryUa] = useState<string>('');
 
     const [images, setImages] = useState<{ added: string[], existed: string[] }>({ added: [], existed: [] });
-    
+
     const [petData, setPetData] = useState<any>(null);
 
     const selectedContact = selectedPetsRowIndex !== null ? pets[selectedPetsRowIndex] : null;
@@ -79,11 +81,9 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
                 imgsData.append('images', images.added[i]);
             }
 
-            const imgs = await axios.post('http://localhost:5000/upload-pet-images', imgsData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
+            const imgs = await uploadImages(imgsData);
+
+            if (!imgs) return;
 
             const formData = {
                 name: {
@@ -91,7 +91,7 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
                     ua: capitalizeFirstLetter(nameUa.trim()),
                 },
                 type: isDogChecked ? 'Пес' : (isCatChecked ? 'Кіт' : ''),
-                images: [...images.existed, ...imgs.data],
+                images: [...images.existed, ...imgs],
                 sex: isGirlChecked ? 'Дівчинка' : (isBoyChecked ? 'Хлопчик' : ''),
                 age: ((years !== undefined ? years : 0) * 12) + (month !== undefined ? month : 0),
                 breed: noBreedChecked
@@ -114,6 +114,8 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
                 },
                 sterilization: isSterilizationChecked ? 'Так' : 'Ні',
                 treatment: isTreatmentChecked ? 'Потребує' : 'Не потребує',
+                adopted: isAdoptedChecked ? 'Так' : 'Ні',
+                timeAdopted: isTimeAdoptedChecked ? 'Так' : 'Ні',
                 story: {
                     en: capitalizeFirstLetter(storyEn.trim()),
                     ua: capitalizeFirstLetter(storyUa.trim())
@@ -174,6 +176,8 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
 
             setIsSterilizationChecked(petData.sterilization === 'Так');
             setIsTreatmentChecked(petData.treatment === 'Потребує');
+            setIsAdoptedChecked(petData.adopted === 'Так');
+            setIsTimeAdoptedChecked(petData.timeAdopted === 'Так');
 
             const years = Math.floor(petData.age / 12);
             const months = petData.age % 12;
@@ -209,11 +213,9 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
                 imgsData.append('images', images.added[i]);
             }
 
-            const imgs = await axios.post('http://localhost:5000/upload-pet-images', imgsData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
+            const imgs = await uploadImages(imgsData);
+
+            if (!imgs) return;
 
             const formData = {
                 name: {
@@ -221,7 +223,7 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
                     ua: capitalizeFirstLetter(nameUa.trim()),
                 },
                 type: isDogChecked ? 'Пес' : (isCatChecked ? 'Кіт' : ''),
-                images: [...images.existed, ...imgs.data],
+                images: [...images.existed, ...imgs],
                 sex: isGirlChecked ? 'Дівчинка' : (isBoyChecked ? 'Хлопчик' : ''),
                 age: ((years !== undefined ? years : 0) * 12) + (month !== undefined ? month : 0),
                 breed: noBreedChecked
@@ -244,6 +246,8 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
                 },
                 sterilization: isSterilizationChecked ? 'Так' : 'Ні',
                 treatment: isTreatmentChecked ? 'Потребує' : 'Не потребує',
+                adopted: isAdoptedChecked ? 'Так' : 'Ні',
+                timeAdopted: isTimeAdoptedChecked ? 'Так' : 'Ні',
                 story: {
                     en: capitalizeFirstLetter(storyEn.trim()),
                     ua: capitalizeFirstLetter(storyUa.trim())
@@ -352,15 +356,17 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
         setIsTreatmentChecked(false);
         setImages({ added: [], existed: [] });
     }
-    function UpdatedDeletePhoto (index: number) {
+
+    function UpdatedDeletePhoto(index: number) {
         const updatedImages = [...images.added];
         updatedImages.splice(index, 1);
-        setImages({...images, added: updatedImages});
+        setImages({ ...images, added: updatedImages });
     }
-    function ExistedDeletePhoto (index: number) {
+
+    function ExistedDeletePhoto(index: number) {
         const updatedImages = [...images.existed];
         updatedImages.splice(index, 1);
-        setImages({...images, existed: updatedImages});
+        setImages({ ...images, existed: updatedImages });
     }
 
     useEffect(() => {
@@ -604,24 +610,60 @@ export const PetInfoForm = ({ display, hideForm, setPetTableUpdate, setIsEditBtn
                                     <>
                                         <img
                                             key={index}
-                                            src={`http://localhost:5000/${image}`}
+                                            src={`${requestURL}/${image}`}
                                             alt={`Фото ${index + 1}`}
                                             className="pet-form__image"
                                         />
-                                        <button type="button" onClick={() => {ExistedDeletePhoto(index)}}>Delete</button>
+                                        <button className="delete-image-btn" type="button" onClick={() => { ExistedDeletePhoto(index) }}>
+                                            <FontAwesomeIcon icon={faTrashCan} />
+                                        </button>
                                     </>
                                 ))}
                                 {images.added.map((image: any, index: number) => (
                                     <>
-                                    <img
-                                        key={images.existed.length + index}
-                                        src={URL.createObjectURL(image)}
-                                        alt={`Фото ${images.existed.length + index + 1}`}
-                                        className="pet-form__image"
-                                    />
-                                    <button type="button" onClick={(() => UpdatedDeletePhoto(index))}>Delete</button>
+                                        <img
+                                            key={images.existed.length + index}
+                                            src={URL.createObjectURL(image)}
+                                            alt={`Фото ${images.existed.length + index + 1}`}
+                                            className="pet-form__image"
+                                        />
+                                        <button className="delete-image-btn" type="button" onClick={(() => UpdatedDeletePhoto(index))}>
+                                            <FontAwesomeIcon icon={faTrashCan} />
+                                        </button>
                                     </>
                                 ))}
+                            </div>
+
+                            <div className="pet-form-ua__additional-options" style={{ display: isEditBtnClicked ? 'block' : 'none' }}>
+                                <div className="additional-options__title">Додаткові опції редагування:</div>
+
+                                <div className="pet-form-ua__checkboxes adopted">
+                                    <label htmlFor="adopted">
+                                        <p>Отримав(-ла) дім</p>
+                                        <input
+                                            type="checkbox"
+                                            name="adopted"
+                                            id="adopted"
+                                            checked={isAdoptedChecked}
+                                            onChange={() => setIsAdoptedChecked(!isAdoptedChecked)}
+                                        />
+                                        <span></span>
+                                    </label>
+                                </div>
+
+                                <div className="pet-form-ua__checkboxes time-adopted">
+                                    <label htmlFor="time-adopted">
+                                        <p>На тимчасовому перетриманні</p>
+                                        <input
+                                            type="checkbox"
+                                            name="time-adopted"
+                                            id="time-adopted"
+                                            checked={isTimeAdoptedChecked}
+                                            onChange={() => setIsTimeAdoptedChecked(!isTimeAdoptedChecked)}
+                                        />
+                                        <span></span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
 

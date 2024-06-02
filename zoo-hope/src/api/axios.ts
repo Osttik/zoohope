@@ -11,16 +11,13 @@ function getCookie(name: string) {
 }
 
 axios.interceptors.request.use(function (config) {
-
-   console.log(getCookie("accessToken"), document.cookie)
-
    if(!!getCookie("accessToken")){
       const token = getCookie("accessToken")
       config.headers["authorization"] = token;
    } else {
       config.headers["authorization"] = null;
    }
-   console.log("config headers", config.headers)
+   
    return config;
 }, function(error){
    return Promise.reject(error)

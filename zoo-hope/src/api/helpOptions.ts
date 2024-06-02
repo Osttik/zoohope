@@ -3,55 +3,63 @@ import { requestURL } from "./api";
 import axios from "./axios";
 
 export const apiGetAllHelpOptions = async () => {
-  try {
-      const response = await axios.get<IHelpOption[]>(`${requestURL}/get-all-help-options`);
-      return response.data;
+    try {
+        const response = await axios.get<IHelpOption[]>(`${requestURL}/get-all-help-options`);
 
-  } catch (error) {
-      console.error("Error fetching contacts:", error);
-      return [];
-  }
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching help options:", error);
+
+        return [];
+    }
 };
 
 export const addHelpOption = async (formData: any) => {
-  try {
-      const response = await axios.post(`${requestURL}/add-help-option`, formData);
-      return response.data; 
+    try {
+        const response = await axios.post<IHelpOption>(`${requestURL}/add-help-option`, formData);
 
-  } catch (error) {
-      console.error('Error adding help option:', error);
-  }
+        return response.data; 
+    } catch (error) {
+        console.error('Error adding help option:', error);
+
+        return undefined;
+    }
 }
 
 export const editHelpOption = async (formData: any, id: string) => {
-  try {
-      const response = await axios.put(`${requestURL}/update-help-option/${id}`, formData);
-      return response.data; 
+    try {
+        const response = await axios.put<IHelpOption>(`${requestURL}/update-help-option/${id}`, formData);
 
-  } catch (error) {
-      console.error('Error editing help option:', error);
-  }
+        return response.data; 
+    } catch (error) {
+        console.error('Error editing help option:', error);
+
+        return undefined;
+    }
 };
 
 export const getOneHelpOption = async (id: string) => {
-  try {
-      const response = await axios.get(`${requestURL}/get-help-option/${id}`);
-      return response.data;
+    try {
+        const response = await axios.get<IHelpOption>(`${requestURL}/get-help-option/${id}`);
 
-  } catch (error) {
-      console.error('Error fetching help option data:', error);
-  }
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching help option data:', error);
+
+        return undefined;
+    }
 };
 
 export const deleteHelpOption = async (id: string) => {
-  try {
-      if (id) {
-          const response = await axios.delete(`${requestURL}/delete-help-option/${id}`);
-          return response.data;
-      } else {
-          console.error('Не розуміє id елемента');
-      }
-  } catch (error) {
-      console.error('Помилка при видаленні елемента', error);
-  }
+    try {
+        if (id) {
+            const response = await axios.delete<IHelpOption>(`${requestURL}/delete-help-option/${id}`);
+
+            return response.data;
+        } else {
+            console.error('Не розуміє id елемента');
+        }
+    } catch (error) {
+        console.error('Помилка при видаленні елемента', error);
+    }
 };
