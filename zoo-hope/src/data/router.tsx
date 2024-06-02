@@ -37,18 +37,13 @@ const routes: RouteObject[] = [
     path: "/helpUs",
     element: <HelpUsPage />,
   },
-<<<<<<< HEAD
-
-  {
-    // Needs to be in the end
-=======
   {
     path: "/helpful-info/:id",
     element: <HelpfulInfoPage />,
   },
-  
-  { // Needs to be in the end
->>>>>>> dev
+
+  {
+    // Needs to be in the end
     path: "*",
     element: <Navigate to="/" />,
   },
