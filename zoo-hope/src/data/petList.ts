@@ -2,14 +2,14 @@ let pageSize = 12;
 
 //Options for selects in filter dropdown
   const type = [
-    {label: "Тип", value: ""},
-    {label: "Кіт", value: "cat"},
-    {label: "Пес", value: "dog"},
+    {label: "Тип",i18Key: "type", value: ""},
+    {label: "Кіт",i18Key: "cat", value: "кіт"},
+    {label: "Пес",i18Key: "dog", value: "пес"},
   ]
   const sex = [
-    {label: "Стать", value: ""},
-    {label: "Жіноча", value: "female"},
-    {label: "Чоловіча", value: "male"},
+    {label: "Стать",i18Key: "sex", value: ""},
+    {label: "Дівчинка",i18Key: "female", value: "дівчинка"},
+    {label: "Хлопчик",i18Key: "male", value: "хлопчик"},
   ]
   const minAge = [
     {label: "0", value: ""},
@@ -23,6 +23,16 @@ let pageSize = 12;
     {label: "8", value: "8"},
     {label: "9", value: "9"},
     {label: "10", value: "10"},
+    {label: "11", value: "11"},
+    {label: "12", value: "12"},
+    {label: "13", value: "13"},
+    {label: "14", value: "14"},
+    {label: "15", value: "15"},
+    {label: "16", value: "16"},
+    {label: "17", value: "17"},
+    {label: "18", value: "18"},
+    {label: "19", value: "19"},
+    {label: "20", value: "20"},
   ]
   // Max age options are calulated in "../components/petList/petList.tsx" using current min age options value.
 

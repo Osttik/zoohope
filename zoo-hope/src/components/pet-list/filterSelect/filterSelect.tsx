@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+import "../../../i18n/i18n";
 interface Ifilters {
   type: string;
   sex: string;
@@ -14,11 +16,14 @@ interface IfilterState {
   };
   options: {
     label: string,
-    value: string
-  }[]
+    value: string,
+    i18Key?: string
+  }[];
 }
 
 export const FilterSelect = (props: IfilterState) => {
+  const { t } = useTranslation();
+
   return (
     <select
       onChange={(e) => {
@@ -26,13 +31,11 @@ export const FilterSelect = (props: IfilterState) => {
       }}
       value={(props.filter.get as any)[props.filter.type]}
     >
-
       {props.options.map(el => {
         return (
-          <option key={el.value} label={el.label} value={el.value}></option>
+          <option key={el.value} label={el.i18Key?t(el.i18Key):el.label} value={el.value}></option>
         )
       })}
-
     </select>
   )
 }

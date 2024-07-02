@@ -1,0 +1,157 @@
+.errorRoleMes {
+    ::selection {
+        background-color: black;
+    }
+
+    display: grid;
+    grid-template-rows: 1fr 2.7fr 1fr;
+    min-width: 400px;
+    z-index: 10;
+    width: 48vw;
+    height: 45vh;
+    background-color: #1e1e1ef3;
+    position: fixed;
+    border-radius: 2vw;
+    box-shadow: rgba(255, 238, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+.errorRoleMesT {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.errorRoleMesTpan {
+    color: red;
+    font-size: 34px;
+    font-family: inherit;
+}
+
+.errorRoleMesM {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+
+}
+
+.errorRoleMesMpan {
+    color: rgb(255, 217, 0);
+    font-size: 40px;
+    padding: 4px;
+}
+
+.errorRoleMesB {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: end;
+    align-items: center;
+    padding-right: 15px;
+}
+
+
+.button-85 {
+    padding: 0.6em 2em;
+    border: none;
+    outline: none;
+    color: rgb(255, 255, 255);
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button-85:before {
+    content: "";
+    background: linear-gradient(45deg,
+            #ff0000,
+            #ff7300,
+            #fffb00,
+            #48ff00,
+            #00ffd5,
+            #002bff,
+            #7a00ff,
+            #ff00c8,
+            #ff0000);
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing-button-85 20s linear infinite;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 10px;
+    opacity: 0;
+}
+
+@keyframes glowing-button-85 {
+    0% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 400% 0;
+    }
+
+    100% {
+        background-position: 0 0;
+    }
+}
+
+.button-85:hover:before {
+    content: "";
+    background: linear-gradient(45deg,
+            #ffc400,
+            #ff7300,
+            #fffb00,
+            #d0ff00,
+            #bef300,
+            #eeff00,
+            #ffd900,
+            #e5ff00,
+            #fffb00);
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing-button-85 20s linear infinite;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 10px;
+    opacity: 1;
+}
+
+.button-85:after {
+    z-index: -1;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #222;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+.errorRoleMesBimag {
+    border-radius: 2vw;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url(../../images/logo/transparent-logo.png);
+    justify-self: flex-start;
+    align-self: center;
+    height: 100%;
+    width: 40%;
+}

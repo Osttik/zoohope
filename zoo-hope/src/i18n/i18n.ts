@@ -5,9 +5,9 @@ import enTranslation from "./translations/en.json";
 import uaTranslation from "./translations/ua.json";
 
 i18n
-  .use(LanguageDetector)
   .use(initReactI18next)
   .init({
+    lng: "ua",
     fallbackLng: "ua",
     debug: true,
     resources: {

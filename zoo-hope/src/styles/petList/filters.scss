@@ -5,6 +5,8 @@
     position: relative;
     z-index: 1;
     transition: all 1s;
+    width: 340px;
+    margin: auto;
 
     // Basic Button Style
     button {
@@ -17,6 +19,14 @@
       border-radius: 25px;
       outline: 0;
       border: 0;
+      transition: .2s all ease-out;
+      color: rgba(35, 31, 32, 1);
+
+      &:hover {
+        border: 3px solid $primaryColor;
+        background-color: $adminPageDefaultWhite;
+        transition: .2s all ease-out;
+      }
     }
 
     // Apply And Reset Buttons
@@ -39,6 +49,7 @@
           width: 304px;
           margin: 10px 0;
           font-size: 18px;
+          color: rgba(35, 31, 32, 1);
         }
       }
     }
@@ -124,6 +135,9 @@
           &:focus-visible {
             outline: 0;
           }
+          option{
+            color: #fff;
+          }
         }
 
         // Dropdown Rows Alternation
@@ -138,6 +152,60 @@
         &:last-child {
           border-radius: 0 0 5px 5px;
         }
+      }
+    }
+  }
+}
+@media (min-width: 280px) and (max-width: 350px) {
+  .petListSection {
+    .filters {
+      display: flex;
+      justify-content: center;
+      margin-top: 100px;
+
+      button {
+        height: 36px;
+        width: 210px;
+        font-size: 18px;
+      }
+      .filtersDropdown {
+        left: auto;
+        .row {
+          width: 210px;
+        }
+      }
+    }
+  }
+}
+@media (min-width: 350px) and (max-width: 480px) {
+  .petListSection {
+    .filters {
+      display: flex;
+      justify-content: center;
+      margin-top: 100px;
+
+      button {
+        height: 38px;
+        width: 300px;
+        font-size: 20px;
+      }
+      .filtersDropdown {
+        left: auto;
+        .row {
+          width: 300px;
+        }
+      }
+    }
+  }
+}
+@media (min-width: 480px) and (max-width: 1150px) {
+  .petListSection {
+    .filters {
+      display: flex;
+      justify-content: center;
+
+      .filtersDropdown {
+        left: auto;
       }
     }
   }

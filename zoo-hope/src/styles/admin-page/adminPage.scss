@@ -1,0 +1,1688 @@
+@import "../defines.scss";
+
+:root {
+  --index: calc(1vw + 1vh);
+}
+
+.admin-page {
+    * {
+        color: $adminPageDefaultBlack;
+    }
+    
+    width: 100vw;
+    height: 100vh;
+    background-color: $adminPageBackground;
+    overflow: hidden;
+}
+
+.admin-page__container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.sidebar {
+  width: 24%;
+  height: 100%;
+  background-color: $adminPageDefaultWhite;
+}
+
+.sidebar__container {
+  width: 100%;
+  height: 100%;
+}
+
+.sidebar-top__container {
+  border-bottom: 4px solid $adminPageBackground;
+  height: calc(var(--index) * 4);
+  padding: calc(var(--index) * 1) calc(var(--index) * 1.4);
+  display: flex;
+  align-items: flex-end;
+  gap: calc(var(--index) * 0.5);
+}
+
+.sidebar-top__logo {
+  width: 30%;
+}
+
+.sidebar-top__title {
+  font-size: calc(var(--index) * 0.9);
+  font-weight: 500;
+  margin-bottom: -4px;
+}
+
+.sidebar-options__container {
+  padding: calc(var(--index) * 1.4) 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--index) * 1.5);
+
+  height: 78vh;
+  overflow-y: auto;
+
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
+
+  scrollbar-width: none;
+}
+
+.sidebar-option__container {
+  padding: 0 calc(var(--index) * 1.4);
+  display: flex;
+  align-items: center;
+  gap: calc(var(--index) * 0.5);
+}
+
+.sidebar-option__logo {
+  font-size: calc(var(--index) * 1);
+}
+
+.sidebar-option__title {
+<<<<<<< HEAD
+  font-size: calc(var(--index) * 0.9);
+  font-weight: 500;
+=======
+    font-size: calc(var(--index) * .9);
+    font-weight: 500;
+    border: none;
+    outline: none;
+    background: none;
+>>>>>>> dev
+}
+
+.sidebar-option__dropdown-btn {
+  font-size: calc(var(--index) * 0.7);
+  margin-bottom: -5px;
+  background: none;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.sidebar-option-list__container {
+  width: 100%;
+  list-style-type: none;
+  padding: calc(var(--index) * 0.5) 0 0 0;
+}
+
+.sidebar-option-list__option {
+  > button {
+    display: block;
+    padding: calc(var(--index) * 0.3) calc(var(--index) * 1.4)
+      calc(var(--index) * 0.3) calc(var(--index) * 3);
+    background: none;
+    border: none;
+    outline: none;
+    text-align: start;
+    font-size: calc(var(--index) * 0.75);
+
+    &.active {
+      border-left: calc(var(--index) * 0.2) solid $primaryColor;
+      color: $primaryColor;
+    }
+
+    &:hover {
+      border-left: calc(var(--index) * 0.2) solid $primaryColor;
+      color: $primaryColor;
+    }
+  }
+}
+
+.sidebar-user {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 24%;
+  background-color: $adminPageDefaultWhite;
+  z-index: 2;
+}
+
+.sidebar-user__container {
+  width: 100%;
+}
+
+.sidebar-user__content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: calc(var(--index) * 1);
+  padding: calc(var(--index) * 0.8) calc(var(--index) * 1.4);
+  border-top: 4px solid $adminPageBackground;
+}
+
+.sidebar-user-info {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--index) * 0.7);
+}
+
+.sidebar-user-info__logo {
+  font-size: calc(var(--index) * 1);
+}
+
+.sidebar-user-info__name {
+  font-weight: 500;
+  font-size: calc(var(--index) * 0.8);
+}
+
+.sidebar-user-menu__btn span {
+  display: block;
+  background-color: $adminPageDefaultBlack;
+  width: calc(var(--index) * 1);
+  height: 2.4px;
+}
+
+.sidebar-user-menu__btn {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--index) * 0.2);
+  margin-bottom: -5px;
+  background: none;
+  border: none;
+  outline: none;
+
+  &:hover {
+    opacity: 0.6;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+  }
+}
+
+.sidebar-user-popup__container {
+  position: absolute;
+  top: calc(var(--index) * -1.98);
+  right: 0;
+  background-color: $adminPageDefaultWhite;
+  border: 2.5px solid $primaryColor;
+  border-bottom-color: $adminPageTransparentYellow;
+
+  z-index: 100;
+}
+
+.sidebar-user-popup__btn {
+<<<<<<< HEAD
+  display: flex;
+  align-items: center;
+  gap: calc(var(--index) * 0.4);
+  font-size: calc(var(--index) * 0.7);
+  cursor: pointer;
+  font-weight: 500;
+  padding: calc(var(--index) * 0.5) calc(var(--index) * 0.9)
+    calc(var(--index) * 0.3) calc(var(--index) * 1.1);
+  background-color: $adminPageTransparentYellow;
+=======
+    display: flex;
+    align-items: center;
+    gap: calc(var(--index) * .4);
+    font-size: calc(var(--index) * .7);
+    cursor: pointer;
+    font-weight: 500;
+    padding: calc(var(--index) * .5) calc(var(--index) * .9) calc(var(--index) * .3) calc(var(--index) * 1.1);
+    background-color: $adminPageTransparentYellow;
+    text-decoration: none;
+>>>>>>> dev
+
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+
+  &:hover,
+  &:hover p,
+  &:hover .sidebar-user-popup__btn-logo {
+    opacity: 0.7;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+  }
+
+  > .sidebar-user-popup__btn-logo {
+    margin-bottom: -3px;
+  }
+}
+
+.main {
+  width: 76%;
+  height: 100%;
+}
+
+.actions {
+  width: 100%;
+  height: calc(var(--index) * 4);
+  border-bottom: 4px solid $adminPageBorders;
+}
+
+.actions__container {
+  height: 100%;
+  padding: calc(var(--index) * 1) calc(var(--index) * 1.4);
+  display: flex;
+  align-items: center;
+  gap: calc(var(--index) * 0.3);
+  justify-content: flex-end;
+}
+
+.actions__edit-btn,
+.actions__delete-btn {
+  background: none;
+  border: none;
+  outline: none;
+  font-size: calc(var(--index) * 0.8);
+  padding: calc(var(--index) * 0.2) calc(var(--index) * 0.5);
+
+  &:hover {
+    background-color: $adminPageTransparentYellow;
+  }
+}
+
+.actions__add-btn {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--index) * 0.4);
+  font-size: calc(var(--index) * 0.7);
+  font-weight: 500;
+  background-color: $primaryColor;
+  border: 3px solid $primaryColor;
+  padding: calc(var(--index) * 0.2) calc(var(--index) * 1.4);
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: $adminPageDefaultWhite;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+  }
+
+  > .actions__add-btn-logo {
+    margin-bottom: -3px;
+  }
+}
+
+.main-content {
+<<<<<<< HEAD
+  width: 100%;
+  height: calc(100vh - var(--index) * 4);
+=======
+    width: 100%;
+    overflow-y: auto;
+    height: calc(100vh - var(--index) * 4);
+>>>>>>> dev
+}
+
+.main-content__container {
+  width: 100%;
+  height: 100%;
+}
+
+.main-content__greeting {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: calc(var(--index) * 7);
+}
+
+.greeting__title {
+  font-size: calc(var(--index) * 4);
+  font-weight: 600;
+  color: $adminPageTransparentGray;
+}
+
+.greeting__caption {
+  font-size: calc(var(--index) * 1);
+  font-weight: 600;
+  color: $adminPageTransparentGray;
+  opacity: 0.8;
+  text-align: center;
+  width: 60%;
+}
+
+//table styles
+
+.admin-table-container {
+  width: 100%;
+  overflow-x: auto;
+  z-index: 100;
+}
+
+.admin-table {
+  width: 100%;
+}
+
+.admin-table__row {
+  cursor: pointer;
+
+<<<<<<< HEAD
+  > th {
+    text-align: center;
+    padding: calc(var(--index) * 0.3) calc(var(--index) * 1);
+    border: 2.5px solid $adminPageBorders;
+    border-left: none;
+    border-top: none;
+  }
+
+  > td {
+    max-width: calc(var(--index) * 8);
+    text-align: center;
+    padding: calc(var(--index) * 0.3) calc(var(--index) * 1);
+    border: 2.5px solid $adminPageBorders;
+    border-left: none;
+    border-top: none;
+    white-space: nowrap;
+    overflow-x: auto;
+  }
+=======
+    >th {
+        text-align: center;
+        padding: calc(var(--index) * .3) calc(var(--index) * 1);
+        border: 2.5px solid $adminPageBorders;
+        border-left: none;
+        border-top: none;
+        font-size: calc(var(--index) * .7);
+    }
+
+    >td {
+        max-width: calc(var(--index) * 8);
+        text-align: center;
+        padding: calc(var(--index) * .3) calc(var(--index) * 1);
+        border: 2.5px solid $adminPageBorders;
+        border-left: none;
+        border-top: none;
+        white-space: nowrap;
+        overflow-x: auto;
+        font-size: calc(var(--index) * .7);
+    }
+>>>>>>> dev
+
+  > td::-webkit-scrollbar {
+    width: 0px;
+  }
+
+  > td {
+    scrollbar-width: none;
+  }
+}
+
+.admin-table__row.focus {
+  background-color: $adminPageTransparentYellow;
+
+  > td {
+    border-bottom-color: $primaryColor;
+  }
+}
+
+.table-error-massage {
+  font-size: calc(var(--index) * 1.2);
+  font-weight: 600;
+  color: $adminPageTransparentGray;
+  opacity: 0.8;
+  position: absolute;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+}
+
+//forms styles
+
+.pet-form,
+.contacts-form,
+<<<<<<< HEAD
+.help-option-form {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.595);
+  z-index: 999;
+=======
+.help-option-form,
+.admin-form,
+.helpful-info-form {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.595);
+    z-index: 999;
+>>>>>>> dev
+}
+
+.pet-form__container,
+.contacts-form__container,
+<<<<<<< HEAD
+.help-option-form__container {
+  width: 60%;
+  height: 100%;
+  background-color: $adminPageDefaultWhite;
+  overflow-y: auto;
+  padding: calc(var(--index) * 1) calc(var(--index) * 2)
+    calc(var(--index) * 1.5) calc(var(--index) * 2);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+=======
+.help-option-form__container,
+.admin-form__container,
+.helpful-info-form__container {
+    width: 60%;
+    height: 100%;
+    background-color: $adminPageDefaultWhite;
+    overflow-y: auto;
+    padding: calc(var(--index) * 1) calc(var(--index) * 2) calc(var(--index) * 1.5) calc(var(--index) * 2);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+>>>>>>> dev
+}
+
+.pet-form__header,
+.contacts-form__header,
+<<<<<<< HEAD
+.help-option-form__header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: calc(var(--index) * 0.5);
+=======
+.help-option-form__header,
+.admins-form__header,
+.helpful-info-form__header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: calc(var(--index) * .5);
+>>>>>>> dev
+}
+
+.pet-form__logo,
+.contacts-form__logo,
+<<<<<<< HEAD
+.help-option-form__logo {
+  width: 11.5%;
+=======
+.help-option-form__logo,
+.admins-form__logo,
+.helpful-info-form__logo {
+    width: 11.5%;
+>>>>>>> dev
+}
+
+.pet-form__title,
+.contacts-form__title,
+<<<<<<< HEAD
+.help-option-form__title {
+  font-size: calc(var(--index) * 1.2);
+  font-weight: 600;
+=======
+.help-option-form__title,
+.admins-form__title,
+.helpful-info-form__title {
+    font-size: calc(var(--index) * 1.2);
+    font-weight: 600;
+>>>>>>> dev
+}
+
+.pet-form__form {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--index) * 1);
+  // align-items: flex-end;
+}
+
+.contacts-form__form,
+<<<<<<< HEAD
+.help-option-form__form {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--index) * 2);
+  justify-content: space-between;
+  height: 80%;
+=======
+.help-option-form__form,
+.admins-form__form,
+.helpful-info-form__form {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--index) * 2);
+    justify-content: space-between;
+    height: 80%;
+>>>>>>> dev
+}
+
+.pet-form__form-content,
+.contacts-form__form-content,
+<<<<<<< HEAD
+.help-option-form__form-content {
+  display: flex;
+  gap: calc(var(--index) * 4);
+  margin-top: calc(var(--index) * 1.4);
+=======
+.help-option-form__form-content,
+.admins-form__form-content,
+.helpful-info-form__form-content {
+    display: flex;
+    gap: calc(var(--index) * 4);
+    margin-top: calc(var(--index) * 1.4);
+>>>>>>> dev
+}
+
+.pet-form-ua,
+.pet-form-en,
+.contacts-form-ua,
+.contacts-form-en,
+.help-option-form-ua,
+<<<<<<< HEAD
+.help-option-form-en {
+  flex: 1;
+=======
+.help-option-form-en,
+.helpful-info-form-ua,
+.helpful-info-form-en {
+    flex: 1;
+>>>>>>> dev
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(var(--index) * 1);
+
+  abbr {
+    text-decoration: none;
+  }
+}
+
+.admins-form-ua {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: calc(var(--index) * 1);
+    width: 100%;
+
+    abbr {
+        text-decoration: none;
+    }
+}
+
+.pet-form-ua__title,
+.pet-form-en__title,
+.contacts-form-ua__title,
+.contacts-form-en__title,
+.help-option-form-ua__title,
+<<<<<<< HEAD
+.help-option-form-en__title {
+  font-size: calc(var(--index) * 0.8);
+  text-align: start;
+  font-weight: 500;
+  color: #ffc400;
+=======
+.help-option-form-en__title,
+.admins-form-ua__title,
+.helpful-info-form-ua__title,
+.helpful-info-form-en__title {
+    font-size: calc(var(--index) * .8);
+    text-align: start;
+    font-weight: 500;
+    color: #ffc400;
+>>>>>>> dev
+}
+
+.pet-form-ua__input,
+.contacts-form-ua__input,
+<<<<<<< HEAD
+.help-option-form-ua__input {
+  width: 100%;
+  border: none;
+  border-bottom: 2.2px solid $primaryColor;
+  outline: none;
+  font-size: calc(var(--index) * 0.7);
+=======
+.help-option-form-ua__input,
+.helpful-info-form-ua__input {
+    width: 100%;
+    border: none;
+    border-bottom: 2.2px solid $primaryColor;
+    outline: none;
+    font-size: calc(var(--index) * .7);
+>>>>>>> dev
+
+  &::placeholder {
+    color: $adminPagePlaceholder;
+  }
+}
+
+.admins-form-ua__input {
+    width: 70%;
+    border: none;
+    border-bottom: 2.2px solid $primaryColor;
+    outline: none;
+    font-size: calc(var(--index) * .7);
+
+    &::placeholder {
+        color: $adminPagePlaceholder;
+    }
+}
+
+.admins-form__roles {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    gap: calc(var(--index) * .4);
+    margin-left: calc(var(--index) * 5.5);
+    opacity: .9;
+    font-size: calc(var(--index) * .7);
+
+    >p {
+        font-size: calc(var(--index) * .8);
+        font-weight: 500;
+    }
+}
+
+.pet-form-en__input,
+.contacts-form-en__input,
+<<<<<<< HEAD
+.help-option-form-en__input {
+  width: 100%;
+  border: none;
+  border-bottom: 2.2px solid $primaryColor;
+  outline: none;
+  font-size: calc(var(--index) * 0.7);
+
+  &::placeholder {
+    color: $adminPagePlaceholder;
+  }
+}
+
+.pet-form-ua__checkboxes {
+  display: flex;
+  gap: calc(var(--index) * 1.4);
+
+  label {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      input ~ span {
+        background-color: $adminPageTransparentYellow;
+      }
+    }
+
+    input {
+      position: absolute;
+      display: none;
+      cursor: pointer;
+
+      &:checked {
+        ~ span {
+          background-color: $primaryColor;
+          border: none;
+        }
+
+        ~ span::after {
+          display: block;
+        }
+      }
+    }
+
+    span {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: calc(var(--index) * 0.9);
+      width: calc(var(--index) * 0.9);
+      background-color: $adminPageDefaultWhite;
+      border: 2.2px solid $primaryColor;
+
+      &::after {
+        content: "";
+        position: absolute;
+        display: none;
+        left: calc(var(--index) * 0.33);
+        top: calc(var(--index) * 0.13);
+        width: calc(var(--index) * 0.29);
+        height: calc(var(--index) * 0.5);
+        border: solid $adminPageDefaultWhite;
+        border-width: 0 3px 3px 0;
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+      }
+    }
+  }
+
+  p {
+    font-size: calc(var(--index) * 0.7);
+    padding-left: calc(var(--index) * 1.2);
+    font-weight: 500;
+  }
+}
+
+.pet-form-ua__input-age {
+  display: flex;
+  gap: calc(var(--index) * 0.6);
+
+  label {
+    display: flex;
+    align-items: flex-end;
+    gap: calc(var(--index) * 0.6);
+  }
+
+  input {
+=======
+.help-option-form-en__input,
+.helpful-info-form-en__input {
+>>>>>>> dev
+    width: 100%;
+    border: none;
+    border-bottom: 2.2px solid $primaryColor;
+    outline: none;
+    font-size: calc(var(--index) * 0.7);
+
+    &::placeholder {
+      color: $adminPagePlaceholder;
+    }
+<<<<<<< HEAD
+  }
+
+  p {
+    font-size: calc(var(--index) * 0.7);
+    font-weight: 500;
+  }
+=======
+}
+.help-option-form__form-content__quill{
+    width: 100%;
+    border: 2.2px solid $primaryColor;
+}
+.pet-form-ua__checkboxes {
+    display: flex;
+    gap: calc(var(--index) * 1.4);
+
+    label {
+        display: block;
+        position: relative;
+        cursor: pointer;
+        user-select: none;
+
+        &:hover {
+            input~span {
+                background-color: $adminPageTransparentYellow;
+            }
+        }
+
+        input {
+            position: absolute;
+            display: none;
+            cursor: pointer;
+
+            &:checked {
+                ~span {
+                    background-color: $primaryColor;
+                    border: none;
+                }
+
+                ~span::after {
+                    display: block;
+                }
+            }
+        }
+
+        span {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: calc(var(--index) * .9);
+            width: calc(var(--index) * .9);
+            background-color: $adminPageDefaultWhite;
+            border: 2.2px solid $primaryColor;
+
+            &::after {
+                content: "";
+                position: absolute;
+                display: none;
+                left: calc(var(--index) * .33);
+                top: calc(var(--index) * .13);
+                width: calc(var(--index) * .29);
+                height: calc(var(--index) * .5);
+                border: solid $adminPageDefaultWhite;
+                border-width: 0 3px 3px 0;
+                transform: rotate(45deg);
+                -webkit-transform: rotate(45deg);
+                -ms-transform: rotate(45deg);
+            }
+        }
+    }
+
+    p {
+        font-size: calc(var(--index) * .7);
+        padding-left: calc(var(--index) * 1.2);
+        font-weight: 500;
+    }
+}
+
+.pet-form-ua__input-age {
+    display: flex;
+    gap: calc(var(--index) * .6);
+
+    label {
+        display: flex;
+        align-items: flex-end;
+        gap: calc(var(--index) * .6);
+    }
+
+    input {
+        width: 100%;
+        border: none;
+        border-bottom: 2.2px solid $primaryColor;
+        outline: none;
+        font-size: calc(var(--index) * .7);
+
+        &::placeholder {
+            color: $adminPagePlaceholder;
+        }
+    }
+
+    p {
+        font-size: calc(var(--index) * .7);
+        font-weight: 500;
+    }
+>>>>>>> dev
+}
+
+.pet-form-ua__input-size {
+  label {
+    display: flex;
+    align-items: flex-end;
+    gap: calc(var(--index) * 0.6);
+  }
+
+  input {
+    width: 35%;
+    border: none;
+    border-bottom: 2.2px solid $primaryColor;
+    outline: none;
+    font-size: calc(var(--index) * 0.7);
+
+    &::placeholder {
+      color: $adminPagePlaceholder;
+    }
+  }
+
+  p {
+    font-size: calc(var(--index) * 0.7);
+    font-weight: 500;
+  }
+}
+
+.pet-form-ua__checkboxes {
+  > .health {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--index) * 1);
+  }
+}
+
+.pet-form-ua__textarea,
+.pet-form-en__textarea,
+.help-option-form-ua__textarea,
+<<<<<<< HEAD
+.help-option-form-en__textarea {
+  width: 100%;
+  height: calc(var(--index) * 6);
+  border: 2.2px solid $primaryColor;
+  outline: none;
+  font-size: calc(var(--index) * 0.7);
+  resize: none;
+  padding: calc(var(--index) * 0.5);
+=======
+.help-option-form-en__textarea,
+.helpful-info-form-ua__textarea,
+.helpful-info-form-en__textarea {
+    width: 100%;
+    height: calc(var(--index) * 6);
+    border: 2.2px solid $primaryColor;
+    outline: none;
+    font-size: calc(var(--index) * .7);
+    resize: none;
+    padding: calc(var(--index) * .5);
+>>>>>>> dev
+
+  &::placeholder {
+    color: $adminPagePlaceholder;
+  }
+}
+
+.pet-form__close-btn,
+.contacts-form__close-btn,
+<<<<<<< HEAD
+.help-option-form__close-btn {
+  width: 100%;
+  margin-top: calc(var(--index) * -0.3);
+=======
+.help-option-form__close-btn,
+.admin-form__close-btn,
+.helpful-info-form__close-btn {
+    width: 100%;
+    margin-top: calc(var(--index) * -.3);
+>>>>>>> dev
+
+  button {
+    background: none;
+    border: none;
+    outline: none;
+    font-size: calc(var(--index) * 1);
+    float: right;
+  }
+}
+
+.pet-form-en__input.breed {
+  margin-top: calc(var(--index) * 6.3);
+}
+
+.pet-form-en__input.color {
+  margin-top: calc(var(--index) * 4.3);
+}
+
+.pet-form-en__textarea {
+  margin-top: calc(var(--index) * 4);
+}
+
+.pet-form__add-btn,
+.contacts-form__add-btn,
+<<<<<<< HEAD
+.help-option-form__add-btn {
+  width: 100%;
+=======
+.help-option-form__add-btn,
+.admins-form__add-btn,
+.helpful-info-form__add-btn {
+    width: 100%;
+>>>>>>> dev
+
+  > button {
+    float: right;
+    width: max-content;
+    display: flex;
+    align-items: center;
+    gap: calc(var(--index) * 0.4);
+    font-size: calc(var(--index) * 0.7);
+    font-weight: 500;
+    background-color: $primaryColor;
+    border: 3px solid $primaryColor;
+    padding: calc(var(--index) * 0.2) calc(var(--index) * 1.4);
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+
+<<<<<<< HEAD
+    &:hover {
+      background-color: $adminPageDefaultWhite;
+      transition: all 0.3s ease-in-out;
+      -webkit-transition: all 0.3s ease-in-out;
+      -moz-transition: all 0.3s ease-in-out;
+      -ms-transition: all 0.3s ease-in-out;
+      -o-transition: all 0.3s ease-in-out;
+=======
+        &:hover {
+            background-color: $adminPageDefaultWhite;
+            transition: all .3s ease-in-out;
+            -webkit-transition: all .3s ease-in-out;
+            -moz-transition: all .3s ease-in-out;
+            -ms-transition: all .3s ease-in-out;
+            -o-transition: all .3s ease-in-out;
+        }
+
+        >.pet-form__add-btn-logo,
+        .contacts-form__add-btn-logo,
+        .help-option-form__add-btn-logo,
+        .admins-form__add-btn-logo,
+        .helpful-info-form__add-btn-logo {
+            margin-bottom: -3px;
+        }
+>>>>>>> dev
+    }
+
+    > .pet-form__add-btn-logo,
+    .contacts-form__add-btn-logo,
+    .help-option-form__add-btn-logo {
+      margin-bottom: -3px;
+    }
+  }
+}
+
+.pet-form__files-input,
+.contacts-form__files-input {
+  display: none;
+}
+
+.pet-form__files-lable,
+.contacts-form__files-lable {
+  border: 2.2px dashed $adminPageDefaultBlack;
+  padding: calc(var(--index) * 0.3) calc(var(--index) * 0.5);
+  font-size: calc(var(--index) * 0.7);
+  font-weight: 500;
+  cursor: pointer;
+
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+
+  &:hover {
+    border-color: $primaryColor;
+    color: $primaryColor;
+
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+  }
+}
+
+.pet-form__images,
+.contacts-form__images {
+<<<<<<< HEAD
+  width: 100%;
+  height: calc(var(--index) * 1.5);
+  display: flex;
+  gap: calc(var(--index) * 0.8);
+  flex-wrap: wrap;
+=======
+    width: 100%;
+    height: max-content;
+    display: flex;
+    gap: calc(var(--index) * .8);
+    flex-wrap: wrap;
+
+    >img{
+        height: calc(var(--index) * 1.5);
+    }
+}
+
+.delete-image-btn{
+    background: none;
+    font-size:  calc(var(--index) * .7);
+    border: none;
+    outline: none;
+    margin-left: -8px;
+
+    &:hover{
+        background-color: $adminPageTransparentYellow;
+    }
+>>>>>>> dev
+}
+
+.pet-form__image,
+.contacts-form__image {
+  height: 100%;
+}
+
+.contacts-form-ua__icon {
+  text-align: start;
+}
+
+.contacts-form-ua__icon-title {
+  font-size: calc(var(--index) * 0.8);
+  text-align: start;
+  font-weight: 500;
+  color: #ffc400;
+  margin-bottom: calc(var(--index) * 0.4);
+}
+
+.contacts-form-ua__icon-caption {
+  font-size: calc(var(--index) * 0.7);
+  font-weight: 500;
+}
+
+.help-option-form-ua {
+    >p {
+        font-size: calc(var(--index) * .6);
+        font-weight: 600;
+        opacity: .5;
+    }
+}
+
+.delete-message {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.595);
+  z-index: 999;
+}
+
+.delete-message__container {
+  width: 48%;
+  height: max-content;
+  background-color: $adminPageDefaultWhite;
+  overflow-y: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(var(--index) * 0.3);
+  text-align: start;
+  border-radius: 22px;
+  -webkit-border-radius: 22px;
+  -moz-border-radius: 22px;
+  -ms-border-radius: 22px;
+  -o-border-radius: 22px;
+}
+
+.pet-form-ua__additional-options {
+    .additional-options__title {
+        font-size: calc(var(--index) * .8);
+        text-align: start;
+        font-weight: 500;
+        color: #ffc400;
+    }
+
+    .pet-form-ua__checkboxes.adopted,
+    .pet-form-ua__checkboxes.time-adopted {
+        margin-top: calc(var(--index) * 1);
+    }
+}
+
+.delete-message__close-btn {
+  width: 100%;
+  padding: calc(var(--index) * 1.1) calc(var(--index) * 1.6) 0
+    calc(var(--index) * 1.6);
+
+  > button {
+    float: right;
+    background: none;
+    border: none;
+    outline: none;
+    font-size: calc(var(--index) * 1);
+  }
+}
+
+.delete-message__message {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--index) * 1.2);
+  padding: 0 calc(var(--index) * 3) 0 calc(var(--index) * 2.5);
+
+  > .message__title {
+    font-weight: 700;
+    font-size: calc(var(--index) * 1.6);
+  }
+
+  > .message__caption {
+    font-weight: 500;
+    font-size: calc(var(--index) * 0.7);
+    opacity: 0.8;
+  }
+}
+
+.delete-message__buttons {
+  margin-top: calc(var(--index) * 2.2);
+  background-color: $adminPageTransparentYellow;
+  width: 100%;
+  height: max-content;
+  padding: calc(var(--index) * 1.4) calc(var(--index) * 3);
+  display: flex;
+  justify-content: flex-end;
+  gap: calc(var(--index) * 1);
+
+  > .buttons__delete-btn {
+    font-size: calc(var(--index) * 0.7);
+    font-weight: 500;
+    background-color: $primaryColor;
+    border: 3px solid $primaryColor;
+    padding: calc(var(--index) * 0.2) calc(var(--index) * 1.4);
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+
+    &:hover {
+      color: $adminPageDefaultWhite;
+
+      transition: all 0.3s ease-in-out;
+      -webkit-transition: all 0.3s ease-in-out;
+      -moz-transition: all 0.3s ease-in-out;
+      -ms-transition: all 0.3s ease-in-out;
+      -o-transition: all 0.3s ease-in-out;
+    }
+  }
+
+  > .buttons__cancel-btn {
+    font-size: calc(var(--index) * 0.7);
+    font-weight: 500;
+    background-color: $adminPageDefaultWhite;
+    border: 3px solid $primaryColor;
+    padding: calc(var(--index) * 0.2) calc(var(--index) * 1.4);
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+
+    &:hover {
+      background-color: $primaryColor;
+      color: $adminPageDefaultWhite;
+
+      transition: all 0.3s ease-in-out;
+      -webkit-transition: all 0.3s ease-in-out;
+      -moz-transition: all 0.3s ease-in-out;
+      -ms-transition: all 0.3s ease-in-out;
+      -o-transition: all 0.3s ease-in-out;
+    }
+<<<<<<< HEAD
+  }
+}
+=======
+}
+
+
+@media (max-width: 950px) {
+    .sidebar-top__logo {
+        width: 25%;
+    }
+
+    .delete-message__container {
+        width: 54%;
+    }
+}
+
+@media (max-width: 680px) {
+    .sidebar {
+        width: 28%;
+    }
+
+    .sidebar__container {
+        width: 100%;
+    }
+
+    .main {
+        width: 72%;
+    }
+
+    .sidebar-top__title {
+        font-size: calc(var(--index) * .8);
+    }
+
+    .sidebar-top__container {
+        border-bottom: 3px solid #f9f9f9;
+    }
+
+    .actions {
+        border-bottom: 3px solid #ededed;
+    }
+
+    .sidebar-option-list__option>button {
+        font-size: calc(var(--index) * 0.8);
+    }
+
+    .admin-table__row {
+        >th {
+            font-size: calc(var(--index) * .8);
+        }
+
+        >td {
+            font-size: calc(var(--index) * .8);
+        }
+    }
+
+    .actions__add-btn {
+        font-size: calc(var(--index) * .8);
+    }
+
+    .sidebar-user-menu__btn span {
+        width: calc(var(--index)* 1.2);
+        height: 2px;
+    }
+
+    .sidebar-user {
+        width: 28%;
+    }
+
+    .pet-form__container,
+    .contacts-form__container,
+    .help-option-form__container,
+    .admin-form__container {
+        width: 70%;
+    }
+
+    .delete-message__container {
+        width: 60%;
+    }
+
+    .delete-message__close-btn > button {
+        font-size: calc(var(--index) * 1.2);
+    }
+
+    .delete-message__message > .message__caption {
+        font-size: calc(var(--index) * .8);
+    }
+
+    .delete-message__buttons > .buttons__delete-btn {
+        font-size: calc(var(--index) * .8);
+        border: 2px solid $primaryColor;
+        padding: calc(var(--index)* 0.3) calc(var(--index)* 1.4);
+    }
+
+    .delete-message__buttons > .buttons__cancel-btn {
+        font-size: calc(var(--index) * .8);
+        border: 2px solid $primaryColor;
+        padding: calc(var(--index)* 0.3) calc(var(--index)* 1.4);
+    }
+}
+
+@media (max-width: 600px) {
+    .sidebar {
+        width: 34%;
+    }
+
+    .sidebar__container {
+        width: 100%;
+    }
+
+    .main {
+        width: 66%;
+    }
+
+    .sidebar-user {
+        width: 34%;
+    }
+
+    .sidebar-user-info__logo {
+        font-size: calc(var(--index) * 1.2);
+    }
+
+    .sidebar-user-info__name {
+        font-size: calc(var(--index) * 1);
+    }
+
+    .sidebar-option__logo {
+        font-size: calc(var(--index) * 1.1);
+    }
+
+    .sidebar-option__title {
+        font-size: calc(var(--index) * 1.1);
+    }
+
+    .sidebar-option__dropdown-btn {
+        font-size: calc(var(--index) * 0.9);
+    }
+
+    .sidebar-option-list__option>button {
+        font-size: calc(var(--index) * 0.9);
+    }
+
+    .admin-table__row {
+        >th {
+            font-size: calc(var(--index) * .9);
+        }
+
+        >td {
+            font-size: calc(var(--index) * .9);
+        }
+    }
+
+    .actions__add-btn {
+        font-size: calc(var(--index) * .9);
+    }
+
+    .sidebar-top__logo {
+        width: 22%;
+    }
+
+    .sidebar-top__title {
+        font-size: calc(var(--index) * 0.9);
+    }
+
+    .pet-form__close-btn button, 
+    .contacts-form__close-btn button, 
+    .help-option-form__close-btn button, 
+    .admin-form__close-btn button {
+        font-size: calc(var(--index) * 1.2);
+    }
+
+    .pet-form-ua__input,
+    .contacts-form-ua__input,
+    .help-option-form-ua__input {
+        font-size: calc(var(--index) * .8);
+        border-bottom: 2px solid $primaryColor;
+    }
+
+    .pet-form-en__input,
+    .contacts-form-en__input,
+    .help-option-form-en__input {
+        font-size: calc(var(--index) * .8);
+        border-bottom: 2px solid $primaryColor;
+    }
+
+    .pet-form-ua__title,
+    .pet-form-en__title,
+    .contacts-form-ua__title,
+    .contacts-form-en__title,
+    .help-option-form-ua__title,
+    .help-option-form-en__title,
+    .admins-form-ua__title {
+        font-size: calc(var(--index) * .9);
+    }
+
+    .pet-form__add-btn > button, 
+    .contacts-form__add-btn > button, 
+    .help-option-form__add-btn > button, 
+    .admins-form__add-btn > button {
+        font-size: calc(var(--index) * .9);
+    }
+
+    .pet-form-ua__checkboxes {
+        display: flex;
+        gap: calc(var(--index) * 1.4);
+    
+        label {
+            display: block;
+            position: relative;
+            cursor: pointer;
+            user-select: none;
+    
+            &:hover {
+                input~span {
+                    background-color: $adminPageTransparentYellow;
+                }
+            }
+    
+            input {
+                position: absolute;
+                display: none;
+                cursor: pointer;
+    
+                &:checked {
+                    ~span {
+                        background-color: $primaryColor;
+                        border: none;
+                    }
+    
+                    ~span::after {
+                        display: block;
+                    }
+                }
+            }
+    
+            span {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: calc(var(--index) * 1.1);
+                width: calc(var(--index) * 1.1);
+                background-color: $adminPageDefaultWhite;
+                border: 2px solid $primaryColor;
+    
+                &::after {
+                    content: "";
+                    position: absolute;
+                    display: none;
+                    left: calc(var(--index) * .38);
+                    top: calc(var(--index) * .1);
+                    width: calc(var(--index) * .4);
+                    height: calc(var(--index) * .7);
+                    border: solid $adminPageDefaultWhite;
+                    border-width: 0 2px 2px 0;
+                    transform: rotate(45deg);
+                    -webkit-transform: rotate(45deg);
+                    -ms-transform: rotate(45deg);
+                }
+            }
+        }
+    
+        p {
+            font-size: calc(var(--index) * .8);
+            padding-left: calc(var(--index) * 1.4);
+        }
+    }
+
+    .pet-form-ua__input-age p {
+        font-size: calc(var(--index) * .8);
+    }
+
+    .pet-form-ua__input-size p {
+        font-size: calc(var(--index) * .8);
+    }
+
+    .pet-form-ua__textarea, 
+    .pet-form-en__textarea, 
+    .help-option-form-ua__textarea, 
+    .help-option-form-en__textarea {
+        border: 2px solid $primaryColor;
+        font-size: calc(var(--index) * .8);
+    }
+
+    .pet-form__files-lable, .contacts-form__files-lable {
+        border: 2px dashed $adminPageDefaultBlack;
+        font-size: calc(var(--index) * .9);
+    }
+
+    .sidebar-user-popup__container {
+        top: calc(var(--index)* -2.4);
+        border: 2.2px solid $primaryColor;
+        border-bottom-color: $adminPageTransparentYellow;
+    }
+
+    .sidebar-user-popup__btn {
+        font-size: calc(var(--index) * .9);
+        padding: calc(var(--index)* .6) calc(var(--index)* 1) calc(var(--index)* .5) calc(var(--index)* 1.2);
+    }
+
+    .delete-message__container {
+        width: 70%;
+    }
+}
+
+@media (max-width: 490px) {
+    .pet-form__title, 
+    .contacts-form__title, 
+    .help-option-form__title, 
+    .admins-form__title {
+        text-align: center;
+    }
+
+    .pet-form__form-content, 
+    .contacts-form__form-content, 
+    .help-option-form__form-content, 
+    .admins-form__form-content {
+        display: flex;
+        flex-direction: column;
+        gap: calc(var(--index)* 1.5);
+        margin-top: calc(var(--index)* 1.4);
+    }
+
+    .pet-form-en__input.breed {
+        margin-top: 0;
+    }
+
+    .pet-form-en__input.color {
+        margin-top: 0;
+    }
+
+    .pet-form-en__textarea {
+        margin-top: 0;
+    }
+
+    .contacts-form__form, 
+    .help-option-form__form,
+    .admins-form__form {
+        height: 0%;
+    }
+
+    .delete-message__container {
+        width: 78%;
+    }
+}
+
+@media (max-width: 390px) {
+    .pet-form__container, 
+    .contacts-form__container, 
+    .help-option-form__container, 
+    .admin-form__container {
+        width: 80%;
+    }
+
+    .delete-message__container {
+        width: 84%;
+    }
+
+    .delete-message__close-btn > button {
+        font-size: calc(var(--index) * 1.3);
+    }
+}
+>>>>>>> dev

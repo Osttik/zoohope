@@ -1,3 +1,5 @@
+import { IPet } from "../../../define";
+
 interface IpaginationNav {
   searchParam: {
     set: Function;
@@ -5,38 +7,29 @@ interface IpaginationNav {
   };
   setSearchParams: Function;
   length: number;
-  allPets: {
-    image: string,
-    name: string,
-    age: string,
-    sex: string
-    type: string,
-    _id: string,
-  }[];
+  allPets: IPet[];
 }
 
 export const PaginationNav = (props: IpaginationNav) => {
-
   const relNavigateTo = (step: number) => {
     props.searchParam.set("page", Number(props.searchParam.get("page")) + step)
     props.setSearchParams(props.searchParam)
   }
 
- const linkToPage = (num: number) => {
-  const page = Number(props.searchParam.get("page") || relNavigateTo(1))
+  const linkToPage = (num: number) => {
+    const page = Number(props.searchParam.get("page"))
 
-  if (page + num > 0 && page + num <= props.length) {
-    return (
-      <button 
-        className={page + num === Number(page) ? "selected" : ""}
-        onClick={() => {relNavigateTo(num)}}
-      >
-        {page + num}
-      </button>
+    if (page + num > 0 && page + num <= props.length) {
+      return (
+        <button 
+          className={page + num === Number(page) ? "selected" : ""}
+          onClick={() => {relNavigateTo(num)}}
+        >
+          {page + num}
+        </button>
       )
+    }
   }
-  
- }
   
   return (
     <>
@@ -57,7 +50,6 @@ export const PaginationNav = (props: IpaginationNav) => {
         {linkToPage(0)}
         {linkToPage(1)}
         {linkToPage(2)}
-
         
         {Number(props.searchParam.get("page")) + 1 <= props.length ?
           <button

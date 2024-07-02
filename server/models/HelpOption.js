@@ -1,8 +1,18 @@
 const mongoose = require('mongoose');
 
 const HelpOptionsSchema = new mongoose.Schema({
-    name: String,
-    description: String
+    name: {
+        type: {
+            en: String,
+            ua: String
+        },
+        required: false,
+        default: undefined
+    },
+    description: {
+        en: String,
+        ua: String
+    }
 });
 
 const HelpOptionsModel = mongoose.model('help-options', HelpOptionsSchema);
