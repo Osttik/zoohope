@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "zoohope": "npm-run-all --parallel start-server start-react",
+    "zoohope-build": "npm-run-all --parallel build-server build-react",
     "start-server": "cd server && node index",
     "start-react": "cd zoo-hope && npm start",
-    "build": "cd zoo-hope && npm run build"
+    "build-react": "cd zoo-hope && npm install && npm run build",
+    "build-server": "cd server && npm install"
   },
   "author": "",
   "license": "ISC",
