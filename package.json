@@ -6,7 +6,8 @@
   "scripts": {
     "zoohope": "npm-run-all --parallel start-server start-react",
     "start-server": "cd server && node index",
-    "start-react": "cd zoo-hope && npm start"
+    "start-react": "cd zoo-hope && npm start",
+    "build": "cd zoo-hope && npm run build"
   },
   "author": "",
   "license": "ISC",
