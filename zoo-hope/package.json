@@ -43,6 +43,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "start-linux": "PORT=3000 react-scripts start",
     "publish": "npm install && npm run build && npm install -g serve"
   },
   "eslintConfig": {
