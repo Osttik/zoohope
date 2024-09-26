@@ -89,7 +89,6 @@ export const Footer = () => {
                 <FooterBottomText key={i} props={e} />
               )
             );
-<<<<<<< HEAD
           })}
           {elements.map((e: Object, i: number) => {
             return (
@@ -97,8 +96,6 @@ export const Footer = () => {
                 <FooterNavBlockLink key={i} props={e} />
               )
             );
-=======
->>>>>>> dev
           })}
         </div>
       </div>
